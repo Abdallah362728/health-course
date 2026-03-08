@@ -50,8 +50,8 @@ git commit -m "Initial commit: project files, chapter1-goal.html, source data"
 | `chapter-2-insulin-resistance` | Chapter 2 development |
 | `chapter-3-macro-nutrients` | Chapter 3 development |
 | `chapter-4-micro-nutrients` | Chapter 4 development |
-| `chapter-5-lipids` | Chapter 5 development |
-| `chapter-6-liquids-proteins` | Chapter 6 development |
+| `chapter-5-liquids-proteins` | Chapter 5 development |
+| `chapter-6-lipids` | Chapter 6 development |
 | `chapter-7-yoyo-effect` | Chapter 7 development |
 
 All chapter branches are created from `main` upfront. Development happens on the branch; when done, it merges into `main`.
@@ -66,8 +66,8 @@ All chapter branches are created from `main` upfront. Development happens on the
 | 2 | `chapter2-insulin-resistance.html` | مقاومة الأنسولين / Insulinresistenz |
 | 3 | `chapter3-macro-nutrients.html` | المغذيات الكبرى / Makronährstoffe |
 | 4 | `chapter4-micro-nutrients.html` | المغذيات الدقيقة / Mikronährstoffe |
-| 5 | `chapter5-lipids.html` | الدهون / Lipide |
-| 6 | `chapter6-liquids-proteins.html` | السوائل والبروتينات / Flüssigkeiten & Proteine |
+| 5 | `chapter5-liquids-proteins.html` | السوائل والبروتينات / Flüssigkeiten & Proteine |
+| 6 | `chapter6-lipids.html` | الدهون / Lipide |
 | 7 | `chapter7-yoyo-effect.html` | تمثيل التغذية وتأثير اليويو / Yo-yo-Effekt |
 
 ---
