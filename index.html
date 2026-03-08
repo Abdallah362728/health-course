@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>كورس الوقاية من مقاومة الأنسولين | Insulinresistenz-Kurs</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&subset=arabic,latin&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d0d0d; --surface:#1a1a1a; --surface2:#232323;
+    --accent:#c9a84c; --accent2:#e8c97a; --accent-dim:#7a5f28;
+    --text:#f0ead6; --text-soft:#a89870;
+    --red:#c0392b; --red-soft:#2a1010;
+    --green:#27ae60; --green-soft:#0e2418;
+    --border:#2e2e2e; --radius:14px; --shadow:0 8px 32px rgba(0,0,0,0.5);
+  }
+  [data-theme="teal"] {
+    --bg:#f0f8f7; --surface:#ffffff; --surface2:#e6f4f1;
+    --accent:#0d7377; --accent2:#14a085; --accent-dim:#b2dfdb;
+    --text:#1a2e2d; --text-soft:#4a7c79; --border:#b2dfdb;
+    --red:#c0392b; --red-soft:#fdecea; --green:#1a7a4a; --green-soft:#e8f5e9;
+  }
+  [data-theme="purple"] {
+    --bg:#0f0c1e; --surface:#1a1530; --surface2:#221d3a;
+    --accent:#9b59b6; --accent2:#c39bd3; --accent-dim:#4a2060;
+    --text:#ede0f5; --text-soft:#9b8ab0; --border:#2d2545;
+    --red:#e74c3c; --red-soft:#2a0e0e; --green:#27ae60; --green-soft:#0e2418;
+  }
+  [data-theme="emerald"] {
+    --bg:#faf8f2; --surface:#ffffff; --surface2:#f2ede0;
+    --accent:#2d6a4f; --accent2:#40916c; --accent-dim:#b7e4c7;
+    --text:#1b2d23; --text-soft:#52796f; --border:#b7e4c7;
+    --red:#b5451b; --red-soft:#fdecea; --green:#1b5e20; --green-soft:#e8f5e9;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Cairo','Tahoma','Arial',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background .3s,color .3s; }
+  .ar, [lang="ar"], [dir="rtl"] { letter-spacing: 0 !important; }
+
+  /* THEME BAR */
+  .theme-bar { position:fixed; top:16px; left:16px; z-index:999; display:flex; gap:8px; align-items:center; background:var(--surface); border:1px solid var(--border); padding:8px 12px; border-radius:40px; box-shadow:var(--shadow); }
+  .theme-bar span { font-size:11px; color:var(--text-soft); margin-left:4px; }
+  .swatch { width:22px; height:22px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:.2s; }
+  .swatch:hover, .swatch.active { border-color:var(--text); transform:scale(1.2); }
+  .swatch.s-dark    { background:radial-gradient(circle at 40% 40%,#c9a84c,#0d0d0d); }
+  .swatch.s-teal    { background:radial-gradient(circle at 40% 40%,#14a085,#f0f8f7); }
+  .swatch.s-purple  { background:radial-gradient(circle at 40% 40%,#9b59b6,#0f0c1e); }
+  .swatch.s-emerald { background:radial-gradient(circle at 40% 40%,#2d6a4f,#faf8f2); }
+
+  /* LANG BTN */
+  .lang-btn { position:fixed; top:16px; right:16px; z-index:999; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-size:13px; font-weight:700; padding:6px 18px; border-radius:40px; cursor:pointer; transition:.2s; box-shadow:var(--shadow); }
+  .lang-btn:hover { background:var(--accent); color:var(--bg); }
+
+  /* HEADER */
+  header { text-align:center; padding:80px 20px 60px; background:linear-gradient(160deg,var(--surface) 0%,var(--bg) 100%); border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%,var(--accent-dim),transparent); opacity:.25; pointer-events:none; }
+  .course-tag { display:inline-block; font-size:12px; font-weight:700; color:var(--accent); border:1px solid var(--accent); padding:4px 16px; border-radius:40px; margin-bottom:20px; }
+  header h1 { font-size:clamp(28px,5vw,56px); font-weight:900; line-height:1.2; }
+  header h1 .accent { color:var(--accent); }
+  .subtitle { color:var(--text-soft); font-size:15px; margin-top:12px; max-width:620px; margin-left:auto; margin-right:auto; line-height:1.8; }
+  .stats-row { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin-top:36px; }
+  .stat-pill { background:var(--surface2); border:1px solid var(--border); border-radius:40px; padding:10px 24px; display:flex; flex-direction:column; align-items:center; gap:2px; }
+  .stat-pill .val { font-size:22px; font-weight:900; color:var(--accent); }
+  .stat-pill .lbl { font-size:11px; color:var(--text-soft); }
+
+  /* CONTAINER */
+  .container { max-width:1100px; margin:0 auto; padding:60px 20px 100px; }
+
+  /* SECTION TITLE */
+  h2.section-title { font-size:22px; font-weight:800; color:var(--accent); border-right:4px solid var(--accent); padding-right:14px; margin-bottom:30px; display:flex; align-items:center; gap:10px; }
+
+  /* CHAPTER GRID */
+  .chapter-grid { display:grid; gap:20px; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); }
+  .chapter-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px; transition:transform .2s,box-shadow .2s,border-color .2s; display:flex; flex-direction:column; gap:12px; text-decoration:none; color:inherit; }
+  .chapter-card:hover { transform:translateY(-5px); box-shadow:var(--shadow); border-color:var(--accent-dim); }
+  .chapter-card.available { cursor:pointer; }
+  .chapter-card.locked { opacity:.6; cursor:default; }
+  .chapter-card:hover.locked { transform:none; box-shadow:none; border-color:var(--border); }
+
+  .card-top { display:flex; align-items:center; justify-content:space-between; }
+  .ch-badge { font-size:11px; font-weight:800; color:var(--accent); border:1px solid var(--accent-dim); background:var(--surface2); padding:3px 12px; border-radius:40px; }
+  .status-badge { font-size:11px; font-weight:700; padding:3px 12px; border-radius:40px; }
+  .status-badge.available { background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+  .status-badge.locked { background:var(--surface2); color:var(--text-soft); border:1px solid var(--border); }
+
+  .card-icon-wrap { font-size:36px; line-height:1; }
+  .chapter-card h3 { font-size:17px; font-weight:800; color:var(--text); }
+  .chapter-card h3 .de { font-size:13px; font-weight:600; color:var(--accent2); display:block; margin-top:2px; }
+  .chapter-card p { font-size:13px; color:var(--text-soft); line-height:1.8; flex:1; }
+
+  .card-footer { display:flex; align-items:center; gap:8px; margin-top:4px; }
+  .start-btn { display:inline-block; background:var(--accent); color:var(--bg); font-family:'Cairo',sans-serif; font-size:13px; font-weight:700; padding:8px 22px; border-radius:40px; text-decoration:none; transition:.2s; border:none; cursor:pointer; }
+  .start-btn:hover { background:var(--accent2); }
+  .locked-hint { font-size:12px; color:var(--text-soft); }
+
+  /* ABOUT SECTION */
+  .about-grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); }
+  .about-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; border-right:3px solid var(--accent-dim); }
+  .about-card .icon { font-size:24px; margin-bottom:10px; }
+  .about-card h4 { font-size:14px; font-weight:700; color:var(--accent2); margin-bottom:6px; }
+  .about-card p { font-size:12px; color:var(--text-soft); line-height:1.7; }
+
+  /* FOOTER */
+  footer { text-align:center; padding:40px 20px; border-top:1px solid var(--border); color:var(--text-soft); font-size:13px; line-height:2; }
+
+  /* DE hidden by default */
+  .de { display:none; }
+  body.lang-de .ar { display:none; }
+  body.lang-de .de { display:block; }
+  body.lang-de { direction:ltr; text-align:left; }
+  body.lang-de h2.section-title { border-right:none; padding-right:0; border-left:4px solid var(--accent); padding-left:14px; }
+  body.lang-de .chapter-card h3 .de { display:block; }
+  body.lang-de .quote-box { border-right:none; border-left:4px solid var(--accent); border-radius:10px 0 0 10px; }
+
+  @media(max-width:600px) {
+    .stats-row { gap:12px; }
+    .stat-pill { padding:8px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Theme bar -->
+<div class="theme-bar">
+  <span class="ar">ثيم</span><span class="de">Theme</span>
+  <div class="swatch s-dark active"   onclick="setTheme('dark')"   title="Dark"></div>
+  <div class="swatch s-teal"          onclick="setTheme('teal')"   title="Teal"></div>
+  <div class="swatch s-purple"        onclick="setTheme('purple')" title="Purple"></div>
+  <div class="swatch s-emerald"       onclick="setTheme('emerald')" title="Emerald"></div>
+</div>
+
+<!-- Language toggle -->
+<button class="lang-btn" onclick="toggleLang()">DE / AR</button>
+
+<!-- Header -->
+<header>
+  <div class="course-tag ar">كورس الوقاية من مقاومة الأنسولين</div>
+  <div class="course-tag de">Insulinresistenz-Präventionskurs</div>
+  <h1>
+    <span class="ar">كورس <span class="accent">الوقاية</span> من<br>مقاومة الأنسولين</span>
+    <span class="de">Kurs zur <span class="accent">Vorbeugung</span><br>von Insulinresistenz</span>
+  </h1>
+  <p class="subtitle ar">دليلك العلمي الشامل لفهم جسمك، تحسين تغذيتك، ومنع مقاومة الأنسولين من خلال خطوات عملية وتفاعلية.</p>
+  <p class="subtitle de">Dein wissenschaftlicher Leitfaden zum Verstehen deines Körpers, zur Verbesserung deiner Ernährung und zur Vorbeugung von Insulinresistenz.</p>
+  <div class="stats-row">
+    <div class="stat-pill">
+      <span class="val">7</span>
+      <span class="lbl ar">فصول</span><span class="lbl de">Kapitel</span>
+    </div>
+    <div class="stat-pill">
+      <span class="val">AR / DE</span>
+      <span class="lbl ar">ثنائي اللغة</span><span class="lbl de">Zweisprachig</span>
+    </div>
+    <div class="stat-pill">
+      <span class="val">🎯</span>
+      <span class="lbl ar">تفاعلي</span><span class="lbl de">Interaktiv</span>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- Chapters -->
+  <section>
+    <h2 class="section-title">
+      <span class="ar">📚 فصول الكورس</span>
+      <span class="de">📚 Kurskapitel</span>
+    </h2>
+
+    <div class="chapter-grid">
+
+      <!-- Chapter 1 — Available -->
+      <a href="chapter1-goal.html" class="chapter-card available">
+        <div class="card-top">
+          <span class="ch-badge ar">الفصل الأول</span>
+          <span class="ch-badge de">Kapitel 1</span>
+          <span class="status-badge available ar">✅ متاح</span>
+          <span class="status-badge available de">✅ Verfügbar</span>
+        </div>
+        <div class="card-icon-wrap">🎯</div>
+        <h3>
+          <span class="ar">تحديد الهدف</span>
+          <span class="de">Ziel setzen</span>
+        </h3>
+        <p class="ar">كيف تحدد هدفاً واقعياً لوزنك المثالي، وتحسب الوقت المنطقي لتحقيقه، مع فهم العوامل المؤثرة على الوزن.</p>
+        <p class="de">Wie du ein realistisches Ziel für dein Idealgewicht setzt, die benötigte Zeit berechnest und die Einflussfaktoren verstehst.</p>
+        <div class="card-footer">
+          <span class="start-btn ar">ابدأ الفصل ←</span>
+          <span class="start-btn de">Kapitel starten →</span>
+        </div>
+      </a>
+
+      <!-- Chapter 2 — Locked -->
+      <div class="chapter-card locked">
+        <div class="card-top">
+          <span class="ch-badge ar">الفصل الثاني</span>
+          <span class="ch-badge de">Kapitel 2</span>
+          <span class="status-badge locked ar">🔒 قريباً</span>
+          <span class="status-badge locked de">🔒 Bald</span>
+        </div>
+        <div class="card-icon-wrap">🩺</div>
+        <h3>
+          <span class="ar">مقاومة الأنسولين</span>
+          <span class="de">Insulinresistenz</span>
+        </h3>
+        <p class="ar">ما هي مقاومة الأنسولين؟ كيف تنشأ؟ وما أثرها على الجسم والوزن والصحة العامة؟</p>
+        <p class="de">Was ist Insulinresistenz? Wie entsteht sie und welche Auswirkungen hat sie auf Körper, Gewicht und Gesundheit?</p>
+        <div class="card-footer">
+          <span class="locked-hint ar">يتم التطوير…</span>
+          <span class="locked-hint de">In Entwicklung…</span>
+        </div>
+      </div>
+
+      <!-- Chapter 3 — Locked -->
+      <div class="chapter-card locked">
+        <div class="card-top">
+          <span class="ch-badge ar">الفصل الثالث</span>
+          <span class="ch-badge de">Kapitel 3</span>
+          <span class="status-badge locked ar">🔒 قريباً</span>
+          <span class="status-badge locked de">🔒 Bald</span>
+        </div>
+        <div class="card-icon-wrap">🍗</div>
+        <h3>
+          <span class="ar">المغذيات الكبرى</span>
+          <span class="de">Makronährstoffe</span>
+        </h3>
+        <p class="ar">الكربوهيدرات والبروتينات والدهون — كيف تؤثر على الطاقة، الشبع، والهرمونات؟</p>
+        <p class="de">Kohlenhydrate, Proteine und Fette — wie beeinflussen sie Energie, Sättigung und Hormone?</p>
+        <div class="card-footer">
+          <span class="locked-hint ar">يتم التطوير…</span>
+          <span class="locked-hint de">In Entwicklung…</span>
+        </div>
+      </div>
+
+      <!-- Chapter 4 — Locked -->
+      <div class="chapter-card locked">
+        <div class="card-top">
+          <span class="ch-badge ar">الفصل الرابع</span>
+          <span class="ch-badge de">Kapitel 4</span>
+          <span class="status-badge locked ar">🔒 قريباً</span>
+          <span class="status-badge locked de">🔒 Bald</span>
+        </div>
+        <div class="card-icon-wrap">💊</div>
+        <h3>
+          <span class="ar">المغذيات الدقيقة</span>
+          <span class="de">Mikronährstoffe</span>
+        </h3>
+        <p class="ar">الفيتامينات والمعادن الأساسية — جرعاتها، مصادرها، وتوقيت تناولها للحصول على أفضل امتصاص.</p>
+        <p class="de">Wichtige Vitamine und Mineralstoffe — Dosierung, Quellen und optimale Einnahmezeiten.</p>
+        <div class="card-footer">
+          <span class="locked-hint ar">يتم التطوير…</span>
+          <span class="locked-hint de">In Entwicklung…</span>
+        </div>
+      </div>
+
+      <!-- Chapter 5 — Locked -->
+      <div class="chapter-card locked">
+        <div class="card-top">
+          <span class="ch-badge ar">الفصل الخامس</span>
+          <span class="ch-badge de">Kapitel 5</span>
+          <span class="status-badge locked ar">🔒 قريباً</span>
+          <span class="status-badge locked de">🔒 Bald</span>
+        </div>
+        <div class="card-icon-wrap">🫒</div>
+        <h3>
+          <span class="ar">الدهون</span>
+          <span class="de">Lipide</span>
+        </h3>
+        <p class="ar">الدهون المشبعة، غير المشبعة، والمهدرجة — أيها مفيد وأيها ضار؟ وكيف تختار الزيوت الصحية؟</p>
+        <p class="de">Gesättigte, ungesättigte und Trans-Fette — welche sind gesund? Wie wählt man die richtigen Öle?</p>
+        <div class="card-footer">
+          <span class="locked-hint ar">يتم التطوير…</span>
+          <span class="locked-hint de">In Entwicklung…</span>
+        </div>
+      </div>
+
+      <!-- Chapter 6 — Locked -->
+      <div class="chapter-card locked">
+        <div class="card-top">
+          <span class="ch-badge ar">الفصل السادس</span>
+          <span class="ch-badge de">Kapitel 6</span>
+          <span class="status-badge locked ar">🔒 قريباً</span>
+          <span class="status-badge locked de">🔒 Bald</span>
+        </div>
+        <div class="card-icon-wrap">💧</div>
+        <h3>
+          <span class="ar">السوائل والبروتينات</span>
+          <span class="de">Flüssigkeiten &amp; Proteine</span>
+        </h3>
+        <p class="ar">أهمية الترطيب، جودة المياه، وكيفية حساب احتياجك اليومي من البروتين وضمان توافره البيولوجي.</p>
+        <p class="de">Die Bedeutung der Flüssigkeitszufuhr, Wasserqualität und wie du deinen täglichen Proteinbedarf berechnest.</p>
+        <div class="card-footer">
+          <span class="locked-hint ar">يتم التطوير…</span>
+          <span class="locked-hint de">In Entwicklung…</span>
+        </div>
+      </div>
+
+      <!-- Chapter 7 — Locked -->
+      <div class="chapter-card locked">
+        <div class="card-top">
+          <span class="ch-badge ar">الفصل السابع</span>
+          <span class="ch-badge de">Kapitel 7</span>
+          <span class="status-badge locked ar">🔒 قريباً</span>
+          <span class="status-badge locked de">🔒 Bald</span>
+        </div>
+        <div class="card-icon-wrap">⚖️</div>
+        <h3>
+          <span class="ar">تمثيل التغذية وتأثير اليويو</span>
+          <span class="de">Ernährung &amp; Yo-yo-Effekt</span>
+        </h3>
+        <p class="ar">لماذا تعود الأوزان بعد الحمية؟ مفهوم تأثير اليويو وكيف تبني علاقة صحية ومستدامة مع الغذاء.</p>
+        <p class="de">Warum kehrt das Gewicht nach der Diät zurück? Der Yo-yo-Effekt und eine nachhaltige Ernährungsbeziehung.</p>
+        <div class="card-footer">
+          <span class="locked-hint ar">يتم التطوير…</span>
+          <span class="locked-hint de">In Entwicklung…</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- About the course -->
+  <section>
+    <h2 class="section-title">
+      <span class="ar">✨ عن الكورس</span>
+      <span class="de">✨ Über den Kurs</span>
+    </h2>
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="icon">🧪</div>
+        <h4 class="ar">مبني على العلم</h4>
+        <h4 class="de">Wissenschaftlich fundiert</h4>
+        <p class="ar">محتوى مستند إلى أبحاث التغذية الحديثة وعلم وظائف الأعضاء.</p>
+        <p class="de">Inhalte basieren auf moderner Ernährungsforschung und Physiologie.</p>
+      </div>
+      <div class="about-card">
+        <div class="icon">🎮</div>
+        <h4 class="ar">تفاعلي بالكامل</h4>
+        <h4 class="de">Vollständig interaktiv</h4>
+        <p class="ar">حاسبات، خرائط ذهنية، وأدوات تفاعلية لتطبيق ما تتعلمه.</p>
+        <p class="de">Rechner, Mind-Maps und interaktive Tools für praktische Anwendung.</p>
+      </div>
+      <div class="about-card">
+        <div class="icon">🌍</div>
+        <h4 class="ar">ثنائي اللغة</h4>
+        <h4 class="de">Zweisprachig</h4>
+        <p class="ar">متاح بالكامل باللغتين العربية والألمانية.</p>
+        <p class="de">Vollständig auf Arabisch und Deutsch verfügbar.</p>
+      </div>
+      <div class="about-card">
+        <div class="icon">📱</div>
+        <h4 class="ar">متوافق مع الجوال</h4>
+        <h4 class="de">Mobilfreundlich</h4>
+        <p class="ar">تصميم متجاوب يعمل على كل الأجهزة والشاشات.</p>
+        <p class="de">Responsives Design, das auf allen Geräten funktioniert.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p class="ar">كورس الوقاية من مقاومة الأنسولين &nbsp;·&nbsp; محتوى تعليمي تفاعلي</p>
+  <p class="de">Insulinresistenz-Präventionskurs &nbsp;·&nbsp; Interaktive Lerninhalte</p>
+</footer>
+
+<script>
+  // Theme
+  function setTheme(t) {
+    document.documentElement.setAttribute('data-theme', t === 'dark' ? '' : t);
+    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+    document.querySelector('.s-' + t).classList.add('active');
+    localStorage.setItem('hc-theme', t);
+  }
+  (function() {
+    const saved = localStorage.getItem('hc-theme') || 'dark';
+    setTheme(saved);
+  })();
+
+  // Language
+  let currentLang = localStorage.getItem('hc-lang') || 'ar';
+  function applyLang(lang) {
+    currentLang = lang;
+    if (lang === 'de') {
+      document.body.classList.add('lang-de');
+      document.documentElement.setAttribute('lang', 'de');
+      document.documentElement.setAttribute('dir', 'ltr');
+    } else {
+      document.body.classList.remove('lang-de');
+      document.documentElement.setAttribute('lang', 'ar');
+      document.documentElement.setAttribute('dir', 'rtl');
+    }
+    localStorage.setItem('hc-lang', lang);
+  }
+  function toggleLang() {
+    applyLang(currentLang === 'ar' ? 'de' : 'ar');
+  }
+  applyLang(currentLang);
+</script>
+</body>
+</html>

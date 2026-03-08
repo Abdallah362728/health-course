@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الفصل الأول – تحديد الهدف | Ziel setzen</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&subset=arabic,latin&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d0d0d; --surface:#1a1a1a; --surface2:#232323;
+    --accent:#c9a84c; --accent2:#e8c97a; --accent-dim:#7a5f28;
+    --text:#f0ead6; --text-soft:#a89870;
+    --red:#c0392b; --red-soft:#2a1010;
+    --green:#27ae60; --green-soft:#0e2418;
+    --border:#2e2e2e; --radius:14px; --shadow:0 8px 32px rgba(0,0,0,0.5);
+  }
+  [data-theme="teal"] {
+    --bg:#f0f8f7; --surface:#ffffff; --surface2:#e6f4f1;
+    --accent:#0d7377; --accent2:#14a085; --accent-dim:#b2dfdb;
+    --text:#1a2e2d; --text-soft:#4a7c79; --border:#b2dfdb;
+    --red:#c0392b; --red-soft:#fdecea; --green:#1a7a4a; --green-soft:#e8f5e9;
+  }
+  [data-theme="purple"] {
+    --bg:#0f0c1e; --surface:#1a1530; --surface2:#221d3a;
+    --accent:#9b59b6; --accent2:#c39bd3; --accent-dim:#4a2060;
+    --text:#ede0f5; --text-soft:#9b8ab0; --border:#2d2545;
+    --red:#e74c3c; --red-soft:#2a0e0e; --green:#27ae60; --green-soft:#0e2418;
+  }
+  [data-theme="emerald"] {
+    --bg:#faf8f2; --surface:#ffffff; --surface2:#f2ede0;
+    --accent:#2d6a4f; --accent2:#40916c; --accent-dim:#b7e4c7;
+    --text:#1b2d23; --text-soft:#52796f; --border:#b7e4c7;
+    --red:#b5451b; --red-soft:#fdecea; --green:#1b5e20; --green-soft:#e8f5e9;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Cairo','Tahoma','Arial',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background .3s,color .3s; }
+
+  /* Arabic letter-spacing fix — letters must connect */
+  .ar, [lang="ar"], [dir="rtl"] { letter-spacing: 0 !important; }
+
+  /* THEME BAR */
+  .theme-bar { position:fixed; top:16px; left:16px; z-index:999; display:flex; gap:8px; align-items:center; background:var(--surface); border:1px solid var(--border); padding:8px 12px; border-radius:40px; box-shadow:var(--shadow); }
+  .theme-bar span { font-size:11px; color:var(--text-soft); margin-left:4px; }
+  .swatch { width:22px; height:22px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:.2s; }
+  .swatch:hover, .swatch.active { border-color:var(--text); transform:scale(1.2); }
+  .swatch.s-dark    { background:radial-gradient(circle at 40% 40%,#c9a84c,#0d0d0d); }
+  .swatch.s-teal    { background:radial-gradient(circle at 40% 40%,#14a085,#f0f8f7); }
+  .swatch.s-purple  { background:radial-gradient(circle at 40% 40%,#9b59b6,#0f0c1e); }
+  .swatch.s-emerald { background:radial-gradient(circle at 40% 40%,#2d6a4f,#faf8f2); }
+
+  /* LANG BTN */
+  .lang-btn { position:fixed; top:16px; right:16px; z-index:999; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-size:13px; font-weight:700; padding:6px 18px; border-radius:40px; cursor:pointer; transition:.2s; box-shadow:var(--shadow); }
+  .lang-btn:hover { background:var(--accent); color:var(--bg); }
+
+  /* HEADER */
+  header { text-align:center; padding:60px 20px 40px; background:linear-gradient(160deg,var(--surface) 0%,var(--bg) 100%); border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%,var(--accent-dim),transparent); opacity:.25; pointer-events:none; }
+  .chapter-tag { display:inline-block; font-size:12px; font-weight:700; color:var(--accent); border:1px solid var(--accent); padding:4px 16px; border-radius:40px; margin-bottom:16px; }
+  header h1 { font-size:clamp(28px,5vw,52px); font-weight:900; line-height:1.2; }
+  header h1 .accent { color:var(--accent); }
+  .subtitle { color:var(--text-soft); font-size:15px; margin-top:10px; }
+
+  /* LAYOUT */
+  .container { max-width:1100px; margin:0 auto; padding:40px 20px 80px; }
+  section { margin-bottom:60px; }
+  h2.section-title { font-size:22px; font-weight:800; color:var(--accent); border-right:4px solid var(--accent); padding-right:14px; margin-bottom:24px; display:flex; align-items:center; gap:10px; }
+
+  /* CARDS */
+  .cards { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px; transition:transform .2s,box-shadow .2s,border-color .2s; }
+  .card:hover { transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent-dim); }
+  .card-icon { font-size:28px; margin-bottom:10px; }
+  .card h3 { font-size:15px; font-weight:700; margin-bottom:6px; color:var(--accent2); }
+  .card p { font-size:13px; color:var(--text-soft); line-height:1.7; }
+
+  /* COURSE OVERVIEW GRID */
+  .intro-grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); }
+  .intro-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px; border-right:3px solid var(--accent-dim); transition:.2s; }
+  .intro-card.active { border-right-color:var(--accent); background:var(--surface2); }
+  .intro-card:hover { border-right-color:var(--accent); background:var(--surface2); }
+  .intro-card .ch-num { font-size:11px; font-weight:700; color:var(--accent); margin-bottom:4px; }
+  .intro-card h4 { font-size:14px; font-weight:700; margin-bottom:5px; }
+  .intro-card p { font-size:12px; color:var(--text-soft); line-height:1.6; }
+
+  /* MINDMAP TREE */
+  .mindmap-tree { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px 20px; overflow-x:auto; }
+  .mm-wrapper { display:flex; flex-direction:column; align-items:center; }
+  .mm-center { background:var(--accent); color:var(--bg); font-size:18px; font-weight:900; padding:14px 36px; border-radius:50px; text-align:center; box-shadow:0 0 30px rgba(201,168,76,0.35); }
+  .mm-vline { width:2px; height:24px; background:var(--accent-dim); margin:0 auto; }
+  .mm-level1 { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+  .mm-branch { display:flex; flex-direction:column; align-items:center; }
+  .mm-branch::before { content:''; display:block; width:2px; height:18px; background:var(--accent-dim); }
+  .mm-l1 { padding:10px 18px; border-radius:10px; font-size:13px; font-weight:700; text-align:center; min-width:120px; cursor:default; }
+  .mm-l1.gold { background:var(--surface2); color:var(--accent); border:1px solid var(--accent-dim); }
+  .mm-l1.red  { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+  .mm-l1.green{ background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+  .mm-children { display:flex; flex-direction:column; gap:4px; align-items:center; margin-top:6px; }
+  .mm-cline { width:2px; height:10px; background:var(--border); margin:0 auto; }
+  .mm-l2 { padding:5px 12px; border-radius:6px; font-size:11px; font-weight:600; background:var(--surface2); color:var(--text-soft); border:1px solid var(--border); text-align:center; min-width:100px; }
+
+  /* INFO BOX */
+  .info-box { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; }
+  .info-box .lbl { font-size:11px; font-weight:800; color:var(--accent); margin-bottom:8px; }
+  .info-box p { font-size:13px; line-height:1.9; color:var(--text-soft); }
+  .info-box p strong { color:var(--text); }
+
+  /* QUOTE BOX */
+  .quote-box { border-right:4px solid var(--accent); padding:16px 20px; background:var(--surface2); border-radius:0 10px 10px 0; margin:20px 0; }
+  .quote-main { font-size:16px; font-weight:700; color:var(--text); margin-bottom:10px; line-height:1.6; }
+  .quote-list { padding-right:20px; margin-top:8px; font-size:13px; color:var(--text-soft); line-height:1.8; }
+  .quote-list li { margin-bottom:4px; }
+
+  /* CALORIE PILLS */
+  .info-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+  .info-pill { flex:1; min-width:90px; background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:14px 10px; text-align:center; }
+  .info-pill .val { font-size:26px; font-weight:900; color:var(--accent); }
+  .info-pill .key { font-size:11px; color:var(--text-soft); margin-top:4px; line-height:1.4; }
+
+  /* EXAMPLE BOX */
+  .example-box { background:var(--surface2); border-right:4px solid var(--accent); border-radius:0 12px 12px 0; padding:16px 20px; margin:12px 0; font-size:13px; line-height:2; }
+  .example-box strong { color:var(--accent2); }
+
+  /* CALCULATOR */
+  .calc-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px; }
+  .calc-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media(max-width:600px){ .calc-grid { grid-template-columns:1fr; } }
+  label { font-size:13px; color:var(--text-soft); display:block; margin-bottom:6px; font-weight:600; }
+  select, input[type=number] { width:100%; padding:12px 16px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-family:'Cairo',sans-serif; font-size:14px; outline:none; transition:.2s; }
+  select:focus, input[type=number]:focus { border-color:var(--accent); }
+  .calc-btn { margin-top:20px; width:100%; padding:14px; background:var(--accent); color:var(--bg); font-family:'Cairo',sans-serif; font-size:16px; font-weight:800; border:none; border-radius:10px; cursor:pointer; transition:.2s; }
+  .calc-btn:hover { background:var(--accent2); transform:translateY(-2px); }
+  .calc-result { margin-top:20px; padding:20px; border-radius:12px; background:var(--surface2); border:1px solid var(--accent-dim); text-align:center; display:none; }
+  .result-num { font-size:48px; font-weight:900; color:var(--accent); line-height:1; }
+  .result-label { font-size:14px; color:var(--text-soft); margin-top:6px; }
+  .result-detail { font-size:13px; color:var(--text); margin-top:14px; line-height:1.9; }
+
+  /* TABLE */
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  thead tr { background:var(--accent); color:var(--bg); }
+  thead th { padding:12px 16px; text-align:right; font-weight:700; }
+  tbody tr { border-bottom:1px solid var(--border); transition:.15s; }
+  tbody tr:hover { background:var(--surface2); }
+  tbody td { padding:11px 16px; color:var(--text); }
+  tbody td:first-child { color:var(--accent2); font-weight:600; }
+
+  /* RISK TREE */
+  .risk-tree { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .risk-root { text-align:center; margin-bottom:16px; }
+  .risk-root-node { display:inline-block; padding:10px 28px; border-radius:10px; font-size:14px; font-weight:800; background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+  .risk-rows { display:flex; flex-direction:column; gap:10px; }
+  .risk-row { display:grid; grid-template-columns:1fr 44px 1fr; align-items:center; gap:10px; }
+  .risk-prob { background:var(--red-soft); border:1px solid var(--red); border-radius:10px; padding:12px 16px; font-size:13px; font-weight:700; color:var(--red); text-align:center; }
+  .risk-arrow { text-align:center; font-size:20px; color:var(--accent); }
+  .risk-sol { background:var(--green-soft); border:1px dashed var(--green); border-radius:10px; padding:12px 16px; font-size:13px; font-weight:600; color:var(--green); text-align:center; }
+
+  /* BUBBLES */
+  .bubble-cloud { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; padding:20px; background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); }
+  .bubble { padding:8px 18px; border-radius:40px; font-size:13px; font-weight:600; cursor:default; transition:transform .2s; }
+  .bubble:hover { transform:scale(1.08); }
+  .bubble.motive  { background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+  .bubble.barrier { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+
+  /* EXT LINK */
+  .ext-link { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; background:var(--surface2); border:1px solid var(--accent-dim); color:var(--accent); font-size:13px; font-weight:700; text-decoration:none; transition:.2s; margin-top:12px; }
+  .ext-link:hover { background:var(--accent); color:var(--bg); }
+
+  /* DIVIDER */
+  .divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent-dim),transparent); margin:40px 0; }
+
+  /* DE hidden */
+  .de { display:none; }
+
+  @media(max-width:700px){
+    .risk-row { grid-template-columns:1fr; }
+    .risk-arrow { transform:rotate(90deg); text-align:center; }
+    .mm-level1 { flex-direction:column; align-items:center; }
+  }
+</style>
+</head>
+<body data-theme="dark">
+
+<!-- Theme switcher -->
+<div class="theme-bar">
+  <span>🎨</span>
+  <div class="swatch s-dark active"   onclick="setTheme('dark',this)"    title="Dark Gold"></div>
+  <div class="swatch s-teal"          onclick="setTheme('teal',this)"    title="Teal"></div>
+  <div class="swatch s-purple"        onclick="setTheme('purple',this)"  title="Purple"></div>
+  <div class="swatch s-emerald"       onclick="setTheme('emerald',this)" title="Emerald"></div>
+</div>
+
+<!-- Lang toggle -->
+<button class="lang-btn" onclick="toggleLang()" id="langBtn">DE</button>
+
+<!-- HEADER -->
+<header>
+  <div class="chapter-tag">
+    <span class="ar">الفصل الأول</span>
+    <span class="de">Kapitel 1</span>
+  </div>
+  <h1>
+    <span class="accent">⭐</span>
+    <span class="ar"> تحديد الهدف</span>
+    <span class="de"> Ziel setzen</span>
+  </h1>
+  <p class="subtitle">
+    <span class="ar">رحلتك تبدأ بهدف واضح — اكتشف دوافعك، واحسب وزنك المثالي، وخطّط بواقعية</span>
+    <span class="de">Deine Reise beginnt mit einem klaren Ziel – Motivation, Idealgewicht & realistische Planung</span>
+  </p>
+</header>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════
+       0. COURSE OVERVIEW
+  ══════════════════════════════════════ -->
+  <section>
+    <h2 class="section-title">
+      📖
+      <span class="ar">مقدمة الكورس — ماذا ستتعلم؟</span>
+      <span class="de">Kursüberblick — Was wirst du lernen?</span>
+    </h2>
+
+    <div class="info-box" style="margin-bottom:24px">
+      <div class="lbl ar">نظرة عامة</div>
+      <div class="lbl de">Überblick</div>
+      <p class="ar">اكتشف أهمية الوقاية وكيف يمكن أن يساعدك الكورس في تقليل خطر الإصابة بمقاومة الأنسولين. ستتعلم حساب وزنك المثالي والزمن المنطقي الذي تحتاجه لتغيير وزنك، وكيف يمكن للسيطرة على التغذية أن تُحدث فرقاً حقيقياً في حياتك.</p>
+      <p class="de">Entdecke, wie dieser Kurs dir hilft, das Risiko einer Insulinresistenz zu reduzieren. Du lernst dein Idealgewicht zu berechnen, realistische Zeitpläne zu setzen und durch gezielte Ernährung echten Unterschied zu machen.</p>
+    </div>
+
+    <div class="intro-grid">
+      <div class="intro-card active">
+        <div class="ch-num ar">الفصل الأول ← أنت هنا</div>
+        <div class="ch-num de">Kapitel 1 ← Du bist hier</div>
+        <h4 class="ar">⭐ تحديد الهدف</h4>
+        <h4 class="de">⭐ Ziel setzen</h4>
+        <p class="ar">الوزن المثالي، إدارة المصاعب، الدوافع</p>
+        <p class="de">Idealgewicht, Risikomanagement, Motivation</p>
+      </div>
+      <div class="intro-card">
+        <div class="ch-num ar">الفصل الثاني</div>
+        <div class="ch-num de">Kapitel 2</div>
+        <h4 class="ar">🔬 مقاومة الأنسولين</h4>
+        <h4 class="de">🔬 Insulinresistenz</h4>
+        <p class="ar">العلاقة بين السمنة ومقاومة الأنسولين — من يأتي أولاً؟</p>
+        <p class="de">Zusammenhang zwischen Übergewicht & Insulinresistenz</p>
+      </div>
+      <div class="intro-card">
+        <div class="ch-num ar">الفصل الثالث</div>
+        <div class="ch-num de">Kapitel 3</div>
+        <h4 class="ar">🍞 المغذيات الكبرى</h4>
+        <h4 class="de">🍞 Makronährstoffe</h4>
+        <p class="ar">الكربوهيدرات، مؤشر الجلايسيمي، دور كل مغذٍّ كبير</p>
+        <p class="de">Kohlenhydrate, Glykämischer Index, Makros im Detail</p>
+      </div>
+      <div class="intro-card">
+        <div class="ch-num ar">الفصل الرابع</div>
+        <div class="ch-num de">Kapitel 4</div>
+        <h4 class="ar">💊 المغذيات الصغرى</h4>
+        <h4 class="de">💊 Mikronährstoffe</h4>
+        <p class="ar">الفيتامينات والمعادن الأساسية للوقاية من مقاومة الأنسولين</p>
+        <p class="de">Vitamine & Mineralien zur Prävention von Insulinresistenz</p>
+      </div>
+      <div class="intro-card">
+        <div class="ch-num ar">الفصل الخامس</div>
+        <div class="ch-num de">Kapitel 5</div>
+        <h4 class="ar">💧 البروتين والسوائل</h4>
+        <h4 class="de">💧 Protein & Flüssigkeiten</h4>
+        <p class="ar">البروتينات الصحية، التوافر البيولوجي، عادات الشرب</p>
+        <p class="de">Gesunde Proteine, biologische Verfügbarkeit, Trinkgewohnheiten</p>
+      </div>
+      <div class="intro-card">
+        <div class="ch-num ar">الفصل السادس</div>
+        <div class="ch-num de">Kapitel 6</div>
+        <h4 class="ar">🫒 الدهون</h4>
+        <h4 class="de">🫒 Lipide</h4>
+        <p class="ar">أنواع الدهون، الزيوت، أوميغا-3 وأوميغا-6، زيوت مكررة وطبيعية</p>
+        <p class="de">Fettarten, Öle, Omega-3 & Omega-6, raffinierte vs. naturtrübe Öle</p>
+      </div>
+      <div class="intro-card">
+        <div class="ch-num ar">الفصل السابع</div>
+        <div class="ch-num de">Kapitel 7</div>
+        <h4 class="ar">📉 التمثيل الغذائي ويويو</h4>
+        <h4 class="de">📉 Stoffwechsel & Jojo-Effekt</h4>
+        <p class="ar">معدل الأيض الأساسي، دوامة اليويو، قصة أحمد</p>
+        <p class="de">Grundumsatz, Jojo-Spirale, Beispiel Ahmed</p>
+      </div>
+      <div class="intro-card">
+        <div class="ch-num ar">الفصل الثامن</div>
+        <div class="ch-num de">Kapitel 8</div>
+        <h4 class="ar">📜 الوصايا العشر</h4>
+        <h4 class="de">📜 Zehn Ernährungsgebote</h4>
+        <p class="ar">عشرة مبادئ للتغذية الصحية والمستدامة</p>
+        <p class="de">Zehn Prinzipien für gesunde & nachhaltige Ernährung</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       1. MINDMAP — HIERARCHICAL
+  ══════════════════════════════════════ -->
+  <section>
+    <h2 class="section-title">
+      🗺️
+      <span class="ar">خريطة الهدف الذهنية</span>
+      <span class="de">Ziel-Mindmap — Hierarchie</span>
+    </h2>
+    <div class="mindmap-tree">
+      <div class="mm-wrapper">
+        <div class="mm-center">
+          <span class="ar">⭐ هدفي</span>
+          <span class="de">⭐ Mein Ziel</span>
+        </div>
+        <div class="mm-vline"></div>
+        <div class="mm-level1">
+
+          <!-- Branch: Mindmap -->
+          <div class="mm-branch">
+            <div class="mm-l1 gold">
+              <span class="ar">🧠 Mindmap</span>
+              <span class="de">🧠 Mindmap</span>
+            </div>
+          </div>
+
+          <!-- Branch: Define Goal -->
+          <div class="mm-branch">
+            <div class="mm-l1 gold">
+              <span class="ar">🎯 عرف الهدف<br><small style="font-weight:400;opacity:.8">اذكر التفاصيل</small></span>
+              <span class="de">🎯 Ziel definieren<br><small style="font-weight:400;opacity:.8">Details nennen</small></span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">📏 كم؟ (الكمية)</span><span class="de">📏 Wie viel?</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🏷️ نوع (الهدف)</span><span class="de">🏷️ Art des Ziels</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">⏳ زمن (الوقت)</span><span class="de">⏳ Zeitrahmen</span></div>
+            </div>
+          </div>
+
+          <!-- Branch: Ideal Weight -->
+          <div class="mm-branch">
+            <div class="mm-l1 gold">
+              <span class="ar">⚖️ الوزن المثالي</span>
+              <span class="de">⚖️ Idealgewicht</span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">بنية الجسم (الرسغ)</span><span class="de">Körperbau (Handgelenk)</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">الصيغة: طول − 100/104</span><span class="de">Formel: Größe − 100/104</span></div>
+            </div>
+          </div>
+
+          <!-- Branch: Risk Management -->
+          <div class="mm-branch">
+            <div class="mm-l1 red">
+              <span class="ar">⚠️ عرف المصاعب<br><small style="font-weight:400;opacity:.8">Risikomanagement</small></span>
+              <span class="de">⚠️ Risikomanagement<br><small style="font-weight:400;opacity:.8">Hindernisse kennen</small></span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">عامل مادي → حل</span><span class="de">Finanziell → Lösung</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">ضيق وقت → حل</span><span class="de">Zeitmangel → Lösung</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">مسؤوليات → حل</span><span class="de">Verpflichtungen → Lösung</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">عوامل صحية → حل</span><span class="de">Gesundheit → Lösung</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">منطق / واقعية → حل</span><span class="de">Logik / Realismus → Lösung</span></div>
+            </div>
+          </div>
+
+          <!-- Branch: Motivations -->
+          <div class="mm-branch">
+            <div class="mm-l1 green">
+              <span class="ar">💪 الدوافع</span>
+              <span class="de">💪 Motivation</span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">مرض / مناسبة / حلم</span><span class="de">Krankheit / Anlass / Traum</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">تصالح مع الذات</span><span class="de">Selbstakzeptanz</span></div>
+            </div>
+          </div>
+
+          <!-- Branch: Prayer -->
+          <div class="mm-branch">
+            <div class="mm-l1 gold">
+              <span class="ar">🤲 الدعاء بالفعل الماضي</span>
+              <span class="de">🤲 Gebet im Vergangenheitsform</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       2. DEFINE YOUR GOAL
+  ══════════════════════════════════════ -->
+  <section>
+    <h2 class="section-title">
+      🎯
+      <span class="ar">عرف هدفك — اذكر التفاصيل</span>
+      <span class="de">Dein Ziel definieren – Details nennen</span>
+    </h2>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">📏</div>
+        <h3><span class="ar">كم؟ — الكمية</span><span class="de">Wie viel? — Menge</span></h3>
+        <p>
+          <span class="ar">حدد الرقم بدقة. مثال: <strong>هدف 10 كغ</strong>.<br>كل 1 كجم من الدهون = 7000–7700 كالوري — كم يجب عليك أن تحرق باليوم حتى تصل لهدفك في الوقت المحدد؟</span>
+          <span class="de">Genaue Zahl definieren. z.B. <strong>Ziel: 10 kg</strong>.<br>1 kg Fett = 7000–7700 kcal — Wie viel täglich verbrennen, um das Ziel rechtzeitig zu erreichen?</span>
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏷️</div>
+        <h3><span class="ar">نوع — طبيعة الهدف</span><span class="de">Art — Zieltyp</span></h3>
+        <p>
+          <span class="ar">هل هدفك خسارة دهون؟ بناء عضلة؟ تحسين صحة عامة؟ الوقاية من مقاومة الأنسولين؟ وضّح النوع بدقة لأن كل هدف له استراتيجية مختلفة.</span>
+          <span class="de">Fett verlieren? Muskeln aufbauen? Gesundheit verbessern? Insulinresistenz vorbeugen? Jedes Ziel hat eine eigene Strategie.</span>
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⏳</div>
+        <h3><span class="ar">زمن — الإطار الزمني</span><span class="de">Zeit — Zeitrahmen</span></h3>
+        <p>
+          <span class="ar">حدد وقتاً منطقياً وصحياً. لا تضغط على نفسك — الخسارة الصحية 0.5 إلى 1 كغ أسبوعياً. ربط الهدف بتاريخ محدد يرفع الالتزام.</span>
+          <span class="de">Realistischen Zeitplan festlegen. Gesunder Gewichtsverlust: 0,5–1 kg/Woche. Ein konkretes Datum erhöht die Verbindlichkeit.</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- Thinking/Words quote from Miro -->
+    <div class="quote-box" style="margin-top:24px">
+      <div class="quote-main">
+        <span class="ar">"الكلمات تصبح أفكاراً، والأفكار تصبح أفعالاً"</span>
+        <span class="de">"Gedanken werden zu Worten und Worte werden zu Taten"</span>
+      </div>
+      <ol class="quote-list ar">
+        <li>الأفكار تولّد مشاعر نتفاعل معها</li>
+        <li>الكلمات تؤثر في سلوكنا وأفعالنا</li>
+        <li>الأفكار تصبح قناعات تُشكّل رؤيتنا للعالم وللأشخاص من حولنا</li>
+      </ol>
+      <ol class="quote-list de">
+        <li>Gedanken können Gefühle erzeugen, auf die wir reagieren</li>
+        <li>Worte können Handlungen beeinflussen</li>
+        <li>Gedanken können zu Überzeugungen werden, die unsere Wahrnehmung der Welt prägen</li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       3. CALORIE BASICS
+  ══════════════════════════════════════ -->
+  <section>
+    <h2 class="section-title">
+      🔥
+      <span class="ar">أساسيات الكالوري</span>
+      <span class="de">Kaloriengrundlagen</span>
+    </h2>
+
+    <div class="info-box">
+      <div class="lbl ar">ما هي السعرة الحرارية؟</div>
+      <div class="lbl de">Was ist eine Kalorie?</div>
+      <p class="ar">السعرة الحرارية هي كمية الطاقة اللازمة لرفع درجة حرارة غرام واحد من الماء بمقدار درجة مئوية واحدة — عادةً من 14.5°م إلى 15.5°م.</p>
+      <p class="de">Eine Kalorie ist die Energiemenge, die benötigt wird, um 1 g Wasser um 1°C zu erwärmen — üblicherweise von 14,5 auf 15,5°C.</p>
+    </div>
+
+    <div class="info-box">
+      <div class="lbl ar">كيف يتعامل الجسم مع الطعام؟</div>
+      <div class="lbl de">Wie verarbeitet der Körper Nahrung?</div>
+      <p class="ar">الجهاز الهضمي <strong>لا يحرق الطعام</strong>، بل يقوم بتفكيكه لمكوناته الأولية بواسطة إنزيمات هاضمة، ثم يمتصها ويوزعها على الخلايا — لتقوم باستقلابها، أو إعادة استخدامها كمواد بناء، أو تخزينها كمصادر طاقة.</p>
+      <p class="de">Das Verdauungssystem <strong>verbrennt keine Nahrung</strong> — es zerlegt sie mithilfe von Verdauungsenzymen in ihre Grundbausteine, absorbiert sie und verteilt sie an die Zellen zur Verstoffwechslung, zum Aufbau oder zur Energiespeicherung.</p>
+    </div>
+
+    <!-- Macro calorie pills -->
+    <div class="info-row">
+      <div class="info-pill">
+        <div class="val">9</div>
+        <div class="key"><span class="ar">كالوري/غ<br>دهون</span><span class="de">kcal/g<br>Fett</span></div>
+      </div>
+      <div class="info-pill">
+        <div class="val">4</div>
+        <div class="key"><span class="ar">كالوري/غ<br>بروتين</span><span class="de">kcal/g<br>Protein</span></div>
+      </div>
+      <div class="info-pill">
+        <div class="val">4</div>
+        <div class="key"><span class="ar">كالوري/غ<br>كربوهيدرات</span><span class="de">kcal/g<br>Kohlenhydrate</span></div>
+      </div>
+      <div class="info-pill">
+        <div class="val">7</div>
+        <div class="key"><span class="ar">كالوري/غ<br>كحول</span><span class="de">kcal/g<br>Alkohol</span></div>
+      </div>
+      <div class="info-pill">
+        <div class="val">2</div>
+        <div class="key"><span class="ar">كالوري/غ<br>ألياف</span><span class="de">kcal/g<br>Ballaststoffe</span></div>
+      </div>
+      <div class="info-pill">
+        <div class="val">0</div>
+        <div class="key"><span class="ar">فيتامينات<br>ومعادن</span><span class="de">Vitamine &<br>Mineralien</span></div>
+      </div>
+    </div>
+
+    <div class="info-box" style="border-right:3px solid var(--accent)">
+      <p class="ar">💡 كل <strong>1 كجم من الدهون</strong> يعادل <strong style="color:var(--accent)">7000–7700 كالوري</strong><br>
+      🤔 كم يجب عليك أن تحرق باليوم حتى تصل لهدفك حسب الوقت الذي حددته؟<br>
+      <small style="color:var(--text-soft)">مثال: لخسارة 1 كغ/أسبوع → عجز يومي ≈ 1000 كالوري | لخسارة 0.5 كغ/أسبوع → عجز يومي ≈ 500 كالوري</small></p>
+      <p class="de">💡 <strong>1 kg Fett</strong> = <strong style="color:var(--accent)">7000–7700 kcal</strong><br>
+      🤔 Wie viel täglich verbrennen, um das Ziel im geplanten Zeitraum zu erreichen?<br>
+      <small style="color:var(--text-soft)">Beispiel: 1 kg/Woche → ~1000 kcal Defizit/Tag | 0,5 kg/Woche → ~500 kcal Defizit/Tag</small></p>
+    </div>
+
+    <a href="https://www.tk.de/service/app/2004134/kalorienrechner/kalorienrechner.app" target="_blank" class="ext-link">
+      🔗 <span class="ar">احسب احتياجاتك اليومية من الكالوري (TK Kalorienrechner)</span>
+      <span class="de">Täglichen Kalorienbedarf berechnen (TK Kalorienrechner)</span>
+    </a>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       4. IDEAL WEIGHT CALCULATOR
+  ══════════════════════════════════════ -->
+  <section>
+    <h2 class="section-title">
+      ⚖️
+      <span class="ar">حساب الوزن المثالي</span>
+      <span class="de">Idealgewicht berechnen</span>
+    </h2>
+
+    <!-- Step 1: Body frame -->
+    <div class="info-box">
+      <div class="lbl ar">الخطوة الأولى — تحديد بنية الجسم (محيط الرسغ)</div>
+      <div class="lbl de">Schritt 1 — Körperrahmen bestimmen (Handgelenkumfang)</div>
+      <p class="ar">
+        · <strong>بنية ضيقة:</strong> محيط الرسغ أقل من 16 سم (نساء) أو أقل من 17 سم (رجال)<br>
+        · <strong>بنية متوسطة:</strong> 16–18 سم (نساء) أو 17–20 سم (رجال)<br>
+        · <strong>بنية واسعة:</strong> أكثر من 18 سم (نساء) أو أكثر من 20 سم (رجال)
+      </p>
+      <p class="de">
+        · <strong>Klein:</strong> Handgelenkumfang &lt; 16 cm (Frauen) / &lt; 17 cm (Männer)<br>
+        · <strong>Mittel:</strong> 16–18 cm (Frauen) / 17–20 cm (Männer)<br>
+        · <strong>Groß:</strong> &gt; 18 cm (Frauen) / &gt; 20 cm (Männer)
+      </p>
+    </div>
+
+    <!-- Formula -->
+    <div class="info-box">
+      <div class="lbl ar">الصيغة الحسابية</div>
+      <div class="lbl de">Berechnungsformel</div>
+      <p class="ar">
+        <strong>رجال:</strong> الوزن المثالي (كغ) = الطول (سم) − 100<br>
+        <strong>نساء:</strong> الوزن المثالي (كغ) = الطول (سم) − 104<br>
+        ثم التعديل حسب بنية الجسم: بنية ضيقة <strong style="color:var(--red)">−10٪</strong> | متوسطة <strong>±0</strong> | واسعة <strong style="color:var(--green)">+10٪</strong>
+      </p>
+      <p class="de">
+        <strong>Männer:</strong> Idealgewicht (kg) = Körpergröße (cm) − 100<br>
+        <strong>Frauen:</strong> Idealgewicht (kg) = Körpergröße (cm) − 104<br>
+        Anpassung: Klein <strong style="color:var(--red)">−10%</strong> | Mittel <strong>±0%</strong> | Groß <strong style="color:var(--green)">+10%</strong>
+      </p>
+    </div>
+
+    <!-- Worked examples from Miro -->
+    <div class="example-box">
+      <div class="ar">
+        <strong>مثال (رجل):</strong> طول 195 سم → 195 − 100 = <strong>95 كغ</strong> (بنية متوسطة، لا تعديل)<br>
+        <strong>مثال (امرأة):</strong> طول 160 سم → 160 − 104 = 56 كغ، بنية ضيقة → 56 − 10٪ = <strong>50.4 كغ</strong>
+      </div>
+      <div class="de">
+        <strong>Beispiel (Mann):</strong> 195 cm → 195 − 100 = <strong>95 kg</strong> (mittlerer Körperbau, keine Anpassung)<br>
+        <strong>Beispiel (Frau):</strong> 170 cm, Handgelenk 15 cm → 170 − 104 = 66 kg, klein → 66 − 10% = <strong>59,4 kg ≈ 59 kg</strong>
+      </div>
+    </div>
+
+    <!-- Interactive calculator -->
+    <div class="calc-box" style="margin-top:20px">
+      <div class="calc-grid">
+        <div>
+          <label><span class="ar">الجنس</span><span class="de">Geschlecht</span></label>
+          <select id="gender">
+            <option value="male">ذكر / Mann</option>
+            <option value="female">أنثى / Frau</option>
+          </select>
+        </div>
+        <div>
+          <label><span class="ar">الطول (سم)</span><span class="de">Körpergröße (cm)</span></label>
+          <input type="number" id="height" placeholder="170" min="140" max="220">
+        </div>
+        <div>
+          <label><span class="ar">محيط الرسغ (سم)</span><span class="de">Handgelenkumfang (cm)</span></label>
+          <input type="number" id="wrist" placeholder="16" min="12" max="25" step="0.5">
+        </div>
+        <div>
+          <label><span class="ar">الوزن الحالي (كغ)</span><span class="de">Aktuelles Gewicht (kg)</span></label>
+          <input type="number" id="weight" placeholder="80" min="30" max="250">
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calcIdeal()">
+        <span class="ar">احسب الوزن المثالي ⚖️</span>
+        <span class="de">Idealgewicht berechnen ⚖️</span>
+      </button>
+      <div class="calc-result" id="calcResult">
+        <div class="result-num" id="resNum">--</div>
+        <div class="result-label">
+          <span class="ar">الوزن المثالي (كغ)</span>
+          <span class="de">Idealgewicht (kg)</span>
+        </div>
+        <div class="result-detail" id="resDetail"></div>
+      </div>
+    </div>
+
+    <!-- Body frame reference table -->
+    <div style="margin-top:20px; overflow-x:auto; border-radius:var(--radius); overflow:hidden;">
+      <table>
+        <thead>
+          <tr>
+            <th><span class="ar">بنية الجسم</span><span class="de">Körperrahmen</span></th>
+            <th><span class="ar">رسغ – نساء</span><span class="de">Handgelenk – Frauen</span></th>
+            <th><span class="ar">رسغ – رجال</span><span class="de">Handgelenk – Männer</span></th>
+            <th><span class="ar">التعديل</span><span class="de">Anpassung</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🔴 <span class="ar">ضيقة</span><span class="de">Klein</span></td>
+            <td><span class="ar">&lt; 16 سم</span><span class="de">&lt; 16 cm</span></td>
+            <td><span class="ar">&lt; 17 سم</span><span class="de">&lt; 17 cm</span></td>
+            <td style="color:var(--red); font-weight:800">−10٪</td>
+          </tr>
+          <tr>
+            <td>🟡 <span class="ar">متوسطة</span><span class="de">Mittel</span></td>
+            <td><span class="ar">16–18 سم</span><span class="de">16–18 cm</span></td>
+            <td><span class="ar">17–20 سم</span><span class="de">17–20 cm</span></td>
+            <td style="color:var(--accent); font-weight:800"><span class="ar">بدون تعديل</span><span class="de">±0%</span></td>
+          </tr>
+          <tr>
+            <td>🟢 <span class="ar">واسعة</span><span class="de">Groß</span></td>
+            <td><span class="ar">&gt; 18 سم</span><span class="de">&gt; 18 cm</span></td>
+            <td><span class="ar">&gt; 20 سم</span><span class="de">&gt; 20 cm</span></td>
+            <td style="color:var(--green); font-weight:800">+10٪</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       5. RISK MANAGEMENT
+  ══════════════════════════════════════ -->
+  <section>
+    <h2 class="section-title">
+      ⚠️
+      <span class="ar">إدارة المصاعب — Risikomanagement</span>
+      <span class="de">Risikomanagement — Hindernisse & Lösungen</span>
+    </h2>
+    <p style="font-size:13px; color:var(--text-soft); margin-bottom:20px; line-height:1.8">
+      <span class="ar">قبل أن تبدأ رحلتك، عرّف مصاعبك المحتملة وجهّز لها حلولاً مسبقاً — لكل عقبة بديل</span>
+      <span class="de">Vor dem Start: Erkenne deine Hindernisse und bereite Lösungen vor – für jedes Problem gibt es eine Alternative</span>
+    </p>
+
+    <div class="risk-tree">
+      <div class="risk-root">
+        <div class="risk-root-node ar">⚠️ عرف المصاعب — Risikomanagement</div>
+        <div class="risk-root-node de">⚠️ Risikomanagement — Hindernisse kennen</div>
+      </div>
+      <div class="mm-vline" style="margin-bottom:12px"></div>
+      <div class="risk-rows">
+        <div class="risk-row">
+          <div class="risk-prob">
+            <span class="ar">💰 عامل مادي / تكاليف الغذاء الصحي</span>
+            <span class="de">💰 Finanzieller Faktor</span>
+          </div>
+          <div class="risk-arrow">←</div>
+          <div class="risk-sol">
+            <span class="ar">حل / بديل — خطط مسبقاً</span>
+            <span class="de">Lösung / Alternative vorbereiten</span>
+          </div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-prob">
+            <span class="ar">⏰ ضيق الوقت</span>
+            <span class="de">⏰ Zeitmangel</span>
+          </div>
+          <div class="risk-arrow">←</div>
+          <div class="risk-sol">
+            <span class="ar">حل / بديل — خطط مسبقاً</span>
+            <span class="de">Lösung / Alternative vorbereiten</span>
+          </div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-prob">
+            <span class="ar">📋 مسؤوليات والتزامات</span>
+            <span class="de">📋 Verpflichtungen & Verantwortlichkeiten</span>
+          </div>
+          <div class="risk-arrow">←</div>
+          <div class="risk-sol">
+            <span class="ar">حل / بديل — خطط مسبقاً</span>
+            <span class="de">Lösung / Alternative vorbereiten</span>
+          </div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-prob">
+            <span class="ar">🏥 عوامل صحية</span>
+            <span class="de">🏥 Gesundheitliche Faktoren</span>
+          </div>
+          <div class="risk-arrow">←</div>
+          <div class="risk-sol">
+            <span class="ar">حل / بديل — خطط مسبقاً</span>
+            <span class="de">Lösung / Alternative vorbereiten</span>
+          </div>
+        </div>
+        <div class="risk-row">
+          <div class="risk-prob">
+            <span class="ar">🧩 أهداف غير منطقية / توقعات مرتفعة</span>
+            <span class="de">🧩 Unrealistische Ziele / Erwartungen</span>
+          </div>
+          <div class="risk-arrow">←</div>
+          <div class="risk-sol">
+            <span class="ar">حل / بديل — خطط مسبقاً</span>
+            <span class="de">Lösung / Alternative vorbereiten</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       6. MOTIVATIONS & BARRIERS
+  ══════════════════════════════════════ -->
+  <section>
+    <h2 class="section-title">
+      💪
+      <span class="ar">الدوافع والعوائق</span>
+      <span class="de">Motivation & Hindernisse</span>
+    </h2>
+
+    <p style="font-size:13px; color:var(--green); margin-bottom:10px; font-weight:700">
+      <span class="ar">✅ الدوافع — لماذا تريد التغيير؟</span>
+      <span class="de">✅ Motivationen – Warum willst du dich verändern?</span>
+    </p>
+    <div class="bubble-cloud" style="margin-bottom:20px">
+      <div class="bubble motive"><span class="ar">🏥 مرض</span><span class="de">Krankheit</span></div>
+      <div class="bubble motive"><span class="ar">👗 الملابس ضاقت</span><span class="de">Kleidung passt nicht</span></div>
+      <div class="bubble motive"><span class="ar">🎉 مناسبة</span><span class="de">Besonderer Anlass</span></div>
+      <div class="bubble motive"><span class="ar">💭 حلم وخيال</span><span class="de">Traum & Vision</span></div>
+      <div class="bubble motive"><span class="ar">👥 التقبل الاجتماعي</span><span class="de">Soziale Akzeptanz</span></div>
+      <div class="bubble motive"><span class="ar">🤝 عزيمة رفقة</span><span class="de">Gemeinsam schaffen</span></div>
+      <div class="bubble motive"><span class="ar">⚡ عنفوان وطاقة</span><span class="de">Energie & Vitalität</span></div>
+      <div class="bubble motive"><span class="ar">🔥 اندفاع</span><span class="de">Antrieb</span></div>
+      <div class="bubble motive"><span class="ar">🕊️ هناء وراحة نفسية</span><span class="de">Wohlbefinden</span></div>
+      <div class="bubble motive"><span class="ar">💡 حوافز شخصية</span><span class="de">Persönliche Anreize</span></div>
+      <div class="bubble motive"><span class="ar">🪞 مقارنة مع الغير</span><span class="de">Vergleich mit anderen</span></div>
+      <div class="bubble motive"><span class="ar">❤️ تصالح مع الذات</span><span class="de">Selbstakzeptanz</span></div>
+    </div>
+
+    <p style="font-size:13px; color:var(--red); margin-bottom:10px; font-weight:700">
+      <span class="ar">❌ العوائق — ما الذي قد يعيقك؟</span>
+      <span class="de">❌ Hindernisse – Was könnte dich aufhalten?</span>
+    </p>
+    <div class="bubble-cloud" style="margin-bottom:24px">
+      <div class="bubble barrier"><span class="ar">😒 ملل</span><span class="de">Langeweile</span></div>
+      <div class="bubble barrier"><span class="ar">🍟 شهوة</span><span class="de">Gelüste</span></div>
+      <div class="bubble barrier"><span class="ar">🔄 عادة قديمة</span><span class="de">Alte Gewohnheit</span></div>
+      <div class="bubble barrier"><span class="ar">📅 التزامات</span><span class="de">Verpflichtungen</span></div>
+      <div class="bubble barrier"><span class="ar">📱 مشاغل ومشتتات</span><span class="de">Ablenkungen</span></div>
+      <div class="bubble barrier"><span class="ar">😔 نتائج بطيئة</span><span class="de">Langsame Ergebnisse</span></div>
+      <div class="bubble barrier"><span class="ar">😣 حقيقة مرة</span><span class="de">Bittere Wahrheit</span></div>
+      <div class="bubble barrier"><span class="ar">👫 ضغط اجتماعي</span><span class="de">Sozialer Druck</span></div>
+    </div>
+
+    <div class="quote-box">
+      <div class="ar">تعوّد أن لا تتعوّد على شيء — المرونة هي مفتاح الاستمرارية</div>
+      <div class="de">Gewöhne dich daran, dich an nichts zu gewöhnen – Flexibilität ist der Schlüssel zur Kontinuität</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       7. LEARNING OBJECTIVES
+  ══════════════════════════════════════ -->
+  <section>
+    <h2 class="section-title">
+      📚
+      <span class="ar">الأهداف التعليمية لهذا الفصل</span>
+      <span class="de">Lernziele dieses Kapitels</span>
+    </h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🗺️</div>
+        <h3><span class="ar">بناء Mindmap بحرية</span><span class="de">Mindmap frei erstellen</span></h3>
+        <p>
+          <span class="ar">أن يستطيع المتعلم بناء خطة Mind-Map بشكل حر لتصور هدفه وتفاصيله</span>
+          <span class="de">Eine eigene Mindmap zur Zielsetzung frei und strukturiert erstellen können</span>
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚖️</div>
+        <h3><span class="ar">حساب الوزن المثالي</span><span class="de">Idealgewicht berechnen</span></h3>
+        <p>
+          <span class="ar">أن يحسب وزنه المثالي بناءً على الطول وبنية الجسم (محيط الرسغ) وتحديد الفارق</span>
+          <span class="de">Idealgewicht anhand von Körpergröße & Handgelenkumfang berechnen und Differenz bestimmen</span>
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📅</div>
+        <h3><span class="ar">الوقت المنطقي للتغيير</span><span class="de">Realistischer Zeitplan</span></h3>
+        <p>
+          <span class="ar">أن يُقدّر الوقت المنطقي اللازم لتغيير الوزن بطريقة صحية ومستدامة بدون حمية قاسية</span>
+          <span class="de">Den realistischen Zeitrahmen für gesunde Gewichtsveränderung ohne Crashdiät einschätzen</span>
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔍</div>
+        <h3><span class="ar">عوامل التأثير على الوزن</span><span class="de">Einflussfaktoren auf das Gewicht</span></h3>
+        <p>
+          <span class="ar">أن يحدد أهم العوامل التي تؤثر على سرعة فقدان أو زيادة الوزن (تغذية، حركة، نوم، توتر)</span>
+          <span class="de">Die wichtigsten Faktoren identifizieren, die das Gewicht beeinflussen (Ernährung, Bewegung, Schlaf, Stress)</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER NAV -->
+  <div style="text-align:center; padding-top:20px;">
+    <a href="chapter2-insulin.html" style="display:inline-block; padding:14px 40px; background:var(--accent); color:var(--bg); font-family:'Cairo',sans-serif; font-weight:800; font-size:15px; border-radius:40px; text-decoration:none; transition:.2s;" onmouseover="this.style.background='var(--accent2)'" onmouseout="this.style.background='var(--accent)'">
+      <span class="ar">الفصل التالي: مقاومة الأنسولين ←</span>
+      <span class="de">Nächstes Kapitel: Insulinresistenz ←</span>
+    </a>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  // THEME
+  function setTheme(name, el) {
+    document.body.setAttribute('data-theme', name);
+    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+    localStorage.setItem('theme', name);
+  }
+  (function(){
+    const t = localStorage.getItem('theme');
+    if(t){
+      document.body.setAttribute('data-theme', t);
+      const s = document.querySelector('.s-'+t);
+      if(s){ document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('active')); s.classList.add('active'); }
+    }
+  })();
+
+  // LANGUAGE
+  let lang = 'ar';
+  function toggleLang(){
+    lang = lang === 'ar' ? 'de' : 'ar';
+    document.querySelectorAll('.ar').forEach(el => el.style.display = lang==='ar' ? '' : 'none');
+    document.querySelectorAll('.de').forEach(el => el.style.display = lang==='de' ? '' : 'none');
+    document.getElementById('langBtn').textContent = lang==='ar' ? 'DE' : 'AR';
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', lang==='ar' ? 'rtl' : 'ltr');
+  }
+
+  // CALCULATOR
+  function calcIdeal(){
+    const gender = document.getElementById('gender').value;
+    const h = parseFloat(document.getElementById('height').value);
+    const w = parseFloat(document.getElementById('wrist').value);
+    const cw = parseFloat(document.getElementById('weight').value);
+    if(!h || h < 140) { alert(lang==='ar'?'أدخل طولاً صحيحاً (140–220 سم)':'Bitte gültige Körpergröße eingeben (140–220 cm)'); return; }
+
+    let base = gender === 'male' ? h - 100 : h - 104;
+    let frame = 'medium', adj = 0;
+    if(gender === 'male'){
+      if(w && w < 17) { frame='small'; adj=-0.1; }
+      else if(w && w > 20) { frame='large'; adj=0.1; }
+    } else {
+      if(w && w < 16) { frame='small'; adj=-0.1; }
+      else if(w && w > 18) { frame='large'; adj=0.1; }
+    }
+    const ideal = Math.round(base * (1 + adj) * 10) / 10;
+    const diff  = cw ? Math.round((cw - ideal) * 10) / 10 : null;
+    const frameAR = frame==='small'?'ضيقة':frame==='large'?'واسعة':'متوسطة';
+    const frameDE = frame==='small'?'Klein':frame==='large'?'Groß':'Mittel';
+
+    document.getElementById('resNum').textContent = ideal + ' كغ';
+    let detail = '';
+
+    if(lang === 'ar'){
+      detail = `بنية الجسم: <strong style="color:var(--accent)">${frameAR}</strong>`;
+      if(adj!==0) detail += ` | التعديل: ${adj>0?'+':''}${adj*100}٪`;
+      detail += '<br>';
+      if(diff !== null){
+        const days = Math.round(Math.abs(diff) * 7700 / 500);
+        const weeks = Math.round(days/7);
+        if(diff > 0) detail += `<span style="color:var(--red)">لديك ${diff} كغ فوق الوزن المثالي</span><br><small style="color:var(--text-soft)">بعجز 500 كالوري/يوم ≈ ${weeks} أسبوع لتحقيق الهدف</small>`;
+        else if(diff < 0) detail += `<span style="color:var(--green)">أنت ${Math.abs(diff)} كغ أقل من الوزن المثالي</span>`;
+        else detail += `<span style="color:var(--green)">✅ وزنك مثالي تماماً!</span>`;
+      }
+    } else {
+      detail = `Körperrahmen: <strong style="color:var(--accent)">${frameDE}</strong>`;
+      if(adj!==0) detail += ` | Anpassung: ${adj>0?'+':''}${adj*100}%`;
+      detail += '<br>';
+      if(diff !== null){
+        const days = Math.round(Math.abs(diff) * 7700 / 500);
+        const weeks = Math.round(days/7);
+        if(diff > 0) detail += `<span style="color:var(--red)">Du bist ${diff} kg über dem Idealgewicht</span><br><small style="color:var(--text-soft)">Bei 500 kcal Defizit/Tag ≈ ${weeks} Wochen bis zum Ziel</small>`;
+        else if(diff < 0) detail += `<span style="color:var(--green)">Du bist ${Math.abs(diff)} kg unter dem Idealgewicht</span>`;
+        else detail += `<span style="color:var(--green)">✅ Idealgewicht perfekt erreicht!</span>`;
+      }
+    }
+    document.getElementById('resDetail').innerHTML = detail;
+    document.getElementById('calcResult').style.display = 'block';
+  }
+</script>
+</body>
+</html>
