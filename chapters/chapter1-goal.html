@@ -104,27 +104,43 @@
   .intro-card h4 { font-size:14px; font-weight:700; margin-bottom:5px; }
   .intro-card p { font-size:12px; color:var(--text-soft); line-height:1.6; }
 
-  /* INTERACTIVE MINDMAP */
-  .mindmap-tree { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px 20px; overflow-x:auto; }
-  .mm-wrapper { display:flex; flex-direction:column; align-items:center; }
-  .mm-center { background:var(--accent); color:var(--bg); font-size:18px; font-weight:900; padding:14px 36px; border-radius:50px; text-align:center; box-shadow:0 0 30px rgba(201,168,76,0.35); cursor:pointer; transition:.3s; animation:pulse-glow 2s ease-in-out infinite; }
-  .mm-center:hover { transform:scale(1.08); }
+  /* RADIAL MINDMAP */
+  .mm-radial { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px 20px; position:relative; }
+  .mm-radial-grid { display:grid; grid-template-columns:1fr auto 1fr; grid-template-rows:auto auto auto; gap:30px 24px; align-items:center; justify-items:center; position:relative; }
+  .mm-r-center { grid-column:2; grid-row:2; background:var(--accent); color:var(--bg); font-size:20px; font-weight:900; padding:18px 40px; border-radius:50px; text-align:center; box-shadow:0 0 30px rgba(201,168,76,0.35); animation:pulse-glow 2s ease-in-out infinite; position:relative; z-index:2; white-space:nowrap; }
   @keyframes pulse-glow { 0%,100%{box-shadow:0 0 20px rgba(201,168,76,0.2)} 50%{box-shadow:0 0 40px rgba(201,168,76,0.5)} }
-  .mm-vline { width:2px; height:24px; background:var(--accent-dim); margin:0 auto; }
-  .mm-level1 { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
-  .mm-branch { display:flex; flex-direction:column; align-items:center; }
-  .mm-branch::before { content:''; display:block; width:2px; height:18px; background:var(--accent-dim); }
-  .mm-l1 { padding:10px 18px; border-radius:10px; font-size:13px; font-weight:700; text-align:center; min-width:120px; cursor:pointer; transition:.3s; user-select:none; }
-  .mm-l1:hover { transform:scale(1.08); }
-  .mm-l1.gold { background:var(--surface2); color:var(--accent); border:1px solid var(--accent-dim); }
-  .mm-l1.red  { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
-  .mm-l1.green{ background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
-  .mm-children { display:flex; flex-direction:column; gap:4px; align-items:center; margin-top:6px; overflow:hidden; transition:max-height .5s ease, opacity .4s ease; max-height:500px; opacity:1; }
-  .mm-children.collapsed { max-height:0; opacity:0; margin-top:0; }
-  .mm-cline { width:2px; height:10px; background:var(--border); margin:0 auto; }
-  .mm-l2 { padding:5px 12px; border-radius:6px; font-size:11px; font-weight:600; background:var(--surface2); color:var(--text-soft); border:1px solid var(--border); text-align:center; min-width:100px; transition:.2s; cursor:default; }
-  .mm-l2:hover { border-color:var(--accent); color:var(--accent); }
-  .mm-expand-hint { font-size:10px; color:var(--text-soft); margin-top:4px; opacity:.7; }
+  .mm-r-branch { position:relative; z-index:2; }
+  .mm-r-branch.pos-tl { grid-column:1; grid-row:1; justify-self:end; }
+  .mm-r-branch.pos-tr { grid-column:3; grid-row:1; justify-self:start; }
+  .mm-r-branch.pos-bl { grid-column:1; grid-row:3; justify-self:end; }
+  .mm-r-branch.pos-br { grid-column:3; grid-row:3; justify-self:start; }
+  .mm-r-node { padding:12px 20px; border-radius:12px; font-size:13px; font-weight:700; text-align:center; cursor:pointer; transition:.3s; user-select:none; min-width:140px; }
+  .mm-r-node:hover { transform:scale(1.08); }
+  .mm-r-node .mm-r-sub { display:block; font-size:10px; font-weight:400; opacity:.7; margin-top:2px; }
+  .mm-r-node.gold { background:var(--surface2); color:var(--accent); border:1px solid var(--accent-dim); }
+  .mm-r-node.red  { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+  .mm-r-node.green{ background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+  .mm-r-children { display:flex; flex-direction:column; gap:4px; margin-top:8px; overflow:hidden; transition:max-height .5s ease, opacity .4s ease; max-height:500px; opacity:1; }
+  .mm-r-children.collapsed { max-height:0; opacity:0; margin-top:0; }
+  .mm-r-child { padding:5px 12px; border-radius:6px; font-size:11px; font-weight:600; background:var(--surface2); color:var(--text-soft); border:1px solid var(--border); text-align:center; transition:.2s; }
+  .mm-r-child:hover { border-color:var(--accent); color:var(--accent); }
+  .mm-r-hint { font-size:10px; color:var(--text-soft); text-align:center; margin-top:4px; opacity:.7; }
+  /* SVG connector lines */
+  .mm-connectors { position:absolute; inset:0; pointer-events:none; z-index:1; }
+  /* Affirmation standalone card */
+  .mm-affirmation { margin-top:20px; background:var(--surface2); border:1px solid var(--accent-dim); border-radius:var(--radius); padding:20px 24px; display:flex; align-items:flex-start; gap:16px; transition:.3s; }
+  .mm-affirmation:hover { border-color:var(--accent); transform:translateY(-2px); }
+  .mm-affirmation .aff-icon { font-size:32px; flex-shrink:0; }
+  .mm-affirmation .aff-body { flex:1; }
+  .mm-affirmation .aff-title { font-size:15px; font-weight:800; color:var(--accent); margin-bottom:6px; }
+  .mm-affirmation .aff-text { font-size:13px; color:var(--text-soft); line-height:1.8; }
+  .mm-affirmation .aff-example { margin-top:8px; padding:8px 14px; background:var(--surface); border:1px dashed var(--accent-dim); border-radius:8px; font-size:13px; color:var(--accent2); font-weight:600; }
+  @media(max-width:700px) {
+    .mm-radial-grid { grid-template-columns:1fr; grid-template-rows:auto; gap:16px; }
+    .mm-r-center { grid-column:1; grid-row:1; }
+    .mm-r-branch.pos-tl, .mm-r-branch.pos-tr, .mm-r-branch.pos-bl, .mm-r-branch.pos-br { grid-column:1; justify-self:center; }
+    .mm-connectors { display:none; }
+  }
 
   /* INFO BOX */
   .info-box { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; transition:border-color .3s; }
@@ -402,104 +418,112 @@
 
   <div class="divider"></div>
 
-  <!-- 1. MINDMAP -->
+  <!-- 1. MINDMAP — RADIAL -->
   <section id="sec-mindmap" data-nav-ar="خريطة ذهنية" data-nav-de="Mindmap">
     <h2 class="section-title reveal">
       🗺️
       <span class="ar">خريطة الهدف الذهنية</span>
-      <span class="de">Ziel-Mindmap — Hierarchie</span>
+      <span class="de">Ziel-Mindmap</span>
     </h2>
     <p class="reveal" style="font-size:12px; color:var(--text-soft); margin-bottom:16px;">
-      <span class="ar">💡 انقر على أي عنصر لتوسيعه أو طيّه</span>
-      <span class="de">💡 Klicke auf ein Element, um es zu erweitern oder zu falten</span>
+      <span class="ar">💡 انقر على أي فرع لتوسيعه أو طيّه — كل فرع يوضّح خطوة في رحلة تحقيق الهدف</span>
+      <span class="de">💡 Klicke auf einen Zweig zum Erweitern/Falten — jeder zeigt einen Schritt zur Zielerreichung</span>
     </p>
-    <div class="mindmap-tree reveal">
-      <div class="mm-wrapper">
-        <div class="mm-center">
+
+    <div class="mm-radial reveal" id="mmRadial">
+      <svg class="mm-connectors" id="mmLines"></svg>
+      <div class="mm-radial-grid" id="mmGrid">
+
+        <!-- Top-Left: Define Goal -->
+        <div class="mm-r-branch pos-tl" id="mmBranch1">
+          <div class="mm-r-node gold" onclick="toggleRadial(this)">
+            <span class="ar">🎯 حدّده بدقة</span>
+            <span class="de">🎯 Präzise definieren</span>
+            <span class="mm-r-sub ar">ماذا تريد بالضبط؟</span>
+            <span class="mm-r-sub de">Was genau willst du?</span>
+          </div>
+          <div class="mm-r-children">
+            <div class="mm-r-child"><span class="ar">📏 كم؟ — حدد الرقم بدقة</span><span class="de">📏 Wie viel? — Genaue Zahl</span></div>
+            <div class="mm-r-child"><span class="ar">🏷️ نوع — خسارة دهون؟ بناء عضل؟</span><span class="de">🏷️ Art — Fett verlieren? Muskeln?</span></div>
+            <div class="mm-r-child"><span class="ar">⏳ زمن — متى تريد الوصول؟</span><span class="de">⏳ Wann — Bis wann erreichen?</span></div>
+          </div>
+          <div class="mm-r-hint">▼</div>
+        </div>
+
+        <!-- Top-Right: Measure It -->
+        <div class="mm-r-branch pos-tr" id="mmBranch2">
+          <div class="mm-r-node gold" onclick="toggleRadial(this)">
+            <span class="ar">⚖️ اقِسه بالأرقام</span>
+            <span class="de">⚖️ Mit Zahlen messen</span>
+            <span class="mm-r-sub ar">كيف تعرف أنك وصلت؟</span>
+            <span class="mm-r-sub de">Woher weißt du, dass du es erreicht hast?</span>
+          </div>
+          <div class="mm-r-children">
+            <div class="mm-r-child"><span class="ar">بنية الجسم — محيط الرسغ</span><span class="de">Körperbau — Handgelenkumfang</span></div>
+            <div class="mm-r-child"><span class="ar">الصيغة: طول − 100 (رجال) / −104 (نساء)</span><span class="de">Formel: Größe − 100/104</span></div>
+            <div class="mm-r-child"><span class="ar">تعديل: ±10٪ حسب البنية</span><span class="de">Anpassung: ±10% nach Rahmen</span></div>
+          </div>
+          <div class="mm-r-hint">▼</div>
+        </div>
+
+        <!-- Center -->
+        <div class="mm-r-center" id="mmCenter">
           <span class="ar">⭐ هدفي</span>
           <span class="de">⭐ Mein Ziel</span>
         </div>
-        <div class="mm-vline"></div>
-        <div class="mm-level1">
 
-          <div class="mm-branch">
-            <div class="mm-l1 gold" onclick="toggleMM(this)">
-              <span class="ar">🧠 Mindmap</span>
-              <span class="de">🧠 Mindmap</span>
-            </div>
+        <!-- Bottom-Left: Obstacles -->
+        <div class="mm-r-branch pos-bl" id="mmBranch3">
+          <div class="mm-r-node red" onclick="toggleRadial(this)">
+            <span class="ar">⚠️ تجهّز للعقبات</span>
+            <span class="de">⚠️ Auf Hindernisse vorbereiten</span>
+            <span class="mm-r-sub ar">ما الذي قد يوقفك؟</span>
+            <span class="mm-r-sub de">Was könnte dich stoppen?</span>
           </div>
-
-          <div class="mm-branch">
-            <div class="mm-l1 gold" onclick="toggleMM(this)">
-              <span class="ar">🎯 عرف الهدف</span>
-              <span class="de">🎯 Ziel definieren</span>
-            </div>
-            <div class="mm-children">
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">📏 كم؟ (الكمية)</span><span class="de">📏 Wie viel?</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">🏷️ نوع (الهدف)</span><span class="de">🏷️ Art des Ziels</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">⏳ زمن (الوقت)</span><span class="de">⏳ Zeitrahmen</span></div>
-            </div>
-            <div class="mm-expand-hint">▼</div>
+          <div class="mm-r-children">
+            <div class="mm-r-child"><span class="ar">💰 تكاليف مادية → خطط بديلة</span><span class="de">💰 Kosten → Alternativen planen</span></div>
+            <div class="mm-r-child"><span class="ar">⏰ ضيق الوقت → Meal Prep</span><span class="de">⏰ Zeitmangel → Meal Prep</span></div>
+            <div class="mm-r-child"><span class="ar">📋 مسؤوليات → أشرك عائلتك</span><span class="de">📋 Pflichten → Familie einbeziehen</span></div>
+            <div class="mm-r-child"><span class="ar">🏥 عوامل صحية → استشر طبيبك</span><span class="de">🏥 Gesundheit → Arzt fragen</span></div>
           </div>
+          <div class="mm-r-hint">▼</div>
+        </div>
 
-          <div class="mm-branch">
-            <div class="mm-l1 gold" onclick="toggleMM(this)">
-              <span class="ar">⚖️ الوزن المثالي</span>
-              <span class="de">⚖️ Idealgewicht</span>
-            </div>
-            <div class="mm-children">
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">بنية الجسم (الرسغ)</span><span class="de">Körperbau (Handgelenk)</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">الصيغة: طول − 100/104</span><span class="de">Formel: Größe − 100/104</span></div>
-            </div>
-            <div class="mm-expand-hint">▼</div>
+        <!-- Bottom-Right: Motivation -->
+        <div class="mm-r-branch pos-br" id="mmBranch4">
+          <div class="mm-r-node green" onclick="toggleRadial(this)">
+            <span class="ar">💪 اعرف دوافعك</span>
+            <span class="de">💪 Deine Motivation kennen</span>
+            <span class="mm-r-sub ar">لماذا تريد التغيير؟</span>
+            <span class="mm-r-sub de">Warum willst du dich ändern?</span>
           </div>
-
-          <div class="mm-branch">
-            <div class="mm-l1 red" onclick="toggleMM(this)">
-              <span class="ar">⚠️ عرف المصاعب</span>
-              <span class="de">⚠️ Risikomanagement</span>
-            </div>
-            <div class="mm-children">
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">عامل مادي → حل</span><span class="de">Finanziell → Lösung</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">ضيق وقت → حل</span><span class="de">Zeitmangel → Lösung</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">مسؤوليات → حل</span><span class="de">Verpflichtungen → Lösung</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">عوامل صحية → حل</span><span class="de">Gesundheit → Lösung</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">منطق / واقعية → حل</span><span class="de">Logik / Realismus → Lösung</span></div>
-            </div>
-            <div class="mm-expand-hint">▼</div>
+          <div class="mm-r-children">
+            <div class="mm-r-child"><span class="ar">🏥 صحة — مرض دفعك للتغيير</span><span class="de">🏥 Gesundheit — Krankheit als Antrieb</span></div>
+            <div class="mm-r-child"><span class="ar">🎉 مناسبة — حدث قادم يحفزك</span><span class="de">🎉 Anlass — Ein kommendes Ereignis</span></div>
+            <div class="mm-r-child"><span class="ar">❤️ تصالح مع الذات</span><span class="de">❤️ Selbstakzeptanz</span></div>
+            <div class="mm-r-child"><span class="ar">⚡ طاقة وحيوية</span><span class="de">⚡ Energie & Vitalität</span></div>
           </div>
+          <div class="mm-r-hint">▼</div>
+        </div>
 
-          <div class="mm-branch">
-            <div class="mm-l1 green" onclick="toggleMM(this)">
-              <span class="ar">💪 الدوافع</span>
-              <span class="de">💪 Motivation</span>
-            </div>
-            <div class="mm-children">
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">مرض / مناسبة / حلم</span><span class="de">Krankheit / Anlass / Traum</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">تصالح مع الذات</span><span class="de">Selbstakzeptanz</span></div>
-            </div>
-            <div class="mm-expand-hint">▼</div>
-          </div>
+      </div>
+    </div>
 
-          <div class="mm-branch">
-            <div class="mm-l1 gold" onclick="toggleMM(this)">
-              <span class="ar">🤲 الدعاء بالفعل الماضي</span>
-              <span class="de">🤲 Gebet (Vergangenheitsform)</span>
-            </div>
-          </div>
-
+    <!-- Affirmation — standalone card beside the mind map -->
+    <div class="mm-affirmation reveal">
+      <div class="aff-icon">🤲</div>
+      <div class="aff-body">
+        <div class="aff-title">
+          <span class="ar">تأكيد الهدف — الدعاء بالفعل الماضي</span>
+          <span class="de">Zielbekräftigung — Affirmation in der Vergangenheitsform</span>
+        </div>
+        <div class="aff-text">
+          <span class="ar">صِغ هدفك كأنه تحقق فعلاً. هذا الأسلوب يُعزز الثقة والالتزام الداخلي بالهدف — عقلك يبدأ بالعمل نحو ما يعتبره حقيقة.</span>
+          <span class="de">Formuliere dein Ziel, als wäre es bereits erreicht. Diese Technik stärkt inneres Vertrauen und Zielbindung — dein Gehirn arbeitet auf das hin, was es als Realität betrachtet.</span>
+        </div>
+        <div class="aff-example">
+          <span class="ar">💬 "الحمد لله وصلت لوزني المثالي وأصبحت أعيش حياة صحية"</span>
+          <span class="de">💬 „Alhamdulillah, ich habe mein Idealgewicht erreicht und lebe gesund"</span>
         </div>
       </div>
     </div>
@@ -1076,15 +1100,54 @@
     }
   })();
 
-  // ====== MINDMAP TOGGLE ======
-  function toggleMM(el) {
-    const branch = el.closest('.mm-branch');
-    const children = branch.querySelector('.mm-children');
-    const hint = branch.querySelector('.mm-expand-hint');
+  // ====== RADIAL MINDMAP TOGGLE ======
+  function toggleRadial(el) {
+    const branch = el.closest('.mm-r-branch');
+    const children = branch.querySelector('.mm-r-children');
+    const hint = branch.querySelector('.mm-r-hint');
     if(!children) return;
     children.classList.toggle('collapsed');
     if(hint) hint.textContent = children.classList.contains('collapsed') ? '▶' : '▼';
+    setTimeout(drawMmLines, 350);
   }
+
+  // ====== SVG CONNECTOR LINES ======
+  function drawMmLines() {
+    const svg = document.getElementById('mmLines');
+    const grid = document.getElementById('mmRadial');
+    if(!svg || !grid) return;
+    const rect = grid.getBoundingClientRect();
+    svg.setAttribute('viewBox', '0 0 ' + rect.width + ' ' + rect.height);
+    svg.setAttribute('width', rect.width);
+    svg.setAttribute('height', rect.height);
+    svg.innerHTML = '';
+
+    const center = document.getElementById('mmCenter');
+    if(!center) return;
+    const cr = center.getBoundingClientRect();
+    const cx = cr.left + cr.width/2 - rect.left;
+    const cy = cr.top + cr.height/2 - rect.top;
+
+    ['mmBranch1','mmBranch2','mmBranch3','mmBranch4'].forEach(id => {
+      const branch = document.getElementById(id);
+      if(!branch) return;
+      const node = branch.querySelector('.mm-r-node');
+      const nr = node.getBoundingClientRect();
+      const nx = nr.left + nr.width/2 - rect.left;
+      const ny = nr.top + nr.height/2 - rect.top;
+
+      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+      line.setAttribute('x2', nx); line.setAttribute('y2', ny);
+      line.setAttribute('stroke', getComputedStyle(document.documentElement).getPropertyValue('--accent-dim').trim());
+      line.setAttribute('stroke-width', '2');
+      line.setAttribute('stroke-dasharray', '6 4');
+      line.setAttribute('opacity', '0.6');
+      svg.appendChild(line);
+    });
+  }
+  window.addEventListener('load', () => setTimeout(drawMmLines, 200));
+  window.addEventListener('resize', drawMmLines);
 
   // ====== CALORIE BAR ANIMATION ======
   const chartObs = new IntersectionObserver((entries) => {
