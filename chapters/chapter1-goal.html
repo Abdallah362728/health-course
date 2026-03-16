@@ -34,10 +34,25 @@
   }
 
   * { box-sizing:border-box; margin:0; padding:0; }
-  body { font-family:'Cairo','Tahoma','Arial',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background .3s,color .3s; }
-
-  /* Arabic letter-spacing fix — letters must connect */
+  body { font-family:'Cairo','Tahoma','Arial',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background .3s,color .3s; overflow-x:hidden; }
   .ar, [lang="ar"], [dir="rtl"] { letter-spacing: 0 !important; }
+
+  /* PASSWORD GATE */
+  .pw-overlay { position:fixed; inset:0; z-index:99999; background:var(--bg); display:flex; align-items:center; justify-content:center; transition:opacity .5s; }
+  .pw-overlay.hidden { opacity:0; pointer-events:none; }
+  .pw-box { text-align:center; max-width:360px; padding:40px; }
+  .pw-box .pw-icon { font-size:48px; margin-bottom:16px; }
+  .pw-box h2 { font-size:22px; font-weight:900; color:var(--accent); margin-bottom:8px; }
+  .pw-box p { font-size:13px; color:var(--text-soft); margin-bottom:24px; line-height:1.6; }
+  .pw-box input { width:100%; padding:14px 18px; border-radius:12px; border:2px solid var(--border); background:var(--surface); color:var(--text); font-family:'Cairo',sans-serif; font-size:18px; text-align:center; letter-spacing:8px; outline:none; transition:.3s; }
+  .pw-box input:focus { border-color:var(--accent); }
+  .pw-box input.pw-error { border-color:var(--red); animation:pw-shake .4s; }
+  @keyframes pw-shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+  .pw-box button { margin-top:16px; width:100%; padding:14px; background:var(--accent); color:var(--bg); font-family:'Cairo',sans-serif; font-size:15px; font-weight:800; border:none; border-radius:12px; cursor:pointer; transition:.3s; }
+  .pw-box button:hover { background:var(--accent2); }
+
+  /* SCROLL PROGRESS BAR */
+  .scroll-progress { position:fixed; top:0; left:0; width:0%; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent2)); z-index:9999; transition:width .1s linear; }
 
   /* THEME BAR */
   .theme-bar { position:fixed; top:16px; left:16px; z-index:999; display:flex; gap:8px; align-items:center; background:var(--surface); border:1px solid var(--border); padding:8px 12px; border-radius:40px; box-shadow:var(--shadow); }
@@ -53,69 +68,123 @@
   .lang-btn { position:fixed; top:16px; right:16px; z-index:999; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-size:13px; font-weight:700; padding:6px 18px; border-radius:40px; cursor:pointer; transition:.2s; box-shadow:var(--shadow); }
   .lang-btn:hover { background:var(--accent); color:var(--bg); }
 
+  /* SIDE NAV DOTS */
+  .side-nav { position:fixed; right:16px; top:50%; transform:translateY(-50%); z-index:998; display:flex; flex-direction:column; gap:12px; }
+  .side-dot { width:10px; height:10px; border-radius:50%; background:var(--border); cursor:pointer; transition:.3s; position:relative; }
+  .side-dot:hover, .side-dot.active { background:var(--accent); transform:scale(1.4); }
+  .side-dot .dot-label { position:absolute; right:20px; top:50%; transform:translateY(-50%); background:var(--surface); border:1px solid var(--border); padding:4px 12px; border-radius:8px; font-size:11px; font-weight:600; white-space:nowrap; opacity:0; pointer-events:none; transition:.2s; color:var(--text); }
+  body.lang-de .side-dot .dot-label { right:auto; left:20px; }
+  .side-dot:hover .dot-label { opacity:1; }
+
   /* HEADER */
-  header { text-align:center; padding:60px 20px 40px; background:linear-gradient(160deg,var(--surface) 0%,var(--bg) 100%); border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  header { text-align:center; padding:80px 20px 50px; background:linear-gradient(160deg,var(--surface) 0%,var(--bg) 100%); border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
   header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%,var(--accent-dim),transparent); opacity:.25; pointer-events:none; }
-  .chapter-tag { display:inline-block; font-size:12px; font-weight:700; color:var(--accent); border:1px solid var(--accent); padding:4px 16px; border-radius:40px; margin-bottom:16px; }
-  header h1 { font-size:clamp(28px,5vw,52px); font-weight:900; line-height:1.2; }
+  /* Floating particles */
+  .particles { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+  .particle { position:absolute; width:4px; height:4px; background:var(--accent); border-radius:50%; opacity:.3; animation:floatUp linear infinite; }
+  @keyframes floatUp { 0%{transform:translateY(100vh) scale(0);opacity:0} 10%{opacity:.4} 90%{opacity:.4} 100%{transform:translateY(-20vh) scale(1);opacity:0} }
+  .chapter-tag { display:inline-block; font-size:12px; font-weight:700; color:var(--accent); border:1px solid var(--accent); padding:4px 16px; border-radius:40px; margin-bottom:16px; animation:fadeDown .8s ease-out; }
+  header h1 { font-size:clamp(28px,5vw,52px); font-weight:900; line-height:1.2; animation:fadeDown 1s ease-out; }
   header h1 .accent { color:var(--accent); }
-  .subtitle { color:var(--text-soft); font-size:15px; margin-top:10px; }
+  .subtitle { color:var(--text-soft); font-size:15px; margin-top:10px; animation:fadeDown 1.2s ease-out; }
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
 
   /* LAYOUT */
   .container { max-width:1100px; margin:0 auto; padding:40px 20px 80px; }
   section { margin-bottom:60px; }
   h2.section-title { font-size:22px; font-weight:800; color:var(--accent); border-right:4px solid var(--accent); padding-right:14px; margin-bottom:24px; display:flex; align-items:center; gap:10px; }
 
+  /* SCROLL REVEAL */
+  .reveal { opacity:0; transform:translateY(30px); transition:opacity .7s ease-out, transform .7s ease-out; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .reveal-delay-1 { transition-delay:.1s; }
+  .reveal-delay-2 { transition-delay:.2s; }
+  .reveal-delay-3 { transition-delay:.3s; }
+
   /* CARDS */
   .cards { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); }
-  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px; transition:transform .2s,box-shadow .2s,border-color .2s; }
-  .card:hover { transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent-dim); }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px; transition:transform .3s,box-shadow .3s,border-color .3s; }
+  .card:hover { transform:translateY(-6px) scale(1.02); box-shadow:0 12px 40px rgba(0,0,0,0.4); border-color:var(--accent-dim); }
   .card-icon { font-size:28px; margin-bottom:10px; }
   .card h3 { font-size:15px; font-weight:700; margin-bottom:6px; color:var(--accent2); }
   .card p { font-size:13px; color:var(--text-soft); line-height:1.7; }
 
   /* COURSE OVERVIEW GRID */
   .intro-grid { display:grid; gap:12px; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); }
-  .intro-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px; border-right:3px solid var(--accent-dim); transition:.2s; }
-  .intro-card.active { border-right-color:var(--accent); background:var(--surface2); }
-  .intro-card:hover { border-right-color:var(--accent); background:var(--surface2); }
+  .intro-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px; border-right:3px solid var(--accent-dim); transition:.3s; cursor:pointer; }
+  .intro-card.active { border-right-color:var(--accent); background:var(--surface2); transform:scale(1.03); }
+  .intro-card:hover { border-right-color:var(--accent); background:var(--surface2); transform:scale(1.03); }
   .intro-card .ch-num { font-size:11px; font-weight:700; color:var(--accent); margin-bottom:4px; }
   .intro-card h4 { font-size:14px; font-weight:700; margin-bottom:5px; }
   .intro-card p { font-size:12px; color:var(--text-soft); line-height:1.6; }
 
-  /* MINDMAP TREE */
-  .mindmap-tree { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px 20px; overflow-x:auto; }
-  .mm-wrapper { display:flex; flex-direction:column; align-items:center; }
-  .mm-center { background:var(--accent); color:var(--bg); font-size:18px; font-weight:900; padding:14px 36px; border-radius:50px; text-align:center; box-shadow:0 0 30px rgba(201,168,76,0.35); }
-  .mm-vline { width:2px; height:24px; background:var(--accent-dim); margin:0 auto; }
-  .mm-level1 { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
-  .mm-branch { display:flex; flex-direction:column; align-items:center; }
-  .mm-branch::before { content:''; display:block; width:2px; height:18px; background:var(--accent-dim); }
-  .mm-l1 { padding:10px 18px; border-radius:10px; font-size:13px; font-weight:700; text-align:center; min-width:120px; cursor:default; }
-  .mm-l1.gold { background:var(--surface2); color:var(--accent); border:1px solid var(--accent-dim); }
-  .mm-l1.red  { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
-  .mm-l1.green{ background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
-  .mm-children { display:flex; flex-direction:column; gap:4px; align-items:center; margin-top:6px; }
-  .mm-cline { width:2px; height:10px; background:var(--border); margin:0 auto; }
-  .mm-l2 { padding:5px 12px; border-radius:6px; font-size:11px; font-weight:600; background:var(--surface2); color:var(--text-soft); border:1px solid var(--border); text-align:center; min-width:100px; }
+  /* RADIAL MINDMAP */
+  .mm-radial { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px 20px; position:relative; }
+  .mm-radial-grid { display:grid; grid-template-columns:1fr auto 1fr; grid-template-rows:auto auto auto; gap:30px 24px; align-items:center; justify-items:center; position:relative; }
+  .mm-r-center { grid-column:2; grid-row:2; background:var(--accent); color:var(--bg); font-size:20px; font-weight:900; padding:18px 40px; border-radius:50px; text-align:center; box-shadow:0 0 30px rgba(201,168,76,0.35); animation:pulse-glow 2s ease-in-out infinite; position:relative; z-index:2; white-space:nowrap; }
+  @keyframes pulse-glow { 0%,100%{box-shadow:0 0 20px rgba(201,168,76,0.2)} 50%{box-shadow:0 0 40px rgba(201,168,76,0.5)} }
+  .mm-r-branch { position:relative; z-index:2; }
+  .mm-r-branch.pos-tl { grid-column:1; grid-row:1; justify-self:end; }
+  .mm-r-branch.pos-tr { grid-column:3; grid-row:1; justify-self:start; }
+  .mm-r-branch.pos-bl { grid-column:1; grid-row:3; justify-self:end; }
+  .mm-r-branch.pos-br { grid-column:3; grid-row:3; justify-self:start; }
+  .mm-r-node { padding:12px 20px; border-radius:12px; font-size:13px; font-weight:700; text-align:center; cursor:pointer; transition:.3s; user-select:none; min-width:140px; }
+  .mm-r-node:hover { transform:scale(1.08); }
+  .mm-r-node .mm-r-sub { display:block; font-size:10px; font-weight:400; opacity:.7; margin-top:2px; }
+  .mm-r-node.gold { background:var(--surface2); color:var(--accent); border:1px solid var(--accent-dim); }
+  .mm-r-node.red  { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+  .mm-r-node.green{ background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+  .mm-r-children { display:flex; flex-direction:column; gap:4px; margin-top:8px; overflow:hidden; transition:max-height .5s ease, opacity .4s ease; max-height:500px; opacity:1; }
+  .mm-r-children.collapsed { max-height:0; opacity:0; margin-top:0; }
+  .mm-r-child { padding:5px 12px; border-radius:6px; font-size:11px; font-weight:600; background:var(--surface2); color:var(--text-soft); border:1px solid var(--border); text-align:center; transition:.2s; }
+  .mm-r-child:hover { border-color:var(--accent); color:var(--accent); }
+  .mm-r-hint { font-size:10px; color:var(--text-soft); text-align:center; margin-top:4px; opacity:.7; }
+  /* SVG connector lines */
+  .mm-connectors { position:absolute; inset:0; pointer-events:none; z-index:1; }
+  /* Affirmation standalone card */
+  .mm-affirmation { margin-top:20px; background:var(--surface2); border:1px solid var(--accent-dim); border-radius:var(--radius); padding:20px 24px; display:flex; align-items:flex-start; gap:16px; transition:.3s; }
+  .mm-affirmation:hover { border-color:var(--accent); transform:translateY(-2px); }
+  .mm-affirmation .aff-icon { font-size:32px; flex-shrink:0; }
+  .mm-affirmation .aff-body { flex:1; }
+  .mm-affirmation .aff-title { font-size:15px; font-weight:800; color:var(--accent); margin-bottom:6px; }
+  .mm-affirmation .aff-text { font-size:13px; color:var(--text-soft); line-height:1.8; }
+  .mm-affirmation .aff-example { margin-top:8px; padding:8px 14px; background:var(--surface); border:1px dashed var(--accent-dim); border-radius:8px; font-size:13px; color:var(--accent2); font-weight:600; }
+  @media(max-width:700px) {
+    .mm-radial-grid { grid-template-columns:1fr; grid-template-rows:auto; gap:16px; }
+    .mm-r-center { grid-column:1; grid-row:1; }
+    .mm-r-branch.pos-tl, .mm-r-branch.pos-tr, .mm-r-branch.pos-bl, .mm-r-branch.pos-br { grid-column:1; justify-self:center; }
+    .mm-connectors { display:none; }
+  }
 
   /* INFO BOX */
-  .info-box { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; }
+  .info-box { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; transition:border-color .3s; }
+  .info-box:hover { border-color:var(--accent-dim); }
   .info-box .lbl { font-size:11px; font-weight:800; color:var(--accent); margin-bottom:8px; }
   .info-box p { font-size:13px; line-height:1.9; color:var(--text-soft); }
   .info-box p strong { color:var(--text); }
 
   /* QUOTE BOX */
-  .quote-box { border-right:4px solid var(--accent); padding:16px 20px; background:var(--surface2); border-radius:0 10px 10px 0; margin:20px 0; }
+  .quote-box { border-right:4px solid var(--accent); padding:16px 20px; background:var(--surface2); border-radius:0 10px 10px 0; margin:20px 0; transition:transform .3s; }
+  .quote-box:hover { transform:scale(1.01); }
   .quote-main { font-size:16px; font-weight:700; color:var(--text); margin-bottom:10px; line-height:1.6; }
   .quote-list { padding-right:20px; margin-top:8px; font-size:13px; color:var(--text-soft); line-height:1.8; }
   .quote-list li { margin-bottom:4px; }
 
-  /* CALORIE PILLS */
-  .info-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
-  .info-pill { flex:1; min-width:90px; background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:14px 10px; text-align:center; }
-  .info-pill .val { font-size:26px; font-weight:900; color:var(--accent); }
-  .info-pill .key { font-size:11px; color:var(--text-soft); margin-top:4px; line-height:1.4; }
+  /* ANIMATED CALORIE BARS */
+  .calorie-chart { display:grid; gap:14px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .cal-bar-row { display:flex; align-items:center; gap:12px; }
+  .cal-bar-label { min-width:100px; font-size:13px; font-weight:700; color:var(--text); text-align:right; }
+  .cal-bar-track { flex:1; height:32px; background:var(--surface2); border-radius:8px; overflow:hidden; position:relative; }
+  .cal-bar-fill { height:100%; border-radius:8px; transition:width 1.5s cubic-bezier(.4,0,.2,1); width:0%; display:flex; align-items:center; justify-content:flex-end; padding:0 10px; }
+  .cal-bar-fill.animated { /* width set by JS */ }
+  .cal-bar-val { font-size:12px; font-weight:900; color:var(--bg); white-space:nowrap; }
+  .cal-bar-fill.fat { background:linear-gradient(90deg,#e74c3c,#c0392b); }
+  .cal-bar-fill.alcohol { background:linear-gradient(90deg,#e67e22,#d35400); }
+  .cal-bar-fill.protein { background:linear-gradient(90deg,var(--accent),var(--accent2)); }
+  .cal-bar-fill.carb { background:linear-gradient(90deg,#3498db,#2980b9); }
+  .cal-bar-fill.fiber { background:linear-gradient(90deg,var(--green),#1a7a4a); }
+  .cal-bar-fill.vitmin { background:var(--surface2); border:1px dashed var(--border); }
+  .cal-bar-fill.vitmin .cal-bar-val { color:var(--text-soft); }
 
   /* EXAMPLE BOX */
   .example-box { background:var(--surface2); border-right:4px solid var(--accent); border-radius:0 12px 12px 0; padding:16px 20px; margin:12px 0; font-size:13px; line-height:2; }
@@ -127,58 +196,141 @@
   @media(max-width:600px){ .calc-grid { grid-template-columns:1fr; } }
   label { font-size:13px; color:var(--text-soft); display:block; margin-bottom:6px; font-weight:600; }
   select, input[type=number] { width:100%; padding:12px 16px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-family:'Cairo',sans-serif; font-size:14px; outline:none; transition:.2s; }
-  select:focus, input[type=number]:focus { border-color:var(--accent); }
-  .calc-btn { margin-top:20px; width:100%; padding:14px; background:var(--accent); color:var(--bg); font-family:'Cairo',sans-serif; font-size:16px; font-weight:800; border:none; border-radius:10px; cursor:pointer; transition:.2s; }
-  .calc-btn:hover { background:var(--accent2); transform:translateY(-2px); }
-  .calc-result { margin-top:20px; padding:20px; border-radius:12px; background:var(--surface2); border:1px solid var(--accent-dim); text-align:center; display:none; }
-  .result-num { font-size:48px; font-weight:900; color:var(--accent); line-height:1; }
-  .result-label { font-size:14px; color:var(--text-soft); margin-top:6px; }
-  .result-detail { font-size:13px; color:var(--text); margin-top:14px; line-height:1.9; }
+  select:focus, input[type=number]:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(201,168,76,0.15); }
+  .calc-btn { margin-top:20px; width:100%; padding:14px; background:var(--accent); color:var(--bg); font-family:'Cairo',sans-serif; font-size:16px; font-weight:800; border:none; border-radius:10px; cursor:pointer; transition:.3s; }
+  .calc-btn:hover { background:var(--accent2); transform:translateY(-2px); box-shadow:0 6px 20px rgba(201,168,76,0.3); }
+
+  /* CALCULATOR RESULT — GAUGE */
+  .calc-result-area { margin-top:24px; display:none; }
+  .calc-result-area.show { display:block; animation:fadeUp .6s ease-out; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+  .gauge-container { display:flex; justify-content:center; margin-bottom:16px; }
+  .gauge-svg { width:200px; height:120px; }
+  .gauge-bg { fill:none; stroke:var(--border); stroke-width:12; }
+  .gauge-fill { fill:none; stroke:var(--accent); stroke-width:12; stroke-linecap:round; transition:stroke-dashoffset 1.5s ease-out; }
+  .gauge-text { font-family:'Cairo',sans-serif; font-size:28px; font-weight:900; fill:var(--accent); text-anchor:middle; }
+  .gauge-unit { font-family:'Cairo',sans-serif; font-size:12px; fill:var(--text-soft); text-anchor:middle; }
+  .result-cards { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+  @media(max-width:600px){ .result-cards { grid-template-columns:1fr; } }
+  .result-card { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center; }
+  .result-card .rc-val { font-size:20px; font-weight:900; color:var(--accent); }
+  .result-card .rc-lbl { font-size:11px; color:var(--text-soft); margin-top:4px; }
+
+  /* WEIGHT TIMELINE */
+  .timeline-chart { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; margin-top:16px; display:none; }
+  .timeline-chart.show { display:block; animation:fadeUp .6s ease-out .2s both; }
+  .timeline-canvas { width:100%; height:200px; }
 
   /* TABLE */
   table { width:100%; border-collapse:collapse; font-size:13px; }
   thead tr { background:var(--accent); color:var(--bg); }
   thead th { padding:12px 16px; text-align:right; font-weight:700; }
-  tbody tr { border-bottom:1px solid var(--border); transition:.15s; }
-  tbody tr:hover { background:var(--surface2); }
+  tbody tr { border-bottom:1px solid var(--border); transition:.2s; }
+  tbody tr:hover { background:var(--surface2); transform:scale(1.01); }
   tbody td { padding:11px 16px; color:var(--text); }
   tbody td:first-child { color:var(--accent2); font-weight:600; }
 
-  /* RISK TREE */
-  .risk-tree { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
-  .risk-root { text-align:center; margin-bottom:16px; }
-  .risk-root-node { display:inline-block; padding:10px 28px; border-radius:10px; font-size:14px; font-weight:800; background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
-  .risk-rows { display:flex; flex-direction:column; gap:10px; }
-  .risk-row { display:grid; grid-template-columns:1fr 44px 1fr; align-items:center; gap:10px; }
-  .risk-prob { background:var(--red-soft); border:1px solid var(--red); border-radius:10px; padding:12px 16px; font-size:13px; font-weight:700; color:var(--red); text-align:center; }
-  .risk-arrow { text-align:center; font-size:20px; color:var(--accent); }
-  .risk-sol { background:var(--green-soft); border:1px dashed var(--green); border-radius:10px; padding:12px 16px; font-size:13px; font-weight:600; color:var(--green); text-align:center; }
+  /* FLIP CARDS — RISK MANAGEMENT */
+  .flip-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+  .flip-card-outer { perspective:800px; height:180px; }
+  .flip-card-inner { position:relative; width:100%; height:100%; transition:transform .6s; transform-style:preserve-3d; cursor:pointer; }
+  .flip-card-outer:hover .flip-card-inner, .flip-card-outer.flipped .flip-card-inner { transform:rotateY(180deg); }
+  body[dir="rtl"] .flip-card-outer:hover .flip-card-inner, body[dir="rtl"] .flip-card-outer.flipped .flip-card-inner { transform:rotateY(-180deg); }
+  .flip-front, .flip-back { position:absolute; inset:0; border-radius:var(--radius); padding:20px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; backface-visibility:hidden; -webkit-backface-visibility:hidden; }
+  .flip-front { background:var(--red-soft); border:1px solid var(--red); }
+  .flip-front .flip-icon { font-size:28px; margin-bottom:8px; }
+  .flip-front .flip-title { font-size:14px; font-weight:700; color:var(--red); }
+  .flip-front .flip-hint { font-size:10px; color:var(--text-soft); margin-top:8px; }
+  .flip-back { background:var(--green-soft); border:1px solid var(--green); transform:rotateY(180deg); }
+  body[dir="rtl"] .flip-back { transform:rotateY(-180deg); }
+  .flip-back .flip-icon { font-size:28px; margin-bottom:8px; }
+  .flip-back .flip-title { font-size:14px; font-weight:700; color:var(--green); }
+  .flip-back .flip-detail { font-size:12px; color:var(--text-soft); margin-top:6px; line-height:1.6; }
 
-  /* BUBBLES */
+  /* INTERACTIVE BODY DIAGRAM */
+  .body-diagram { display:flex; justify-content:center; align-items:center; gap:40px; flex-wrap:wrap; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px; margin-bottom:20px; }
+  .body-svg-wrap { position:relative; width:200px; height:380px; flex-shrink:0; }
+  .body-svg-wrap svg { width:100%; height:100%; }
+  .hotspot { position:absolute; width:36px; height:36px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:16px; transition:.3s; z-index:2; }
+  .hotspot::before { content:''; position:absolute; inset:-4px; border-radius:50%; border:2px solid currentColor; opacity:.4; animation:hotspot-ping 2s ease-out infinite; }
+  @keyframes hotspot-ping { 0%{transform:scale(1);opacity:.4} 100%{transform:scale(1.8);opacity:0} }
+  .hotspot:hover { transform:scale(1.3); z-index:3; }
+  .hotspot.hs-brain { top:8%; left:50%; transform:translateX(-50%); background:var(--accent); color:var(--bg); }
+  .hotspot.hs-heart { top:30%; left:55%; background:var(--red); color:#fff; }
+  .hotspot.hs-stomach { top:42%; left:45%; background:var(--accent2); color:var(--bg); }
+  .hotspot.hs-muscle { top:58%; left:30%; background:var(--green); color:#fff; }
+  .body-info-panel { flex:1; min-width:260px; }
+  .body-info-item { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:10px; transition:.3s; cursor:pointer; }
+  .body-info-item:hover, .body-info-item.active { border-color:var(--accent); transform:translateX(-4px); }
+  body.lang-de .body-info-item:hover, body.lang-de .body-info-item.active { transform:translateX(4px); }
+  .body-info-item .bi-header { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+  .body-info-item .bi-icon { font-size:22px; }
+  .body-info-item .bi-title { font-size:14px; font-weight:700; color:var(--accent2); }
+  .body-info-item .bi-desc { font-size:12px; color:var(--text-soft); line-height:1.7; max-height:0; overflow:hidden; transition:max-height .4s ease, opacity .3s; opacity:0; }
+  .body-info-item.active .bi-desc { max-height:200px; opacity:1; }
+
+  /* BUBBLES — ANIMATED */
   .bubble-cloud { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; padding:20px; background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); }
-  .bubble { padding:8px 18px; border-radius:40px; font-size:13px; font-weight:600; cursor:default; transition:transform .2s; }
-  .bubble:hover { transform:scale(1.08); }
+  .bubble { padding:8px 18px; border-radius:40px; font-size:13px; font-weight:600; cursor:default; transition:transform .3s, box-shadow .3s; }
+  .bubble:hover { transform:scale(1.15); box-shadow:0 4px 20px rgba(0,0,0,0.3); }
   .bubble.motive  { background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
   .bubble.barrier { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
 
   /* EXT LINK */
-  .ext-link { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; background:var(--surface2); border:1px solid var(--accent-dim); color:var(--accent); font-size:13px; font-weight:700; text-decoration:none; transition:.2s; margin-top:12px; }
-  .ext-link:hover { background:var(--accent); color:var(--bg); }
+  .ext-link { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; background:var(--surface2); border:1px solid var(--accent-dim); color:var(--accent); font-size:13px; font-weight:700; text-decoration:none; transition:.3s; margin-top:12px; }
+  .ext-link:hover { background:var(--accent); color:var(--bg); transform:translateY(-2px); }
 
   /* DIVIDER */
   .divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent-dim),transparent); margin:40px 0; }
 
   /* DE hidden */
   .de { display:none; }
+  body.lang-de .ar { display:none; }
+  body.lang-de .de { display:block; }
+  body.lang-de { direction:ltr; text-align:left; }
+  body.lang-de h2.section-title { border-right:none; padding-right:0; border-left:4px solid var(--accent); padding-left:14px; }
+  body.lang-de .quote-box { border-right:none; border-left:4px solid var(--accent); border-radius:10px 0 0 10px; }
+  body.lang-de .example-box { border-right:none; border-left:4px solid var(--accent); border-radius:12px 0 0 12px; }
+  body.lang-de thead th { text-align:left; }
+  body.lang-de .intro-card { border-right:none; border-left:3px solid var(--accent-dim); }
+  body.lang-de .intro-card.active, body.lang-de .intro-card:hover { border-left-color:var(--accent); }
+  body.lang-de .info-box[style*="border-right"] { border-right:none !important; border-left:3px solid var(--accent) !important; }
+
+  /* CONFETTI */
+  .confetti-container { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:10000; overflow:hidden; }
+  .confetti-piece { position:absolute; width:10px; height:10px; top:-10px; animation:confetti-fall 3s ease-in forwards; }
+  @keyframes confetti-fall { 0%{transform:translateY(0) rotate(0deg);opacity:1} 100%{transform:translateY(100vh) rotate(720deg);opacity:0} }
+
+  /* FOOTER NAV */
+  .footer-nav { text-align:center; padding-top:20px; }
+  .footer-nav a { display:inline-block; padding:14px 40px; background:var(--accent); color:var(--bg); font-family:'Cairo',sans-serif; font-weight:800; font-size:15px; border-radius:40px; text-decoration:none; transition:.3s; }
+  .footer-nav a:hover { background:var(--accent2); transform:translateY(-3px); box-shadow:0 8px 30px rgba(201,168,76,0.3); }
 
   @media(max-width:700px){
-    .risk-row { grid-template-columns:1fr; }
-    .risk-arrow { transform:rotate(90deg); text-align:center; }
+    .flip-grid { grid-template-columns:1fr; }
     .mm-level1 { flex-direction:column; align-items:center; }
+    .body-diagram { flex-direction:column; align-items:center; }
+    .side-nav { display:none; }
+    .result-cards { grid-template-columns:1fr; }
   }
 </style>
 </head>
 <body data-theme="dark">
+
+<!-- Password gate -->
+<div class="pw-overlay" id="pwOverlay">
+  <div class="pw-box">
+    <div class="pw-icon">🔒</div>
+    <h2>محتوى محمي / Geschützter Inhalt</h2>
+    <p>أدخل رمز الدخول للمتابعة<br>Zugangscode eingeben, um fortzufahren</p>
+    <input type="password" id="pwInput" placeholder="••••••" maxlength="10" autofocus
+           onkeydown="if(event.key==='Enter')checkPw()">
+    <button onclick="checkPw()">دخول / Eintreten</button>
+  </div>
+</div>
+
+<!-- Scroll progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <!-- Theme switcher -->
 <div class="theme-bar">
@@ -192,8 +344,12 @@
 <!-- Lang toggle -->
 <button class="lang-btn" onclick="toggleLang()" id="langBtn">DE</button>
 
+<!-- Side navigation dots -->
+<nav class="side-nav" id="sideNav"></nav>
+
 <!-- HEADER -->
 <header>
+  <div class="particles" id="particles"></div>
   <div class="chapter-tag">
     <span class="ar">الفصل الأول</span>
     <span class="de">Kapitel 1</span>
@@ -211,24 +367,22 @@
 
 <div class="container">
 
-  <!-- ══════════════════════════════════════
-       0. COURSE OVERVIEW
-  ══════════════════════════════════════ -->
-  <section>
-    <h2 class="section-title">
+  <!-- 0. COURSE OVERVIEW -->
+  <section id="sec-overview" data-nav-ar="نظرة عامة" data-nav-de="Überblick">
+    <h2 class="section-title reveal">
       📖
       <span class="ar">مقدمة الكورس — ماذا ستتعلم؟</span>
       <span class="de">Kursüberblick — Was wirst du lernen?</span>
     </h2>
 
-    <div class="info-box" style="margin-bottom:24px">
+    <div class="info-box reveal" style="margin-bottom:24px">
       <div class="lbl ar">نظرة عامة</div>
       <div class="lbl de">Überblick</div>
       <p class="ar">اكتشف أهمية الوقاية وكيف يمكن أن يساعدك الكورس في تقليل خطر الإصابة بمقاومة الأنسولين. ستتعلم حساب وزنك المثالي والزمن المنطقي الذي تحتاجه لتغيير وزنك، وكيف يمكن للسيطرة على التغذية أن تُحدث فرقاً حقيقياً في حياتك.</p>
       <p class="de">Entdecke, wie dieser Kurs dir hilft, das Risiko einer Insulinresistenz zu reduzieren. Du lernst dein Idealgewicht zu berechnen, realistische Zeitpläne zu setzen und durch gezielte Ernährung echten Unterschied zu machen.</p>
     </div>
 
-    <div class="intro-grid">
+    <div class="intro-grid reveal">
       <div class="intro-card active">
         <div class="ch-num ar">الفصل الأول ← أنت هنا</div>
         <div class="ch-num de">Kapitel 1 ← Du bist hier</div>
@@ -242,7 +396,7 @@
         <div class="ch-num de">Kapitel 2</div>
         <h4 class="ar">🔬 مقاومة الأنسولين</h4>
         <h4 class="de">🔬 Insulinresistenz</h4>
-        <p class="ar">العلاقة بين السمنة ومقاومة الأنسولين — من يأتي أولاً؟</p>
+        <p class="ar">العلاقة بين السمنة ومقاومة الأنسولين</p>
         <p class="de">Zusammenhang zwischen Übergewicht & Insulinresistenz</p>
       </div>
       <div class="intro-card">
@@ -258,188 +412,185 @@
         <div class="ch-num de">Kapitel 4</div>
         <h4 class="ar">💊 المغذيات الصغرى</h4>
         <h4 class="de">💊 Mikronährstoffe</h4>
-        <p class="ar">الفيتامينات والمعادن الأساسية للوقاية من مقاومة الأنسولين</p>
-        <p class="de">Vitamine & Mineralien zur Prävention von Insulinresistenz</p>
+        <p class="ar">الفيتامينات والمعادن الأساسية</p>
+        <p class="de">Vitamine & Mineralien zur Prävention</p>
       </div>
       <div class="intro-card">
         <div class="ch-num ar">الفصل الخامس</div>
         <div class="ch-num de">Kapitel 5</div>
-        <h4 class="ar">💧 البروتين والسوائل</h4>
-        <h4 class="de">💧 Protein & Flüssigkeiten</h4>
-        <p class="ar">البروتينات الصحية، التوافر البيولوجي، عادات الشرب</p>
-        <p class="de">Gesunde Proteine, biologische Verfügbarkeit, Trinkgewohnheiten</p>
+        <h4 class="ar">💧 السوائل والبروتينات</h4>
+        <h4 class="de">💧 Flüssigkeiten & Proteine</h4>
+        <p class="ar">التوافر البيولوجي، عادات الشرب</p>
+        <p class="de">Biologische Verfügbarkeit, Trinkgewohnheiten</p>
       </div>
       <div class="intro-card">
         <div class="ch-num ar">الفصل السادس</div>
         <div class="ch-num de">Kapitel 6</div>
         <h4 class="ar">🫒 الدهون</h4>
         <h4 class="de">🫒 Lipide</h4>
-        <p class="ar">أنواع الدهون، الزيوت، أوميغا-3 وأوميغا-6، زيوت مكررة وطبيعية</p>
-        <p class="de">Fettarten, Öle, Omega-3 & Omega-6, raffinierte vs. naturtrübe Öle</p>
+        <p class="ar">أنواع الدهون والزيوت الصحية</p>
+        <p class="de">Fettarten & gesunde Öle</p>
       </div>
       <div class="intro-card">
         <div class="ch-num ar">الفصل السابع</div>
         <div class="ch-num de">Kapitel 7</div>
         <h4 class="ar">📉 التمثيل الغذائي ويويو</h4>
         <h4 class="de">📉 Stoffwechsel & Jojo-Effekt</h4>
-        <p class="ar">معدل الأيض الأساسي، دوامة اليويو، قصة أحمد</p>
-        <p class="de">Grundumsatz, Jojo-Spirale, Beispiel Ahmed</p>
-      </div>
-      <div class="intro-card">
-        <div class="ch-num ar">الفصل الثامن</div>
-        <div class="ch-num de">Kapitel 8</div>
-        <h4 class="ar">📜 الوصايا العشر</h4>
-        <h4 class="de">📜 Zehn Ernährungsgebote</h4>
-        <p class="ar">عشرة مبادئ للتغذية الصحية والمستدامة</p>
-        <p class="de">Zehn Prinzipien für gesunde & nachhaltige Ernährung</p>
+        <p class="ar">معدل الأيض الأساسي، دوامة اليويو</p>
+        <p class="de">Grundumsatz, Jojo-Spirale</p>
       </div>
     </div>
   </section>
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════
-       1. MINDMAP — HIERARCHICAL
-  ══════════════════════════════════════ -->
-  <section>
-    <h2 class="section-title">
+  <!-- 1. MINDMAP — RADIAL -->
+  <section id="sec-mindmap" data-nav-ar="خريطة ذهنية" data-nav-de="Mindmap">
+    <h2 class="section-title reveal">
       🗺️
       <span class="ar">خريطة الهدف الذهنية</span>
-      <span class="de">Ziel-Mindmap — Hierarchie</span>
+      <span class="de">Ziel-Mindmap</span>
     </h2>
-    <div class="mindmap-tree">
-      <div class="mm-wrapper">
-        <div class="mm-center">
+    <p class="reveal" style="font-size:12px; color:var(--text-soft); margin-bottom:16px;">
+      <span class="ar">💡 انقر على أي فرع لتوسيعه أو طيّه — كل فرع يوضّح خطوة في رحلة تحقيق الهدف</span>
+      <span class="de">💡 Klicke auf einen Zweig zum Erweitern/Falten — jeder zeigt einen Schritt zur Zielerreichung</span>
+    </p>
+
+    <div class="mm-radial reveal" id="mmRadial">
+      <svg class="mm-connectors" id="mmLines"></svg>
+      <div class="mm-radial-grid" id="mmGrid">
+
+        <!-- Top-Left: Define Goal -->
+        <div class="mm-r-branch pos-tl" id="mmBranch1">
+          <div class="mm-r-node gold" onclick="toggleRadial(this)">
+            <span class="ar">🎯 حدّده بدقة</span>
+            <span class="de">🎯 Präzise definieren</span>
+            <span class="mm-r-sub ar">ماذا تريد بالضبط؟</span>
+            <span class="mm-r-sub de">Was genau willst du?</span>
+          </div>
+          <div class="mm-r-children">
+            <div class="mm-r-child"><span class="ar">📏 كم؟ — حدد الرقم بدقة</span><span class="de">📏 Wie viel? — Genaue Zahl</span></div>
+            <div class="mm-r-child"><span class="ar">🏷️ نوع — خسارة دهون؟ بناء عضل؟</span><span class="de">🏷️ Art — Fett verlieren? Muskeln?</span></div>
+            <div class="mm-r-child"><span class="ar">⏳ زمن — متى تريد الوصول؟</span><span class="de">⏳ Wann — Bis wann erreichen?</span></div>
+          </div>
+          <div class="mm-r-hint">▼</div>
+        </div>
+
+        <!-- Top-Right: Measure It -->
+        <div class="mm-r-branch pos-tr" id="mmBranch2">
+          <div class="mm-r-node gold" onclick="toggleRadial(this)">
+            <span class="ar">⚖️ اقِسه بالأرقام</span>
+            <span class="de">⚖️ Mit Zahlen messen</span>
+            <span class="mm-r-sub ar">كيف تعرف أنك وصلت؟</span>
+            <span class="mm-r-sub de">Woher weißt du, dass du es erreicht hast?</span>
+          </div>
+          <div class="mm-r-children">
+            <div class="mm-r-child"><span class="ar">بنية الجسم — محيط الرسغ</span><span class="de">Körperbau — Handgelenkumfang</span></div>
+            <div class="mm-r-child"><span class="ar">الصيغة: طول − 100 (رجال) / −104 (نساء)</span><span class="de">Formel: Größe − 100/104</span></div>
+            <div class="mm-r-child"><span class="ar">تعديل: ±10٪ حسب البنية</span><span class="de">Anpassung: ±10% nach Rahmen</span></div>
+          </div>
+          <div class="mm-r-hint">▼</div>
+        </div>
+
+        <!-- Center -->
+        <div class="mm-r-center" id="mmCenter">
           <span class="ar">⭐ هدفي</span>
           <span class="de">⭐ Mein Ziel</span>
         </div>
-        <div class="mm-vline"></div>
-        <div class="mm-level1">
 
-          <!-- Branch: Mindmap -->
-          <div class="mm-branch">
-            <div class="mm-l1 gold">
-              <span class="ar">🧠 Mindmap</span>
-              <span class="de">🧠 Mindmap</span>
-            </div>
+        <!-- Bottom-Left: Obstacles -->
+        <div class="mm-r-branch pos-bl" id="mmBranch3">
+          <div class="mm-r-node red" onclick="toggleRadial(this)">
+            <span class="ar">⚠️ تجهّز للعقبات</span>
+            <span class="de">⚠️ Auf Hindernisse vorbereiten</span>
+            <span class="mm-r-sub ar">ما الذي قد يوقفك؟</span>
+            <span class="mm-r-sub de">Was könnte dich stoppen?</span>
           </div>
-
-          <!-- Branch: Define Goal -->
-          <div class="mm-branch">
-            <div class="mm-l1 gold">
-              <span class="ar">🎯 عرف الهدف<br><small style="font-weight:400;opacity:.8">اذكر التفاصيل</small></span>
-              <span class="de">🎯 Ziel definieren<br><small style="font-weight:400;opacity:.8">Details nennen</small></span>
-            </div>
-            <div class="mm-children">
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">📏 كم؟ (الكمية)</span><span class="de">📏 Wie viel?</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">🏷️ نوع (الهدف)</span><span class="de">🏷️ Art des Ziels</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">⏳ زمن (الوقت)</span><span class="de">⏳ Zeitrahmen</span></div>
-            </div>
+          <div class="mm-r-children">
+            <div class="mm-r-child"><span class="ar">💰 تكاليف مادية → خطط بديلة</span><span class="de">💰 Kosten → Alternativen planen</span></div>
+            <div class="mm-r-child"><span class="ar">⏰ ضيق الوقت → Meal Prep</span><span class="de">⏰ Zeitmangel → Meal Prep</span></div>
+            <div class="mm-r-child"><span class="ar">📋 مسؤوليات → أشرك عائلتك</span><span class="de">📋 Pflichten → Familie einbeziehen</span></div>
+            <div class="mm-r-child"><span class="ar">🏥 عوامل صحية → استشر طبيبك</span><span class="de">🏥 Gesundheit → Arzt fragen</span></div>
           </div>
+          <div class="mm-r-hint">▼</div>
+        </div>
 
-          <!-- Branch: Ideal Weight -->
-          <div class="mm-branch">
-            <div class="mm-l1 gold">
-              <span class="ar">⚖️ الوزن المثالي</span>
-              <span class="de">⚖️ Idealgewicht</span>
-            </div>
-            <div class="mm-children">
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">بنية الجسم (الرسغ)</span><span class="de">Körperbau (Handgelenk)</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">الصيغة: طول − 100/104</span><span class="de">Formel: Größe − 100/104</span></div>
-            </div>
+        <!-- Bottom-Right: Motivation -->
+        <div class="mm-r-branch pos-br" id="mmBranch4">
+          <div class="mm-r-node green" onclick="toggleRadial(this)">
+            <span class="ar">💪 اعرف دوافعك</span>
+            <span class="de">💪 Deine Motivation kennen</span>
+            <span class="mm-r-sub ar">لماذا تريد التغيير؟</span>
+            <span class="mm-r-sub de">Warum willst du dich ändern?</span>
           </div>
-
-          <!-- Branch: Risk Management -->
-          <div class="mm-branch">
-            <div class="mm-l1 red">
-              <span class="ar">⚠️ عرف المصاعب<br><small style="font-weight:400;opacity:.8">Risikomanagement</small></span>
-              <span class="de">⚠️ Risikomanagement<br><small style="font-weight:400;opacity:.8">Hindernisse kennen</small></span>
-            </div>
-            <div class="mm-children">
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">عامل مادي → حل</span><span class="de">Finanziell → Lösung</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">ضيق وقت → حل</span><span class="de">Zeitmangel → Lösung</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">مسؤوليات → حل</span><span class="de">Verpflichtungen → Lösung</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">عوامل صحية → حل</span><span class="de">Gesundheit → Lösung</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">منطق / واقعية → حل</span><span class="de">Logik / Realismus → Lösung</span></div>
-            </div>
+          <div class="mm-r-children">
+            <div class="mm-r-child"><span class="ar">🏥 صحة — مرض دفعك للتغيير</span><span class="de">🏥 Gesundheit — Krankheit als Antrieb</span></div>
+            <div class="mm-r-child"><span class="ar">🎉 مناسبة — حدث قادم يحفزك</span><span class="de">🎉 Anlass — Ein kommendes Ereignis</span></div>
+            <div class="mm-r-child"><span class="ar">❤️ تصالح مع الذات</span><span class="de">❤️ Selbstakzeptanz</span></div>
+            <div class="mm-r-child"><span class="ar">⚡ طاقة وحيوية</span><span class="de">⚡ Energie & Vitalität</span></div>
           </div>
+          <div class="mm-r-hint">▼</div>
+        </div>
 
-          <!-- Branch: Motivations -->
-          <div class="mm-branch">
-            <div class="mm-l1 green">
-              <span class="ar">💪 الدوافع</span>
-              <span class="de">💪 Motivation</span>
-            </div>
-            <div class="mm-children">
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">مرض / مناسبة / حلم</span><span class="de">Krankheit / Anlass / Traum</span></div>
-              <div class="mm-cline"></div>
-              <div class="mm-l2"><span class="ar">تصالح مع الذات</span><span class="de">Selbstakzeptanz</span></div>
-            </div>
-          </div>
+      </div>
+    </div>
 
-          <!-- Branch: Prayer -->
-          <div class="mm-branch">
-            <div class="mm-l1 gold">
-              <span class="ar">🤲 الدعاء بالفعل الماضي</span>
-              <span class="de">🤲 Gebet im Vergangenheitsform</span>
-            </div>
-          </div>
-
+    <!-- Affirmation — standalone card beside the mind map -->
+    <div class="mm-affirmation reveal">
+      <div class="aff-icon">🤲</div>
+      <div class="aff-body">
+        <div class="aff-title">
+          <span class="ar">تأكيد الهدف — الدعاء بالفعل الماضي</span>
+          <span class="de">Zielbekräftigung — Affirmation in der Vergangenheitsform</span>
+        </div>
+        <div class="aff-text">
+          <span class="ar">صِغ هدفك كأنه تحقق فعلاً. هذا الأسلوب يُعزز الثقة والالتزام الداخلي بالهدف — عقلك يبدأ بالعمل نحو ما يعتبره حقيقة.</span>
+          <span class="de">Formuliere dein Ziel, als wäre es bereits erreicht. Diese Technik stärkt inneres Vertrauen und Zielbindung — dein Gehirn arbeitet auf das hin, was es als Realität betrachtet.</span>
+        </div>
+        <div class="aff-example">
+          <span class="ar">💬 "الحمد لله وصلت لوزني المثالي وأصبحت أعيش حياة صحية"</span>
+          <span class="de">💬 „Alhamdulillah, ich habe mein Idealgewicht erreicht und lebe gesund"</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       2. DEFINE YOUR GOAL
-  ══════════════════════════════════════ -->
-  <section>
-    <h2 class="section-title">
+  <!-- 2. DEFINE YOUR GOAL -->
+  <section id="sec-goal" data-nav-ar="حدد هدفك" data-nav-de="Ziel definieren">
+    <h2 class="section-title reveal">
       🎯
       <span class="ar">عرف هدفك — اذكر التفاصيل</span>
       <span class="de">Dein Ziel definieren – Details nennen</span>
     </h2>
 
     <div class="cards">
-      <div class="card">
+      <div class="card reveal">
         <div class="card-icon">📏</div>
         <h3><span class="ar">كم؟ — الكمية</span><span class="de">Wie viel? — Menge</span></h3>
         <p>
-          <span class="ar">حدد الرقم بدقة. مثال: <strong>هدف 10 كغ</strong>.<br>كل 1 كجم من الدهون = 7000–7700 كالوري — كم يجب عليك أن تحرق باليوم حتى تصل لهدفك في الوقت المحدد؟</span>
-          <span class="de">Genaue Zahl definieren. z.B. <strong>Ziel: 10 kg</strong>.<br>1 kg Fett = 7000–7700 kcal — Wie viel täglich verbrennen, um das Ziel rechtzeitig zu erreichen?</span>
+          <span class="ar">حدد الرقم بدقة. مثال: <strong>هدف 10 كغ</strong>.<br>كل 1 كجم من الدهون = 7000–7700 كالوري</span>
+          <span class="de">Genaue Zahl definieren. z.B. <strong>Ziel: 10 kg</strong>.<br>1 kg Fett = 7000–7700 kcal</span>
         </p>
       </div>
-      <div class="card">
+      <div class="card reveal reveal-delay-1">
         <div class="card-icon">🏷️</div>
         <h3><span class="ar">نوع — طبيعة الهدف</span><span class="de">Art — Zieltyp</span></h3>
         <p>
-          <span class="ar">هل هدفك خسارة دهون؟ بناء عضلة؟ تحسين صحة عامة؟ الوقاية من مقاومة الأنسولين؟ وضّح النوع بدقة لأن كل هدف له استراتيجية مختلفة.</span>
-          <span class="de">Fett verlieren? Muskeln aufbauen? Gesundheit verbessern? Insulinresistenz vorbeugen? Jedes Ziel hat eine eigene Strategie.</span>
+          <span class="ar">هل هدفك خسارة دهون؟ بناء عضلة؟ تحسين صحة عامة؟ الوقاية من مقاومة الأنسولين؟</span>
+          <span class="de">Fett verlieren? Muskeln aufbauen? Gesundheit verbessern? Insulinresistenz vorbeugen?</span>
         </p>
       </div>
-      <div class="card">
+      <div class="card reveal reveal-delay-2">
         <div class="card-icon">⏳</div>
         <h3><span class="ar">زمن — الإطار الزمني</span><span class="de">Zeit — Zeitrahmen</span></h3>
         <p>
-          <span class="ar">حدد وقتاً منطقياً وصحياً. لا تضغط على نفسك — الخسارة الصحية 0.5 إلى 1 كغ أسبوعياً. ربط الهدف بتاريخ محدد يرفع الالتزام.</span>
-          <span class="de">Realistischen Zeitplan festlegen. Gesunder Gewichtsverlust: 0,5–1 kg/Woche. Ein konkretes Datum erhöht die Verbindlichkeit.</span>
+          <span class="ar">حدد وقتاً منطقياً — الخسارة الصحية 0.5 إلى 1 كغ أسبوعياً. ربط الهدف بتاريخ يرفع الالتزام.</span>
+          <span class="de">Gesunder Gewichtsverlust: 0,5–1 kg/Woche. Ein konkretes Datum erhöht die Verbindlichkeit.</span>
         </p>
       </div>
     </div>
 
-    <!-- Thinking/Words quote from Miro -->
-    <div class="quote-box" style="margin-top:24px">
+    <div class="quote-box reveal" style="margin-top:24px">
       <div class="quote-main">
         <span class="ar">"الكلمات تصبح أفكاراً، والأفكار تصبح أفعالاً"</span>
         <span class="de">"Gedanken werden zu Worten und Worte werden zu Taten"</span>
@@ -459,59 +610,57 @@
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════
-       3. CALORIE BASICS
-  ══════════════════════════════════════ -->
-  <section>
-    <h2 class="section-title">
+  <!-- 3. CALORIE BASICS -->
+  <section id="sec-calories" data-nav-ar="الكالوري" data-nav-de="Kalorien">
+    <h2 class="section-title reveal">
       🔥
       <span class="ar">أساسيات الكالوري</span>
       <span class="de">Kaloriengrundlagen</span>
     </h2>
 
-    <div class="info-box">
+    <div class="info-box reveal">
       <div class="lbl ar">ما هي السعرة الحرارية؟</div>
       <div class="lbl de">Was ist eine Kalorie?</div>
       <p class="ar">السعرة الحرارية هي كمية الطاقة اللازمة لرفع درجة حرارة غرام واحد من الماء بمقدار درجة مئوية واحدة — عادةً من 14.5°م إلى 15.5°م.</p>
       <p class="de">Eine Kalorie ist die Energiemenge, die benötigt wird, um 1 g Wasser um 1°C zu erwärmen — üblicherweise von 14,5 auf 15,5°C.</p>
     </div>
 
-    <div class="info-box">
+    <div class="info-box reveal">
       <div class="lbl ar">كيف يتعامل الجسم مع الطعام؟</div>
       <div class="lbl de">Wie verarbeitet der Körper Nahrung?</div>
       <p class="ar">الجهاز الهضمي <strong>لا يحرق الطعام</strong>، بل يقوم بتفكيكه لمكوناته الأولية بواسطة إنزيمات هاضمة، ثم يمتصها ويوزعها على الخلايا — لتقوم باستقلابها، أو إعادة استخدامها كمواد بناء، أو تخزينها كمصادر طاقة.</p>
       <p class="de">Das Verdauungssystem <strong>verbrennt keine Nahrung</strong> — es zerlegt sie mithilfe von Verdauungsenzymen in ihre Grundbausteine, absorbiert sie und verteilt sie an die Zellen zur Verstoffwechslung, zum Aufbau oder zur Energiespeicherung.</p>
     </div>
 
-    <!-- Macro calorie pills -->
-    <div class="info-row">
-      <div class="info-pill">
-        <div class="val">9</div>
-        <div class="key"><span class="ar">كالوري/غ<br>دهون</span><span class="de">kcal/g<br>Fett</span></div>
+    <!-- ANIMATED CALORIE BAR CHART -->
+    <div class="calorie-chart reveal" id="calorieChart">
+      <div class="cal-bar-row">
+        <div class="cal-bar-label"><span class="ar">🧈 دهون</span><span class="de">🧈 Fett</span></div>
+        <div class="cal-bar-track"><div class="cal-bar-fill fat" data-width="100%"><span class="cal-bar-val">9 kcal/g</span></div></div>
       </div>
-      <div class="info-pill">
-        <div class="val">4</div>
-        <div class="key"><span class="ar">كالوري/غ<br>بروتين</span><span class="de">kcal/g<br>Protein</span></div>
+      <div class="cal-bar-row">
+        <div class="cal-bar-label"><span class="ar">🍷 كحول</span><span class="de">🍷 Alkohol</span></div>
+        <div class="cal-bar-track"><div class="cal-bar-fill alcohol" data-width="78%"><span class="cal-bar-val">7 kcal/g</span></div></div>
       </div>
-      <div class="info-pill">
-        <div class="val">4</div>
-        <div class="key"><span class="ar">كالوري/غ<br>كربوهيدرات</span><span class="de">kcal/g<br>Kohlenhydrate</span></div>
+      <div class="cal-bar-row">
+        <div class="cal-bar-label"><span class="ar">🥩 بروتين</span><span class="de">🥩 Protein</span></div>
+        <div class="cal-bar-track"><div class="cal-bar-fill protein" data-width="44%"><span class="cal-bar-val">4 kcal/g</span></div></div>
       </div>
-      <div class="info-pill">
-        <div class="val">7</div>
-        <div class="key"><span class="ar">كالوري/غ<br>كحول</span><span class="de">kcal/g<br>Alkohol</span></div>
+      <div class="cal-bar-row">
+        <div class="cal-bar-label"><span class="ar">🍞 كربوهيدرات</span><span class="de">🍞 Kohlenhydrate</span></div>
+        <div class="cal-bar-track"><div class="cal-bar-fill carb" data-width="44%"><span class="cal-bar-val">4 kcal/g</span></div></div>
       </div>
-      <div class="info-pill">
-        <div class="val">2</div>
-        <div class="key"><span class="ar">كالوري/غ<br>ألياف</span><span class="de">kcal/g<br>Ballaststoffe</span></div>
+      <div class="cal-bar-row">
+        <div class="cal-bar-label"><span class="ar">🥬 ألياف</span><span class="de">🥬 Ballaststoffe</span></div>
+        <div class="cal-bar-track"><div class="cal-bar-fill fiber" data-width="22%"><span class="cal-bar-val">2 kcal/g</span></div></div>
       </div>
-      <div class="info-pill">
-        <div class="val">0</div>
-        <div class="key"><span class="ar">فيتامينات<br>ومعادن</span><span class="de">Vitamine &<br>Mineralien</span></div>
+      <div class="cal-bar-row">
+        <div class="cal-bar-label"><span class="ar">💊 فيتامينات</span><span class="de">💊 Vitamine</span></div>
+        <div class="cal-bar-track"><div class="cal-bar-fill vitmin" data-width="8%"><span class="cal-bar-val">0 kcal</span></div></div>
       </div>
     </div>
 
-    <div class="info-box" style="border-right:3px solid var(--accent)">
+    <div class="info-box reveal" style="border-right:3px solid var(--accent); margin-top:16px">
       <p class="ar">💡 كل <strong>1 كجم من الدهون</strong> يعادل <strong style="color:var(--accent)">7000–7700 كالوري</strong><br>
       🤔 كم يجب عليك أن تحرق باليوم حتى تصل لهدفك حسب الوقت الذي حددته؟<br>
       <small style="color:var(--text-soft)">مثال: لخسارة 1 كغ/أسبوع → عجز يومي ≈ 1000 كالوري | لخسارة 0.5 كغ/أسبوع → عجز يومي ≈ 500 كالوري</small></p>
@@ -520,7 +669,7 @@
       <small style="color:var(--text-soft)">Beispiel: 1 kg/Woche → ~1000 kcal Defizit/Tag | 0,5 kg/Woche → ~500 kcal Defizit/Tag</small></p>
     </div>
 
-    <a href="https://www.tk.de/service/app/2004134/kalorienrechner/kalorienrechner.app" target="_blank" class="ext-link">
+    <a href="https://www.tk.de/service/app/2004134/kalorienrechner/kalorienrechner.app" target="_blank" class="ext-link reveal">
       🔗 <span class="ar">احسب احتياجاتك اليومية من الكالوري (TK Kalorienrechner)</span>
       <span class="de">Täglichen Kalorienbedarf berechnen (TK Kalorienrechner)</span>
     </a>
@@ -528,18 +677,15 @@
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════
-       4. IDEAL WEIGHT CALCULATOR
-  ══════════════════════════════════════ -->
-  <section>
-    <h2 class="section-title">
+  <!-- 4. IDEAL WEIGHT CALCULATOR -->
+  <section id="sec-calculator" data-nav-ar="الوزن المثالي" data-nav-de="Idealgewicht">
+    <h2 class="section-title reveal">
       ⚖️
       <span class="ar">حساب الوزن المثالي</span>
       <span class="de">Idealgewicht berechnen</span>
     </h2>
 
-    <!-- Step 1: Body frame -->
-    <div class="info-box">
+    <div class="info-box reveal">
       <div class="lbl ar">الخطوة الأولى — تحديد بنية الجسم (محيط الرسغ)</div>
       <div class="lbl de">Schritt 1 — Körperrahmen bestimmen (Handgelenkumfang)</div>
       <p class="ar">
@@ -554,8 +700,7 @@
       </p>
     </div>
 
-    <!-- Formula -->
-    <div class="info-box">
+    <div class="info-box reveal">
       <div class="lbl ar">الصيغة الحسابية</div>
       <div class="lbl de">Berechnungsformel</div>
       <p class="ar">
@@ -570,20 +715,19 @@
       </p>
     </div>
 
-    <!-- Worked examples from Miro -->
-    <div class="example-box">
+    <div class="example-box reveal">
       <div class="ar">
-        <strong>مثال (رجل):</strong> طول 195 سم → 195 − 100 = <strong>95 كغ</strong> (بنية متوسطة، لا تعديل)<br>
+        <strong>مثال (رجل):</strong> طول 195 سم → 195 − 100 = <strong>95 كغ</strong> (بنية متوسطة)<br>
         <strong>مثال (امرأة):</strong> طول 160 سم → 160 − 104 = 56 كغ، بنية ضيقة → 56 − 10٪ = <strong>50.4 كغ</strong>
       </div>
       <div class="de">
-        <strong>Beispiel (Mann):</strong> 195 cm → 195 − 100 = <strong>95 kg</strong> (mittlerer Körperbau, keine Anpassung)<br>
-        <strong>Beispiel (Frau):</strong> 170 cm, Handgelenk 15 cm → 170 − 104 = 66 kg, klein → 66 − 10% = <strong>59,4 kg ≈ 59 kg</strong>
+        <strong>Beispiel (Mann):</strong> 195 cm → 195 − 100 = <strong>95 kg</strong> (mittlerer Körperbau)<br>
+        <strong>Beispiel (Frau):</strong> 170 cm, 15 cm Handgelenk → 170 − 104 = 66 kg, klein → 66 − 10% = <strong>59,4 kg</strong>
       </div>
     </div>
 
     <!-- Interactive calculator -->
-    <div class="calc-box" style="margin-top:20px">
+    <div class="calc-box reveal" style="margin-top:20px">
       <div class="calc-grid">
         <div>
           <label><span class="ar">الجنس</span><span class="de">Geschlecht</span></label>
@@ -609,18 +753,45 @@
         <span class="ar">احسب الوزن المثالي ⚖️</span>
         <span class="de">Idealgewicht berechnen ⚖️</span>
       </button>
-      <div class="calc-result" id="calcResult">
-        <div class="result-num" id="resNum">--</div>
-        <div class="result-label">
-          <span class="ar">الوزن المثالي (كغ)</span>
-          <span class="de">Idealgewicht (kg)</span>
+
+      <!-- GAUGE RESULT -->
+      <div class="calc-result-area" id="calcResultArea">
+        <div class="gauge-container">
+          <svg class="gauge-svg" viewBox="0 0 200 120">
+            <path class="gauge-bg" d="M 20 100 A 80 80 0 0 1 180 100" />
+            <path class="gauge-fill" id="gaugeFill" d="M 20 100 A 80 80 0 0 1 180 100" stroke-dasharray="251" stroke-dashoffset="251" />
+            <text class="gauge-text" x="100" y="90" id="gaugeVal">--</text>
+            <text class="gauge-unit" x="100" y="108">kg</text>
+          </svg>
         </div>
-        <div class="result-detail" id="resDetail"></div>
+        <div class="result-cards">
+          <div class="result-card">
+            <div class="rc-val" id="rcFrame">--</div>
+            <div class="rc-lbl"><span class="ar">بنية الجسم</span><span class="de">Körperrahmen</span></div>
+          </div>
+          <div class="result-card">
+            <div class="rc-val" id="rcDiff">--</div>
+            <div class="rc-lbl"><span class="ar">الفرق</span><span class="de">Differenz</span></div>
+          </div>
+          <div class="result-card">
+            <div class="rc-val" id="rcWeeks">--</div>
+            <div class="rc-lbl"><span class="ar">أسابيع للهدف</span><span class="de">Wochen zum Ziel</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEIGHT TIMELINE CHART -->
+      <div class="timeline-chart" id="timelineChart">
+        <h3 style="font-size:14px; color:var(--accent); margin-bottom:12px;">
+          <span class="ar">📈 مسار الوزن المتوقع</span>
+          <span class="de">📈 Erwarteter Gewichtsverlauf</span>
+        </h3>
+        <canvas id="timelineCanvas" class="timeline-canvas"></canvas>
       </div>
     </div>
 
     <!-- Body frame reference table -->
-    <div style="margin-top:20px; overflow-x:auto; border-radius:var(--radius); overflow:hidden;">
+    <div class="reveal" style="margin-top:20px; overflow-x:auto; border-radius:var(--radius); overflow:hidden;">
       <table>
         <thead>
           <tr>
@@ -656,101 +827,131 @@
 
   <div class="divider"></div>
 
-  <!-- ══════════════════════════════════════
-       5. RISK MANAGEMENT
-  ══════════════════════════════════════ -->
-  <section>
-    <h2 class="section-title">
-      ⚠️
-      <span class="ar">إدارة المصاعب — Risikomanagement</span>
-      <span class="de">Risikomanagement — Hindernisse & Lösungen</span>
+  <!-- 5. INTERACTIVE BODY — WEIGHT FACTORS -->
+  <section id="sec-factors" data-nav-ar="عوامل الوزن" data-nav-de="Gewichtsfaktoren">
+    <h2 class="section-title reveal">
+      🧬
+      <span class="ar">العوامل المؤثرة على الوزن</span>
+      <span class="de">Einflussfaktoren auf das Gewicht</span>
     </h2>
-    <p style="font-size:13px; color:var(--text-soft); margin-bottom:20px; line-height:1.8">
-      <span class="ar">قبل أن تبدأ رحلتك، عرّف مصاعبك المحتملة وجهّز لها حلولاً مسبقاً — لكل عقبة بديل</span>
-      <span class="de">Vor dem Start: Erkenne deine Hindernisse und bereite Lösungen vor – für jedes Problem gibt es eine Alternative</span>
+    <p class="reveal" style="font-size:12px; color:var(--text-soft); margin-bottom:16px;">
+      <span class="ar">💡 مرر مؤشر الفأرة على أجزاء الجسم أو انقر على العناصر لاكتشاف المزيد</span>
+      <span class="de">💡 Fahre über die Körperteile oder klicke auf die Elemente für mehr Details</span>
     </p>
 
-    <div class="risk-tree">
-      <div class="risk-root">
-        <div class="risk-root-node ar">⚠️ عرف المصاعب — Risikomanagement</div>
-        <div class="risk-root-node de">⚠️ Risikomanagement — Hindernisse kennen</div>
+    <div class="body-diagram reveal">
+      <div class="body-svg-wrap">
+        <svg viewBox="0 0 200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Human silhouette -->
+          <ellipse cx="100" cy="38" rx="28" ry="32" fill="var(--surface2)" stroke="var(--accent-dim)" stroke-width="1.5"/>
+          <path d="M72 68 C50 75, 30 110, 35 160 L42 160 L50 120 L65 95 L72 68Z" fill="var(--surface2)" stroke="var(--accent-dim)" stroke-width="1"/>
+          <path d="M128 68 C150 75, 170 110, 165 160 L158 160 L150 120 L135 95 L128 68Z" fill="var(--surface2)" stroke="var(--accent-dim)" stroke-width="1"/>
+          <path d="M72 68 L75 170 L65 280 L55 380 L75 380 L85 280 L100 200 L115 280 L125 380 L145 380 L135 280 L125 170 L128 68 C120 60, 80 60, 72 68Z" fill="var(--surface2)" stroke="var(--accent-dim)" stroke-width="1.5"/>
+          <!-- Subtle organ hints -->
+          <ellipse cx="100" cy="130" rx="16" ry="12" fill="none" stroke="var(--accent-dim)" stroke-width="0.8" stroke-dasharray="3" opacity=".5"/>
+          <ellipse cx="95" cy="95" rx="8" ry="7" fill="none" stroke="var(--red)" stroke-width="0.8" opacity=".4"/>
+        </svg>
+        <!-- Hotspots -->
+        <div class="hotspot hs-brain" onmouseenter="activateBodyInfo('brain')" onclick="activateBodyInfo('brain')" title="🧠">🧠</div>
+        <div class="hotspot hs-heart" onmouseenter="activateBodyInfo('heart')" onclick="activateBodyInfo('heart')" title="❤️">❤️</div>
+        <div class="hotspot hs-stomach" onmouseenter="activateBodyInfo('stomach')" onclick="activateBodyInfo('stomach')" title="🍽️">🍽️</div>
+        <div class="hotspot hs-muscle" onmouseenter="activateBodyInfo('muscle')" onclick="activateBodyInfo('muscle')" title="💪">💪</div>
       </div>
-      <div class="mm-vline" style="margin-bottom:12px"></div>
-      <div class="risk-rows">
-        <div class="risk-row">
-          <div class="risk-prob">
-            <span class="ar">💰 عامل مادي / تكاليف الغذاء الصحي</span>
-            <span class="de">💰 Finanzieller Faktor</span>
-          </div>
-          <div class="risk-arrow">←</div>
-          <div class="risk-sol">
-            <span class="ar">حل / بديل — خطط مسبقاً</span>
-            <span class="de">Lösung / Alternative vorbereiten</span>
+
+      <div class="body-info-panel">
+        <div class="body-info-item active" data-part="brain" onclick="activateBodyInfo('brain')">
+          <div class="bi-header"><span class="bi-icon">🧠</span><span class="bi-title"><span class="ar">النوم والتوتر</span><span class="de">Schlaf & Stress</span></span></div>
+          <div class="bi-desc">
+            <span class="ar">قلة النوم ترفع هرمون الكورتيزول وتزيد الشهية. التوتر المزمن يُبطئ الأيض ويُعزز تخزين الدهون في منطقة البطن. النوم الجيد (7-9 ساعات) أساس لأي خطة وزن صحية.</span>
+            <span class="de">Schlafmangel erhöht Cortisol und steigert den Appetit. Chronischer Stress verlangsamt den Stoffwechsel und fördert Bauchfett. Guter Schlaf (7-9 Std.) ist die Basis jedes Gewichtsplans.</span>
           </div>
         </div>
-        <div class="risk-row">
-          <div class="risk-prob">
-            <span class="ar">⏰ ضيق الوقت</span>
-            <span class="de">⏰ Zeitmangel</span>
-          </div>
-          <div class="risk-arrow">←</div>
-          <div class="risk-sol">
-            <span class="ar">حل / بديل — خطط مسبقاً</span>
-            <span class="de">Lösung / Alternative vorbereiten</span>
+        <div class="body-info-item" data-part="heart" onclick="activateBodyInfo('heart')">
+          <div class="bi-header"><span class="bi-icon">❤️</span><span class="bi-title"><span class="ar">الصحة العامة</span><span class="de">Allgemeine Gesundheit</span></span></div>
+          <div class="bi-desc">
+            <span class="ar">صحة القلب والدورة الدموية تتأثر مباشرة بالوزن. الوزن الزائد يرفع ضغط الدم والكولسترول وخطر مقاومة الأنسولين. حتى خسارة 5-10٪ من الوزن تُحسّن صحة القلب بشكل ملحوظ.</span>
+            <span class="de">Herz-Kreislauf-Gesundheit wird direkt vom Gewicht beeinflusst. Übergewicht erhöht Blutdruck, Cholesterin und Insulinresistenz-Risiko. Schon 5-10% Gewichtsverlust verbessern die Herzgesundheit deutlich.</span>
           </div>
         </div>
-        <div class="risk-row">
-          <div class="risk-prob">
-            <span class="ar">📋 مسؤوليات والتزامات</span>
-            <span class="de">📋 Verpflichtungen & Verantwortlichkeiten</span>
-          </div>
-          <div class="risk-arrow">←</div>
-          <div class="risk-sol">
-            <span class="ar">حل / بديل — خطط مسبقاً</span>
-            <span class="de">Lösung / Alternative vorbereiten</span>
+        <div class="body-info-item" data-part="stomach" onclick="activateBodyInfo('stomach')">
+          <div class="bi-header"><span class="bi-icon">🍽️</span><span class="bi-title"><span class="ar">التغذية</span><span class="de">Ernährung</span></span></div>
+          <div class="bi-desc">
+            <span class="ar">التغذية هي العامل الأكثر تأثيراً على الوزن. ليس فقط "كم تأكل" بل "ماذا تأكل ومتى". جودة الغذاء تؤثر على الهرمونات والشبع ومعدل الأيض. الألياف والبروتين يزيدان الشبع.</span>
+            <span class="de">Ernährung ist der wichtigste Gewichtsfaktor. Nicht nur "wie viel" sondern "was und wann". Nahrungsqualität beeinflusst Hormone, Sättigung und Stoffwechsel. Ballaststoffe und Protein steigern die Sättigung.</span>
           </div>
         </div>
-        <div class="risk-row">
-          <div class="risk-prob">
-            <span class="ar">🏥 عوامل صحية</span>
-            <span class="de">🏥 Gesundheitliche Faktoren</span>
-          </div>
-          <div class="risk-arrow">←</div>
-          <div class="risk-sol">
-            <span class="ar">حل / بديل — خطط مسبقاً</span>
-            <span class="de">Lösung / Alternative vorbereiten</span>
-          </div>
-        </div>
-        <div class="risk-row">
-          <div class="risk-prob">
-            <span class="ar">🧩 أهداف غير منطقية / توقعات مرتفعة</span>
-            <span class="de">🧩 Unrealistische Ziele / Erwartungen</span>
-          </div>
-          <div class="risk-arrow">←</div>
-          <div class="risk-sol">
-            <span class="ar">حل / بديل — خطط مسبقاً</span>
-            <span class="de">Lösung / Alternative vorbereiten</span>
+        <div class="body-info-item" data-part="muscle" onclick="activateBodyInfo('muscle')">
+          <div class="bi-header"><span class="bi-icon">💪</span><span class="bi-title"><span class="ar">الحركة والرياضة</span><span class="de">Bewegung & Sport</span></span></div>
+          <div class="bi-desc">
+            <span class="ar">الحركة تزيد حرق السعرات وتبني العضلات التي ترفع معدل الأيض الأساسي. المشي 30 دقيقة يومياً يحرق ~150 كالوري. الرياضة ليست بديلاً عن التغذية لكنها مكمّل أساسي.</span>
+            <span class="de">Bewegung erhöht den Kalorienverbrauch und baut Muskeln auf, die den Grundumsatz steigern. 30 Min. Gehen verbrennt ~150 kcal. Sport ersetzt keine Ernährung, ergänzt sie aber wesentlich.</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       6. MOTIVATIONS & BARRIERS
-  ══════════════════════════════════════ -->
-  <section>
-    <h2 class="section-title">
+  <div class="divider"></div>
+
+  <!-- 6. RISK MANAGEMENT — FLIP CARDS -->
+  <section id="sec-risks" data-nav-ar="المصاعب" data-nav-de="Risiken">
+    <h2 class="section-title reveal">
+      ⚠️
+      <span class="ar">إدارة المصاعب — Risikomanagement</span>
+      <span class="de">Risikomanagement — Hindernisse & Lösungen</span>
+    </h2>
+    <p class="reveal" style="font-size:13px; color:var(--text-soft); margin-bottom:20px; line-height:1.8">
+      <span class="ar">💡 مرر مؤشر الفأرة فوق البطاقة لرؤية الحل — لكل عقبة بديل!</span>
+      <span class="de">💡 Bewege die Maus über die Karte, um die Lösung zu sehen — für jedes Hindernis gibt es eine Alternative!</span>
+    </p>
+
+    <div class="flip-grid reveal">
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front"><div class="flip-icon">💰</div><div class="flip-title"><span class="ar">عامل مادي / تكاليف الغذاء الصحي</span><span class="de">Finanzieller Faktor</span></div><div class="flip-hint"><span class="ar">← مرر لرؤية الحل</span><span class="de">← Hover für Lösung</span></div></div>
+          <div class="flip-back"><div class="flip-icon">✅</div><div class="flip-title"><span class="ar">الحل</span><span class="de">Lösung</span></div><div class="flip-detail"><span class="ar">خطط وجباتك مسبقاً، اشترِ بالجملة، ركّز على الأطعمة الموسمية والمحلية</span><span class="de">Mahlzeiten vorplanen, in großen Mengen kaufen, saisonale & lokale Lebensmittel bevorzugen</span></div></div>
+        </div>
+      </div>
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front"><div class="flip-icon">⏰</div><div class="flip-title"><span class="ar">ضيق الوقت</span><span class="de">Zeitmangel</span></div><div class="flip-hint"><span class="ar">← مرر لرؤية الحل</span><span class="de">← Hover für Lösung</span></div></div>
+          <div class="flip-back"><div class="flip-icon">✅</div><div class="flip-title"><span class="ar">الحل</span><span class="de">Lösung</span></div><div class="flip-detail"><span class="ar">حضّر وجبات الأسبوع مرة واحدة (Meal Prep)، استغل أوقات الانتظار للمشي</span><span class="de">Meal Prep am Wochenende, Wartezeiten zum Spazieren nutzen</span></div></div>
+        </div>
+      </div>
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front"><div class="flip-icon">📋</div><div class="flip-title"><span class="ar">مسؤوليات والتزامات</span><span class="de">Verpflichtungen</span></div><div class="flip-hint"><span class="ar">← مرر لرؤية الحل</span><span class="de">← Hover für Lösung</span></div></div>
+          <div class="flip-back"><div class="flip-icon">✅</div><div class="flip-title"><span class="ar">الحل</span><span class="de">Lösung</span></div><div class="flip-detail"><span class="ar">أشرك عائلتك في الرحلة، اجعل الصحة أولوية وليست إضافة</span><span class="de">Familie einbeziehen, Gesundheit als Priorität setzen</span></div></div>
+        </div>
+      </div>
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front"><div class="flip-icon">🏥</div><div class="flip-title"><span class="ar">عوامل صحية</span><span class="de">Gesundheitliche Faktoren</span></div><div class="flip-hint"><span class="ar">← مرر لرؤية الحل</span><span class="de">← Hover für Lösung</span></div></div>
+          <div class="flip-back"><div class="flip-icon">✅</div><div class="flip-title"><span class="ar">الحل</span><span class="de">Lösung</span></div><div class="flip-detail"><span class="ar">استشر طبيبك أولاً، عدّل الخطة حسب حالتك الصحية</span><span class="de">Erst Arzt konsultieren, Plan an den Gesundheitszustand anpassen</span></div></div>
+        </div>
+      </div>
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front"><div class="flip-icon">🧩</div><div class="flip-title"><span class="ar">أهداف غير منطقية</span><span class="de">Unrealistische Ziele</span></div><div class="flip-hint"><span class="ar">← مرر لرؤية الحل</span><span class="de">← Hover für Lösung</span></div></div>
+          <div class="flip-back"><div class="flip-icon">✅</div><div class="flip-title"><span class="ar">الحل</span><span class="de">Lösung</span></div><div class="flip-detail"><span class="ar">ابدأ بأهداف صغيرة قابلة للقياس، احتفل بالإنجازات الصغيرة</span><span class="de">Klein anfangen, messbare Ziele setzen, kleine Erfolge feiern</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. MOTIVATIONS & BARRIERS -->
+  <section id="sec-motivation" data-nav-ar="الدوافع" data-nav-de="Motivation">
+    <h2 class="section-title reveal">
       💪
       <span class="ar">الدوافع والعوائق</span>
       <span class="de">Motivation & Hindernisse</span>
     </h2>
 
-    <p style="font-size:13px; color:var(--green); margin-bottom:10px; font-weight:700">
+    <p style="font-size:13px; color:var(--green); margin-bottom:10px; font-weight:700" class="reveal">
       <span class="ar">✅ الدوافع — لماذا تريد التغيير؟</span>
       <span class="de">✅ Motivationen – Warum willst du dich verändern?</span>
     </p>
-    <div class="bubble-cloud" style="margin-bottom:20px">
+    <div class="bubble-cloud reveal" style="margin-bottom:20px">
       <div class="bubble motive"><span class="ar">🏥 مرض</span><span class="de">Krankheit</span></div>
       <div class="bubble motive"><span class="ar">👗 الملابس ضاقت</span><span class="de">Kleidung passt nicht</span></div>
       <div class="bubble motive"><span class="ar">🎉 مناسبة</span><span class="de">Besonderer Anlass</span></div>
@@ -765,11 +966,11 @@
       <div class="bubble motive"><span class="ar">❤️ تصالح مع الذات</span><span class="de">Selbstakzeptanz</span></div>
     </div>
 
-    <p style="font-size:13px; color:var(--red); margin-bottom:10px; font-weight:700">
+    <p style="font-size:13px; color:var(--red); margin-bottom:10px; font-weight:700" class="reveal">
       <span class="ar">❌ العوائق — ما الذي قد يعيقك؟</span>
       <span class="de">❌ Hindernisse – Was könnte dich aufhalten?</span>
     </p>
-    <div class="bubble-cloud" style="margin-bottom:24px">
+    <div class="bubble-cloud reveal" style="margin-bottom:24px">
       <div class="bubble barrier"><span class="ar">😒 ملل</span><span class="de">Langeweile</span></div>
       <div class="bubble barrier"><span class="ar">🍟 شهوة</span><span class="de">Gelüste</span></div>
       <div class="bubble barrier"><span class="ar">🔄 عادة قديمة</span><span class="de">Alte Gewohnheit</span></div>
@@ -780,23 +981,21 @@
       <div class="bubble barrier"><span class="ar">👫 ضغط اجتماعي</span><span class="de">Sozialer Druck</span></div>
     </div>
 
-    <div class="quote-box">
+    <div class="quote-box reveal">
       <div class="ar">تعوّد أن لا تتعوّد على شيء — المرونة هي مفتاح الاستمرارية</div>
       <div class="de">Gewöhne dich daran, dich an nichts zu gewöhnen – Flexibilität ist der Schlüssel zur Kontinuität</div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       7. LEARNING OBJECTIVES
-  ══════════════════════════════════════ -->
-  <section>
-    <h2 class="section-title">
+  <!-- 8. LEARNING OBJECTIVES -->
+  <section id="sec-objectives" data-nav-ar="الأهداف" data-nav-de="Lernziele">
+    <h2 class="section-title reveal">
       📚
       <span class="ar">الأهداف التعليمية لهذا الفصل</span>
       <span class="de">Lernziele dieses Kapitels</span>
     </h2>
     <div class="cards">
-      <div class="card">
+      <div class="card reveal">
         <div class="card-icon">🗺️</div>
         <h3><span class="ar">بناء Mindmap بحرية</span><span class="de">Mindmap frei erstellen</span></h3>
         <p>
@@ -804,45 +1003,70 @@
           <span class="de">Eine eigene Mindmap zur Zielsetzung frei und strukturiert erstellen können</span>
         </p>
       </div>
-      <div class="card">
+      <div class="card reveal reveal-delay-1">
         <div class="card-icon">⚖️</div>
         <h3><span class="ar">حساب الوزن المثالي</span><span class="de">Idealgewicht berechnen</span></h3>
         <p>
-          <span class="ar">أن يحسب وزنه المثالي بناءً على الطول وبنية الجسم (محيط الرسغ) وتحديد الفارق</span>
-          <span class="de">Idealgewicht anhand von Körpergröße & Handgelenkumfang berechnen und Differenz bestimmen</span>
+          <span class="ar">أن يحسب وزنه المثالي بناءً على الطول وبنية الجسم (محيط الرسغ)</span>
+          <span class="de">Idealgewicht anhand von Körpergröße & Handgelenkumfang berechnen</span>
         </p>
       </div>
-      <div class="card">
+      <div class="card reveal reveal-delay-2">
         <div class="card-icon">📅</div>
         <h3><span class="ar">الوقت المنطقي للتغيير</span><span class="de">Realistischer Zeitplan</span></h3>
         <p>
-          <span class="ar">أن يُقدّر الوقت المنطقي اللازم لتغيير الوزن بطريقة صحية ومستدامة بدون حمية قاسية</span>
-          <span class="de">Den realistischen Zeitrahmen für gesunde Gewichtsveränderung ohne Crashdiät einschätzen</span>
+          <span class="ar">أن يُقدّر الوقت المنطقي اللازم لتغيير الوزن بطريقة صحية ومستدامة</span>
+          <span class="de">Den realistischen Zeitrahmen für gesunde Gewichtsveränderung einschätzen</span>
         </p>
       </div>
-      <div class="card">
+      <div class="card reveal reveal-delay-3">
         <div class="card-icon">🔍</div>
         <h3><span class="ar">عوامل التأثير على الوزن</span><span class="de">Einflussfaktoren auf das Gewicht</span></h3>
         <p>
           <span class="ar">أن يحدد أهم العوامل التي تؤثر على سرعة فقدان أو زيادة الوزن (تغذية، حركة، نوم، توتر)</span>
-          <span class="de">Die wichtigsten Faktoren identifizieren, die das Gewicht beeinflussen (Ernährung, Bewegung, Schlaf, Stress)</span>
+          <span class="de">Die wichtigsten Faktoren identifizieren (Ernährung, Bewegung, Schlaf, Stress)</span>
         </p>
       </div>
     </div>
   </section>
 
   <!-- FOOTER NAV -->
-  <div style="text-align:center; padding-top:20px;">
-    <a href="chapter2-insulin.html" style="display:inline-block; padding:14px 40px; background:var(--accent); color:var(--bg); font-family:'Cairo',sans-serif; font-weight:800; font-size:15px; border-radius:40px; text-decoration:none; transition:.2s;" onmouseover="this.style.background='var(--accent2)'" onmouseout="this.style.background='var(--accent)'">
+  <div class="footer-nav reveal">
+    <a href="chapter2-insulin-resistance.html">
       <span class="ar">الفصل التالي: مقاومة الأنسولين ←</span>
-      <span class="de">Nächstes Kapitel: Insulinresistenz ←</span>
+      <span class="de">Nächstes Kapitel: Insulinresistenz →</span>
     </a>
   </div>
 
-</div><!-- /container -->
+</div>
 
 <script>
-  // THEME
+  // ====== PASSWORD GATE ======
+  const PW_HASH = '59f49e6495c6d3eb3ccae62a649e836575fc344d12bf43797f779b43f9156ee6';
+  async function sha256(text) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+  async function checkPw() {
+    const input = document.getElementById('pwInput');
+    const hash = await sha256(input.value.trim());
+    if(hash === PW_HASH) {
+      sessionStorage.setItem('hc-auth','1');
+      document.getElementById('pwOverlay').classList.add('hidden');
+      setTimeout(() => document.getElementById('pwOverlay').remove(), 600);
+    } else {
+      input.classList.add('pw-error');
+      input.value = '';
+      setTimeout(() => input.classList.remove('pw-error'), 500);
+    }
+  }
+  (function(){
+    if(sessionStorage.getItem('hc-auth')==='1') {
+      document.getElementById('pwOverlay').remove();
+    }
+  })();
+
+  // ====== THEME ======
   function setTheme(name, el) {
     document.body.setAttribute('data-theme', name);
     document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
@@ -858,18 +1082,151 @@
     }
   })();
 
-  // LANGUAGE
-  let lang = 'ar';
-  function toggleLang(){
-    lang = lang === 'ar' ? 'de' : 'ar';
-    document.querySelectorAll('.ar').forEach(el => el.style.display = lang==='ar' ? '' : 'none');
-    document.querySelectorAll('.de').forEach(el => el.style.display = lang==='de' ? '' : 'none');
-    document.getElementById('langBtn').textContent = lang==='ar' ? 'DE' : 'AR';
-    document.documentElement.setAttribute('lang', lang);
-    document.documentElement.setAttribute('dir', lang==='ar' ? 'rtl' : 'ltr');
+  // ====== LANGUAGE ======
+  let lang = localStorage.getItem('hc-lang') || 'ar';
+  function applyLang(l) {
+    lang = l;
+    document.querySelectorAll('.ar').forEach(el => el.style.display = l==='ar' ? '' : 'none');
+    document.querySelectorAll('.de').forEach(el => el.style.display = l==='de' ? '' : 'none');
+    document.getElementById('langBtn').textContent = l==='ar' ? 'DE' : 'AR';
+    document.documentElement.setAttribute('lang', l);
+    document.documentElement.setAttribute('dir', l==='ar' ? 'rtl' : 'ltr');
+    if(l==='de') document.body.classList.add('lang-de'); else document.body.classList.remove('lang-de');
+    localStorage.setItem('hc-lang', l);
+    buildSideNav();
+  }
+  function toggleLang(){ applyLang(lang === 'ar' ? 'de' : 'ar'); }
+  applyLang(lang);
+
+  // ====== SCROLL PROGRESS ======
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+    document.getElementById('scrollProgress').style.width = pct + '%';
+  });
+
+  // ====== SCROLL REVEAL ======
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // ====== SIDE NAV ======
+  function buildSideNav() {
+    const nav = document.getElementById('sideNav');
+    nav.innerHTML = '';
+    document.querySelectorAll('section[id]').forEach(sec => {
+      const label = sec.getAttribute('data-nav-' + lang) || '';
+      const dot = document.createElement('div');
+      dot.className = 'side-dot';
+      dot.innerHTML = '<span class="dot-label">' + label + '</span>';
+      dot.onclick = () => sec.scrollIntoView({behavior:'smooth'});
+      nav.appendChild(dot);
+    });
+    updateActiveDot();
+  }
+  function updateActiveDot() {
+    const dots = document.querySelectorAll('.side-dot');
+    const sections = document.querySelectorAll('section[id]');
+    let active = 0;
+    sections.forEach((sec, i) => {
+      if(window.scrollY >= sec.offsetTop - 200) active = i;
+    });
+    dots.forEach((d,i) => d.classList.toggle('active', i === active));
+  }
+  window.addEventListener('scroll', updateActiveDot);
+  buildSideNav();
+
+  // ====== PARTICLES ======
+  (function(){
+    const c = document.getElementById('particles');
+    for(let i = 0; i < 20; i++){
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random()*100 + '%';
+      p.style.animationDuration = (4 + Math.random()*6) + 's';
+      p.style.animationDelay = Math.random()*5 + 's';
+      p.style.width = p.style.height = (2 + Math.random()*4) + 'px';
+      c.appendChild(p);
+    }
+  })();
+
+  // ====== RADIAL MINDMAP TOGGLE ======
+  function toggleRadial(el) {
+    const branch = el.closest('.mm-r-branch');
+    const children = branch.querySelector('.mm-r-children');
+    const hint = branch.querySelector('.mm-r-hint');
+    if(!children) return;
+    children.classList.toggle('collapsed');
+    if(hint) hint.textContent = children.classList.contains('collapsed') ? '▶' : '▼';
+    setTimeout(drawMmLines, 350);
   }
 
-  // CALCULATOR
+  // ====== SVG CONNECTOR LINES ======
+  function drawMmLines() {
+    const svg = document.getElementById('mmLines');
+    const grid = document.getElementById('mmRadial');
+    if(!svg || !grid) return;
+    const rect = grid.getBoundingClientRect();
+    svg.setAttribute('viewBox', '0 0 ' + rect.width + ' ' + rect.height);
+    svg.setAttribute('width', rect.width);
+    svg.setAttribute('height', rect.height);
+    svg.innerHTML = '';
+
+    const center = document.getElementById('mmCenter');
+    if(!center) return;
+    const cr = center.getBoundingClientRect();
+    const cx = cr.left + cr.width/2 - rect.left;
+    const cy = cr.top + cr.height/2 - rect.top;
+
+    ['mmBranch1','mmBranch2','mmBranch3','mmBranch4'].forEach(id => {
+      const branch = document.getElementById(id);
+      if(!branch) return;
+      const node = branch.querySelector('.mm-r-node');
+      const nr = node.getBoundingClientRect();
+      const nx = nr.left + nr.width/2 - rect.left;
+      const ny = nr.top + nr.height/2 - rect.top;
+
+      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+      line.setAttribute('x2', nx); line.setAttribute('y2', ny);
+      line.setAttribute('stroke', getComputedStyle(document.documentElement).getPropertyValue('--accent-dim').trim());
+      line.setAttribute('stroke-width', '2');
+      line.setAttribute('stroke-dasharray', '6 4');
+      line.setAttribute('opacity', '0.6');
+      svg.appendChild(line);
+    });
+  }
+  window.addEventListener('load', () => setTimeout(drawMmLines, 200));
+  window.addEventListener('resize', drawMmLines);
+
+  // ====== CALORIE BAR ANIMATION ======
+  const chartObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        e.target.querySelectorAll('.cal-bar-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width;
+        });
+        chartObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const chart = document.getElementById('calorieChart');
+  if(chart) chartObs.observe(chart);
+
+  // ====== BODY DIAGRAM ======
+  function activateBodyInfo(part) {
+    document.querySelectorAll('.body-info-item').forEach(item => {
+      item.classList.toggle('active', item.dataset.part === part);
+    });
+    document.querySelectorAll('.hotspot').forEach(hs => {
+      hs.style.transform = hs.classList.contains('hs-'+part)
+        ? (hs.classList.contains('hs-brain') ? 'translateX(-50%) scale(1.3)' : 'scale(1.3)')
+        : '';
+    });
+  }
+
+  // ====== CALCULATOR ======
   function calcIdeal(){
     const gender = document.getElementById('gender').value;
     const h = parseFloat(document.getElementById('height').value);
@@ -888,37 +1245,145 @@
     }
     const ideal = Math.round(base * (1 + adj) * 10) / 10;
     const diff  = cw ? Math.round((cw - ideal) * 10) / 10 : null;
-    const frameAR = frame==='small'?'ضيقة':frame==='large'?'واسعة':'متوسطة';
-    const frameDE = frame==='small'?'Klein':frame==='large'?'Groß':'Mittel';
 
-    document.getElementById('resNum').textContent = ideal + ' كغ';
-    let detail = '';
+    const frameLabels = {
+      ar: {small:'ضيقة',medium:'متوسطة',large:'واسعة'},
+      de: {small:'Klein',medium:'Mittel',large:'Groß'}
+    };
 
-    if(lang === 'ar'){
-      detail = `بنية الجسم: <strong style="color:var(--accent)">${frameAR}</strong>`;
-      if(adj!==0) detail += ` | التعديل: ${adj>0?'+':''}${adj*100}٪`;
-      detail += '<br>';
-      if(diff !== null){
-        const days = Math.round(Math.abs(diff) * 7700 / 500);
-        const weeks = Math.round(days/7);
-        if(diff > 0) detail += `<span style="color:var(--red)">لديك ${diff} كغ فوق الوزن المثالي</span><br><small style="color:var(--text-soft)">بعجز 500 كالوري/يوم ≈ ${weeks} أسبوع لتحقيق الهدف</small>`;
-        else if(diff < 0) detail += `<span style="color:var(--green)">أنت ${Math.abs(diff)} كغ أقل من الوزن المثالي</span>`;
-        else detail += `<span style="color:var(--green)">✅ وزنك مثالي تماماً!</span>`;
-      }
+    // Gauge animation
+    const gaugeEl = document.getElementById('gaugeFill');
+    const ratio = Math.min(ideal / 150, 1);
+    const totalLen = 251;
+    gaugeEl.style.strokeDashoffset = totalLen * (1 - ratio);
+    document.getElementById('gaugeVal').textContent = ideal;
+
+    // Result cards
+    document.getElementById('rcFrame').textContent = frameLabels[lang][frame];
+    if(diff !== null) {
+      const sign = diff > 0 ? '+' : '';
+      document.getElementById('rcDiff').textContent = sign + diff + ' kg';
+      document.getElementById('rcDiff').style.color = diff > 0 ? 'var(--red)' : diff < 0 ? 'var(--green)' : 'var(--accent)';
+      const weeks = Math.max(1, Math.round(Math.abs(diff) * 7700 / 500 / 7));
+      document.getElementById('rcWeeks').textContent = diff === 0 ? '✅' : '~' + weeks;
     } else {
-      detail = `Körperrahmen: <strong style="color:var(--accent)">${frameDE}</strong>`;
-      if(adj!==0) detail += ` | Anpassung: ${adj>0?'+':''}${adj*100}%`;
-      detail += '<br>';
-      if(diff !== null){
-        const days = Math.round(Math.abs(diff) * 7700 / 500);
-        const weeks = Math.round(days/7);
-        if(diff > 0) detail += `<span style="color:var(--red)">Du bist ${diff} kg über dem Idealgewicht</span><br><small style="color:var(--text-soft)">Bei 500 kcal Defizit/Tag ≈ ${weeks} Wochen bis zum Ziel</small>`;
-        else if(diff < 0) detail += `<span style="color:var(--green)">Du bist ${Math.abs(diff)} kg unter dem Idealgewicht</span>`;
-        else detail += `<span style="color:var(--green)">✅ Idealgewicht perfekt erreicht!</span>`;
-      }
+      document.getElementById('rcDiff').textContent = '--';
+      document.getElementById('rcWeeks').textContent = '--';
     }
-    document.getElementById('resDetail').innerHTML = detail;
-    document.getElementById('calcResult').style.display = 'block';
+
+    const area = document.getElementById('calcResultArea');
+    area.classList.add('show');
+
+    // Weight timeline
+    if(diff !== null && diff !== 0) {
+      drawTimeline(cw, ideal, diff);
+      fireConfetti();
+    }
+  }
+
+  // ====== WEIGHT TIMELINE CHART ======
+  function drawTimeline(currentW, idealW, diff) {
+    const chartDiv = document.getElementById('timelineChart');
+    chartDiv.classList.add('show');
+    const canvas = document.getElementById('timelineCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // High DPI
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * 2;
+    canvas.height = rect.height * 2;
+    ctx.scale(2, 2);
+    const W = rect.width, H = rect.height;
+
+    const weeks = Math.max(2, Math.ceil(Math.abs(diff) / 0.5));
+    const points = [];
+    for(let i = 0; i <= weeks; i++){
+      const w = diff > 0
+        ? currentW - (diff * (i/weeks))
+        : currentW + (Math.abs(diff) * (i/weeks));
+      points.push({week:i, weight:w});
+    }
+
+    const minW = Math.min(idealW, currentW) - 3;
+    const maxW = Math.max(idealW, currentW) + 3;
+    const pad = {t:20,r:20,b:35,l:45};
+
+    ctx.clearRect(0,0,W,H);
+
+    // Grid
+    const steps = 5;
+    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--border').trim();
+    ctx.lineWidth = 0.5;
+    for(let i = 0; i <= steps; i++){
+      const y = pad.t + (H-pad.t-pad.b) * (i/steps);
+      ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(W-pad.r,y); ctx.stroke();
+      const val = (maxW - (maxW-minW)*(i/steps)).toFixed(0);
+      ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-soft').trim();
+      ctx.font = '10px Cairo'; ctx.textAlign = 'right';
+      ctx.fillText(val + ' kg', pad.l - 6, y + 4);
+    }
+
+    // X labels
+    const xStep = Math.max(1, Math.floor(weeks/8));
+    for(let i = 0; i <= weeks; i += xStep) {
+      const x = pad.l + (W-pad.l-pad.r) * (i/weeks);
+      ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--text-soft').trim();
+      ctx.font = '10px Cairo'; ctx.textAlign = 'center';
+      const lbl = lang==='ar' ? 'أ'+i : 'W'+i;
+      ctx.fillText(lbl, x, H - 8);
+    }
+
+    // Ideal line
+    const idealY = pad.t + (H-pad.t-pad.b) * ((maxW - idealW)/(maxW-minW));
+    ctx.setLineDash([5,5]);
+    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--green').trim();
+    ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.moveTo(pad.l,idealY); ctx.lineTo(W-pad.r,idealY); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--green').trim();
+    ctx.font = 'bold 10px Cairo'; ctx.textAlign = 'left';
+    ctx.fillText(lang==='ar'?'الوزن المثالي':'Idealgewicht', pad.l + 4, idealY - 6);
+
+    // Curve
+    ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    points.forEach((p,i) => {
+      const x = pad.l + (W-pad.l-pad.r) * (p.week/weeks);
+      const y = pad.t + (H-pad.t-pad.b) * ((maxW - p.weight)/(maxW-minW));
+      if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+
+    // Dots
+    points.forEach((p,i) => {
+      if(i % Math.max(1,Math.floor(weeks/10)) !== 0 && i !== points.length-1) return;
+      const x = pad.l + (W-pad.l-pad.r) * (p.week/weeks);
+      const y = pad.t + (H-pad.t-pad.b) * ((maxW - p.weight)/(maxW-minW));
+      ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+      ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2); ctx.fill();
+    });
+  }
+
+  // ====== CONFETTI ======
+  function fireConfetti() {
+    const c = document.createElement('div');
+    c.className = 'confetti-container';
+    document.body.appendChild(c);
+    const colors = ['#c9a84c','#e8c97a','#27ae60','#3498db','#e74c3c','#9b59b6'];
+    for(let i = 0; i < 60; i++){
+      const p = document.createElement('div');
+      p.className = 'confetti-piece';
+      p.style.left = Math.random()*100 + '%';
+      p.style.background = colors[Math.floor(Math.random()*colors.length)];
+      p.style.animationDelay = Math.random()*1 + 's';
+      p.style.animationDuration = (2+Math.random()*2) + 's';
+      const size = 6+Math.random()*8;
+      p.style.width = size+'px'; p.style.height = size+'px';
+      p.style.borderRadius = Math.random()>.5?'50%':'2px';
+      c.appendChild(p);
+    }
+    setTimeout(() => c.remove(), 4000);
   }
 </script>
 </body>
