@@ -37,6 +37,20 @@
   body { font-family:'Cairo','Tahoma','Arial',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background .3s,color .3s; overflow-x:hidden; }
   .ar, [lang="ar"], [dir="rtl"] { letter-spacing: 0 !important; }
 
+  /* PASSWORD GATE */
+  .pw-overlay { position:fixed; inset:0; z-index:99999; background:var(--bg); display:flex; align-items:center; justify-content:center; transition:opacity .5s; }
+  .pw-overlay.hidden { opacity:0; pointer-events:none; }
+  .pw-box { text-align:center; max-width:360px; padding:40px; }
+  .pw-box .pw-icon { font-size:48px; margin-bottom:16px; }
+  .pw-box h2 { font-size:22px; font-weight:900; color:var(--accent); margin-bottom:8px; }
+  .pw-box p { font-size:13px; color:var(--text-soft); margin-bottom:24px; line-height:1.6; }
+  .pw-box input { width:100%; padding:14px 18px; border-radius:12px; border:2px solid var(--border); background:var(--surface); color:var(--text); font-family:'Cairo',sans-serif; font-size:18px; text-align:center; letter-spacing:8px; outline:none; transition:.3s; }
+  .pw-box input:focus { border-color:var(--accent); }
+  .pw-box input.pw-error { border-color:var(--red); animation:pw-shake .4s; }
+  @keyframes pw-shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+  .pw-box button { margin-top:16px; width:100%; padding:14px; background:var(--accent); color:var(--bg); font-family:'Cairo',sans-serif; font-size:15px; font-weight:800; border:none; border-radius:12px; cursor:pointer; transition:.3s; }
+  .pw-box button:hover { background:var(--accent2); }
+
   /* SCROLL PROGRESS BAR */
   .scroll-progress { position:fixed; top:0; left:0; width:0%; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent2)); z-index:9999; transition:width .1s linear; }
 
@@ -302,6 +316,18 @@
 </style>
 </head>
 <body data-theme="dark">
+
+<!-- Password gate -->
+<div class="pw-overlay" id="pwOverlay">
+  <div class="pw-box">
+    <div class="pw-icon">🔒</div>
+    <h2>محتوى محمي / Geschützter Inhalt</h2>
+    <p>أدخل رمز الدخول للمتابعة<br>Zugangscode eingeben, um fortzufahren</p>
+    <input type="password" id="pwInput" placeholder="••••••" maxlength="10" autofocus
+           onkeydown="if(event.key==='Enter')checkPw()">
+    <button onclick="checkPw()">دخول / Eintreten</button>
+  </div>
+</div>
 
 <!-- Scroll progress -->
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -1015,6 +1041,31 @@
 </div>
 
 <script>
+  // ====== PASSWORD GATE ======
+  const PW_HASH = '59f49e6495c6d3eb3ccae62a649e836575fc344d12bf43797f779b43f9156ee6';
+  async function sha256(text) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+  async function checkPw() {
+    const input = document.getElementById('pwInput');
+    const hash = await sha256(input.value.trim());
+    if(hash === PW_HASH) {
+      sessionStorage.setItem('hc-auth','1');
+      document.getElementById('pwOverlay').classList.add('hidden');
+      setTimeout(() => document.getElementById('pwOverlay').remove(), 600);
+    } else {
+      input.classList.add('pw-error');
+      input.value = '';
+      setTimeout(() => input.classList.remove('pw-error'), 500);
+    }
+  }
+  (function(){
+    if(sessionStorage.getItem('hc-auth')==='1') {
+      document.getElementById('pwOverlay').remove();
+    }
+  })();
+
   // ====== THEME ======
   function setTheme(name, el) {
     document.body.setAttribute('data-theme', name);
