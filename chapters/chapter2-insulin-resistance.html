@@ -1041,7 +1041,7 @@
 <script>
 // ===== PASSWORD GATE =====
 (async function(){
-  if(sessionStorage.getItem('hc-auth')==='true'){
+  if(sessionStorage.getItem('hc-auth')==='1'){
     document.getElementById('pwGate').classList.add('hidden'); return;
   }
   document.getElementById('pwInput').addEventListener('keydown',e=>{ if(e.key==='Enter') checkPw(); });
@@ -1054,7 +1054,7 @@ async function checkPw(){
   const hashArr = Array.from(new Uint8Array(hashBuf));
   const hashHex = hashArr.map(b=>b.toString(16).padStart(2,'0')).join('');
   if(hashHex === '59f49e6495c6d3eb3ccae62a649e836575fc344d12bf43797f779b43f9156ee6'){
-    sessionStorage.setItem('hc-auth','true');
+    sessionStorage.setItem('hc-auth','1');
     document.getElementById('pwGate').classList.add('hidden');
   } else {
     document.getElementById('pwError').textContent = lang==='ar'?'كلمة المرور غير صحيحة':'Falsches Passwort';
