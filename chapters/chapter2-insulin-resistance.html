@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الفصل الثاني – مقاومة الأنسولين | Insulinresistenz</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&subset=arabic,latin&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d0d0d; --surface:#1a1a1a; --surface2:#232323;
+    --accent:#c9a84c; --accent2:#e8c97a; --accent-dim:#7a5f28;
+    --text:#f0ead6; --text-soft:#a89870;
+    --red:#c0392b; --red-soft:#2a1010;
+    --green:#27ae60; --green-soft:#0e2418;
+    --blue:#2980b9; --blue-soft:#0e1a2a;
+    --border:#2e2e2e; --radius:14px; --shadow:0 8px 32px rgba(0,0,0,0.5);
+  }
+  [data-theme="teal"] {
+    --bg:#f0f8f7; --surface:#ffffff; --surface2:#e6f4f1;
+    --accent:#0d7377; --accent2:#14a085; --accent-dim:#b2dfdb;
+    --text:#1a2e2d; --text-soft:#4a7c79; --border:#b2dfdb;
+    --red:#c0392b; --red-soft:#fdecea; --green:#1a7a4a; --green-soft:#e8f5e9;
+    --blue:#2471a3; --blue-soft:#e3f2fd;
+  }
+  [data-theme="purple"] {
+    --bg:#0f0c1e; --surface:#1a1530; --surface2:#221d3a;
+    --accent:#9b59b6; --accent2:#c39bd3; --accent-dim:#4a2060;
+    --text:#ede0f5; --text-soft:#9b8ab0; --border:#2d2545;
+    --red:#e74c3c; --red-soft:#2a0e0e; --green:#27ae60; --green-soft:#0e2418;
+    --blue:#5dade2; --blue-soft:#1a1a3a;
+  }
+  [data-theme="emerald"] {
+    --bg:#faf8f2; --surface:#ffffff; --surface2:#f2ede0;
+    --accent:#2d6a4f; --accent2:#40916c; --accent-dim:#b7e4c7;
+    --text:#1b2d23; --text-soft:#52796f; --border:#b7e4c7;
+    --red:#b5451b; --red-soft:#fdecea; --green:#1b5e20; --green-soft:#e8f5e9;
+    --blue:#2471a3; --blue-soft:#e3f2fd;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Cairo','Tahoma','Arial',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background .3s,color .3s; overflow-x:hidden; }
+  .ar, [lang="ar"], [dir="rtl"] { letter-spacing: 0 !important; }
+
+  /* SCROLL PROGRESS */
+  .scroll-progress { position:fixed; top:0; left:0; width:0%; height:4px; background:linear-gradient(90deg, var(--accent), var(--accent2)); z-index:10000; transition:width .1s; }
+
+  /* SIDE NAV DOTS */
+  .side-dots { position:fixed; right:16px; top:50%; transform:translateY(-50%); z-index:999; display:flex; flex-direction:column; gap:12px; }
+  [dir="ltr"] .side-dots { right:auto; left:16px; }
+  .side-dot { width:12px; height:12px; border-radius:50%; background:var(--border); cursor:pointer; transition:.3s; position:relative; }
+  .side-dot.active { background:var(--accent); box-shadow:0 0 10px var(--accent); }
+  .side-dot:hover::after { content:attr(data-label); position:absolute; right:20px; top:50%; transform:translateY(-50%); background:var(--surface); color:var(--text); padding:4px 10px; border-radius:6px; font-size:11px; white-space:nowrap; border:1px solid var(--border); }
+  [dir="ltr"] .side-dot:hover::after { right:auto; left:20px; }
+
+  /* PARTICLES */
+  .particles { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+  .particle { position:absolute; border-radius:50%; background:var(--accent); opacity:0.08; animation:floatP linear infinite; }
+  @keyframes floatP { 0%{transform:translateY(100vh) scale(0)} 50%{opacity:0.15} 100%{transform:translateY(-10vh) scale(1); opacity:0} }
+
+  /* THEME BAR */
+  .theme-bar { position:fixed; top:16px; left:16px; z-index:999; display:flex; gap:8px; align-items:center; background:var(--surface); border:1px solid var(--border); padding:8px 12px; border-radius:40px; box-shadow:var(--shadow); }
+  .theme-bar span { font-size:11px; color:var(--text-soft); margin-left:4px; }
+  .swatch { width:22px; height:22px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:.2s; }
+  .swatch:hover, .swatch.active { border-color:var(--text); transform:scale(1.2); }
+  .swatch.s-dark    { background:radial-gradient(circle at 40% 40%,#c9a84c,#0d0d0d); }
+  .swatch.s-teal    { background:radial-gradient(circle at 40% 40%,#14a085,#f0f8f7); }
+  .swatch.s-purple  { background:radial-gradient(circle at 40% 40%,#9b59b6,#0f0c1e); }
+  .swatch.s-emerald { background:radial-gradient(circle at 40% 40%,#2d6a4f,#faf8f2); }
+
+  /* LANG BTN */
+  .lang-btn { position:fixed; top:16px; right:16px; z-index:999; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-size:13px; font-weight:700; padding:6px 18px; border-radius:40px; cursor:pointer; transition:.2s; box-shadow:var(--shadow); }
+  .lang-btn:hover { background:var(--accent); color:var(--bg); }
+
+  /* PASSWORD GATE */
+  .pw-gate { position:fixed; inset:0; z-index:99999; background:var(--bg); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px; }
+  .pw-gate.hidden { display:none; }
+  .pw-gate h2 { color:var(--accent); font-size:24px; }
+  .pw-gate input { padding:14px 24px; border-radius:12px; border:1px solid var(--border); background:var(--surface); color:var(--text); font-family:'Cairo',sans-serif; font-size:18px; text-align:center; width:220px; outline:none; }
+  .pw-gate input:focus { border-color:var(--accent); }
+  .pw-gate button { padding:12px 36px; background:var(--accent); color:var(--bg); border:none; border-radius:10px; font-family:'Cairo',sans-serif; font-size:16px; font-weight:700; cursor:pointer; }
+  .pw-gate .pw-error { color:var(--red); font-size:13px; min-height:20px; }
+
+  /* HEADER */
+  header { text-align:center; padding:60px 20px 40px; background:linear-gradient(160deg,var(--surface) 0%,var(--bg) 100%); border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%,var(--accent-dim),transparent); opacity:.25; pointer-events:none; }
+  .chapter-tag { display:inline-block; font-size:12px; font-weight:700; color:var(--accent); border:1px solid var(--accent); padding:4px 16px; border-radius:40px; margin-bottom:16px; }
+  header h1 { font-size:clamp(28px,5vw,52px); font-weight:900; line-height:1.2; }
+  header h1 .accent { color:var(--accent); }
+  .subtitle { color:var(--text-soft); font-size:15px; margin-top:10px; }
+
+  /* LAYOUT */
+  .container { max-width:1100px; margin:0 auto; padding:40px 20px 80px; position:relative; z-index:1; }
+  section { margin-bottom:60px; scroll-margin-top:30px; }
+  h2.section-title { font-size:22px; font-weight:800; color:var(--accent); border-right:4px solid var(--accent); padding-right:14px; margin-bottom:24px; display:flex; align-items:center; gap:10px; }
+  [dir="ltr"] h2.section-title { border-right:none; border-left:4px solid var(--accent); padding-right:0; padding-left:14px; }
+
+  /* CARDS */
+  .cards { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px; transition:transform .2s,box-shadow .2s,border-color .2s; }
+  .card:hover { transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent-dim); }
+  .card-icon { font-size:28px; margin-bottom:10px; }
+  .card h3 { font-size:15px; font-weight:700; margin-bottom:6px; color:var(--accent2); }
+  .card p { font-size:13px; color:var(--text-soft); line-height:1.7; }
+
+  /* INFO BOX */
+  .info-box { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; }
+  .info-box .lbl { font-size:11px; font-weight:800; color:var(--accent); margin-bottom:8px; }
+  .info-box p { font-size:13px; line-height:1.9; color:var(--text-soft); }
+  .info-box p strong { color:var(--text); }
+
+  /* QUOTE BOX */
+  .quote-box { border-right:4px solid var(--accent); padding:16px 20px; background:var(--surface2); border-radius:0 10px 10px 0; margin:20px 0; }
+  [dir="ltr"] .quote-box { border-right:none; border-left:4px solid var(--accent); border-radius:10px 0 0 10px; }
+
+  /* DIVIDER */
+  .divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent-dim),transparent); margin:40px 0; }
+
+  /* DE hidden by default */
+  .de { display:none; }
+
+  /* MINDMAP TREE */
+  .mindmap-tree { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px 20px; overflow-x:auto; }
+  .mm-wrapper { display:flex; flex-direction:column; align-items:center; }
+  .mm-center { background:var(--accent); color:var(--bg); font-size:18px; font-weight:900; padding:14px 36px; border-radius:50px; text-align:center; box-shadow:0 0 30px rgba(201,168,76,0.35); }
+  .mm-vline { width:2px; height:24px; background:var(--accent-dim); margin:0 auto; }
+  .mm-level1 { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+  .mm-branch { display:flex; flex-direction:column; align-items:center; cursor:pointer; }
+  .mm-branch::before { content:''; display:block; width:2px; height:18px; background:var(--accent-dim); }
+  .mm-l1 { padding:10px 18px; border-radius:10px; font-size:13px; font-weight:700; text-align:center; min-width:120px; transition:.3s; }
+  .mm-l1.gold { background:var(--surface2); color:var(--accent); border:1px solid var(--accent-dim); }
+  .mm-l1.red  { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+  .mm-l1.green{ background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+  .mm-l1.blue { background:var(--blue-soft); color:var(--blue); border:1px solid var(--blue); }
+  .mm-l1:hover { transform:scale(1.05); }
+  .mm-children { display:flex; flex-direction:column; gap:4px; align-items:center; margin-top:6px; max-height:0; overflow:hidden; transition:max-height .4s ease; }
+  .mm-branch.open .mm-children { max-height:500px; }
+  .mm-cline { width:2px; height:10px; background:var(--border); margin:0 auto; }
+  .mm-l2 { padding:5px 12px; border-radius:6px; font-size:11px; font-weight:600; background:var(--surface2); color:var(--text-soft); border:1px solid var(--border); text-align:center; min-width:100px; }
+
+  /* PATHWAY SVG INTERACTIVE */
+  .pathway-container { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; overflow-x:auto; }
+  .pathway-svg { width:100%; max-width:900px; margin:0 auto; display:block; }
+  .pathway-step { opacity:0.2; transition:all .6s ease; cursor:pointer; }
+  .pathway-step.active { opacity:1; }
+  .pathway-step text { fill:var(--text); font-family:'Cairo',sans-serif; }
+  .pathway-step rect { rx:10; ry:10; }
+  .pathway-arrow { opacity:0.15; transition:opacity .6s; }
+  .pathway-arrow.active { opacity:1; }
+  .pw-controls { display:flex; gap:10px; justify-content:center; margin-top:16px; flex-wrap:wrap; }
+  .pw-btn { padding:8px 20px; border-radius:8px; border:1px solid var(--accent); background:transparent; color:var(--accent); font-family:'Cairo',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:.2s; }
+  .pw-btn:hover, .pw-btn.active { background:var(--accent); color:var(--bg); }
+  .step-info { margin-top:16px; padding:16px; background:var(--surface2); border-radius:10px; border:1px solid var(--border); font-size:13px; line-height:1.8; color:var(--text-soft); min-height:60px; }
+  .step-info strong { color:var(--accent2); }
+
+  /* CELL INTERACTIVE */
+  .cell-container { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:700px){ .cell-container { grid-template-columns:1fr; } }
+  .cell-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; text-align:center; cursor:pointer; transition:.3s; position:relative; overflow:hidden; }
+  .cell-box:hover { border-color:var(--accent); }
+  .cell-box h4 { font-size:14px; font-weight:700; margin-bottom:12px; color:var(--accent2); }
+  .cell-visual { height:200px; position:relative; border-radius:10px; background:var(--surface2); overflow:hidden; margin-bottom:12px; }
+  .cell-membrane { position:absolute; top:50%; left:0; right:0; height:6px; background:var(--accent-dim); }
+  .receptor { position:absolute; width:24px; height:40px; border-radius:12px 12px 0 0; background:var(--accent); top:calc(50% - 40px); transition:.3s; }
+  .glucose-dot { position:absolute; width:16px; height:16px; border-radius:50%; background:var(--green); transition:all 1s ease; }
+  .insulin-dot { position:absolute; width:12px; height:12px; border-radius:50%; background:var(--accent2); }
+  .cell-desc { font-size:12px; color:var(--text-soft); line-height:1.7; }
+  .cell-box .status-badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700; margin-bottom:8px; }
+  .status-normal { background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+  .status-resistant { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+
+  /* GI CHART */
+  .gi-chart { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; align-items:flex-end; padding:20px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); }
+  .gi-bar-wrap { display:flex; flex-direction:column; align-items:center; cursor:pointer; transition:.2s; }
+  .gi-bar-wrap:hover { transform:translateY(-4px); }
+  .gi-bar { width:48px; border-radius:8px 8px 0 0; transition:height .5s ease, background .3s; position:relative; }
+  .gi-bar .gi-val { position:absolute; top:-22px; left:50%; transform:translateX(-50%); font-size:11px; font-weight:800; color:var(--text); }
+  .gi-label { font-size:10px; color:var(--text-soft); text-align:center; margin-top:6px; max-width:60px; line-height:1.3; }
+  .gi-legend { display:flex; gap:16px; justify-content:center; margin-top:16px; flex-wrap:wrap; }
+  .gi-legend-item { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text-soft); }
+  .gi-legend-dot { width:14px; height:14px; border-radius:4px; }
+  .gi-detail-box { margin-top:12px; padding:14px; background:var(--surface2); border-radius:10px; border:1px solid var(--border); font-size:12px; line-height:1.8; color:var(--text-soft); min-height:40px; }
+
+  /* SCENARIO FLIP CARDS */
+  .scenario-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+  .flip-card { perspective:1000px; height:320px; cursor:pointer; }
+  .flip-inner { position:relative; width:100%; height:100%; transition:transform .6s; transform-style:preserve-3d; }
+  .flip-card:hover .flip-inner, .flip-card.flipped .flip-inner { transform:rotateY(180deg); }
+  [dir="rtl"] .flip-card:hover .flip-inner, [dir="rtl"] .flip-card.flipped .flip-inner { transform:rotateY(-180deg); }
+  .flip-front, .flip-back { position:absolute; inset:0; backface-visibility:hidden; border-radius:var(--radius); padding:24px; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; border:1px solid var(--border); }
+  .flip-front { background:var(--surface); }
+  .flip-back { background:var(--surface2); transform:rotateY(180deg); }
+  [dir="rtl"] .flip-back { transform:rotateY(-180deg); }
+  .flip-front .sc-icon { font-size:48px; margin-bottom:12px; }
+  .flip-front h4 { font-size:16px; font-weight:800; color:var(--accent2); margin-bottom:8px; }
+  .flip-front p { font-size:12px; color:var(--text-soft); }
+  .flip-back p { font-size:13px; line-height:1.8; color:var(--text-soft); }
+  .flip-back strong { color:var(--text); }
+  .flip-hint { font-size:10px; color:var(--accent-dim); margin-top:12px; }
+
+  /* COMPARISON ANIMATION */
+  .compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:700px){ .compare-grid { grid-template-columns:1fr; } }
+  .compare-panel { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px; text-align:center; }
+  .compare-panel h4 { font-size:14px; font-weight:700; margin-bottom:16px; }
+  .compare-visual { height:180px; position:relative; border-radius:10px; background:var(--surface2); overflow:hidden; }
+  .blood-vessel { position:absolute; top:40%; left:10%; right:10%; height:40px; border-radius:20px; border:2px solid var(--red); background:rgba(192,57,43,0.1); }
+  .cell-target { position:absolute; bottom:10px; width:50px; height:50px; border-radius:50%; border:2px solid var(--green); background:var(--green-soft); left:50%; transform:translateX(-50%); }
+  .gluc { position:absolute; width:10px; height:10px; border-radius:50%; background:var(--green); }
+  .compare-desc { margin-top:12px; font-size:12px; color:var(--text-soft); line-height:1.7; }
+
+  /* QUIZ */
+  .quiz-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; margin-bottom:16px; }
+  .quiz-q { font-size:15px; font-weight:700; margin-bottom:16px; color:var(--text); line-height:1.6; }
+  .quiz-opts { display:flex; flex-direction:column; gap:8px; }
+  .quiz-opt { padding:12px 18px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); cursor:pointer; font-size:13px; transition:.2s; line-height:1.6; }
+  .quiz-opt:hover { border-color:var(--accent); }
+  .quiz-opt.correct { border-color:var(--green); background:var(--green-soft); color:var(--green); }
+  .quiz-opt.wrong { border-color:var(--red); background:var(--red-soft); color:var(--red); }
+  .quiz-opt.disabled { pointer-events:none; }
+  .quiz-feedback { margin-top:12px; padding:12px; border-radius:8px; font-size:13px; line-height:1.6; display:none; }
+
+  /* INFO PILLS */
+  .info-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+  .info-pill { flex:1; min-width:110px; background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:14px 10px; text-align:center; transition:.2s; }
+  .info-pill:hover { border-color:var(--accent); transform:translateY(-2px); }
+  .info-pill .val { font-size:22px; font-weight:900; color:var(--accent); }
+  .info-pill .key { font-size:11px; color:var(--text-soft); margin-top:4px; line-height:1.4; }
+
+  /* FOOTER NAV */
+  .footer-nav { display:flex; justify-content:center; gap:16px; flex-wrap:wrap; padding-top:20px; }
+  .footer-nav a { display:inline-block; padding:12px 28px; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-weight:700; font-size:14px; border-radius:40px; text-decoration:none; transition:.2s; }
+  .footer-nav a:hover { background:var(--accent); color:var(--bg); }
+  .footer-nav a.primary { background:var(--accent); color:var(--bg); }
+  .footer-nav a.primary:hover { background:var(--accent2); }
+
+  /* TABLE */
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  thead tr { background:var(--accent); color:var(--bg); }
+  thead th { padding:12px 16px; text-align:right; font-weight:700; }
+  [dir="ltr"] thead th { text-align:left; }
+  tbody tr { border-bottom:1px solid var(--border); transition:.15s; }
+  tbody tr:hover { background:var(--surface2); }
+  tbody td { padding:11px 16px; color:var(--text); }
+  tbody td:first-child { color:var(--accent2); font-weight:600; }
+
+  /* RESPONSIVE */
+  @media(max-width:700px){
+    .mm-level1 { flex-direction:column; align-items:center; }
+    .side-dots { display:none; }
+    .gi-chart { gap:6px; }
+    .gi-bar { width:36px; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+  .animate-in { animation: fadeInUp .6s ease forwards; }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+  @keyframes moveGlucose { 0%{top:20%} 50%{top:55%} 100%{top:75%} }
+  @keyframes stuckGlucose { 0%{top:20%} 50%{top:40%} 100%{top:25%} }
+</style>
+</head>
+<body data-theme="dark">
+
+<!-- PASSWORD GATE -->
+<div class="pw-gate" id="pwGate">
+  <h2>🔐</h2>
+  <p style="color:var(--text-soft); font-size:14px;">
+    <span class="ar">أدخل كلمة المرور للمتابعة</span>
+    <span class="de">Passwort eingeben um fortzufahren</span>
+  </p>
+  <input type="password" id="pwInput" placeholder="••••••" autofocus>
+  <button onclick="checkPw()">
+    <span class="ar">دخول</span>
+    <span class="de">Eintreten</span>
+  </button>
+  <div class="pw-error" id="pwError"></div>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- PARTICLES -->
+<div class="particles" id="particles"></div>
+
+<!-- SIDE DOTS -->
+<div class="side-dots" id="sideDots"></div>
+
+<!-- Theme switcher -->
+<div class="theme-bar">
+  <span>🎨</span>
+  <div class="swatch s-dark active"   onclick="setTheme('dark',this)"    title="Dark Gold"></div>
+  <div class="swatch s-teal"          onclick="setTheme('teal',this)"    title="Teal"></div>
+  <div class="swatch s-purple"        onclick="setTheme('purple',this)"  title="Purple"></div>
+  <div class="swatch s-emerald"       onclick="setTheme('emerald',this)" title="Emerald"></div>
+</div>
+
+<!-- Lang toggle -->
+<button class="lang-btn" onclick="toggleLang()" id="langBtn">DE</button>
+
+<!-- HEADER -->
+<header>
+  <div class="chapter-tag">
+    <span class="ar">الفصل الثاني</span>
+    <span class="de">Kapitel 2</span>
+  </div>
+  <h1>
+    <span class="accent">🔬</span>
+    <span class="ar"> مقاومة الأنسولين</span>
+    <span class="de"> Insulinresistenz</span>
+  </h1>
+  <p class="subtitle">
+    <span class="ar">افهم كيف يعمل الأنسولين، وما الذي يحدث عندما تقاومه خلاياك — وكيف تحمي نفسك</span>
+    <span class="de">Verstehe wie Insulin wirkt, was bei Resistenz passiert — und wie du dich schutzen kannst</span>
+  </p>
+</header>
+
+<div class="container">
+
+  <!-- ═══════════════════════════════════════
+       1. MIND MAP
+  ═══════════════════════════════════════ -->
+  <section id="sec-mindmap">
+    <h2 class="section-title">
+      🗺️
+      <span class="ar">خريطة الفصل الذهنية</span>
+      <span class="de">Kapitel-Mindmap</span>
+    </h2>
+    <p style="font-size:12px; color:var(--text-soft); margin-bottom:16px;">
+      <span class="ar">اضغط على أي فرع لتوسيع المواضيع الفرعية</span>
+      <span class="de">Klicke auf einen Zweig, um Unterthemen zu erweitern</span>
+    </p>
+    <div class="mindmap-tree">
+      <div class="mm-wrapper">
+        <div class="mm-center">
+          <span class="ar">🔬 مقاومة الأنسولين</span>
+          <span class="de">🔬 Insulinresistenz</span>
+        </div>
+        <div class="mm-vline"></div>
+        <div class="mm-level1">
+
+          <div class="mm-branch" onclick="this.classList.toggle('open')">
+            <div class="mm-l1 gold">
+              <span class="ar">🔑 كلمات مفتاحية</span>
+              <span class="de">🔑 Schlusselbegriffe</span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">الأنسولين</span><span class="de">Insulin</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">الجلوكوز</span><span class="de">Glukose</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">مستقبلات الأنسولين</span><span class="de">Insulinrezeptoren</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">GLUT-4</span><span class="de">GLUT-4</span></div>
+            </div>
+          </div>
+
+          <div class="mm-branch" onclick="this.classList.toggle('open')">
+            <div class="mm-l1 green">
+              <span class="ar">⚙️ آلية عمل الأنسولين</span>
+              <span class="de">⚙️ Insulin-Mechanismus</span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">ارتباط بالمستقبل</span><span class="de">Rezeptorbindung</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">تايروسين كيناز</span><span class="de">Tyrosinkinase</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">PI3K / Akt</span><span class="de">PI3K / Akt</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">نقل GLUT-4</span><span class="de">GLUT-4 Transport</span></div>
+            </div>
+          </div>
+
+          <div class="mm-branch" onclick="this.classList.toggle('open')">
+            <div class="mm-l1 red">
+              <span class="ar">🚨 ماذا يحدث في المقاومة؟</span>
+              <span class="de">🚨 Was passiert bei Resistenz?</span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">نقص المستقبلات</span><span class="de">Rezeptormangel</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">Akt لا ينشط</span><span class="de">Akt inaktiv</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">ارتفاع الأنسولين</span><span class="de">Hyperinsulinamie</span></div>
+            </div>
+          </div>
+
+          <div class="mm-branch" onclick="this.classList.toggle('open')">
+            <div class="mm-l1 blue">
+              <span class="ar">📊 المؤشر الجلايسيمي</span>
+              <span class="de">📊 Glykamischer Index</span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">مرتفع &gt; 70</span><span class="de">Hoch &gt; 70</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">متوسط 56-69</span><span class="de">Mittel 56-69</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">منخفض &lt; 55</span><span class="de">Niedrig &lt; 55</span></div>
+            </div>
+          </div>
+
+          <div class="mm-branch" onclick="this.classList.toggle('open')">
+            <div class="mm-l1 gold">
+              <span class="ar">🔄 السيناريوهات</span>
+              <span class="de">🔄 Szenarien</span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">طبيعي</span><span class="de">Normal</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">سكري النوع 2</span><span class="de">Diabetes Typ 2</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">سكري النوع 1</span><span class="de">Diabetes Typ 1</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       2. KEYWORDS / DEFINITIONS
+  ═══════════════════════════════════════ -->
+  <section id="sec-keywords">
+    <h2 class="section-title">
+      🔑
+      <span class="ar">كلمات مفتاحية وتعريفات</span>
+      <span class="de">Schlusselbegriffe & Definitionen</span>
+    </h2>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">💉</div>
+        <h3><span class="ar">الأنسولين (Insulin)</span><span class="de">Insulin</span></h3>
+        <p>
+          <span class="ar">هرمون يتم إنتاجه بواسطة البنكرياس. يساعد في تنظيم مستوى السكر في الدم من خلال تحفيز الخلايا على امتصاص الجلوكوز من الدم واستخدامه أو تخزينه.</span>
+          <span class="de">Ein Hormon, das von der Bauchspeicheldruse produziert wird. Es reguliert den Blutzuckerspiegel, indem es die Zellen zur Aufnahme von Glukose aus dem Blut anregt, um sie zu verwerten oder zu speichern.</span>
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🍬</div>
+        <h3><span class="ar">الجلوكوز (Glucose)</span><span class="de">Glukose</span></h3>
+        <p>
+          <span class="ar">سكر بسيط وهو المصدر الرئيسي للطاقة في الجسم. يأتي من هضم الكربوهيدرات ويتم نقله عبر الدم إلى الخلايا.</span>
+          <span class="de">Ein Einfachzucker und die Hauptenergiequelle des Korpers. Er stammt aus der Verdauung von Kohlenhydraten und wird uber das Blut zu den Zellen transportiert.</span>
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔗</div>
+        <h3><span class="ar">الكربوهيدرات المعقدة</span><span class="de">Komplexe Kohlenhydrate</span></h3>
+        <p>
+          <span class="ar">تتكون من سلاسل طويلة من جزيئات السكر، بشكل أساسي الجلوكوز. توجد في البطاطس والأرز والحبوب والبقوليات. يهضمها الجسم ببطء مما يوفر طاقة مستدامة.</span>
+          <span class="de">Bestehen aus langen Ketten von Zuckermolekulen, hauptsachlich Glukose. Sie kommen in Kartoffeln, Reis, Getreide und Hulsenfruchten vor und werden langsam verdaut fur nachhaltige Energie.</span>
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔓</div>
+        <h3><span class="ar">مستقبلات الأنسولين</span><span class="de">Insulinrezeptoren</span></h3>
+        <p>
+          <span class="ar">بروتينات متخصصة على سطح الخلايا، تعمل كقفل لاستقبال إشارة الأنسولين. بدون هذه المستقبلات، لا يمكن للأنسولين إدخال الجلوكوز إلى داخل الخلية.</span>
+          <span class="de">Spezialisierte Proteine auf der Zelloberflache, die als Schloss fur das Insulinsignal dienen. Ohne diese Rezeptoren kann Insulin keine Glukose in die Zelle einschleusen.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       3. INSULIN SIGNALING PATHWAY (Interactive)
+  ═══════════════════════════════════════ -->
+  <section id="sec-pathway">
+    <h2 class="section-title">
+      ⚙️
+      <span class="ar">آلية عمل الأنسولين — مسار الإشارة</span>
+      <span class="de">Insulin-Signalweg — Schritt fur Schritt</span>
+    </h2>
+
+    <div class="pathway-container">
+      <svg class="pathway-svg" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg">
+        <!-- Step 1: Insulin binds -->
+        <g class="pathway-step" data-step="1">
+          <rect x="10" y="20" width="150" height="60" fill="#c9a84c" opacity="0.9"/>
+          <text x="85" y="45" text-anchor="middle" font-size="11" font-weight="700" fill="#0d0d0d">الأنسولين يرتبط</text>
+          <text x="85" y="63" text-anchor="middle" font-size="10" fill="#0d0d0d">Insulin bindet</text>
+        </g>
+        <line class="pathway-arrow" data-step="1" x1="160" y1="50" x2="195" y2="50" stroke="#c9a84c" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+        <!-- Step 2: Conformational change -->
+        <g class="pathway-step" data-step="2">
+          <rect x="200" y="20" width="150" height="60" fill="#e67e22" opacity="0.9"/>
+          <text x="275" y="45" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">تغيير شكل المستقبل</text>
+          <text x="275" y="63" text-anchor="middle" font-size="10" fill="#fff">Konformationsanderung</text>
+        </g>
+        <line class="pathway-arrow" data-step="2" x1="350" y1="50" x2="385" y2="50" stroke="#e67e22" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+        <!-- Step 3: Tyrosine Kinase -->
+        <g class="pathway-step" data-step="3">
+          <rect x="390" y="20" width="150" height="60" fill="#e74c3c" opacity="0.9"/>
+          <text x="465" y="45" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">تايروسين كيناز</text>
+          <text x="465" y="63" text-anchor="middle" font-size="10" fill="#fff">Tyrosinkinase</text>
+        </g>
+        <line class="pathway-arrow" data-step="3" x1="540" y1="50" x2="575" y2="50" stroke="#e74c3c" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+        <!-- Step 4: Signaling Cascade -->
+        <g class="pathway-step" data-step="4">
+          <rect x="580" y="20" width="200" height="60" fill="#9b59b6" opacity="0.9"/>
+          <text x="680" y="45" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">سلسلة الإشارة</text>
+          <text x="680" y="63" text-anchor="middle" font-size="10" fill="#fff">Signalkaskade (IRS)</text>
+        </g>
+
+        <!-- Arrow down to split -->
+        <line class="pathway-arrow" data-step="4" x1="680" y1="80" x2="680" y2="120" stroke="#9b59b6" stroke-width="3" marker-end="url(#arrowhead)"/>
+
+        <!-- Split into two pathways -->
+        <!-- Left: PI3K/Akt -->
+        <line class="pathway-arrow" data-step="5" x1="680" y1="120" x2="300" y2="160" stroke="#2980b9" stroke-width="2" marker-end="url(#arrowhead)"/>
+        <g class="pathway-step" data-step="5">
+          <rect x="120" y="150" width="360" height="50" fill="#2980b9" opacity="0.9" rx="10"/>
+          <text x="300" y="175" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">PI3K / Akt Pathway</text>
+          <text x="300" y="192" text-anchor="middle" font-size="10" fill="#fff">إدخال الجلوكوز وتنظيم التمثيل الغذائي</text>
+        </g>
+
+        <!-- Right: MAPK -->
+        <line class="pathway-arrow" data-step="5" x1="680" y1="120" x2="680" y2="160" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowhead)"/>
+        <g class="pathway-step" data-step="5">
+          <rect x="530" y="150" width="250" height="50" fill="#27ae60" opacity="0.9" rx="10"/>
+          <text x="655" y="175" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">MAPK Pathway</text>
+          <text x="655" y="192" text-anchor="middle" font-size="10" fill="#fff">النمو والانقسام الخلوي</text>
+        </g>
+
+        <!-- Akt results -->
+        <line class="pathway-arrow" data-step="6" x1="300" y1="200" x2="300" y2="230" stroke="#2980b9" stroke-width="2" marker-end="url(#arrowhead)"/>
+        <g class="pathway-step" data-step="6">
+          <rect x="30" y="230" width="540" height="170" fill="none" stroke="#2980b9" stroke-width="1.5" rx="10" opacity="0.5"/>
+          <text x="300" y="255" text-anchor="middle" font-size="13" font-weight="800" fill="#2980b9">ماذا يفعل Akt؟ — Was macht Akt?</text>
+          <rect x="50" y="270" width="240" height="35" fill="#2980b9" opacity="0.15" rx="6"/>
+          <text x="170" y="293" text-anchor="middle" font-size="11" fill="#2980b9" font-weight="600">GLUT-4 → الجلوكوز يدخل الخلية</text>
+          <rect x="310" y="270" width="240" height="35" fill="#2980b9" opacity="0.15" rx="6"/>
+          <text x="430" y="293" text-anchor="middle" font-size="11" fill="#2980b9" font-weight="600">تقليل إنتاج الجلوكوز بالكبد</text>
+          <rect x="50" y="315" width="240" height="35" fill="#2980b9" opacity="0.15" rx="6"/>
+          <text x="170" y="338" text-anchor="middle" font-size="11" fill="#2980b9" font-weight="600">تصنيع الجليكوجين (تخزين)</text>
+          <rect x="310" y="315" width="240" height="35" fill="#2980b9" opacity="0.15" rx="6"/>
+          <text x="430" y="338" text-anchor="middle" font-size="11" fill="#2980b9" font-weight="600">تقليل تحلل الدهون</text>
+          <rect x="140" y="360" width="280" height="35" fill="#2980b9" opacity="0.15" rx="6"/>
+          <text x="280" y="383" text-anchor="middle" font-size="11" fill="#2980b9" font-weight="600">تحفيز تصنيع البروتينات</text>
+        </g>
+
+        <defs>
+          <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto" fill="#c9a84c">
+            <polygon points="0 0, 10 3.5, 0 7" />
+          </marker>
+        </defs>
+      </svg>
+
+      <div class="pw-controls">
+        <button class="pw-btn" onclick="animatePathway(0)"><span class="ar">⏮ البداية</span><span class="de">⏮ Start</span></button>
+        <button class="pw-btn" onclick="animatePathway(1)">1</button>
+        <button class="pw-btn" onclick="animatePathway(2)">2</button>
+        <button class="pw-btn" onclick="animatePathway(3)">3</button>
+        <button class="pw-btn" onclick="animatePathway(4)">4</button>
+        <button class="pw-btn" onclick="animatePathway(5)">5</button>
+        <button class="pw-btn" onclick="animatePathway(6)">6</button>
+        <button class="pw-btn" onclick="animatePathway(7)"><span class="ar">⏭ الكل</span><span class="de">⏭ Alle</span></button>
+      </div>
+
+      <div class="step-info" id="pathwayInfo">
+        <span class="ar">اضغط على الأرقام أعلاه لمتابعة مسار الإشارة خطوة بخطوة</span>
+        <span class="de">Klicke auf die Nummern oben, um den Signalweg Schritt fur Schritt zu verfolgen</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       4. CELL INTERACTIVE — Normal vs Resistant
+  ═══════════════════════════════════════ -->
+  <section id="sec-cell">
+    <h2 class="section-title">
+      🔬
+      <span class="ar">الخلية التفاعلية — طبيعية مقابل مقاومة</span>
+      <span class="de">Interaktive Zelle — Normal vs. Resistent</span>
+    </h2>
+    <p style="font-size:12px; color:var(--text-soft); margin-bottom:16px;">
+      <span class="ar">اضغط على كل خلية لمشاهدة الفرق في استجابة الجلوكوز</span>
+      <span class="de">Klicke auf jede Zelle, um den Unterschied in der Glukosereaktion zu sehen</span>
+    </p>
+
+    <div class="cell-container">
+      <!-- Normal Cell -->
+      <div class="cell-box" id="cellNormal" onclick="animateCell('normal')">
+        <div class="status-badge status-normal"><span class="ar">✅ خلية طبيعية</span><span class="de">✅ Normale Zelle</span></div>
+        <h4><span class="ar">استجابة طبيعية للأنسولين</span><span class="de">Normale Insulinreaktion</span></h4>
+        <div class="cell-visual" id="cellVisNormal">
+          <div class="cell-membrane"></div>
+          <div class="receptor" style="left:25%"></div>
+          <div class="receptor" style="left:50%"></div>
+          <div class="receptor" style="left:75%"></div>
+          <div class="insulin-dot" style="left:27%; top:15%"></div>
+          <div class="insulin-dot" style="left:52%; top:12%"></div>
+          <div class="glucose-dot gn" style="left:30%; top:20%"></div>
+          <div class="glucose-dot gn" style="left:55%; top:18%"></div>
+          <div class="glucose-dot gn" style="left:70%; top:22%"></div>
+        </div>
+        <div class="cell-desc">
+          <span class="ar">الأنسولين يرتبط بالمستقبل → GLUT-4 ينتقل → الجلوكوز يدخل الخلية بنجاح</span>
+          <span class="de">Insulin bindet am Rezeptor → GLUT-4 transloziert → Glukose gelangt erfolgreich in die Zelle</span>
+        </div>
+      </div>
+
+      <!-- Resistant Cell -->
+      <div class="cell-box" id="cellResistant" onclick="animateCell('resistant')">
+        <div class="status-badge status-resistant"><span class="ar">🚨 خلية مقاومة</span><span class="de">🚨 Resistente Zelle</span></div>
+        <h4><span class="ar">مقاومة الأنسولين</span><span class="de">Insulinresistenz</span></h4>
+        <div class="cell-visual" id="cellVisResistant">
+          <div class="cell-membrane"></div>
+          <div class="receptor" style="left:40%; opacity:0.4"></div>
+          <div class="insulin-dot" style="left:27%; top:15%"></div>
+          <div class="insulin-dot" style="left:42%; top:10%"></div>
+          <div class="insulin-dot" style="left:60%; top:13%"></div>
+          <div class="glucose-dot gr" style="left:20%; top:20%"></div>
+          <div class="glucose-dot gr" style="left:45%; top:18%"></div>
+          <div class="glucose-dot gr" style="left:65%; top:22%"></div>
+          <div class="glucose-dot gr" style="left:35%; top:25%"></div>
+        </div>
+        <div class="cell-desc">
+          <span class="ar">المستقبلات قليلة أو ضعيفة → GLUT-4 لا ينتقل → الجلوكوز يبقى في الدم ← ارتفاع الأنسولين للتعويض</span>
+          <span class="de">Wenige/schwache Rezeptoren → GLUT-4 transloziert nicht → Glukose bleibt im Blut ← kompensatorische Hyperinsulinamie</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       5. WHAT HAPPENS IN INSULIN RESISTANCE
+  ═══════════════════════════════════════ -->
+  <section id="sec-resistance">
+    <h2 class="section-title">
+      🚨
+      <span class="ar">ماذا يحدث في مقاومة الأنسولين؟</span>
+      <span class="de">Was passiert bei Insulinresistenz?</span>
+    </h2>
+
+    <div class="info-box" style="border-right:3px solid var(--red)">
+      <div class="lbl ar" style="color:var(--red)">مراحل تطور المقاومة</div>
+      <div class="lbl de" style="color:var(--red)">Stufen der Resistenzentwicklung</div>
+      <div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="min-width:32px; height:32px; border-radius:50%; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px;">1</div>
+          <p style="margin:0"><span class="ar"><strong>عدد المستقبلات قد يقل أو حساسيتها تضعف</strong></span><span class="de"><strong>Rezeptoranzahl sinkt oder Empfindlichkeit lasst nach</strong></span></p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="min-width:32px; height:32px; border-radius:50%; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px;">2</div>
+          <p style="margin:0"><span class="ar"><strong>IRS لا يتم تفعيله بشكل جيد</strong></span><span class="de"><strong>IRS wird nicht ausreichend aktiviert</strong></span></p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="min-width:32px; height:32px; border-radius:50%; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px;">3</div>
+          <p style="margin:0"><span class="ar"><strong>Akt لا ينشط → GLUT-4 لا ينتقل → الجلوكوز يبقى في الدم</strong></span><span class="de"><strong>Akt bleibt inaktiv → GLUT-4 transloziert nicht → Glukose bleibt im Blut</strong></span></p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="min-width:32px; height:32px; border-radius:50%; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px;">4</div>
+          <p style="margin:0"><span class="ar"><strong>الجسم يفرز المزيد من الأنسولين للتعويض (Hyperinsulinemia)</strong></span><span class="de"><strong>Der Korper produziert mehr Insulin zur Kompensation (Hyperinsulinamie)</strong></span></p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="min-width:32px; height:32px; border-radius:50%; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px;">5</div>
+          <p style="margin:0"><span class="ar"><strong>النتيجة: ارتفاع سكر الدم ومقاومة إنسولين مزمنة</strong></span><span class="de"><strong>Ergebnis: Chronisch erhohter Blutzucker und chronische Insulinresistenz</strong></span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Receptor count info -->
+    <div class="info-box" style="margin-top:16px">
+      <div class="lbl ar">عدد مستقبلات الأنسولين</div>
+      <div class="lbl de">Anzahl der Insulinrezeptoren</div>
+      <p>
+        <span class="ar">يختلف عدد المستقبلات حسب نوع الخلية والحالة الصحية. <strong>الخلايا العضلية والكتلة العضلية الأكبر تزيد من عدد المستقبلات.</strong> النشاط البدني والتغذية الصحية تحفّز زيادة المستقبلات.</span>
+        <span class="de">Die Rezeptoranzahl variiert je nach Zelltyp und Gesundheitszustand. <strong>Muskelzellen und großere Muskelmasse erhohen die Rezeptoranzahl.</strong> Korperliche Aktivitat und gesunde Ernahrung fordern die Rezeptorbildung.</span>
+      </p>
+    </div>
+
+    <div class="info-row" style="margin-top:16px">
+      <div class="info-pill">
+        <div class="val">💪</div>
+        <div class="key"><span class="ar">كتلة عضلية أكبر<br>= مستقبلات أكثر</span><span class="de">Mehr Muskelmasse<br>= Mehr Rezeptoren</span></div>
+      </div>
+      <div class="info-pill">
+        <div class="val">🏃</div>
+        <div class="key"><span class="ar">نشاط بدني<br>= حساسية أعلى</span><span class="de">Bewegung<br>= Hohere Sensitivitat</span></div>
+      </div>
+      <div class="info-pill">
+        <div class="val">🥗</div>
+        <div class="key"><span class="ar">تغذية صحية<br>= تحفيز المستقبلات</span><span class="de">Gesunde Ernahrung<br>= Rezeptorstimulation</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       6. INSULIN RESISTANCE VS OBESITY
+  ═══════════════════════════════════════ -->
+  <section id="sec-obesity">
+    <h2 class="section-title">
+      🤔
+      <span class="ar">مقاومة الأنسولين والسمنة — من يأتي أولاً؟</span>
+      <span class="de">Insulinresistenz & Adipositas — Was kommt zuerst?</span>
+    </h2>
+
+    <div class="compare-grid">
+      <div class="compare-panel">
+        <h4 style="color:var(--red)"><span class="ar">🔴 السمنة تسبب المقاومة</span><span class="de">🔴 Adipositas verursacht Resistenz</span></h4>
+        <div class="info-box" style="text-align:right">
+          <p>
+            <span class="ar">زيادة الدهون → التهابات مزمنة → تضعف المستقبلات → مقاومة الأنسولين</span>
+            <span class="de">Mehr Fett → chronische Entzundungen → Rezeptorschwache → Insulinresistenz</span>
+          </p>
+        </div>
+      </div>
+      <div class="compare-panel">
+        <h4 style="color:var(--accent)"><span class="ar">🟡 المقاومة تسبب السمنة</span><span class="de">🟡 Resistenz verursacht Adipositas</span></h4>
+        <div class="info-box" style="text-align:right">
+          <p>
+            <span class="ar">ارتفاع الأنسولين → تخزين الدهون → زيادة الوزن → حلقة مفرغة</span>
+            <span class="de">Hoher Insulinspiegel → Fettspeicherung → Gewichtszunahme → Teufelskreis</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-box" style="margin-top:16px;">
+      <p style="font-size:14px; font-weight:700; color:var(--text); margin:0; line-height:1.8;">
+        <span class="ar">🔄 العلاقة بينهما دائرية — كل منهما يمكن أن يسبب الآخر ويزيده سوءاً. المفتاح هو كسر هذه الحلقة عبر التغذية الصحية والنشاط البدني.</span>
+        <span class="de">🔄 Die Beziehung ist zirkular — jede Kondition kann die andere verursachen und verschlimmern. Der Schlussel liegt darin, den Kreislauf durch gesunde Ernahrung und Bewegung zu durchbrechen.</span>
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       7. SCENARIO CARDS
+  ═══════════════════════════════════════ -->
+  <section id="sec-scenarios">
+    <h2 class="section-title">
+      🔄
+      <span class="ar">السيناريوهات التوضيحية</span>
+      <span class="de">Erlauternde Szenarien</span>
+    </h2>
+    <p style="font-size:12px; color:var(--text-soft); margin-bottom:16px;">
+      <span class="ar">مرر الماوس أو اضغط لقلب البطاقة ومعرفة التفاصيل</span>
+      <span class="de">Hover oder klicke, um die Karte umzudrehen und Details zu sehen</span>
+    </p>
+
+    <div class="scenario-grid">
+      <!-- Normal -->
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="sc-icon">✅</div>
+            <h4><span class="ar">الحالة الطبيعية</span><span class="de">Normalzustand</span></h4>
+            <p><span class="ar">كل شيء يعمل بشكل صحيح</span><span class="de">Alles funktioniert korrekt</span></p>
+            <div class="flip-hint"><span class="ar">اضغط للتفاصيل ↩</span><span class="de">Klicke fur Details ↩</span></div>
+          </div>
+          <div class="flip-back">
+            <p>
+              <span class="ar"><strong>البنكرياس</strong> يفرز الأنسولين بشكل طبيعي.<br><strong>المستقبلات</strong> تستجيب بكفاءة.<br><strong>GLUT-4</strong> ينتقل لسطح الخلية.<br><strong>الجلوكوز</strong> يدخل الخلايا ويُستخدم كطاقة أو يُخزّن كجليكوجين.<br><strong>النتيجة:</strong> مستوى سكر الدم مستقر.</span>
+              <span class="de"><strong>Pankreas</strong> sezerniert Insulin normal.<br><strong>Rezeptoren</strong> reagieren effizient.<br><strong>GLUT-4</strong> transloziert zur Zelloberflache.<br><strong>Glukose</strong> gelangt in die Zellen und wird als Energie genutzt oder als Glykogen gespeichert.<br><strong>Ergebnis:</strong> Stabiler Blutzuckerspiegel.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Type 2 -->
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="sc-icon">⚠️</div>
+            <h4><span class="ar">سكري النوع الثاني</span><span class="de">Diabetes Typ 2</span></h4>
+            <p><span class="ar">الأنسولين موجود لكن الخلايا تقاومه</span><span class="de">Insulin vorhanden, aber Zellen reagieren nicht</span></p>
+            <div class="flip-hint"><span class="ar">اضغط للتفاصيل ↩</span><span class="de">Klicke fur Details ↩</span></div>
+          </div>
+          <div class="flip-back">
+            <p>
+              <span class="ar"><strong>البنكرياس</strong> يفرز الأنسولين (أحياناً بكميات كبيرة).<br><strong>المستقبلات</strong> أقل عدداً أو أقل حساسية.<br><strong>GLUT-4</strong> لا ينتقل بكفاءة.<br><strong>الجلوكوز</strong> يتراكم في الدم.<br><strong>النتيجة:</strong> ارتفاع مزمن في سكر الدم + ارتفاع الأنسولين (Hyperinsulinemia).</span>
+              <span class="de"><strong>Pankreas</strong> sezerniert Insulin (oft sogar mehr).<br><strong>Rezeptoren</strong> sind weniger oder unempfindlicher.<br><strong>GLUT-4</strong> transloziert nicht effizient.<br><strong>Glukose</strong> akkumuliert im Blut.<br><strong>Ergebnis:</strong> Chronisch erhohter Blutzucker + Hyperinsulinamie.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Type 1 -->
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="sc-icon">🔴</div>
+            <h4><span class="ar">سكري النوع الأول</span><span class="de">Diabetes Typ 1</span></h4>
+            <p><span class="ar">لا يوجد أنسولين أصلاً</span><span class="de">Kein Insulin vorhanden</span></p>
+            <div class="flip-hint"><span class="ar">اضغط للتفاصيل ↩</span><span class="de">Klicke fur Details ↩</span></div>
+          </div>
+          <div class="flip-back">
+            <p>
+              <span class="ar"><strong>البنكرياس</strong> لا يفرز الأنسولين (تدمير مناعي لخلايا بيتا).<br><strong>المستقبلات</strong> سليمة لكن بدون أنسولين لا تنفع.<br><strong>GLUT-4</strong> لا ينتقل بدون إشارة الأنسولين.<br><strong>الجلوكوز</strong> يبقى في الدم بالكامل.<br><strong>النتيجة:</strong> يحتاج المريض لحقن الأنسولين الخارجي.</span>
+              <span class="de"><strong>Pankreas</strong> produziert kein Insulin (autoimmune Zerstorung der Betazellen).<br><strong>Rezeptoren</strong> sind intakt, aber ohne Insulin nutzlos.<br><strong>GLUT-4</strong> transloziert nicht ohne Insulinsignal.<br><strong>Glukose</strong> bleibt vollstandig im Blut.<br><strong>Ergebnis:</strong> Patient braucht externe Insulininjektionen.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       8. GLYCEMIC INDEX
+  ═══════════════════════════════════════ -->
+  <section id="sec-gi">
+    <h2 class="section-title">
+      📊
+      <span class="ar">المؤشر الجلايسيمي (Glycemic Index)</span>
+      <span class="de">Glykamischer Index (GI)</span>
+    </h2>
+
+    <div class="info-box">
+      <div class="lbl ar">ما هو المؤشر الجلايسيمي؟</div>
+      <div class="lbl de">Was ist der Glykamische Index?</div>
+      <p>
+        <span class="ar">مقياس <strong>من 0 إلى 100</strong> يوضح <strong>مدى سرعة رفع الطعام لسكر الدم (الجلوكوز)</strong> بعد تناوله. كلما كان المؤشر الجلايسيمي منخفضاً، كلما كان الغذاء <strong>أفضل لمرضى السكري</strong> ولمرضى <strong>مقاومة الأنسولين</strong> لأنه يُبقي مستويات السكر مستقرة.</span>
+        <span class="de">Eine Skala <strong>von 0 bis 100</strong>, die zeigt, <strong>wie schnell ein Lebensmittel den Blutzucker erhoht</strong>. Je niedriger der GI, desto <strong>besser fur Diabetiker</strong> und Menschen mit <strong>Insulinresistenz</strong>, da der Blutzucker stabil bleibt.</span>
+      </p>
+    </div>
+
+    <div class="info-row">
+      <div class="info-pill" style="border-color:var(--red)">
+        <div class="val" style="color:var(--red)">&gt; 70</div>
+        <div class="key"><span class="ar">GI مرتفع<br>يرفع السكر بسرعة</span><span class="de">Hoher GI<br>Schneller Anstieg</span></div>
+      </div>
+      <div class="info-pill" style="border-color:var(--accent)">
+        <div class="val">56-69</div>
+        <div class="key"><span class="ar">GI متوسط</span><span class="de">Mittlerer GI</span></div>
+      </div>
+      <div class="info-pill" style="border-color:var(--green)">
+        <div class="val" style="color:var(--green)">&lt; 55</div>
+        <div class="key"><span class="ar">GI منخفض<br>يرفع السكر ببطء</span><span class="de">Niedriger GI<br>Langsamer Anstieg</span></div>
+      </div>
+    </div>
+
+    <!-- Interactive GI Chart -->
+    <div class="gi-chart" id="giChart"></div>
+    <div class="gi-legend">
+      <div class="gi-legend-item"><div class="gi-legend-dot" style="background:var(--red)"></div><span class="ar">مرتفع (&gt;70)</span><span class="de">Hoch (&gt;70)</span></div>
+      <div class="gi-legend-item"><div class="gi-legend-dot" style="background:var(--accent)"></div><span class="ar">متوسط (56-69)</span><span class="de">Mittel (56-69)</span></div>
+      <div class="gi-legend-item"><div class="gi-legend-dot" style="background:var(--green)"></div><span class="ar">منخفض (&lt;55)</span><span class="de">Niedrig (&lt;55)</span></div>
+    </div>
+    <div class="gi-detail-box" id="giDetail">
+      <span class="ar">اضغط على أي عمود لمعرفة تفاصيل الطعام</span>
+      <span class="de">Klicke auf einen Balken fur Lebensmitteldetails</span>
+    </div>
+
+    <!-- Cooking & Combining Tips -->
+    <div class="info-box" style="margin-top:16px; border-right:3px solid var(--accent)">
+      <div class="lbl ar">💡 نصائح مهمة</div>
+      <div class="lbl de">💡 Wichtige Tipps</div>
+      <p>
+        <span class="ar">• <strong>المؤشر الجلايسيمي لا يأخذ الكمية بالحسبان</strong> — لهذا يجب أيضاً مراعاة <strong>الحِمل الجلايسيمي (Glycemic Load)</strong>.<br>
+        • <strong>طرق الطهي</strong> تؤثر على GI: البطاطا المسلوقة لها GI أعلى من البطاطا المشوية.<br>
+        • <strong>مزج الطعام</strong> (مثل أكل الأرز مع بروتين وخضار) يخفض سرعة امتصاص السكر.</span>
+        <span class="de">• <strong>Der GI berucksichtigt nicht die Menge</strong> — deshalb sollte auch die <strong>Glykamische Last (GL)</strong> beachtet werden.<br>
+        • <strong>Kochmethoden</strong> beeinflussen den GI: Gekochte Kartoffeln haben einen hoheren GI als gebackene.<br>
+        • <strong>Lebensmittel kombinieren</strong> (z.B. Reis mit Protein und Gemuse) verlangsamt die Zuckeraufnahme.</span>
+      </p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       9. QUIZ
+  ═══════════════════════════════════════ -->
+  <section id="sec-quiz">
+    <h2 class="section-title">
+      🧠
+      <span class="ar">اختبر معلوماتك</span>
+      <span class="de">Teste dein Wissen</span>
+    </h2>
+
+    <!-- Q1 -->
+    <div class="quiz-box" id="quiz1">
+      <div class="quiz-q">
+        <span class="ar">1. ما هو دور بروتين GLUT-4 في الجسم؟</span>
+        <span class="de">1. Welche Rolle spielt das GLUT-4-Protein im Korper?</span>
+      </div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" onclick="checkQuiz(this, false, 'quiz1')">
+          <span class="ar">إنتاج الأنسولين في البنكرياس</span>
+          <span class="de">Insulinproduktion in der Bauchspeicheldruse</span>
+        </div>
+        <div class="quiz-opt" onclick="checkQuiz(this, true, 'quiz1')">
+          <span class="ar">نقل الجلوكوز من الدم إلى داخل الخلية</span>
+          <span class="de">Transport von Glukose aus dem Blut in die Zelle</span>
+        </div>
+        <div class="quiz-opt" onclick="checkQuiz(this, false, 'quiz1')">
+          <span class="ar">تدمير خلايا بيتا في البنكرياس</span>
+          <span class="de">Zerstorung der Betazellen in der Bauchspeicheldruse</span>
+        </div>
+      </div>
+      <div class="quiz-feedback" id="quiz1-fb"></div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="quiz-box" id="quiz2">
+      <div class="quiz-q">
+        <span class="ar">2. ماذا يحدث عندما يكون هناك مقاومة أنسولين؟</span>
+        <span class="de">2. Was passiert bei Insulinresistenz?</span>
+      </div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" onclick="checkQuiz(this, false, 'quiz2')">
+          <span class="ar">الجلوكوز يدخل الخلايا بسهولة</span>
+          <span class="de">Glukose gelangt leicht in die Zellen</span>
+        </div>
+        <div class="quiz-opt" onclick="checkQuiz(this, false, 'quiz2')">
+          <span class="ar">البنكرياس يتوقف عن العمل تماماً</span>
+          <span class="de">Die Bauchspeicheldruse hort komplett auf zu arbeiten</span>
+        </div>
+        <div class="quiz-opt" onclick="checkQuiz(this, true, 'quiz2')">
+          <span class="ar">الجلوكوز يبقى في الدم والجسم يفرز المزيد من الأنسولين للتعويض</span>
+          <span class="de">Glukose bleibt im Blut und der Korper produziert mehr Insulin zur Kompensation</span>
+        </div>
+      </div>
+      <div class="quiz-feedback" id="quiz2-fb"></div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="quiz-box" id="quiz3">
+      <div class="quiz-q">
+        <span class="ar">3. أي من التالي يساعد في زيادة حساسية مستقبلات الأنسولين؟</span>
+        <span class="de">3. Was hilft, die Insulinrezeptor-Empfindlichkeit zu steigern?</span>
+      </div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" onclick="checkQuiz(this, true, 'quiz3')">
+          <span class="ar">النشاط البدني وزيادة الكتلة العضلية</span>
+          <span class="de">Korperliche Aktivitat und Muskelaufbau</span>
+        </div>
+        <div class="quiz-opt" onclick="checkQuiz(this, false, 'quiz3')">
+          <span class="ar">تناول أطعمة ذات GI مرتفع باستمرار</span>
+          <span class="de">Standig Lebensmittel mit hohem GI essen</span>
+        </div>
+        <div class="quiz-opt" onclick="checkQuiz(this, false, 'quiz3')">
+          <span class="ar">تقليل شرب الماء</span>
+          <span class="de">Weniger Wasser trinken</span>
+        </div>
+      </div>
+      <div class="quiz-feedback" id="quiz3-fb"></div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="quiz-box" id="quiz4">
+      <div class="quiz-q">
+        <span class="ar">4. ما هو المؤشر الجلايسيمي المنخفض (Low GI)؟</span>
+        <span class="de">4. Was gilt als niedriger Glykamischer Index (Low GI)?</span>
+      </div>
+      <div class="quiz-opts">
+        <div class="quiz-opt" onclick="checkQuiz(this, false, 'quiz4')">
+          <span class="ar">أكثر من 70</span>
+          <span class="de">Mehr als 70</span>
+        </div>
+        <div class="quiz-opt" onclick="checkQuiz(this, true, 'quiz4')">
+          <span class="ar">أقل من 55</span>
+          <span class="de">Weniger als 55</span>
+        </div>
+        <div class="quiz-opt" onclick="checkQuiz(this, false, 'quiz4')">
+          <span class="ar">بين 56 و 69</span>
+          <span class="de">Zwischen 56 und 69</span>
+        </div>
+      </div>
+      <div class="quiz-feedback" id="quiz4-fb"></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════
+       10. LEARNING OBJECTIVES
+  ═══════════════════════════════════════ -->
+  <section id="sec-objectives">
+    <h2 class="section-title">
+      📚
+      <span class="ar">الأهداف التعليمية لهذا الفصل</span>
+      <span class="de">Lernziele dieses Kapitels</span>
+    </h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">⚙️</div>
+        <h3><span class="ar">فهم آلية الأنسولين</span><span class="de">Insulin-Mechanismus verstehen</span></h3>
+        <p><span class="ar">أن يشرح المتعلم كيف يرتبط الأنسولين بالمستقبل وكيف تنتقل الإشارة داخل الخلية حتى دخول الجلوكوز</span><span class="de">Den Insulinsignalweg vom Rezeptor bis zum Glukosetransport erklaren konnen</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🚨</div>
+        <h3><span class="ar">تعريف المقاومة</span><span class="de">Resistenz definieren</span></h3>
+        <p><span class="ar">أن يُحدد ما يحدث عند فشل مسار الإشارة: من نقص المستقبلات إلى ارتفاع السكر المزمن</span><span class="de">Beschreiben, was bei Signalwegversagen passiert: von Rezeptormangel bis chronischer Hyperglykamie</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h3><span class="ar">استخدام المؤشر الجلايسيمي</span><span class="de">GI anwenden</span></h3>
+        <p><span class="ar">أن يُميّز بين الأطعمة ذات المؤشر المرتفع والمنخفض ويطبق ذلك في اختياراته الغذائية</span><span class="de">Lebensmittel mit hohem und niedrigem GI unterscheiden und Ernahrungsentscheidungen darauf basieren</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔄</div>
+        <h3><span class="ar">مقارنة السيناريوهات</span><span class="de">Szenarien vergleichen</span></h3>
+        <p><span class="ar">أن يُقارن بين الحالة الطبيعية والسكري من النوع الأول والثاني من حيث آلية الأنسولين</span><span class="de">Normal, Typ-1- und Typ-2-Diabetes anhand des Insulinmechanismus vergleichen</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER NAV -->
+  <div class="footer-nav">
+    <a href="../chapters/chapter1-goal.html">
+      <span class="ar">→ الفصل الأول: تحديد الهدف</span>
+      <span class="de">→ Kapitel 1: Ziel setzen</span>
+    </a>
+    <a href="../index.html">
+      <span class="ar">🏠 الرئيسية</span>
+      <span class="de">🏠 Startseite</span>
+    </a>
+    <a href="chapter3-macro-nutrients.html" class="primary">
+      <span class="ar">الفصل الثالث: المغذيات الكبرى ←</span>
+      <span class="de">Kapitel 3: Makronahrstoffe ←</span>
+    </a>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+// ===== PASSWORD GATE =====
+(async function(){
+  if(sessionStorage.getItem('hc-auth')==='true'){
+    document.getElementById('pwGate').classList.add('hidden'); return;
+  }
+  document.getElementById('pwInput').addEventListener('keydown',e=>{ if(e.key==='Enter') checkPw(); });
+})();
+
+async function checkPw(){
+  const input = document.getElementById('pwInput').value;
+  const enc = new TextEncoder();
+  const hashBuf = await crypto.subtle.digest('SHA-256', enc.encode(input));
+  const hashArr = Array.from(new Uint8Array(hashBuf));
+  const hashHex = hashArr.map(b=>b.toString(16).padStart(2,'0')).join('');
+  if(hashHex === '59f49e6495c6d3eb3ccae62a649e836575fc344d12bf43797f779b43f9156ee6'){
+    sessionStorage.setItem('hc-auth','true');
+    document.getElementById('pwGate').classList.add('hidden');
+  } else {
+    document.getElementById('pwError').textContent = lang==='ar'?'كلمة المرور غير صحيحة':'Falsches Passwort';
+    document.getElementById('pwInput').value='';
+  }
+}
+
+// ===== THEME =====
+function setTheme(name, el){
+  document.body.setAttribute('data-theme', name);
+  document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('active'));
+  el.classList.add('active');
+  localStorage.setItem('theme', name);
+}
+(function(){
+  const t=localStorage.getItem('theme');
+  if(t){
+    document.body.setAttribute('data-theme',t);
+    const s=document.querySelector('.s-'+t);
+    if(s){document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('active'));s.classList.add('active');}
+  }
+})();
+
+// ===== LANGUAGE =====
+let lang='ar';
+function toggleLang(){
+  lang=lang==='ar'?'de':'ar';
+  document.querySelectorAll('.ar').forEach(el=>el.style.display=lang==='ar'?'':'none');
+  document.querySelectorAll('.de').forEach(el=>el.style.display=lang==='de'?'':'none');
+  document.getElementById('langBtn').textContent=lang==='ar'?'DE':'AR';
+  document.documentElement.setAttribute('lang',lang);
+  document.documentElement.setAttribute('dir',lang==='ar'?'rtl':'ltr');
+}
+
+// ===== SCROLL PROGRESS =====
+window.addEventListener('scroll',()=>{
+  const s=document.documentElement.scrollTop;
+  const h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  document.getElementById('scrollProgress').style.width=(s/h*100)+'%';
+});
+
+// ===== PARTICLES =====
+(function(){
+  const c=document.getElementById('particles');
+  for(let i=0;i<20;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const size=Math.random()*6+2;
+    p.style.width=size+'px';
+    p.style.height=size+'px';
+    p.style.left=Math.random()*100+'%';
+    p.style.animationDuration=(Math.random()*15+10)+'s';
+    p.style.animationDelay=(Math.random()*10)+'s';
+    c.appendChild(p);
+  }
+})();
+
+// ===== SIDE DOTS (Scroll Spy) =====
+const sections=[
+  {id:'sec-mindmap', ar:'الخريطة الذهنية', de:'Mindmap'},
+  {id:'sec-keywords', ar:'كلمات مفتاحية', de:'Begriffe'},
+  {id:'sec-pathway', ar:'مسار الإشارة', de:'Signalweg'},
+  {id:'sec-cell', ar:'الخلية التفاعلية', de:'Zelle'},
+  {id:'sec-resistance', ar:'المقاومة', de:'Resistenz'},
+  {id:'sec-obesity', ar:'السمنة', de:'Adipositas'},
+  {id:'sec-scenarios', ar:'السيناريوهات', de:'Szenarien'},
+  {id:'sec-gi', ar:'المؤشر الجلايسيمي', de:'GI'},
+  {id:'sec-quiz', ar:'الاختبار', de:'Quiz'},
+  {id:'sec-objectives', ar:'الأهداف', de:'Lernziele'}
+];
+(function(){
+  const dotsC=document.getElementById('sideDots');
+  sections.forEach(s=>{
+    const d=document.createElement('div');
+    d.className='side-dot';
+    d.setAttribute('data-label',s.ar);
+    d.onclick=()=>document.getElementById(s.id).scrollIntoView({behavior:'smooth'});
+    dotsC.appendChild(d);
+  });
+})();
+window.addEventListener('scroll',()=>{
+  const dots=document.querySelectorAll('.side-dot');
+  let active=-1;
+  sections.forEach((s,i)=>{
+    const el=document.getElementById(s.id);
+    if(el){
+      const r=el.getBoundingClientRect();
+      if(r.top<window.innerHeight/2) active=i;
+    }
+  });
+  dots.forEach((d,i)=>{
+    d.classList.toggle('active',i===active);
+    d.setAttribute('data-label', lang==='ar'?sections[i].ar:sections[i].de);
+  });
+});
+
+// ===== PATHWAY ANIMATION =====
+const stepInfos = {
+  1:{ar:'<strong>الخطوة 1:</strong> يرتبط الأنسولين بالوحدات α الموجودة خارج الخلية على سطح المستقبل.',de:'<strong>Schritt 1:</strong> Insulin bindet an die α-Untereinheiten auf der Zelloberflache des Rezeptors.'},
+  2:{ar:'<strong>الخطوة 2:</strong> يؤدي الارتباط إلى تغيير في شكل المستقبل (Conformational Change) — وهذا ينشط الجزء الداخلي.',de:'<strong>Schritt 2:</strong> Die Bindung verursacht eine Konformationsanderung des Rezeptors — dies aktiviert den intrazellularen Teil.'},
+  3:{ar:'<strong>الخطوة 3:</strong> تُفعّل الوحدات β داخل الخلية التي تمتلك نشاط إنزيم تايروسين كيناز (Tyrosine Kinase).',de:'<strong>Schritt 3:</strong> Die β-Untereinheiten im Zellinneren werden aktiviert, die Tyrosinkinase-Aktivitat besitzen.'},
+  4:{ar:'<strong>الخطوة 4:</strong> يبدأ نشاط سلسلة من التفاعلات الداخلية تُسمى مسار الإشارة (Signaling Cascade) عبر IRS.',de:'<strong>Schritt 4:</strong> Eine intrazelluare Signalkaskade wird uber IRS (Insulinrezeptorsubstrat) gestartet.'},
+  5:{ar:'<strong>الخطوة 5:</strong> تنقسم الإشارة إلى مسارين: <strong>PI3K/Akt</strong> (لإدخال الجلوكوز والتمثيل الغذائي) و <strong>MAPK</strong> (للنمو والانقسام الخلوي).',de:'<strong>Schritt 5:</strong> Das Signal teilt sich in zwei Wege: <strong>PI3K/Akt</strong> (Glukosetransport & Metabolismus) und <strong>MAPK</strong> (Zellwachstum & -teilung).'},
+  6:{ar:'<strong>الخطوة 6:</strong> ماذا يفعل Akt؟ يحفز GLUT-4 لنقل الجلوكوز، يقلل إنتاج الجلوكوز بالكبد، يحفز تصنيع الجليكوجين، يقلل تحلل الدهون، ويحفز تصنيع البروتينات.',de:'<strong>Schritt 6:</strong> Was macht Akt? Stimuliert GLUT-4 fur Glukosetransport, reduziert hepatische Glukoseproduktion, fordert Glykogensynthese, hemmt Lipolyse und stimuliert Proteinsynthese.'}
+};
+
+function animatePathway(step){
+  const allSteps=document.querySelectorAll('.pathway-step');
+  const allArrows=document.querySelectorAll('.pathway-arrow');
+  const btns=document.querySelectorAll('.pw-btn');
+  btns.forEach(b=>b.classList.remove('active'));
+
+  if(step===0){
+    allSteps.forEach(s=>s.classList.remove('active'));
+    allArrows.forEach(a=>a.classList.remove('active'));
+    document.getElementById('pathwayInfo').innerHTML=lang==='ar'?'اضغط على الأرقام لمتابعة مسار الإشارة خطوة بخطوة':'Klicke auf die Nummern, um den Signalweg Schritt fur Schritt zu verfolgen';
+    return;
+  }
+  if(step===7){
+    allSteps.forEach(s=>s.classList.add('active'));
+    allArrows.forEach(a=>a.classList.add('active'));
+    document.getElementById('pathwayInfo').innerHTML=lang==='ar'?'<strong>المسار الكامل:</strong> من ارتباط الأنسولين بالمستقبل حتى دخول الجلوكوز للخلية وتنظيم التمثيل الغذائي.':'<strong>Vollstandiger Signalweg:</strong> Von der Insulinbindung am Rezeptor bis zum Glukosetransport in die Zelle und Metabolismusregulation.';
+    return;
+  }
+
+  allSteps.forEach(s=>{
+    const ds=parseInt(s.getAttribute('data-step'));
+    s.classList.toggle('active', ds<=step);
+  });
+  allArrows.forEach(a=>{
+    const ds=parseInt(a.getAttribute('data-step'));
+    a.classList.toggle('active', ds<=step);
+  });
+  if(stepInfos[step]){
+    document.getElementById('pathwayInfo').innerHTML=lang==='ar'?stepInfos[step].ar:stepInfos[step].de;
+  }
+}
+
+// ===== CELL ANIMATION =====
+function animateCell(type){
+  if(type==='normal'){
+    const dots=document.querySelectorAll('#cellVisNormal .gn');
+    dots.forEach((d,i)=>{
+      d.style.transition='all 1s ease '+(i*0.2)+'s';
+      d.style.top='70%';
+      d.style.opacity='0.4';
+      setTimeout(()=>{d.style.top=(20+i*3)+'%';d.style.opacity='1';},1500);
+    });
+  } else {
+    const dots=document.querySelectorAll('#cellVisResistant .gr');
+    dots.forEach((d,i)=>{
+      d.style.transition='all 0.8s ease '+(i*0.15)+'s';
+      d.style.top=(30+Math.random()*10)+'%';
+      setTimeout(()=>{d.style.top=(18+i*3)+'%';},1200);
+    });
+  }
+}
+
+// ===== GI CHART =====
+const giData=[
+  {name:{ar:'خبز أبيض',de:'Weißbrot'}, gi:75, cat:'high', detail:{ar:'يرفع السكر بسرعة كبيرة — يُفضل استبداله بخبز القمح الكامل',de:'Erhoht den Blutzucker sehr schnell — besser Vollkornbrot wahlen'}},
+  {name:{ar:'أرز أبيض',de:'Weißer Reis'}, gi:73, cat:'high', detail:{ar:'GI مرتفع — يمكن خفضه بإضافة بروتين وخضار',de:'Hoher GI — kann durch Protein und Gemuse gesenkt werden'}},
+  {name:{ar:'بطاطا مسلوقة',de:'Gekochte Kartoffeln'}, gi:78, cat:'high', detail:{ar:'الطهي يرفع GI — المشوية أقل من المسلوقة',de:'Kochen erhoht den GI — Gebackene haben niedrigeren GI'}},
+  {name:{ar:'موز',de:'Banane'}, gi:62, cat:'medium', detail:{ar:'GI متوسط — كلما نضج الموز أكثر ارتفع GI',de:'Mittlerer GI — je reifer die Banane, desto hoher der GI'}},
+  {name:{ar:'عسل',de:'Honig'}, gi:58, cat:'medium', detail:{ar:'بديل طبيعي للسكر لكن GI متوسط',de:'Naturliche Alternative zu Zucker, aber mittlerer GI'}},
+  {name:{ar:'شوفان',de:'Haferflocken'}, gi:55, cat:'low', detail:{ar:'مصدر ممتاز للألياف — يبطئ امتصاص السكر',de:'Hervorragende Ballaststoffquelle — verlangsamt die Zuckeraufnahme'}},
+  {name:{ar:'عدس',de:'Linsen'}, gi:32, cat:'low', detail:{ar:'من أفضل الأغذية لمرضى مقاومة الأنسولين',de:'Eines der besten Lebensmittel bei Insulinresistenz'}},
+  {name:{ar:'تفاح',de:'Apfel'}, gi:36, cat:'low', detail:{ar:'غني بالألياف والبكتين — يحافظ على استقرار السكر',de:'Reich an Ballaststoffen und Pektin — halt den Blutzucker stabil'}},
+  {name:{ar:'فول سوداني',de:'Erdnusse'}, gi:14, cat:'low', detail:{ar:'أقل GI — غني بالبروتين والدهون الصحية',de:'Niedrigster GI — reich an Protein und gesunden Fetten'}},
+  {name:{ar:'حمص',de:'Kichererbsen'}, gi:28, cat:'low', detail:{ar:'مصدر بروتين نباتي ممتاز مع GI منخفض',de:'Ausgezeichnete pflanzliche Proteinquelle mit niedrigem GI'}}
+];
+
+(function buildGI(){
+  const chart=document.getElementById('giChart');
+  giData.forEach((item,i)=>{
+    const wrap=document.createElement('div');
+    wrap.className='gi-bar-wrap';
+    const color=item.cat==='high'?'var(--red)':item.cat==='medium'?'var(--accent)':'var(--green)';
+    wrap.innerHTML=`<div class="gi-bar" style="height:${item.gi*2}px; background:${color}"><div class="gi-val">${item.gi}</div></div><div class="gi-label"><span class="ar">${item.name.ar}</span><span class="de">${item.name.de}</span></div>`;
+    wrap.onclick=()=>{
+      document.getElementById('giDetail').innerHTML=`<strong>${lang==='ar'?item.name.ar:item.name.de}</strong> (GI: ${item.gi}) — ${lang==='ar'?item.detail.ar:item.detail.de}`;
+    };
+    chart.appendChild(wrap);
+  });
+})();
+
+// ===== QUIZ =====
+function checkQuiz(el, correct, quizId){
+  const opts=document.querySelectorAll('#'+quizId+' .quiz-opt');
+  opts.forEach(o=>o.classList.add('disabled'));
+  if(correct){
+    el.classList.add('correct');
+    const fb=document.getElementById(quizId+'-fb');
+    fb.style.display='block';
+    fb.style.background='var(--green-soft)';
+    fb.style.color='var(--green)';
+    fb.textContent=lang==='ar'?'✅ إجابة صحيحة! أحسنت!':'✅ Richtige Antwort! Gut gemacht!';
+  } else {
+    el.classList.add('wrong');
+    opts.forEach(o=>{
+      if(!o.classList.contains('wrong')){}
+    });
+    const fb=document.getElementById(quizId+'-fb');
+    fb.style.display='block';
+    fb.style.background='var(--red-soft)';
+    fb.style.color='var(--red)';
+    fb.textContent=lang==='ar'?'❌ إجابة خاطئة — حاول مراجعة المعلومات أعلاه':'❌ Falsche Antwort — schau dir die Informationen oben nochmal an';
+  }
+}
+
+// ===== INIT LANG =====
+document.querySelectorAll('.de').forEach(el=>el.style.display='none');
+</script>
+</body>
+</html>
