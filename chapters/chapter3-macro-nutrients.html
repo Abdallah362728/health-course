@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الفصل الثالث – المغذيات الكبرى | Makronährstoffe</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&subset=arabic,latin&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d0d0d; --surface:#1a1a1a; --surface2:#232323;
+    --accent:#c9a84c; --accent2:#e8c97a; --accent-dim:#7a5f28;
+    --text:#f0ead6; --text-soft:#a89870;
+    --red:#c0392b; --red-soft:#2a1010;
+    --green:#27ae60; --green-soft:#0e2418;
+    --blue:#2980b9; --blue-soft:#0e1a24;
+    --orange:#e67e22; --orange-soft:#2a1a08;
+    --border:#2e2e2e; --radius:14px; --shadow:0 8px 32px rgba(0,0,0,0.5);
+  }
+  [data-theme="teal"] {
+    --bg:#f0f8f7; --surface:#ffffff; --surface2:#e6f4f1;
+    --accent:#0d7377; --accent2:#14a085; --accent-dim:#b2dfdb;
+    --text:#1a2e2d; --text-soft:#4a7c79; --border:#b2dfdb;
+    --red:#c0392b; --red-soft:#fdecea; --green:#1a7a4a; --green-soft:#e8f5e9;
+    --blue:#2471a3; --blue-soft:#e3f2fd; --orange:#ca6f1e; --orange-soft:#fff3e0;
+  }
+  [data-theme="purple"] {
+    --bg:#0f0c1e; --surface:#1a1530; --surface2:#221d3a;
+    --accent:#9b59b6; --accent2:#c39bd3; --accent-dim:#4a2060;
+    --text:#ede0f5; --text-soft:#9b8ab0; --border:#2d2545;
+    --red:#e74c3c; --red-soft:#2a0e0e; --green:#27ae60; --green-soft:#0e2418;
+    --blue:#3498db; --blue-soft:#0e1a2e; --orange:#e67e22; --orange-soft:#2a1a0e;
+  }
+  [data-theme="emerald"] {
+    --bg:#faf8f2; --surface:#ffffff; --surface2:#f2ede0;
+    --accent:#2d6a4f; --accent2:#40916c; --accent-dim:#b7e4c7;
+    --text:#1b2d23; --text-soft:#52796f; --border:#b7e4c7;
+    --red:#b5451b; --red-soft:#fdecea; --green:#1b5e20; --green-soft:#e8f5e9;
+    --blue:#1565c0; --blue-soft:#e3f2fd; --orange:#e65100; --orange-soft:#fff3e0;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Cairo','Tahoma','Arial',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background .3s,color .3s; overflow-x:hidden; }
+  .ar, [lang="ar"], [dir="rtl"] { letter-spacing: 0 !important; }
+
+  /* PASSWORD GATE */
+  #gate { position:fixed; inset:0; z-index:10000; background:var(--bg); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:16px; }
+  #gate.hidden { display:none; }
+  #gate h2 { color:var(--accent); font-size:24px; }
+  #gate input { padding:14px 24px; border-radius:12px; border:2px solid var(--accent-dim); background:var(--surface); color:var(--text); font-family:'Cairo',sans-serif; font-size:18px; text-align:center; outline:none; width:240px; }
+  #gate input:focus { border-color:var(--accent); }
+  #gate button { padding:12px 36px; background:var(--accent); color:var(--bg); border:none; border-radius:12px; font-family:'Cairo',sans-serif; font-size:16px; font-weight:700; cursor:pointer; }
+  #gate .err { color:var(--red); font-size:13px; min-height:20px; }
+
+  /* SCROLL PROGRESS */
+  #scrollProgress { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent2)); z-index:9999; width:0; transition:width .1s; }
+
+  /* PARTICLES */
+  #particles { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+  .particle { position:absolute; border-radius:50%; background:var(--accent); opacity:0.08; animation:floatP linear infinite; }
+  @keyframes floatP { 0%{transform:translateY(0) rotate(0deg);opacity:0.08} 50%{opacity:0.15} 100%{transform:translateY(-100vh) rotate(360deg);opacity:0} }
+
+  /* SIDE NAV DOTS */
+  .side-nav { position:fixed; right:16px; top:50%; transform:translateY(-50%); z-index:998; display:flex; flex-direction:column; gap:12px; }
+  [dir="ltr"] .side-nav { right:auto; left:16px; }
+  .side-dot { width:10px; height:10px; border-radius:50%; background:var(--border); cursor:pointer; transition:.3s; position:relative; }
+  .side-dot.active { background:var(--accent); box-shadow:0 0 8px var(--accent); transform:scale(1.3); }
+  .side-dot:hover::after { content:attr(data-label); position:absolute; right:20px; top:50%; transform:translateY(-50%); background:var(--surface); color:var(--text); padding:4px 10px; border-radius:6px; font-size:11px; white-space:nowrap; border:1px solid var(--border); }
+  [dir="ltr"] .side-dot:hover::after { right:auto; left:20px; }
+
+  /* THEME BAR */
+  .theme-bar { position:fixed; top:16px; left:16px; z-index:999; display:flex; gap:8px; align-items:center; background:var(--surface); border:1px solid var(--border); padding:8px 12px; border-radius:40px; box-shadow:var(--shadow); }
+  .theme-bar span { font-size:11px; color:var(--text-soft); margin-left:4px; }
+  .swatch { width:22px; height:22px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:.2s; }
+  .swatch:hover, .swatch.active { border-color:var(--text); transform:scale(1.2); }
+  .swatch.s-dark    { background:radial-gradient(circle at 40% 40%,#c9a84c,#0d0d0d); }
+  .swatch.s-teal    { background:radial-gradient(circle at 40% 40%,#14a085,#f0f8f7); }
+  .swatch.s-purple  { background:radial-gradient(circle at 40% 40%,#9b59b6,#0f0c1e); }
+  .swatch.s-emerald { background:radial-gradient(circle at 40% 40%,#2d6a4f,#faf8f2); }
+
+  /* LANG BTN */
+  .lang-btn { position:fixed; top:16px; right:16px; z-index:999; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-size:13px; font-weight:700; padding:6px 18px; border-radius:40px; cursor:pointer; transition:.2s; box-shadow:var(--shadow); }
+  .lang-btn:hover { background:var(--accent); color:var(--bg); }
+
+  /* HEADER */
+  header { text-align:center; padding:60px 20px 40px; background:linear-gradient(160deg,var(--surface) 0%,var(--bg) 100%); border-bottom:1px solid var(--border); position:relative; overflow:hidden; z-index:1; }
+  header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%,var(--accent-dim),transparent); opacity:.25; pointer-events:none; }
+  .chapter-tag { display:inline-block; font-size:12px; font-weight:700; color:var(--accent); border:1px solid var(--accent); padding:4px 16px; border-radius:40px; margin-bottom:16px; }
+  header h1 { font-size:clamp(28px,5vw,52px); font-weight:900; line-height:1.2; }
+  header h1 .accent { color:var(--accent); }
+  .subtitle { color:var(--text-soft); font-size:15px; margin-top:10px; }
+
+  /* LAYOUT */
+  .container { max-width:1100px; margin:0 auto; padding:40px 20px 80px; position:relative; z-index:1; }
+  section { margin-bottom:60px; scroll-margin-top:30px; }
+  h2.section-title { font-size:22px; font-weight:800; color:var(--accent); border-right:4px solid var(--accent); padding-right:14px; margin-bottom:24px; display:flex; align-items:center; gap:10px; }
+  [dir="ltr"] h2.section-title { border-right:none; border-left:4px solid var(--accent); padding-right:0; padding-left:14px; }
+
+  /* CARDS */
+  .cards { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px; transition:transform .2s,box-shadow .2s,border-color .2s; }
+  .card:hover { transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent-dim); }
+  .card-icon { font-size:28px; margin-bottom:10px; }
+  .card h3 { font-size:15px; font-weight:700; margin-bottom:6px; color:var(--accent2); }
+  .card p { font-size:13px; color:var(--text-soft); line-height:1.7; }
+
+  /* INFO BOX */
+  .info-box { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; }
+  .info-box .lbl { font-size:11px; font-weight:800; color:var(--accent); margin-bottom:8px; }
+  .info-box p { font-size:13px; line-height:1.9; color:var(--text-soft); }
+  .info-box p strong { color:var(--text); }
+
+  /* QUOTE BOX */
+  .quote-box { border-right:4px solid var(--accent); padding:16px 20px; background:var(--surface2); border-radius:0 10px 10px 0; margin:20px 0; }
+  [dir="ltr"] .quote-box { border-right:none; border-left:4px solid var(--accent); border-radius:10px 0 0 10px; }
+  .quote-main { font-size:16px; font-weight:700; color:var(--text); margin-bottom:10px; line-height:1.6; }
+
+  /* CALORIE PILLS */
+  .info-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+  .info-pill { flex:1; min-width:90px; background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:14px 10px; text-align:center; transition:transform .2s,border-color .2s; cursor:default; }
+  .info-pill:hover { transform:scale(1.05); border-color:var(--accent); }
+  .info-pill .val { font-size:26px; font-weight:900; color:var(--accent); }
+  .info-pill .key { font-size:11px; color:var(--text-soft); margin-top:4px; line-height:1.4; }
+
+  /* TABLE */
+  .table-wrap { overflow-x:auto; border-radius:var(--radius); overflow:hidden; margin:16px 0; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  thead tr { background:var(--accent); color:var(--bg); }
+  thead th { padding:12px 16px; text-align:right; font-weight:700; }
+  [dir="ltr"] thead th { text-align:left; }
+  tbody tr { border-bottom:1px solid var(--border); transition:.15s; cursor:pointer; }
+  tbody tr:hover { background:var(--surface2); }
+  tbody td { padding:11px 16px; color:var(--text); }
+  tbody td:first-child { color:var(--accent2); font-weight:600; }
+
+  /* MINDMAP TREE */
+  .mindmap-tree { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px 20px; overflow-x:auto; }
+  .mm-wrapper { display:flex; flex-direction:column; align-items:center; }
+  .mm-center { background:var(--accent); color:var(--bg); font-size:18px; font-weight:900; padding:14px 36px; border-radius:50px; text-align:center; box-shadow:0 0 30px rgba(201,168,76,0.35); }
+  .mm-vline { width:2px; height:24px; background:var(--accent-dim); margin:0 auto; }
+  .mm-level1 { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+  .mm-branch { display:flex; flex-direction:column; align-items:center; }
+  .mm-branch::before { content:''; display:block; width:2px; height:18px; background:var(--accent-dim); }
+  .mm-l1 { padding:10px 18px; border-radius:10px; font-size:13px; font-weight:700; text-align:center; min-width:120px; cursor:pointer; transition:transform .2s,box-shadow .2s; }
+  .mm-l1:hover { transform:scale(1.05); box-shadow:var(--shadow); }
+  .mm-l1.gold { background:var(--surface2); color:var(--accent); border:1px solid var(--accent-dim); }
+  .mm-l1.red  { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+  .mm-l1.green{ background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+  .mm-l1.blue { background:var(--blue-soft); color:var(--blue); border:1px solid var(--blue); }
+  .mm-l1.orange { background:var(--orange-soft); color:var(--orange); border:1px solid var(--orange); }
+  .mm-children { display:flex; flex-direction:column; gap:4px; align-items:center; margin-top:6px; overflow:hidden; transition:max-height .4s ease,opacity .3s; }
+  .mm-children.collapsed { max-height:0; opacity:0; }
+  .mm-children.expanded { max-height:500px; opacity:1; }
+  .mm-cline { width:2px; height:10px; background:var(--border); margin:0 auto; }
+  .mm-l2 { padding:5px 12px; border-radius:6px; font-size:11px; font-weight:600; background:var(--surface2); color:var(--text-soft); border:1px solid var(--border); text-align:center; min-width:100px; }
+
+  /* DIVIDER */
+  .divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent-dim),transparent); margin:40px 0; }
+
+  /* DE hidden */
+  .de { display:none; }
+
+  /* PIE CHART */
+  .pie-container { display:flex; flex-wrap:wrap; gap:30px; align-items:center; justify-content:center; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px; }
+  .pie-svg { width:280px; height:280px; cursor:pointer; }
+  .pie-segment { transition:transform .3s,filter .3s; transform-origin:140px 140px; }
+  .pie-segment:hover, .pie-segment.active { filter:brightness(1.3); }
+  .pie-legend { display:flex; flex-direction:column; gap:10px; min-width:200px; }
+  .pie-legend-item { display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:10px; background:var(--surface2); border:1px solid var(--border); cursor:pointer; transition:.2s; }
+  .pie-legend-item:hover, .pie-legend-item.active { border-color:var(--accent); background:var(--surface); }
+  .pie-color { width:16px; height:16px; border-radius:4px; flex-shrink:0; }
+  .pie-info { font-size:12px; color:var(--text-soft); line-height:1.5; }
+  .pie-info strong { color:var(--text); display:block; font-size:14px; }
+  .pie-detail { margin-top:16px; padding:16px; background:var(--surface2); border-radius:12px; border:1px solid var(--accent-dim); min-height:60px; font-size:13px; line-height:1.8; color:var(--text-soft); text-align:center; }
+
+  /* CARB TREE */
+  .carb-tree { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px; }
+  .carb-node { text-align:center; margin-bottom:12px; }
+  .carb-btn { display:inline-block; padding:12px 28px; border-radius:12px; font-weight:800; font-size:15px; cursor:pointer; border:2px solid; transition:.3s; font-family:'Cairo',sans-serif; }
+  .carb-btn:hover { transform:scale(1.05); }
+  .carb-branches { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-top:10px; }
+  .carb-branch { flex:1; min-width:250px; max-width:400px; }
+  .carb-branch-head { padding:10px 16px; border-radius:10px; font-weight:700; font-size:14px; text-align:center; cursor:pointer; transition:.2s; }
+  .carb-branch-head:hover { transform:scale(1.03); }
+  .carb-items { padding:10px; display:flex; flex-direction:column; gap:8px; overflow:hidden; transition:max-height .4s,opacity .3s; }
+  .carb-items.collapsed { max-height:0; opacity:0; padding:0; }
+  .carb-items.expanded { max-height:600px; opacity:1; }
+  .carb-item { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:12px 16px; font-size:12px; line-height:1.7; color:var(--text-soft); }
+  .carb-item strong { color:var(--text); }
+
+  /* DIGESTION ANIMATION */
+  .digestion-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .digestion-steps { display:flex; flex-direction:column; gap:0; }
+  .dig-step { padding:16px 20px; border-radius:12px; background:var(--surface2); border:1px solid var(--border); opacity:0.4; transform:translateX(20px); transition:all .5s ease; position:relative; }
+  .dig-step.active { opacity:1; transform:translateX(0); border-color:var(--accent); }
+  .dig-arrow { text-align:center; font-size:24px; color:var(--accent-dim); padding:4px 0; }
+  .dig-step .dig-icon { font-size:24px; display:inline-block; margin-left:8px; }
+  [dir="ltr"] .dig-step .dig-icon { margin-left:0; margin-right:8px; }
+  .dig-step h4 { font-size:14px; color:var(--accent2); margin-bottom:4px; display:inline; }
+  .dig-step p { font-size:12px; color:var(--text-soft); line-height:1.7; margin-top:6px; }
+  .dig-controls { display:flex; gap:10px; justify-content:center; margin-top:16px; }
+  .dig-btn { padding:8px 20px; border-radius:8px; border:1px solid var(--accent); background:transparent; color:var(--accent); font-family:'Cairo',sans-serif; font-weight:700; cursor:pointer; transition:.2s; }
+  .dig-btn:hover { background:var(--accent); color:var(--bg); }
+  .dig-btn.active { background:var(--accent); color:var(--bg); }
+
+  /* FOOD CARDS */
+  .food-filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; justify-content:center; }
+  .food-filter { padding:6px 16px; border-radius:20px; border:1px solid var(--border); background:var(--surface2); color:var(--text-soft); font-family:'Cairo',sans-serif; font-size:12px; font-weight:700; cursor:pointer; transition:.2s; }
+  .food-filter:hover, .food-filter.active { border-color:var(--accent); color:var(--accent); background:var(--surface); }
+  .food-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:14px; }
+  .food-card { perspective:600px; height:200px; cursor:pointer; }
+  .food-card-inner { position:relative; width:100%; height:100%; transition:transform .6s; transform-style:preserve-3d; }
+  .food-card:hover .food-card-inner, .food-card.flipped .food-card-inner { transform:rotateY(180deg); }
+  [dir="rtl"] .food-card:hover .food-card-inner, [dir="rtl"] .food-card.flipped .food-card-inner { transform:rotateY(-180deg); }
+  .food-front, .food-back { position:absolute; inset:0; backface-visibility:hidden; border-radius:var(--radius); border:1px solid var(--border); padding:16px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+  .food-front { background:var(--surface); }
+  .food-back { background:var(--surface2); transform:rotateY(180deg); }
+  [dir="rtl"] .food-back { transform:rotateY(-180deg); }
+  .food-emoji { font-size:40px; margin-bottom:8px; }
+  .food-name { font-size:13px; font-weight:700; color:var(--text); }
+  .food-tag { font-size:10px; color:var(--accent); margin-top:4px; }
+  .food-back p { font-size:11px; color:var(--text-soft); line-height:1.6; }
+  .food-back .fb-val { font-size:20px; font-weight:900; color:var(--accent); }
+
+  /* CALCULATOR */
+  .calc-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:28px; }
+  .calc-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+  @media(max-width:600px){ .calc-grid { grid-template-columns:1fr; } }
+  label { font-size:13px; color:var(--text-soft); display:block; margin-bottom:6px; font-weight:600; }
+  input[type=number] { width:100%; padding:12px 16px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-family:'Cairo',sans-serif; font-size:14px; outline:none; transition:.2s; }
+  input[type=number]:focus { border-color:var(--accent); }
+  .calc-btn { margin-top:20px; width:100%; padding:14px; background:var(--accent); color:var(--bg); font-family:'Cairo',sans-serif; font-size:16px; font-weight:800; border:none; border-radius:10px; cursor:pointer; transition:.2s; }
+  .calc-btn:hover { background:var(--accent2); transform:translateY(-2px); }
+  .calc-result { margin-top:20px; padding:20px; border-radius:12px; background:var(--surface2); border:1px solid var(--accent-dim); display:none; }
+  .cal-bars { display:flex; gap:12px; margin-top:14px; align-items:flex-end; justify-content:center; height:120px; }
+  .cal-bar { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; }
+  .cal-bar-fill { width:100%; border-radius:8px 8px 0 0; transition:height .8s ease; min-width:40px; }
+  .cal-bar-label { font-size:10px; color:var(--text-soft); text-align:center; }
+  .cal-bar-val { font-size:13px; font-weight:800; color:var(--accent); }
+
+  /* QUIZ */
+  .quiz-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; margin-bottom:16px; }
+  .quiz-q { font-size:15px; font-weight:700; margin-bottom:14px; color:var(--text); }
+  .quiz-opts { display:flex; flex-direction:column; gap:8px; }
+  .quiz-opt { padding:12px 18px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); cursor:pointer; font-size:13px; transition:.2s; font-family:'Cairo',sans-serif; }
+  .quiz-opt:hover { border-color:var(--accent); }
+  .quiz-opt.correct { border-color:var(--green); background:var(--green-soft); color:var(--green); }
+  .quiz-opt.wrong { border-color:var(--red); background:var(--red-soft); color:var(--red); }
+  .quiz-opt.disabled { pointer-events:none; }
+  .quiz-feedback { margin-top:10px; font-size:12px; min-height:20px; }
+  .quiz-score { text-align:center; padding:20px; background:var(--surface); border:2px solid var(--accent); border-radius:var(--radius); margin-top:16px; }
+  .quiz-score .big { font-size:48px; font-weight:900; color:var(--accent); }
+
+  /* FOOTER NAV */
+  .footer-nav { display:flex; justify-content:center; align-items:center; gap:16px; flex-wrap:wrap; padding-top:30px; }
+  .footer-nav a { display:inline-block; padding:12px 28px; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-weight:700; font-size:13px; border-radius:40px; text-decoration:none; transition:.2s; }
+  .footer-nav a:hover { background:var(--accent); color:var(--bg); }
+  .footer-nav a.primary { background:var(--accent); color:var(--bg); }
+  .footer-nav a.primary:hover { background:var(--accent2); }
+
+  /* EXT LINK */
+  .ext-link { display:inline-flex; align-items:center; gap:8px; padding:10px 20px; border-radius:10px; background:var(--surface2); border:1px solid var(--accent-dim); color:var(--accent); font-size:13px; font-weight:700; text-decoration:none; transition:.2s; margin-top:12px; }
+  .ext-link:hover { background:var(--accent); color:var(--bg); }
+
+  @media(max-width:700px){
+    .mm-level1 { flex-direction:column; align-items:center; }
+    .carb-branches { flex-direction:column; }
+    .pie-container { flex-direction:column; }
+    .side-nav { display:none; }
+    .calc-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body data-theme="dark">
+
+<!-- PASSWORD GATE -->
+<div id="gate">
+  <h2>🔐</h2>
+  <p style="color:var(--text-soft);font-size:14px"><span class="ar">أدخل كلمة المرور</span><span class="de" style="display:none">Passwort eingeben</span></p>
+  <input type="password" id="gatePass" autofocus placeholder="••••••" onkeydown="if(event.key==='Enter')checkGate()">
+  <button onclick="checkGate()">→</button>
+  <div class="err" id="gateErr"></div>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div id="scrollProgress"></div>
+
+<!-- PARTICLES -->
+<div id="particles"></div>
+
+<!-- SIDE NAV -->
+<nav class="side-nav" id="sideNav"></nav>
+
+<!-- Theme switcher -->
+<div class="theme-bar">
+  <span>🎨</span>
+  <div class="swatch s-dark active"   onclick="setTheme('dark',this)"    title="Dark Gold"></div>
+  <div class="swatch s-teal"          onclick="setTheme('teal',this)"    title="Teal"></div>
+  <div class="swatch s-purple"        onclick="setTheme('purple',this)"  title="Purple"></div>
+  <div class="swatch s-emerald"       onclick="setTheme('emerald',this)" title="Emerald"></div>
+</div>
+
+<!-- Lang toggle -->
+<button class="lang-btn" onclick="toggleLang()" id="langBtn">DE</button>
+
+<!-- HEADER -->
+<header>
+  <div class="chapter-tag">
+    <span class="ar">الفصل الثالث</span>
+    <span class="de">Kapitel 3</span>
+  </div>
+  <h1>
+    <span class="accent">🍞</span>
+    <span class="ar"> المغذيات الكبرى</span>
+    <span class="de"> Makronährstoffe</span>
+  </h1>
+  <p class="subtitle">
+    <span class="ar">الكربوهيدرات، البروتينات، الدهون — الطاقة التي يحتاجها جسمك يومياً</span>
+    <span class="de">Kohlenhydrate, Proteine, Fette — die Energie, die dein Körper täglich braucht</span>
+  </p>
+</header>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════
+       1. MIND MAP
+  ══════════════════════════════════════ -->
+  <section id="sec-mindmap">
+    <h2 class="section-title">
+      🗺️
+      <span class="ar">خريطة الفصل الذهنية</span>
+      <span class="de">Kapitel-Mindmap</span>
+    </h2>
+    <p style="font-size:12px;color:var(--text-soft);margin-bottom:14px;text-align:center">
+      <span class="ar">اضغط على أي فرع لعرض التفاصيل</span>
+      <span class="de">Klicke auf einen Zweig, um Details anzuzeigen</span>
+    </p>
+    <div class="mindmap-tree">
+      <div class="mm-wrapper">
+        <div class="mm-center">
+          <span class="ar">🍞 المغذيات الكبرى</span>
+          <span class="de">🍞 Makronährstoffe</span>
+        </div>
+        <div class="mm-vline"></div>
+        <div class="mm-level1">
+          <div class="mm-branch">
+            <div class="mm-l1 gold" onclick="toggleMM(this)">
+              <span class="ar">🌾 كربوهيدرات</span>
+              <span class="de">🌾 Kohlenhydrate</span>
+            </div>
+            <div class="mm-children collapsed">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">بسيطة: جلوكوز، فركتوز، لكتوز</span><span class="de">Einfach: Glukose, Fruktose, Laktose</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">معقدة: نشا، جليكوجين</span><span class="de">Komplex: Stärke, Glykogen</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">4 كالوري / غرام</span><span class="de">4 kcal / g</span></div>
+            </div>
+          </div>
+          <div class="mm-branch">
+            <div class="mm-l1 blue" onclick="toggleMM(this)">
+              <span class="ar">🥩 بروتينات</span>
+              <span class="de">🥩 Proteine</span>
+            </div>
+            <div class="mm-children collapsed">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">أحماض أمينية أساسية</span><span class="de">Essentielle Aminosäuren</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">أحماض أمينية غير أساسية</span><span class="de">Nicht-essentielle Aminosäuren</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">التوافر البيولوجي</span><span class="de">Biologische Verfügbarkeit</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">4 كالوري / غرام</span><span class="de">4 kcal / g</span></div>
+            </div>
+          </div>
+          <div class="mm-branch">
+            <div class="mm-l1 orange" onclick="toggleMM(this)">
+              <span class="ar">🫒 دهون</span>
+              <span class="de">🫒 Fette</span>
+            </div>
+            <div class="mm-children collapsed">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">مشبعة</span><span class="de">Gesättigte</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">غير مشبعة</span><span class="de">Ungesättigte</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">دهون متحولة (ترانس)</span><span class="de">Transfette</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">9 كالوري / غرام</span><span class="de">9 kcal / g</span></div>
+            </div>
+          </div>
+          <div class="mm-branch">
+            <div class="mm-l1 green" onclick="toggleMM(this)">
+              <span class="ar">🥦 ألياف</span>
+              <span class="de">🥦 Ballaststoffe</span>
+            </div>
+            <div class="mm-children collapsed">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">قابلة للذوبان</span><span class="de">Lösliche</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">غير قابلة للذوبان</span><span class="de">Unlösliche</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">2 كالوري / غرام</span><span class="de">2 kcal / g</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       2. WHAT ARE MACRONUTRIENTS
+  ══════════════════════════════════════ -->
+  <section id="sec-intro">
+    <h2 class="section-title">
+      📖
+      <span class="ar">ما هي المغذيات الكبرى؟</span>
+      <span class="de">Was sind Makronährstoffe?</span>
+    </h2>
+
+    <div class="info-box">
+      <div class="lbl ar">تعريف</div>
+      <div class="lbl de">Definition</div>
+      <p class="ar">المغذيات الكبرى هي العناصر الغذائية التي يحتاجها الجسم <strong>بكميات كبيرة</strong> يومياً لإنتاج الطاقة، بناء الأنسجة، وتنظيم العمليات الحيوية. تنقسم إلى ثلاث مجموعات رئيسية: <strong>الكربوهيدرات، البروتينات، والدهون</strong>، بالإضافة إلى <strong>الألياف</strong> التي تلعب دوراً مهماً في الهضم.</p>
+      <p class="de">Makronährstoffe sind Nährstoffe, die der Körper <strong>in großen Mengen</strong> täglich benötigt, um Energie zu produzieren, Gewebe aufzubauen und Stoffwechselprozesse zu regulieren. Sie gliedern sich in drei Hauptgruppen: <strong>Kohlenhydrate, Proteine und Fette</strong>, ergänzt durch <strong>Ballaststoffe</strong>, die eine wichtige Rolle bei der Verdauung spielen.</p>
+    </div>
+
+    <div class="info-box">
+      <div class="lbl ar">كيف يتعامل الجسم مع الطعام؟</div>
+      <div class="lbl de">Wie verarbeitet der Körper Nahrung?</div>
+      <p class="ar">الجهاز الهضمي <strong>لا يحرق الطعام</strong>، بل يقوم بتفكيكه لمكوناته الأولية بواسطة إنزيمات هاضمة، ثم يمتصها ويوزعها على الخلايا — لتقوم باستقلابها، أو إعادة استخدامها كمواد بناء، أو تخزينها كمصادر طاقة.</p>
+      <p class="de">Das Verdauungssystem <strong>verbrennt keine Nahrung</strong> — es zerlegt sie mithilfe von Verdauungsenzymen in ihre Grundbausteine, absorbiert sie und verteilt sie an die Zellen zur Verstoffwechslung, zum Aufbau oder zur Energiespeicherung.</p>
+    </div>
+
+    <!-- Calorie pills -->
+    <div class="info-row">
+      <div class="info-pill">
+        <div class="val">4</div>
+        <div class="key"><span class="ar">كالوري/غ<br>كربوهيدرات</span><span class="de">kcal/g<br>Kohlenhydrate</span></div>
+      </div>
+      <div class="info-pill">
+        <div class="val">4</div>
+        <div class="key"><span class="ar">كالوري/غ<br>بروتين</span><span class="de">kcal/g<br>Protein</span></div>
+      </div>
+      <div class="info-pill">
+        <div class="val">9</div>
+        <div class="key"><span class="ar">كالوري/غ<br>دهون</span><span class="de">kcal/g<br>Fett</span></div>
+      </div>
+      <div class="info-pill">
+        <div class="val">2</div>
+        <div class="key"><span class="ar">كالوري/غ<br>ألياف</span><span class="de">kcal/g<br>Ballaststoffe</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       3. PIE CHART — MACRO SPLIT
+  ══════════════════════════════════════ -->
+  <section id="sec-pie">
+    <h2 class="section-title">
+      🥧
+      <span class="ar">التوزيع المثالي للمغذيات الكبرى</span>
+      <span class="de">Ideale Makronährstoffverteilung</span>
+    </h2>
+
+    <div class="pie-container">
+      <svg class="pie-svg" viewBox="0 0 280 280" id="pieSvg">
+        <!-- segments drawn by JS -->
+      </svg>
+      <div>
+        <div class="pie-legend" id="pieLegend"></div>
+        <div class="pie-detail" id="pieDetail">
+          <span class="ar">اضغط على شريحة لعرض التفاصيل</span>
+          <span class="de" style="display:none">Klicke auf ein Segment für Details</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       4. CARBOHYDRATES — FAMILY TREE
+  ══════════════════════════════════════ -->
+  <section id="sec-carbs">
+    <h2 class="section-title">
+      🌾
+      <span class="ar">الكربوهيدرات — الشجرة العائلية</span>
+      <span class="de">Kohlenhydrate — Familienstammbaum</span>
+    </h2>
+
+    <div class="info-box" style="margin-bottom:20px">
+      <p class="ar">الكربوهيدرات هي المصدر الرئيسي للطاقة في الجسم. تنقسم إلى نوعين: <strong>نشويات بسيطة</strong> (سكريات أحادية وثنائية سريعة الامتصاص) و<strong>نشويات معقدة</strong> (سلاسل طويلة من الجلوكوز بطيئة الهضم).</p>
+      <p class="de">Kohlenhydrate sind die Hauptenergiequelle des Körpers. Sie unterteilen sich in <strong>einfache Kohlenhydrate</strong> (Mono- und Disaccharide, schnell absorbiert) und <strong>komplexe Kohlenhydrate</strong> (lange Glukoseketten, langsam verdaut).</p>
+    </div>
+
+    <div class="carb-tree">
+      <div class="carb-node">
+        <div class="carb-btn" style="background:var(--accent);color:var(--bg);border-color:var(--accent);">
+          <span class="ar">🌾 الكربوهيدرات</span>
+          <span class="de">🌾 Kohlenhydrate</span>
+        </div>
+      </div>
+      <div style="text-align:center;color:var(--accent-dim);font-size:24px;margin:4px 0">↓</div>
+      <div class="carb-branches">
+        <!-- SIMPLE -->
+        <div class="carb-branch">
+          <div class="carb-branch-head" style="background:var(--red-soft);color:var(--red);border:1px solid var(--red)" onclick="toggleCarb(this)">
+            <span class="ar">⚡ نشويات بسيطة (سريعة الامتصاص)</span>
+            <span class="de">⚡ Einfache Kohlenhydrate (schnell absorbiert)</span>
+          </div>
+          <div class="carb-items expanded">
+            <div class="carb-item">
+              <strong><span class="ar">الجلوكوز (سكر الدم)</span><span class="de">Glukose (Blutzucker)</span></strong>
+              <p><span class="ar">السكر الأساسي الذي تستخدمه خلايا الجسم لإنتاج الطاقة (ATP). يتم امتصاصه مباشرة في الدم ويحفز إفراز الإنسولين.</span><span class="de">Der Grundzucker, den die Körperzellen zur Energieproduktion (ATP) nutzen. Wird direkt ins Blut aufgenommen und stimuliert die Insulinausschüttung.</span></p>
+            </div>
+            <div class="carb-item">
+              <strong><span class="ar">الفركتوز (سكر الفاكهة)</span><span class="de">Fruktose (Fruchtzucker)</span></strong>
+              <p><span class="ar">يُستقلب في الكبد حيث يتحول إلى غليسيرين وأسيتيل-CoA لإنتاج الطاقة أو تخليق الدهون. <strong>لا يحفز إفراز الإنسولين بشكل كبير</strong>، مما يعني بقاء مستوى الإنسولين منخفضاً.</span><span class="de">Wird in der Leber verstoffwechselt und in Glycerin und Acetyl-CoA umgewandelt — zur Energiegewinnung oder Fettsynthese. <strong>Stimuliert kaum die Insulinausschüttung</strong>, sodass der Insulinspiegel niedrig bleibt.</span></p>
+            </div>
+            <div class="carb-item">
+              <strong><span class="ar">اللكتوز (سكر الحليب)</span><span class="de">Laktose (Milchzucker)</span></strong>
+              <p><span class="ar">سكر ثنائي يتكون من جلوكوز + جلاكتوز. يحتاج إلى إنزيم اللاكتاز للهضم. نقص هذا الإنزيم يسبب عدم تحمل اللاكتوز.</span><span class="de">Disaccharid aus Glukose + Galaktose. Benötigt das Enzym Laktase zur Verdauung. Ein Mangel verursacht Laktoseintoleranz.</span></p>
+            </div>
+          </div>
+        </div>
+        <!-- COMPLEX -->
+        <div class="carb-branch">
+          <div class="carb-branch-head" style="background:var(--green-soft);color:var(--green);border:1px solid var(--green)" onclick="toggleCarb(this)">
+            <span class="ar">🔗 نشويات معقدة (بطيئة الهضم)</span>
+            <span class="de">🔗 Komplexe Kohlenhydrate (langsam verdaut)</span>
+          </div>
+          <div class="carb-items expanded">
+            <div class="carb-item">
+              <strong><span class="ar">النشا (Stärke)</span><span class="de">Stärke</span></strong>
+              <p><span class="ar">يتكون من سلاسل طويلة من جزيئات الجلوكوز المرتبطة. يوجد في البطاطس، الأرز، الحبوب، والبقوليات. يُهضم ببطء مما يوفر طاقة مستدامة.</span><span class="de">Besteht aus langen Ketten verbundener Glukosemoleküle. Kommt in Kartoffeln, Reis, Getreide und Hülsenfrüchten vor. Wird langsam verdaut und liefert nachhaltige Energie.</span></p>
+            </div>
+            <div class="carb-item">
+              <strong><span class="ar">الجليكوجين (Glykogen)</span><span class="de">Glykogen</span></strong>
+              <p><span class="ar">شكل مخزن للجلوكوز يوجد في الحيوانات. بوليسكريد يتم تخزينه في الكبد والعضلات ويُستخدم كمصدر سريع للطاقة عند الحاجة.</span><span class="de">Die tierische Speicherform von Glukose. Ein Polysaccharid, das in Leber und Muskeln gespeichert wird und bei Bedarf als schnelle Energiequelle dient.</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-box" style="margin-top:20px">
+      <div class="ar"><strong>المؤشر الجلايسيمي (GI)</strong> — مقياس من 0 إلى 100 يوضح مدى سرعة رفع الطعام لسكر الدم. GI مرتفع (>70): يرفع السكر بسرعة | GI منخفض (<55): يرفع السكر ببطء. <strong>كلما كان GI منخفضاً كان أفضل لمرضى السكري ومقاومة الإنسولين.</strong></div>
+      <div class="de"><strong>Glykämischer Index (GI)</strong> — Eine Skala von 0–100, die zeigt, wie schnell ein Lebensmittel den Blutzucker erhöht. Hoher GI (>70): schneller Anstieg | Niedriger GI (<55): langsamer Anstieg. <strong>Je niedriger der GI, desto besser für Diabetiker und bei Insulinresistenz.</strong></div>
+    </div>
+
+    <div class="info-box" style="border-right:3px solid var(--accent)">
+      <div class="lbl ar">💡 هل تعلم؟</div>
+      <div class="lbl de">💡 Wusstest du?</div>
+      <p class="ar"><strong>طرق الطهي</strong> تؤثر على GI: البطاطا المسلوقة لها GI أعلى من المشوية. <strong>مزج الطعام</strong> (أرز مع بروتين وخضار) يخفض سرعة امتصاص السكر. <strong>الحِمل الجلايسيمي (GL)</strong> يأخذ الكمية بالحسبان أيضاً.</p>
+      <p class="de"><strong>Kochmethoden</strong> beeinflussen den GI: Gekochte Kartoffeln haben einen höheren GI als gebackene. <strong>Mischkost</strong> (Reis mit Protein & Gemüse) verlangsamt die Zuckeraufnahme. Die <strong>Glykämische Last (GL)</strong> berücksichtigt zusätzlich die Menge.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       5. DIGESTION JOURNEY
+  ══════════════════════════════════════ -->
+  <section id="sec-digestion">
+    <h2 class="section-title">
+      🔬
+      <span class="ar">رحلة الهضم — كيف يتفكك الطعام؟</span>
+      <span class="de">Verdauungsreise — Wie wird Nahrung zerlegt?</span>
+    </h2>
+
+    <div class="digestion-box">
+      <div class="digestion-steps" id="digSteps">
+        <div class="dig-step active" data-step="0">
+          <span class="dig-icon">🍽️</span>
+          <h4><span class="ar">الفم</span><span class="de">Mund</span></h4>
+          <p><span class="ar">يبدأ هضم <strong>الكربوهيدرات</strong> بواسطة إنزيم الأميلاز اللعابي الذي يكسر النشا إلى سكريات أبسط. المضغ الجيد يزيد مساحة التفاعل.</span><span class="de">Die Verdauung der <strong>Kohlenhydrate</strong> beginnt durch Speichelamylase, die Stärke in einfachere Zucker zerlegt. Gutes Kauen vergrößert die Reaktionsfläche.</span></p>
+        </div>
+        <div class="dig-arrow">↓</div>
+        <div class="dig-step" data-step="1">
+          <span class="dig-icon">🫁</span>
+          <h4><span class="ar">المعدة</span><span class="de">Magen</span></h4>
+          <p><span class="ar">الحمض المعدي وإنزيم البيبسين يبدآن هضم <strong>البروتينات</strong> وتفكيكها إلى ببتيدات أصغر. <strong>الدهون</strong> لا تُهضم هنا تقريباً.</span><span class="de">Magensäure und Pepsin beginnen die Verdauung von <strong>Proteinen</strong> in kleinere Peptide. <strong>Fette</strong> werden hier kaum verdaut.</span></p>
+        </div>
+        <div class="dig-arrow">↓</div>
+        <div class="dig-step" data-step="2">
+          <span class="dig-icon">🟡</span>
+          <h4><span class="ar">الاثني عشر + البنكرياس + الصفراء</span><span class="de">Zwölffingerdarm + Pankreas + Galle</span></h4>
+          <p><span class="ar">البنكرياس يفرز إنزيمات لهضم الأنواع الثلاثة: <strong>الأميلاز</strong> (كربوهيدرات)، <strong>التريبسين</strong> (بروتين)، <strong>الليباز</strong> (دهون). الصفراء تستحلب الدهون لتسهيل هضمها.</span><span class="de">Die Bauchspeicheldrüse sezerniert Enzyme für alle drei Typen: <strong>Amylase</strong> (Kohlenhydrate), <strong>Trypsin</strong> (Proteine), <strong>Lipase</strong> (Fette). Galle emulgiert Fette zur leichteren Verdauung.</span></p>
+        </div>
+        <div class="dig-arrow">↓</div>
+        <div class="dig-step" data-step="3">
+          <span class="dig-icon">🔄</span>
+          <h4><span class="ar">الأمعاء الدقيقة — الامتصاص</span><span class="de">Dünndarm — Absorption</span></h4>
+          <p><span class="ar">هنا يتم امتصاص معظم المغذيات: <strong>الجلوكوز والأحماض الأمينية</strong> تدخل الدم مباشرة عبر الوريد البابي إلى الكبد. <strong>الأحماض الدهنية</strong> تدخل عبر الجهاز اللمفاوي.</span><span class="de">Hier werden die meisten Nährstoffe absorbiert: <strong>Glukose und Aminosäuren</strong> gelangen direkt über die Pfortader zur Leber. <strong>Fettsäuren</strong> werden über das Lymphsystem aufgenommen.</span></p>
+        </div>
+        <div class="dig-arrow">↓</div>
+        <div class="dig-step" data-step="4">
+          <span class="dig-icon">🥦</span>
+          <h4><span class="ar">الأمعاء الغليظة — الألياف</span><span class="de">Dickdarm — Ballaststoffe</span></h4>
+          <p><span class="ar"><strong>الألياف</strong> تصل هنا دون هضم. البكتيريا النافعة تتغذى عليها (خاصة الألياف القابلة للذوبان) وتنتج أحماض دهنية قصيرة السلسلة تغذي جدار الأمعاء وتدعم المناعة.</span><span class="de"><strong>Ballaststoffe</strong> gelangen unverdaut hierher. Nützliche Darmbakterien fermentieren sie (besonders lösliche Ballaststoffe) und produzieren kurzkettige Fettsäuren, die die Darmwand nähren und das Immunsystem unterstützen.</span></p>
+        </div>
+      </div>
+      <div class="dig-controls">
+        <button class="dig-btn" onclick="digPrev()">◀</button>
+        <button class="dig-btn" id="digPlayBtn" onclick="digTogglePlay()"><span class="ar">▶ تشغيل</span><span class="de">▶ Start</span></button>
+        <button class="dig-btn" onclick="digNext()">▶</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       6. PROTEINS
+  ══════════════════════════════════════ -->
+  <section id="sec-protein">
+    <h2 class="section-title">
+      🥩
+      <span class="ar">البروتينات — لبنات البناء</span>
+      <span class="de">Proteine — Bausteine des Körpers</span>
+    </h2>
+
+    <div class="info-box">
+      <p class="ar">البروتينات تتكون من سلاسل <strong>أحماض أمينية</strong>. يوجد 20 حمض أميني يستخدمها الجسم — منها <strong>9 أساسية</strong> لا يستطيع الجسم تصنيعها ويجب الحصول عليها من الغذاء، والباقي <strong>غير أساسي</strong> يصنعه الجسم ذاتياً.</p>
+      <p class="de">Proteine bestehen aus Ketten von <strong>Aminosäuren</strong>. Der Körper nutzt 20 Aminosäuren — davon sind <strong>9 essentiell</strong>, die der Körper nicht selbst herstellen kann und über die Nahrung aufnehmen muss. Die übrigen sind <strong>nicht-essentiell</strong> und werden vom Körper selbst synthetisiert.</p>
+    </div>
+
+    <div class="cards" style="margin-bottom:16px">
+      <div class="card" style="border-right:3px solid var(--green)">
+        <div class="card-icon">✅</div>
+        <h3><span class="ar">بروتين كامل</span><span class="de">Vollständiges Protein</span></h3>
+        <p><span class="ar">يحتوي على جميع الأحماض الأمينية الأساسية التسعة. مصادره: اللحوم، البيض، الحليب، الأسماك. <strong>توافر بيولوجي عالٍ</strong>.</span><span class="de">Enthält alle 9 essentiellen Aminosäuren. Quellen: Fleisch, Eier, Milch, Fisch. <strong>Hohe biologische Verfügbarkeit</strong>.</span></p>
+      </div>
+      <div class="card" style="border-right:3px solid var(--orange)">
+        <div class="card-icon">⚠️</div>
+        <h3><span class="ar">بروتين غير كامل</span><span class="de">Unvollständiges Protein</span></h3>
+        <p><span class="ar">ناقص في حمض أميني أو أكثر. مثل: القمح (ناقص في اللايسين)، الحمص (ناقص في الميثيونين). <strong>التوافر البيولوجي أقل</strong> إلا إذا تم دمجه مع مصدر آخر.</span><span class="de">Fehlt eine oder mehrere essentielle Aminosäuren. Z.B.: Weizen (Lysin-Mangel), Kichererbsen (Methionin-Mangel). <strong>Geringere biologische Verfügbarkeit</strong>, außer bei Kombination mit anderen Quellen.</span></p>
+      </div>
+      <div class="card" style="border-right:3px solid var(--accent)">
+        <div class="card-icon">🤝</div>
+        <h3><span class="ar">التكامل البروتيني</span><span class="de">Proteinkombination</span></h3>
+        <p><span class="ar">دمج مصادر مختلفة يعطي بروتيناً كاملاً. <strong>مثال:</strong> عدس (غني باللايسين) + أرز (غني بالميثيونين) = بروتين كامل وتوافر بيولوجي مرتفع.</span><span class="de">Kombination verschiedener Quellen ergibt ein vollständiges Protein. <strong>Beispiel:</strong> Linsen (reich an Lysin) + Reis (reich an Methionin) = vollständiges Protein mit hoher Bioverfügbarkeit.</span></p>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <div class="lbl ar">التوافر البيولوجي</div>
+      <div class="lbl de">Biologische Verfügbarkeit (Bioverfügbarkeit)</div>
+      <p class="ar">هو مقياس يُعبّر عن <strong>مدى قدرة الجسم على امتصاص البروتين من الطعام واستخدامه بشكل فعّال</strong> في بناء العضلات، وصيانة الأنسجة، وصنع الإنزيمات والهرمونات. ليس كل بروتين تأكله يستفيد منه جسمك بنفس النسبة!</p>
+      <p class="de">Ein Maß dafür, <strong>wie effektiv der Körper Protein aus der Nahrung aufnehmen und verwerten kann</strong> — für Muskelaufbau, Gewebereparatur und die Produktion von Enzymen und Hormonen. Nicht jedes Protein, das du isst, wird gleich gut verwertet!</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       7. FATS OVERVIEW
+  ══════════════════════════════════════ -->
+  <section id="sec-fats">
+    <h2 class="section-title">
+      🫒
+      <span class="ar">الدهون — نظرة عامة</span>
+      <span class="de">Fette — Überblick</span>
+    </h2>
+
+    <div class="info-box" style="margin-bottom:20px">
+      <p class="ar">الدهون ضرورية لامتصاص الفيتامينات الذائبة في الدهون (A, D, E, K)، حماية الأعضاء، عزل حراري، وإنتاج الهرمونات. تحتوي على <strong>9 كالوري/غرام</strong> — أكثر من ضعف الكربوهيدرات والبروتين. <em>(تفاصيل أكثر في الفصل السادس: الدهون)</em></p>
+      <p class="de">Fette sind essentiell für die Aufnahme fettlöslicher Vitamine (A, D, E, K), den Organschutz, die Wärmedämmung und die Hormonproduktion. Sie enthalten <strong>9 kcal/g</strong> — mehr als doppelt so viel wie Kohlenhydrate und Protein. <em>(Ausführlich in Kapitel 6: Lipide)</em></p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🧈</div>
+        <h3><span class="ar">دهون مشبعة</span><span class="de">Gesättigte Fette</span></h3>
+        <p><span class="ar">لا تحتوي على روابط مزدوجة. <strong>مستقرة في الحرارة العالية</strong> وصلبة في درجة حرارة الغرفة. أمثلة: الزبدة، دهن جوز الهند.</span><span class="de">Keine Doppelbindungen. <strong>Hitzebeständig</strong> und bei Raumtemperatur fest. Beispiele: Butter, Kokosfett.</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🫒</div>
+        <h3><span class="ar">دهون غير مشبعة</span><span class="de">Ungesättigte Fette</span></h3>
+        <p><span class="ar">تحتوي على رابطة مزدوجة واحدة (أحادية) أو أكثر (متعددة). سائلة في درجة حرارة الغرفة. أمثلة: زيت الزيتون، أوميغا-3، أوميغا-6.</span><span class="de">Enthalten eine (einfach) oder mehrere (mehrfach) Doppelbindungen. Bei Raumtemperatur flüssig. Beispiele: Olivenöl, Omega-3, Omega-6.</span></p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⛔</div>
+        <h3><span class="ar">دهون متحولة (ترانس)</span><span class="de">Transfette</span></h3>
+        <p><span class="ar">تنتج من هدرجة الزيوت النباتية صناعياً. <strong>الأكثر ضرراً</strong> — ترفع الكوليسترول الضار وتخفض النافع. تُوجد في المقالي والمعجنات المصنعة.</span><span class="de">Entstehen durch industrielle Hydrierung pflanzlicher Öle. <strong>Am schädlichsten</strong> — erhöhen LDL und senken HDL. Vorkommen in Frittiertem und Industriegebäck.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       8. FIBER
+  ══════════════════════════════════════ -->
+  <section id="sec-fiber">
+    <h2 class="section-title">
+      🥦
+      <span class="ar">الألياف الغذائية</span>
+      <span class="de">Ballaststoffe</span>
+    </h2>
+
+    <div class="cards" style="margin-bottom:16px">
+      <div class="card" style="border-right:3px solid var(--green)">
+        <div class="card-icon">💧</div>
+        <h3><span class="ar">ألياف قابلة للذوبان</span><span class="de">Lösliche Ballaststoffe</span></h3>
+        <p><span class="ar">تذوب في الماء وتشكل مادة هلامية. تبطئ امتصاص السكر وتخفض الكوليسترول. تتغذى عليها البكتيريا النافعة. أمثلة: الشوفان، البقوليات، التفاح.</span><span class="de">Lösen sich in Wasser und bilden ein Gel. Verlangsamen die Zuckeraufnahme und senken Cholesterin. Dienen als Nahrung für nützliche Darmbakterien. Beispiele: Hafer, Hülsenfrüchte, Äpfel.</span></p>
+      </div>
+      <div class="card" style="border-right:3px solid var(--accent)">
+        <div class="card-icon">🧱</div>
+        <h3><span class="ar">ألياف غير قابلة للذوبان</span><span class="de">Unlösliche Ballaststoffe</span></h3>
+        <p><span class="ar">لا تذوب في الماء. تزيد حجم البراز وتسرع حركة الأمعاء وتمنع الإمساك. أمثلة: القمح الكامل، الخضراوات، المكسرات.</span><span class="de">Lösen sich nicht in Wasser. Vergrößern das Stuhlvolumen, beschleunigen die Darmpassage und verhindern Verstopfung. Beispiele: Vollkornweizen, Gemüse, Nüsse.</span></p>
+      </div>
+    </div>
+
+    <div class="quote-box">
+      <div class="ar"><strong>نصيحة:</strong> اشرب كمية كافية من الماء (راقب لون البول ليكون أصفر فاتح). زد الألياف بالتدريج لتجنب الانتفاخ. اجمع بين الألياف القابلة وغير القابلة للذوبان يومياً لتحقق أفضل توازن لهضم صحي.</div>
+      <div class="de"><strong>Tipp:</strong> Trinke ausreichend Wasser (heller Urin als Indikator). Erhöhe die Ballaststoffe schrittweise, um Blähungen zu vermeiden. Kombiniere täglich lösliche und unlösliche Ballaststoffe für die beste Verdauungsbalance.</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       9. FOOD CARD GALLERY
+  ══════════════════════════════════════ -->
+  <section id="sec-foods">
+    <h2 class="section-title">
+      🍱
+      <span class="ar">معرض الأطعمة — اضغط على البطاقة لقلبها</span>
+      <span class="de">Lebensmittel-Galerie — Karte klicken zum Umdrehen</span>
+    </h2>
+
+    <div class="food-filters">
+      <button class="food-filter active" onclick="filterFoods('all',this)"><span class="ar">الكل</span><span class="de">Alle</span></button>
+      <button class="food-filter" onclick="filterFoods('carb',this)"><span class="ar">🌾 كربوهيدرات</span><span class="de">🌾 Kohlenhydrate</span></button>
+      <button class="food-filter" onclick="filterFoods('protein',this)"><span class="ar">🥩 بروتين</span><span class="de">🥩 Protein</span></button>
+      <button class="food-filter" onclick="filterFoods('fat',this)"><span class="ar">🫒 دهون</span><span class="de">🫒 Fett</span></button>
+      <button class="food-filter" onclick="filterFoods('fiber',this)"><span class="ar">🥦 ألياف</span><span class="de">🥦 Ballaststoffe</span></button>
+    </div>
+
+    <div class="food-grid" id="foodGrid"></div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       10. COMPARISON TABLE
+  ══════════════════════════════════════ -->
+  <section id="sec-compare">
+    <h2 class="section-title">
+      📊
+      <span class="ar">مقارنة المغذيات الكبرى</span>
+      <span class="de">Makronährstoff-Vergleich</span>
+    </h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th><span class="ar">الخاصية</span><span class="de">Eigenschaft</span></th>
+            <th><span class="ar">🌾 كربوهيدرات</span><span class="de">🌾 Kohlenhydrate</span></th>
+            <th><span class="ar">🥩 بروتين</span><span class="de">🥩 Protein</span></th>
+            <th><span class="ar">🫒 دهون</span><span class="de">🫒 Fett</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="ar">السعرات</span><span class="de">Kalorien</span></td>
+            <td>4 kcal/g</td>
+            <td>4 kcal/g</td>
+            <td>9 kcal/g</td>
+          </tr>
+          <tr>
+            <td><span class="ar">الوظيفة الرئيسية</span><span class="de">Hauptfunktion</span></td>
+            <td><span class="ar">مصدر الطاقة الأول</span><span class="de">Primäre Energiequelle</span></td>
+            <td><span class="ar">بناء وصيانة الأنسجة</span><span class="de">Aufbau & Reparatur von Gewebe</span></td>
+            <td><span class="ar">تخزين الطاقة، حماية الأعضاء</span><span class="de">Energiespeicher, Organschutz</span></td>
+          </tr>
+          <tr>
+            <td><span class="ar">سرعة الهضم</span><span class="de">Verdauungsgeschw.</span></td>
+            <td><span class="ar">⚡ سريع (بسيطة) / 🐢 بطيء (معقدة)</span><span class="de">⚡ Schnell (einfach) / 🐢 Langsam (komplex)</span></td>
+            <td><span class="ar">🐢 متوسط إلى بطيء</span><span class="de">🐢 Mittel bis langsam</span></td>
+            <td><span class="ar">🐢🐢 الأبطأ</span><span class="de">🐢🐢 Am langsamsten</span></td>
+          </tr>
+          <tr>
+            <td><span class="ar">المصادر</span><span class="de">Quellen</span></td>
+            <td><span class="ar">حبوب، فواكه، بقوليات</span><span class="de">Getreide, Obst, Hülsenfrüchte</span></td>
+            <td><span class="ar">لحوم، بيض، بقوليات، ألبان</span><span class="de">Fleisch, Eier, Hülsenfrüchte, Milch</span></td>
+            <td><span class="ar">زيوت، مكسرات، أسماك دهنية</span><span class="de">Öle, Nüsse, fetter Fisch</span></td>
+          </tr>
+          <tr>
+            <td><span class="ar">تأثير الإنسولين</span><span class="de">Insulinwirkung</span></td>
+            <td><span class="ar">🔴 أعلى تحفيز</span><span class="de">🔴 Höchste Stimulation</span></td>
+            <td><span class="ar">🟡 متوسط</span><span class="de">🟡 Mittel</span></td>
+            <td><span class="ar">🟢 أقل تحفيز</span><span class="de">🟢 Geringste Stimulation</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       11. CALORIE CALCULATOR
+  ══════════════════════════════════════ -->
+  <section id="sec-calc">
+    <h2 class="section-title">
+      🔢
+      <span class="ar">حاسبة السعرات من المغذيات</span>
+      <span class="de">Makronährstoff-Kalorienrechner</span>
+    </h2>
+
+    <div class="calc-box">
+      <div class="calc-grid">
+        <div>
+          <label><span class="ar">كربوهيدرات (غ)</span><span class="de">Kohlenhydrate (g)</span></label>
+          <input type="number" id="carbG" placeholder="250" min="0">
+        </div>
+        <div>
+          <label><span class="ar">بروتين (غ)</span><span class="de">Protein (g)</span></label>
+          <input type="number" id="protG" placeholder="80" min="0">
+        </div>
+        <div>
+          <label><span class="ar">دهون (غ)</span><span class="de">Fett (g)</span></label>
+          <input type="number" id="fatG" placeholder="65" min="0">
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calcMacros()">
+        <span class="ar">احسب السعرات الحرارية 🔥</span>
+        <span class="de">Kalorien berechnen 🔥</span>
+      </button>
+      <div class="calc-result" id="macroResult">
+        <div style="font-size:14px;color:var(--text-soft);margin-bottom:6px"><span class="ar">إجمالي السعرات</span><span class="de">Gesamtkalorien</span></div>
+        <div class="result-num" id="macroTotal">--</div>
+        <div class="cal-bars" id="calBars">
+          <div class="cal-bar">
+            <div class="cal-bar-val" id="barValC">0</div>
+            <div class="cal-bar-fill" id="barC" style="background:#e8c97a;height:0"></div>
+            <div class="cal-bar-label"><span class="ar">كربو</span><span class="de">Carbs</span></div>
+          </div>
+          <div class="cal-bar">
+            <div class="cal-bar-val" id="barValP">0</div>
+            <div class="cal-bar-fill" id="barP" style="background:#2980b9;height:0"></div>
+            <div class="cal-bar-label"><span class="ar">بروتين</span><span class="de">Protein</span></div>
+          </div>
+          <div class="cal-bar">
+            <div class="cal-bar-val" id="barValF">0</div>
+            <div class="cal-bar-fill" id="barF" style="background:#e67e22;height:0"></div>
+            <div class="cal-bar-label"><span class="ar">دهون</span><span class="de">Fett</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       12. QUIZ
+  ══════════════════════════════════════ -->
+  <section id="sec-quiz">
+    <h2 class="section-title">
+      ❓
+      <span class="ar">اختبر معلوماتك</span>
+      <span class="de">Teste dein Wissen</span>
+    </h2>
+    <div id="quizContainer"></div>
+    <div class="quiz-score" id="quizScore" style="display:none">
+      <div class="big" id="quizScoreVal"></div>
+      <div style="color:var(--text-soft);font-size:14px;margin-top:6px"><span class="ar">إجاباتك الصحيحة</span><span class="de">Richtige Antworten</span></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FOOTER NAV -->
+  <div class="footer-nav">
+    <a href="chapter2-insulin-resistance.html">
+      <span class="ar">→ الفصل 2: مقاومة الإنسولين</span>
+      <span class="de">→ Kapitel 2: Insulinresistenz</span>
+    </a>
+    <a href="../index.html" class="primary">
+      <span class="ar">🏠 الرئيسية</span>
+      <span class="de">🏠 Startseite</span>
+    </a>
+    <a href="chapter4-micro-nutrients.html">
+      <span class="ar">← الفصل 4: المغذيات الصغرى</span>
+      <span class="de">← Kapitel 4: Mikronährstoffe</span>
+    </a>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+// ==========================================
+// PASSWORD GATE
+// ==========================================
+const HASH = '59f49e6495c6d3eb3ccae62a649e836575fc344d12bf43797f779b43f9156ee6';
+(function(){
+  if(sessionStorage.getItem('hc-auth')==='1'){ document.getElementById('gate').classList.add('hidden'); return; }
+})();
+async function checkGate(){
+  const p = document.getElementById('gatePass').value;
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(p));
+  const hex = Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  if(hex===HASH){ sessionStorage.setItem('hc-auth','1'); document.getElementById('gate').classList.add('hidden'); }
+  else { document.getElementById('gateErr').textContent='❌'; document.getElementById('gatePass').value=''; }
+}
+
+// ==========================================
+// THEME
+// ==========================================
+function setTheme(name, el) {
+  document.body.setAttribute('data-theme', name);
+  document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  localStorage.setItem('theme', name);
+}
+(function(){
+  const t = localStorage.getItem('theme');
+  if(t){
+    document.body.setAttribute('data-theme', t);
+    const s = document.querySelector('.s-'+t);
+    if(s){ document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('active')); s.classList.add('active'); }
+  }
+})();
+
+// ==========================================
+// LANGUAGE
+// ==========================================
+let lang = 'ar';
+function toggleLang(){
+  lang = lang === 'ar' ? 'de' : 'ar';
+  document.querySelectorAll('.ar').forEach(el => el.style.display = lang==='ar' ? '' : 'none');
+  document.querySelectorAll('.de').forEach(el => el.style.display = lang==='de' ? '' : 'none');
+  document.getElementById('langBtn').textContent = lang==='ar' ? 'DE' : 'AR';
+  document.documentElement.setAttribute('lang', lang);
+  document.documentElement.setAttribute('dir', lang==='ar' ? 'rtl' : 'ltr');
+}
+
+// ==========================================
+// SCROLL PROGRESS
+// ==========================================
+window.addEventListener('scroll', ()=>{
+  const s = window.scrollY, h = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('scrollProgress').style.width = h>0? (s/h*100)+'%' : '0%';
+});
+
+// ==========================================
+// PARTICLES
+// ==========================================
+(function(){
+  const c = document.getElementById('particles');
+  for(let i=0;i<30;i++){
+    const p = document.createElement('div');
+    p.className='particle';
+    const sz=Math.random()*6+2;
+    p.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100+100}%;animation-duration:${Math.random()*20+15}s;animation-delay:${Math.random()*10}s;`;
+    c.appendChild(p);
+  }
+})();
+
+// ==========================================
+// SIDE NAV + SCROLL SPY
+// ==========================================
+const sections=[
+  {id:'sec-mindmap',ar:'خريطة ذهنية',de:'Mindmap'},
+  {id:'sec-intro',ar:'تعريف',de:'Definition'},
+  {id:'sec-pie',ar:'التوزيع',de:'Verteilung'},
+  {id:'sec-carbs',ar:'كربوهيدرات',de:'Kohlenhydrate'},
+  {id:'sec-digestion',ar:'الهضم',de:'Verdauung'},
+  {id:'sec-protein',ar:'بروتين',de:'Protein'},
+  {id:'sec-fats',ar:'دهون',de:'Fette'},
+  {id:'sec-fiber',ar:'ألياف',de:'Ballaststoffe'},
+  {id:'sec-foods',ar:'أطعمة',de:'Lebensmittel'},
+  {id:'sec-compare',ar:'مقارنة',de:'Vergleich'},
+  {id:'sec-calc',ar:'حاسبة',de:'Rechner'},
+  {id:'sec-quiz',ar:'اختبار',de:'Quiz'}
+];
+(function(){
+  const nav=document.getElementById('sideNav');
+  sections.forEach(s=>{
+    const d=document.createElement('div');
+    d.className='side-dot';
+    d.setAttribute('data-label', lang==='ar'?s.ar:s.de);
+    d.onclick=()=>document.getElementById(s.id).scrollIntoView({behavior:'smooth'});
+    d.dataset.secId=s.id;
+    nav.appendChild(d);
+  });
+})();
+window.addEventListener('scroll',()=>{
+  const dots=document.querySelectorAll('.side-dot');
+  let active=0;
+  sections.forEach((s,i)=>{
+    const el=document.getElementById(s.id);
+    if(el && el.getBoundingClientRect().top < window.innerHeight/2) active=i;
+  });
+  dots.forEach((d,i)=>{d.classList.toggle('active',i===active); d.setAttribute('data-label',lang==='ar'?sections[i].ar:sections[i].de);});
+});
+
+// ==========================================
+// MINDMAP TOGGLE
+// ==========================================
+function toggleMM(el){
+  const ch=el.nextElementSibling || el.parentElement.querySelector('.mm-children');
+  if(!ch) return;
+  ch.classList.toggle('collapsed');
+  ch.classList.toggle('expanded');
+}
+
+// ==========================================
+// CARB TREE TOGGLE
+// ==========================================
+function toggleCarb(el){
+  const items=el.nextElementSibling;
+  if(!items) return;
+  items.classList.toggle('collapsed');
+  items.classList.toggle('expanded');
+}
+
+// ==========================================
+// PIE CHART
+// ==========================================
+const pieData=[
+  {pct:50, color:'#e8c97a', ar:'كربوهيدرات 50%', de:'Kohlenhydrate 50%',
+   detailAr:'45–65% من السعرات اليومية. المصدر الرئيسي للطاقة. فضّل المعقدة (حبوب كاملة، بقوليات) على البسيطة (سكريات).',
+   detailDe:'45–65% der Tageskalorien. Primäre Energiequelle. Bevorzuge komplexe (Vollkorn, Hülsenfrüchte) gegenüber einfachen (Zucker).'},
+  {pct:25, color:'#2980b9', ar:'بروتين 25%', de:'Protein 25%',
+   detailAr:'15–25% من السعرات اليومية. ضروري لبناء العضلات والإنزيمات والهرمونات. نوّع بين المصادر الحيوانية والنباتية.',
+   detailDe:'15–25% der Tageskalorien. Essentiell für Muskelaufbau, Enzyme und Hormone. Kombiniere tierische und pflanzliche Quellen.'},
+  {pct:25, color:'#e67e22', ar:'دهون 25%', de:'Fett 25%',
+   detailAr:'20–30% من السعرات اليومية. ركّز على الدهون غير المشبعة (زيت زيتون، أوميغا-3) وقلل المشبعة والمتحولة.',
+   detailDe:'20–30% der Tageskalorien. Setze auf ungesättigte Fette (Olivenöl, Omega-3) und reduziere gesättigte und Transfette.'}
+];
+(function(){
+  const svg=document.getElementById('pieSvg');
+  const leg=document.getElementById('pieLegend');
+  let cum=0; const cx=140,cy=140,r=120;
+  pieData.forEach((d,i)=>{
+    const a1=cum/100*360-90, a2=(cum+d.pct)/100*360-90;
+    const r1=a1*Math.PI/180, r2=a2*Math.PI/180;
+    const x1=cx+r*Math.cos(r1), y1=cy+r*Math.sin(r1);
+    const x2=cx+r*Math.cos(r2), y2=cy+r*Math.sin(r2);
+    const large=d.pct>50?1:0;
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',`M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} Z`);
+    path.setAttribute('fill',d.color);
+    path.setAttribute('class','pie-segment');
+    path.setAttribute('data-idx',i);
+    path.style.cursor='pointer';
+    path.onclick=()=>showPieDetail(i);
+    path.onmouseenter=()=>path.classList.add('active');
+    path.onmouseleave=()=>path.classList.remove('active');
+    svg.appendChild(path);
+    // label
+    const mid=(cum+d.pct/2)/100*360-90;
+    const mr=mid*Math.PI/180;
+    const tx=cx+r*0.6*Math.cos(mr), ty=cy+r*0.6*Math.sin(mr);
+    const txt=document.createElementNS('http://www.w3.org/2000/svg','text');
+    txt.setAttribute('x',tx);txt.setAttribute('y',ty);
+    txt.setAttribute('text-anchor','middle');txt.setAttribute('dominant-baseline','middle');
+    txt.setAttribute('fill','#000');txt.setAttribute('font-size','13');txt.setAttribute('font-weight','700');
+    txt.setAttribute('font-family','Cairo,sans-serif');txt.setAttribute('pointer-events','none');
+    txt.textContent=d.pct+'%';
+    svg.appendChild(txt);
+    cum+=d.pct;
+    // legend
+    const li=document.createElement('div');
+    li.className='pie-legend-item';
+    li.innerHTML=`<div class="pie-color" style="background:${d.color}"></div><div class="pie-info"><strong><span class="ar">${d.ar}</span><span class="de" style="display:none">${d.de}</span></strong></div>`;
+    li.onclick=()=>showPieDetail(i);
+    leg.appendChild(li);
+  });
+})();
+function showPieDetail(i){
+  const d=pieData[i];
+  const det=document.getElementById('pieDetail');
+  det.innerHTML=`<span class="ar">${d.detailAr}</span><span class="de" style="display:${lang==='de'?'':'none'}">${d.detailDe}</span>`;
+  if(lang==='de') det.querySelector('.ar').style.display='none';
+  document.querySelectorAll('.pie-legend-item').forEach((l,j)=>l.classList.toggle('active',j===i));
+}
+
+// ==========================================
+// DIGESTION ANIMATION
+// ==========================================
+let digStep=0, digPlaying=false, digTimer=null;
+function digUpdate(){
+  document.querySelectorAll('.dig-step').forEach((s,i)=>s.classList.toggle('active',i<=digStep));
+}
+function digNext(){ if(digStep<4)digStep++; digUpdate(); }
+function digPrev(){ if(digStep>0)digStep--; digUpdate(); }
+function digTogglePlay(){
+  digPlaying=!digPlaying;
+  const btn=document.getElementById('digPlayBtn');
+  if(digPlaying){
+    btn.innerHTML=`<span class="ar">⏸ إيقاف</span><span class="de" style="display:${lang==='de'?'':'none'}">⏸ Stopp</span>`;
+    if(lang==='de') btn.querySelector('.ar').style.display='none';
+    btn.classList.add('active');
+    digStep=0; digUpdate();
+    digTimer=setInterval(()=>{ if(digStep<4){digStep++;digUpdate();}else{clearInterval(digTimer);digPlaying=false;btn.innerHTML=`<span class="ar">▶ تشغيل</span><span class="de" style="display:${lang==='de'?'':'none'}">▶ Start</span>`;if(lang==='de')btn.querySelector('.ar').style.display='none';btn.classList.remove('active');}},2000);
+  } else {
+    clearInterval(digTimer);
+    btn.innerHTML=`<span class="ar">▶ تشغيل</span><span class="de" style="display:${lang==='de'?'':'none'}">▶ Start</span>`;
+    if(lang==='de') btn.querySelector('.ar').style.display='none';
+    btn.classList.remove('active');
+  }
+}
+
+// ==========================================
+// FOOD CARDS
+// ==========================================
+const foods=[
+  {emoji:'🍚',ar:'أرز',de:'Reis',cat:'carb',backAr:'كربوهيدرات معقدة (نشا)<br>28غ كربو / 100غ<br>GI: 70–80',backDe:'Komplexe Kohlenhydrate (Stärke)<br>28g Carbs / 100g<br>GI: 70–80'},
+  {emoji:'🥔',ar:'بطاطس',de:'Kartoffeln',cat:'carb',backAr:'نشا — GI يختلف حسب الطهي<br>مسلوقة: GI أعلى<br>مشوية: GI أقل',backDe:'Stärke — GI variiert nach Zubereitung<br>Gekocht: höherer GI<br>Gebacken: niedrigerer GI'},
+  {emoji:'🍌',ar:'موز',de:'Banane',cat:'carb',backAr:'غني بالبوتاسيوم والفركتوز<br>23غ كربو / 100غ<br>سكريات طبيعية + ألياف',backDe:'Reich an Kalium und Fruktose<br>23g Carbs / 100g<br>Natürlicher Zucker + Ballaststoffe'},
+  {emoji:'🍞',ar:'خبز قمح كامل',de:'Vollkornbrot',cat:'carb',backAr:'كربوهيدرات معقدة + ألياف<br>GI: ~55<br>أفضل من الخبز الأبيض',backDe:'Komplexe Kohlenhydrate + Ballaststoffe<br>GI: ~55<br>Besser als Weißbrot'},
+  {emoji:'🥩',ar:'صدر دجاج',de:'Hähnchenbrust',cat:'protein',backAr:'بروتين كامل عالي الجودة<br>31غ بروتين / 100غ<br>قليل الدهون',backDe:'Hochwertiges vollständiges Protein<br>31g Protein / 100g<br>Fettarm'},
+  {emoji:'🥚',ar:'بيض',de:'Ei',cat:'protein',backAr:'بروتين كامل<br>13غ بروتين / 100غ<br>يحتوي على جميع الأحماض الأمينية الأساسية',backDe:'Vollständiges Protein<br>13g Protein / 100g<br>Enthält alle essentiellen Aminosäuren'},
+  {emoji:'🐟',ar:'سمك سلمون',de:'Lachs',cat:'protein',backAr:'بروتين كامل + أوميغا-3<br>20غ بروتين / 100غ<br>13غ دهون صحية',backDe:'Vollständiges Protein + Omega-3<br>20g Protein / 100g<br>13g gesunde Fette'},
+  {emoji:'🫘',ar:'عدس',de:'Linsen',cat:'protein',backAr:'بروتين نباتي (غني باللايسين)<br>9غ بروتين / 100غ<br>ادمجه مع أرز للتكامل',backDe:'Pflanzliches Protein (reich an Lysin)<br>9g Protein / 100g<br>Mit Reis kombinieren'},
+  {emoji:'🫒',ar:'زيت زيتون',de:'Olivenöl',cat:'fat',backAr:'دهون أحادية غير مشبعة<br>100% دهون<br>مثالي للسلطات — لا يُقلى بحرارة عالية',backDe:'Einfach ungesättigte Fette<br>100% Fett<br>Ideal für Salate — nicht stark erhitzen'},
+  {emoji:'🥜',ar:'لوز',de:'Mandeln',cat:'fat',backAr:'دهون صحية + بروتين + ألياف<br>50غ دهون / 100غ<br>غني بفيتامين E',backDe:'Gesunde Fette + Protein + Ballaststoffe<br>50g Fett / 100g<br>Reich an Vitamin E'},
+  {emoji:'🥑',ar:'أفوكادو',de:'Avocado',cat:'fat',backAr:'دهون أحادية غير مشبعة<br>15غ دهون / 100غ<br>غني بالبوتاسيوم والألياف',backDe:'Einfach ungesättigte Fette<br>15g Fett / 100g<br>Reich an Kalium und Ballaststoffen'},
+  {emoji:'🥦',ar:'بروكلي',de:'Brokkoli',cat:'fiber',backAr:'ألياف غير قابلة للذوبان<br>2.6غ ألياف / 100غ<br>غني بفيتامين C و K',backDe:'Unlösliche Ballaststoffe<br>2,6g Ballaststoffe / 100g<br>Reich an Vitamin C & K'},
+  {emoji:'🫛',ar:'شوفان',de:'Haferflocken',cat:'fiber',backAr:'ألياف قابلة للذوبان (بيتا-غلوكان)<br>10غ ألياف / 100غ<br>يخفض الكوليسترول',backDe:'Lösliche Ballaststoffe (Beta-Glucan)<br>10g Ballaststoffe / 100g<br>Senkt Cholesterin'},
+  {emoji:'🍎',ar:'تفاح',de:'Apfel',cat:'fiber',backAr:'ألياف قابلة للذوبان (بكتين)<br>2.4غ ألياف / 100غ<br>يبطئ امتصاص السكر',backDe:'Lösliche Ballaststoffe (Pektin)<br>2,4g Ballaststoffe / 100g<br>Verlangsamt Zuckeraufnahme'},
+  {emoji:'🧈',ar:'زبدة',de:'Butter',cat:'fat',backAr:'دهون مشبعة<br>81غ دهون / 100غ<br>استخدام معتدل — مستقرة للطهي',backDe:'Gesättigte Fette<br>81g Fett / 100g<br>Maßvoller Gebrauch — hitzestabil'},
+  {emoji:'🥬',ar:'سبانخ',de:'Spinat',cat:'fiber',backAr:'غني بالألياف والحديد<br>2.2غ ألياف / 100غ<br>يحتوي على أوكسالات',backDe:'Reich an Ballaststoffen & Eisen<br>2,2g Ballaststoffe / 100g<br>Enthält Oxalate'}
+];
+function buildFoodGrid(filter){
+  const g=document.getElementById('foodGrid');
+  g.innerHTML='';
+  foods.filter(f=>filter==='all'||f.cat===filter).forEach(f=>{
+    const d=document.createElement('div');
+    d.className='food-card';
+    d.onclick=function(){this.classList.toggle('flipped')};
+    d.innerHTML=`<div class="food-card-inner"><div class="food-front"><div class="food-emoji">${f.emoji}</div><div class="food-name"><span class="ar">${f.ar}</span><span class="de" style="display:${lang==='de'?'':'none'}">${f.de}</span></div><div class="food-tag">${f.cat==='carb'?'🌾':f.cat==='protein'?'🥩':f.cat==='fat'?'🫒':'🥦'}</div></div><div class="food-back"><p><span class="ar">${f.backAr}</span><span class="de" style="display:${lang==='de'?'':'none'}">${f.backDe}</span></p></div></div>`;
+    g.appendChild(d);
+  });
+}
+function filterFoods(cat,btn){
+  document.querySelectorAll('.food-filter').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  buildFoodGrid(cat);
+}
+buildFoodGrid('all');
+
+// ==========================================
+// CALORIE CALCULATOR
+// ==========================================
+function calcMacros(){
+  const c=parseFloat(document.getElementById('carbG').value)||0;
+  const p=parseFloat(document.getElementById('protG').value)||0;
+  const f=parseFloat(document.getElementById('fatG').value)||0;
+  const cc=c*4, pc=p*4, fc=f*9, total=cc+pc+fc;
+  document.getElementById('macroTotal').textContent=total+' kcal';
+  document.getElementById('macroResult').style.display='block';
+  const max=Math.max(cc,pc,fc,1);
+  document.getElementById('barValC').textContent=cc;
+  document.getElementById('barValP').textContent=pc;
+  document.getElementById('barValF').textContent=fc;
+  setTimeout(()=>{
+    document.getElementById('barC').style.height=(cc/max*100)+'px';
+    document.getElementById('barP').style.height=(pc/max*100)+'px';
+    document.getElementById('barF').style.height=(fc/max*100)+'px';
+  },50);
+}
+
+// ==========================================
+// QUIZ
+// ==========================================
+const quizData=[
+  {q:{ar:'كم كالوري في الغرام الواحد من الدهون؟',de:'Wie viele Kalorien hat 1 Gramm Fett?'},
+   opts:[{ar:'4 كالوري',de:'4 kcal'},{ar:'7 كالوري',de:'7 kcal'},{ar:'9 كالوري',de:'9 kcal'},{ar:'2 كالوري',de:'2 kcal'}],correct:2},
+  {q:{ar:'أي من التالي يُعتبر كربوهيدرات معقدة؟',de:'Welches ist ein komplexes Kohlenhydrat?'},
+   opts:[{ar:'الجلوكوز',de:'Glukose'},{ar:'الفركتوز',de:'Fruktose'},{ar:'النشا',de:'Stärke'},{ar:'اللكتوز',de:'Laktose'}],correct:2},
+  {q:{ar:'أين يتم استقلاب الفركتوز بشكل رئيسي؟',de:'Wo wird Fruktose hauptsächlich verstoffwechselt?'},
+   opts:[{ar:'العضلات',de:'Muskeln'},{ar:'الكبد',de:'Leber'},{ar:'المعدة',de:'Magen'},{ar:'الكلى',de:'Nieren'}],correct:1},
+  {q:{ar:'ما هو التوافر البيولوجي للبروتين؟',de:'Was bedeutet die biologische Verfügbarkeit von Protein?'},
+   opts:[{ar:'كمية البروتين في الطعام',de:'Proteinmenge im Essen'},{ar:'سرعة هضم البروتين',de:'Geschwindigkeit der Proteinverdauung'},{ar:'مدى امتصاص الجسم للبروتين واستخدامه',de:'Wie effektiv der Körper Protein aufnimmt und nutzt'},{ar:'سعر البروتين',de:'Proteinpreis'}],correct:2},
+  {q:{ar:'ما الذي يخفض سرعة امتصاص السكر من الأرز؟',de:'Was verlangsamt die Zuckeraufnahme von Reis?'},
+   opts:[{ar:'أكله مع ماء ساخن',de:'Mit heißem Wasser essen'},{ar:'أكله مع بروتين وخضار',de:'Mit Protein & Gemüse essen'},{ar:'طهيه لفترة أطول',de:'Länger kochen'},{ar:'إضافة ملح',de:'Salz hinzufügen'}],correct:1}
+];
+let quizAnswered=0,quizCorrect=0;
+(function(){
+  const c=document.getElementById('quizContainer');
+  quizData.forEach((q,qi)=>{
+    const box=document.createElement('div');
+    box.className='quiz-box';
+    box.innerHTML=`<div class="quiz-q"><span class="ar">${qi+1}. ${q.q.ar}</span><span class="de">${qi+1}. ${q.q.de}</span></div><div class="quiz-opts">${q.opts.map((o,oi)=>`<div class="quiz-opt" data-qi="${qi}" data-oi="${oi}" onclick="answerQuiz(this,${qi},${oi})"><span class="ar">${o.ar}</span><span class="de">${o.de}</span></div>`).join('')}</div><div class="quiz-feedback" id="qfb${qi}"></div>`;
+    c.appendChild(box);
+  });
+})();
+function answerQuiz(el,qi,oi){
+  if(el.classList.contains('disabled')) return;
+  const opts=document.querySelectorAll(`.quiz-opt[data-qi="${qi}"]`);
+  opts.forEach(o=>o.classList.add('disabled'));
+  const correct=quizData[qi].correct;
+  if(oi===correct){el.classList.add('correct');quizCorrect++;}
+  else{el.classList.add('wrong');opts[correct].classList.add('correct');}
+  quizAnswered++;
+  if(quizAnswered===quizData.length){
+    const sc=document.getElementById('quizScore');
+    sc.style.display='block';
+    document.getElementById('quizScoreVal').textContent=quizCorrect+' / '+quizData.length;
+  }
+}
+</script>
+</body>
+</html>
