@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الفصل الخامس – السوائل والبروتينات | Flüssigkeiten & Proteine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&subset=arabic,latin&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d0d0d; --surface:#1a1a1a; --surface2:#232323;
+    --accent:#c9a84c; --accent2:#e8c97a; --accent-dim:#7a5f28;
+    --text:#f0ead6; --text-soft:#a89870;
+    --red:#c0392b; --red-soft:#2a1010;
+    --green:#27ae60; --green-soft:#0e2418;
+    --border:#2e2e2e; --radius:14px; --shadow:0 8px 32px rgba(0,0,0,0.5);
+  }
+  [data-theme="teal"] {
+    --bg:#f0f8f7; --surface:#ffffff; --surface2:#e6f4f1;
+    --accent:#0d7377; --accent2:#14a085; --accent-dim:#b2dfdb;
+    --text:#1a2e2d; --text-soft:#4a7c79; --border:#b2dfdb;
+    --red:#c0392b; --red-soft:#fdecea; --green:#1a7a4a; --green-soft:#e8f5e9;
+  }
+  [data-theme="purple"] {
+    --bg:#0f0c1e; --surface:#1a1530; --surface2:#221d3a;
+    --accent:#9b59b6; --accent2:#c39bd3; --accent-dim:#4a2060;
+    --text:#ede0f5; --text-soft:#9b8ab0; --border:#2d2545;
+    --red:#e74c3c; --red-soft:#2a0e0e; --green:#27ae60; --green-soft:#0e2418;
+  }
+  [data-theme="emerald"] {
+    --bg:#faf8f2; --surface:#ffffff; --surface2:#f2ede0;
+    --accent:#2d6a4f; --accent2:#40916c; --accent-dim:#b7e4c7;
+    --text:#1b2d23; --text-soft:#52796f; --border:#b7e4c7;
+    --red:#b5451b; --red-soft:#fdecea; --green:#1b5e20; --green-soft:#e8f5e9;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Cairo','Tahoma','Arial',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background .3s,color .3s; overflow-x:hidden; }
+  .ar, [lang="ar"], [dir="rtl"] { letter-spacing: 0 !important; }
+
+  /* PASSWORD GATE */
+  .pw-overlay { position:fixed; inset:0; z-index:10000; background:var(--bg); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:20px; }
+  .pw-overlay.hidden { display:none; }
+  .pw-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:40px; text-align:center; max-width:400px; width:90%; box-shadow:var(--shadow); }
+  .pw-box h2 { color:var(--accent); margin-bottom:16px; font-size:22px; }
+  .pw-box input { width:100%; padding:14px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-family:'Cairo',sans-serif; font-size:16px; text-align:center; outline:none; margin-bottom:16px; }
+  .pw-box input:focus { border-color:var(--accent); }
+  .pw-box button { width:100%; padding:14px; background:var(--accent); color:var(--bg); border:none; border-radius:10px; font-family:'Cairo',sans-serif; font-size:16px; font-weight:800; cursor:pointer; transition:.2s; }
+  .pw-box button:hover { background:var(--accent2); }
+  .pw-error { color:var(--red); font-size:13px; display:none; margin-top:8px; }
+
+  /* SCROLL PROGRESS */
+  .scroll-progress { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent2)); z-index:9999; width:0; transition:width .1s; }
+
+  /* PARTICLES */
+  .particles-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+  /* SIDE NAV DOTS */
+  .side-nav { position:fixed; right:20px; top:50%; transform:translateY(-50%); z-index:998; display:flex; flex-direction:column; gap:12px; }
+  [dir="ltr"] .side-nav { right:auto; left:20px; }
+  .side-dot { width:12px; height:12px; border-radius:50%; background:var(--border); cursor:pointer; transition:.3s; position:relative; }
+  .side-dot.active { background:var(--accent); box-shadow:0 0 10px var(--accent); }
+  .side-dot:hover { background:var(--accent-dim); transform:scale(1.3); }
+  .side-dot .dot-label { position:absolute; right:20px; top:50%; transform:translateY(-50%); background:var(--surface); color:var(--text); font-size:11px; padding:4px 10px; border-radius:6px; white-space:nowrap; opacity:0; pointer-events:none; transition:.2s; border:1px solid var(--border); }
+  [dir="ltr"] .side-dot .dot-label { right:auto; left:20px; }
+  .side-dot:hover .dot-label { opacity:1; }
+
+  /* THEME BAR */
+  .theme-bar { position:fixed; top:16px; left:16px; z-index:999; display:flex; gap:8px; align-items:center; background:var(--surface); border:1px solid var(--border); padding:8px 12px; border-radius:40px; box-shadow:var(--shadow); }
+  .theme-bar span { font-size:11px; color:var(--text-soft); margin-left:4px; }
+  .swatch { width:22px; height:22px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:.2s; }
+  .swatch:hover, .swatch.active { border-color:var(--text); transform:scale(1.2); }
+  .swatch.s-dark    { background:radial-gradient(circle at 40% 40%,#c9a84c,#0d0d0d); }
+  .swatch.s-teal    { background:radial-gradient(circle at 40% 40%,#14a085,#f0f8f7); }
+  .swatch.s-purple  { background:radial-gradient(circle at 40% 40%,#9b59b6,#0f0c1e); }
+  .swatch.s-emerald { background:radial-gradient(circle at 40% 40%,#2d6a4f,#faf8f2); }
+
+  /* LANG BTN */
+  .lang-btn { position:fixed; top:16px; right:16px; z-index:999; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-size:13px; font-weight:700; padding:6px 18px; border-radius:40px; cursor:pointer; transition:.2s; box-shadow:var(--shadow); }
+  .lang-btn:hover { background:var(--accent); color:var(--bg); }
+
+  /* HEADER */
+  header { text-align:center; padding:60px 20px 40px; background:linear-gradient(160deg,var(--surface) 0%,var(--bg) 100%); border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%,var(--accent-dim),transparent); opacity:.25; pointer-events:none; }
+  .chapter-tag { display:inline-block; font-size:12px; font-weight:700; color:var(--accent); border:1px solid var(--accent); padding:4px 16px; border-radius:40px; margin-bottom:16px; }
+  header h1 { font-size:clamp(28px,5vw,52px); font-weight:900; line-height:1.2; }
+  header h1 .accent { color:var(--accent); }
+  .subtitle { color:var(--text-soft); font-size:15px; margin-top:10px; }
+
+  /* LAYOUT */
+  .container { max-width:1100px; margin:0 auto; padding:40px 20px 80px; position:relative; z-index:1; }
+  section { margin-bottom:60px; scroll-margin-top:30px; }
+  h2.section-title { font-size:22px; font-weight:800; color:var(--accent); border-right:4px solid var(--accent); padding-right:14px; margin-bottom:24px; display:flex; align-items:center; gap:10px; }
+  [dir="ltr"] h2.section-title { border-right:none; border-left:4px solid var(--accent); padding-right:0; padding-left:14px; }
+
+  /* CARDS */
+  .cards { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px; transition:transform .2s,box-shadow .2s,border-color .2s; }
+  .card:hover { transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent-dim); }
+  .card-icon { font-size:28px; margin-bottom:10px; }
+  .card h3 { font-size:15px; font-weight:700; margin-bottom:6px; color:var(--accent2); }
+  .card p { font-size:13px; color:var(--text-soft); line-height:1.7; }
+
+  /* INFO BOX */
+  .info-box { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; }
+  .info-box .lbl { font-size:11px; font-weight:800; color:var(--accent); margin-bottom:8px; }
+  .info-box p { font-size:13px; line-height:1.9; color:var(--text-soft); }
+  .info-box p strong { color:var(--text); }
+
+  /* QUOTE BOX */
+  .quote-box { border-right:4px solid var(--accent); padding:16px 20px; background:var(--surface2); border-radius:0 10px 10px 0; margin:20px 0; font-size:14px; line-height:1.8; }
+  [dir="ltr"] .quote-box { border-right:none; border-left:4px solid var(--accent); }
+
+  /* DIVIDER */
+  .divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent-dim),transparent); margin:40px 0; }
+
+  /* DE hidden by default */
+  .de { display:none; }
+
+  /* ═══ WATER TYPE CARDS ═══ */
+  .water-grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); }
+  .water-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; cursor:pointer; transition:.3s; }
+  .water-card:hover { transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent-dim); }
+  .water-card-header { padding:18px 20px; display:flex; align-items:center; gap:14px; }
+  .water-icon { font-size:32px; width:50px; height:50px; display:flex; align-items:center; justify-content:center; background:var(--surface2); border-radius:12px; flex-shrink:0; }
+  .water-card-header h3 { font-size:15px; font-weight:700; color:var(--accent2); }
+  .water-card-header .water-sub { font-size:11px; color:var(--text-soft); margin-top:2px; }
+  .water-expand { font-size:18px; color:var(--accent); margin-right:auto; margin-left:8px; transition:.3s; }
+  [dir="ltr"] .water-expand { margin-right:8px; margin-left:auto; }
+  .water-card.open .water-expand { transform:rotate(180deg); }
+  .water-detail { max-height:0; overflow:hidden; transition:max-height .4s ease; }
+  .water-card.open .water-detail { max-height:600px; }
+  .water-detail-inner { padding:0 20px 20px; font-size:13px; line-height:1.9; color:var(--text-soft); border-top:1px solid var(--border); }
+  .water-detail-inner strong { color:var(--text); }
+  .water-tag { display:inline-block; padding:3px 10px; border-radius:20px; font-size:10px; font-weight:700; margin:2px; }
+  .tag-pro { background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+  .tag-con { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+  .tag-info { background:rgba(52,152,219,0.15); color:#3498db; border:1px solid rgba(52,152,219,0.3); }
+
+  /* ═══ URINE COLOR GUIDE ═══ */
+  .urine-guide { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .urine-spectrum { display:flex; gap:0; border-radius:12px; overflow:hidden; margin-bottom:20px; }
+  .urine-bar { flex:1; height:70px; cursor:pointer; transition:.3s; position:relative; display:flex; align-items:flex-end; justify-content:center; padding-bottom:6px; }
+  .urine-bar:hover { transform:scaleY(1.1); transform-origin:bottom; }
+  .urine-bar .urine-num { font-size:18px; font-weight:900; color:rgba(0,0,0,0.5); }
+  .urine-info { min-height:80px; padding:16px; border-radius:10px; background:var(--surface2); border:1px solid var(--border); text-align:center; font-size:13px; line-height:1.8; transition:.3s; }
+
+  /* ═══ BOTTLE LABEL INTERACTIVE ═══ */
+  .bottle-container { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px; display:flex; gap:30px; align-items:center; flex-wrap:wrap; justify-content:center; }
+  .bottle-visual { position:relative; width:160px; min-height:300px; background:linear-gradient(180deg,rgba(52,152,219,0.05),rgba(52,152,219,0.15)); border:2px solid rgba(52,152,219,0.3); border-radius:12px 12px 20px 20px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding:20px 10px; }
+  .bottle-cap { position:absolute; top:-16px; left:50%; transform:translateX(-50%); width:40px; height:18px; background:var(--accent); border-radius:6px 6px 0 0; }
+  .bottle-neck { position:absolute; top:0; left:50%; transform:translateX(-50%); width:50px; height:20px; background:var(--surface2); border:2px solid rgba(52,152,219,0.3); border-top:none; border-radius:0 0 4px 4px; }
+  .mineral-btn { padding:8px 16px; border-radius:20px; background:var(--surface2); border:1px solid var(--accent-dim); color:var(--accent); font-family:'Cairo',sans-serif; font-size:13px; font-weight:700; cursor:pointer; transition:.2s; width:110px; text-align:center; }
+  .mineral-btn:hover, .mineral-btn.active { background:var(--accent); color:var(--bg); border-color:var(--accent); transform:scale(1.05); }
+  .mineral-info-panel { flex:1; min-width:240px; padding:20px; background:var(--surface2); border-radius:12px; border:1px solid var(--border); min-height:150px; }
+  .mineral-info-panel h4 { font-size:16px; font-weight:800; color:var(--accent2); margin-bottom:10px; }
+  .mineral-info-panel p { font-size:13px; line-height:1.9; color:var(--text-soft); }
+
+  /* ═══ PROTEIN BIOAVAILABILITY ═══ */
+  .bio-chart { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .bio-bars { display:flex; flex-direction:column; gap:14px; }
+  .bio-row { display:grid; grid-template-columns:130px 1fr 50px; gap:12px; align-items:center; }
+  @media(max-width:500px){ .bio-row { grid-template-columns:90px 1fr 40px; } }
+  .bio-label { font-size:12px; font-weight:700; color:var(--text); text-align:right; }
+  [dir="ltr"] .bio-label { text-align:left; }
+  .bio-track { height:28px; background:var(--surface2); border-radius:14px; overflow:hidden; position:relative; }
+  .bio-fill { height:100%; border-radius:14px; transition:width 1.2s ease; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; color:var(--bg); }
+  .bio-fill.animal { background:linear-gradient(90deg,var(--green),#2ecc71); }
+  .bio-fill.plant { background:linear-gradient(90deg,#e67e22,#f39c12); }
+  .bio-pct { font-size:13px; font-weight:900; color:var(--accent); }
+
+  /* ═══ COMPLEMENTARY PROTEIN ═══ */
+  .combo-container { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .combo-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:20px; }
+  @media(max-width:600px){ .combo-grid { grid-template-columns:1fr; } }
+  .combo-card { padding:20px; border-radius:12px; text-align:center; cursor:pointer; transition:.3s; border:2px solid var(--border); }
+  .combo-card:hover { transform:translateY(-3px); box-shadow:var(--shadow); }
+  .combo-card.active { border-color:var(--accent); background:var(--surface2); }
+  .combo-icon { font-size:42px; margin-bottom:10px; }
+  .combo-card h4 { font-size:14px; font-weight:800; color:var(--accent2); margin-bottom:8px; }
+  .combo-card p { font-size:12px; color:var(--text-soft); line-height:1.7; }
+  .combo-result { padding:20px; border-radius:12px; background:var(--surface2); border:1px dashed var(--accent-dim); text-align:center; min-height:80px; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; transition:.3s; }
+  .combo-result.complete { border-color:var(--green); background:var(--green-soft); }
+  .combo-result h4 { font-size:15px; font-weight:800; }
+  .combo-result p { font-size:12px; line-height:1.7; }
+
+  /* ═══ CALCIUM COMPARISON ═══ */
+  .calcium-compare { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:600px){ .calcium-compare { grid-template-columns:1fr; } }
+  .calcium-panel { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; text-align:center; transition:.3s; cursor:pointer; }
+  .calcium-panel:hover { transform:translateY(-4px); box-shadow:var(--shadow); }
+  .calcium-panel.active { border-color:var(--accent); }
+  .calcium-panel.animal-ca { border-top:3px solid var(--green); }
+  .calcium-panel.plant-ca { border-top:3px solid #e67e22; }
+  .calcium-panel h3 { font-size:16px; font-weight:800; margin-bottom:14px; }
+  .calcium-panel.animal-ca h3 { color:var(--green); }
+  .calcium-panel.plant-ca h3 { color:#e67e22; }
+  .calcium-panel .ca-icon { font-size:42px; margin-bottom:12px; }
+  .calcium-detail { font-size:12px; color:var(--text-soft); line-height:1.9; text-align:right; margin-top:12px; }
+  [dir="ltr"] .calcium-detail { text-align:left; }
+  .calcium-detail strong { color:var(--text); }
+  .absorption-bar { height:20px; border-radius:10px; background:var(--surface2); margin:10px 0; overflow:hidden; }
+  .absorption-fill { height:100%; border-radius:10px; transition:width 1s ease; }
+
+  /* ═══ SUGAR SALT ═══ */
+  .sugar-salt-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:600px){ .sugar-salt-grid { grid-template-columns:1fr; } }
+  .ss-panel { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .ss-panel h3 { font-size:16px; font-weight:800; color:var(--accent2); margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+  .ss-item { padding:10px 14px; border-radius:10px; background:var(--surface2); border:1px solid var(--border); margin-bottom:8px; font-size:12px; line-height:1.8; color:var(--text-soft); transition:.2s; }
+  .ss-item:hover { border-color:var(--accent-dim); }
+  .ss-item strong { color:var(--text); }
+  .ss-limit { text-align:center; padding:14px; border-radius:12px; margin-top:10px; font-weight:800; }
+  .ss-limit.red-limit { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+  .ss-limit.green-limit { background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+
+  /* ═══ ANIMAL FOOD QUALITY ═══ */
+  .quality-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .quality-pills { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:14px; }
+  .q-pill { padding:10px 18px; border-radius:40px; font-size:13px; font-weight:600; cursor:default; transition:transform .2s; }
+  .q-pill:hover { transform:scale(1.05); }
+  .q-pill.good { background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+  .q-pill.info { background:rgba(52,152,219,0.12); color:#3498db; border:1px solid rgba(52,152,219,0.3); }
+  .q-pill.warn { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+
+  /* ═══ MIND MAP ═══ */
+  .mindmap-tree { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px 20px; overflow-x:auto; }
+  .mm-wrapper { display:flex; flex-direction:column; align-items:center; }
+  .mm-center { background:var(--accent); color:var(--bg); font-size:18px; font-weight:900; padding:14px 36px; border-radius:50px; text-align:center; box-shadow:0 0 30px rgba(201,168,76,0.35); }
+  .mm-vline { width:2px; height:24px; background:var(--accent-dim); margin:0 auto; }
+  .mm-level1 { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+  .mm-branch { display:flex; flex-direction:column; align-items:center; cursor:pointer; }
+  .mm-branch::before { content:''; display:block; width:2px; height:18px; background:var(--accent-dim); }
+  .mm-l1 { padding:10px 18px; border-radius:10px; font-size:13px; font-weight:700; text-align:center; min-width:120px; transition:.2s; }
+  .mm-l1:hover { transform:scale(1.05); }
+  .mm-l1.gold { background:var(--surface2); color:var(--accent); border:1px solid var(--accent-dim); }
+  .mm-l1.blue { background:rgba(52,152,219,0.1); color:#3498db; border:1px solid rgba(52,152,219,0.3); }
+  .mm-l1.green { background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+  .mm-l1.red { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+  .mm-children { display:none; flex-direction:column; gap:4px; align-items:center; margin-top:6px; }
+  .mm-branch.open .mm-children { display:flex; }
+  .mm-cline { width:2px; height:10px; background:var(--border); margin:0 auto; }
+  .mm-l2 { padding:5px 12px; border-radius:6px; font-size:11px; font-weight:600; background:var(--surface2); color:var(--text-soft); border:1px solid var(--border); text-align:center; min-width:100px; }
+
+  /* ═══ QUIZ ═══ */
+  .quiz-container { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .quiz-q { margin-bottom:24px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+  .quiz-q:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .quiz-q h4 { font-size:14px; font-weight:700; color:var(--accent2); margin-bottom:12px; }
+  .quiz-opts { display:flex; flex-direction:column; gap:8px; }
+  .quiz-opt { padding:12px 16px; border-radius:10px; background:var(--surface2); border:1px solid var(--border); cursor:pointer; font-size:13px; transition:.2s; user-select:none; }
+  .quiz-opt:hover { border-color:var(--accent-dim); }
+  .quiz-opt.correct { background:var(--green-soft); border-color:var(--green); color:var(--green); }
+  .quiz-opt.wrong { background:var(--red-soft); border-color:var(--red); color:var(--red); }
+  .quiz-opt.disabled { pointer-events:none; opacity:0.6; }
+  .quiz-feedback { margin-top:8px; font-size:12px; line-height:1.7; display:none; padding:10px; border-radius:8px; }
+  .quiz-feedback.show { display:block; }
+
+  /* FOOTER NAV */
+  .footer-nav { display:flex; justify-content:center; align-items:center; gap:20px; flex-wrap:wrap; padding:30px 20px; }
+  .footer-nav a { display:inline-block; padding:12px 30px; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-weight:700; font-size:14px; border-radius:40px; text-decoration:none; transition:.2s; }
+  .footer-nav a:hover { background:var(--accent); color:var(--bg); }
+  .footer-nav a.primary { background:var(--accent); color:var(--bg); }
+  .footer-nav a.primary:hover { background:var(--accent2); }
+
+  @media(max-width:700px){
+    .mm-level1 { flex-direction:column; align-items:center; }
+    .side-nav { display:none; }
+    .water-grid { grid-template-columns:1fr; }
+    .bottle-container { flex-direction:column; }
+    .bio-row { grid-template-columns:80px 1fr 35px; }
+  }
+</style>
+</head>
+<body data-theme="dark">
+
+<!-- PASSWORD GATE -->
+<div class="pw-overlay" id="pwOverlay">
+  <div class="pw-box">
+    <h2>🔐</h2>
+    <p style="color:var(--text-soft); font-size:13px; margin-bottom:16px;">
+      <span class="ar">أدخل كلمة المرور للمتابعة</span>
+      <span class="de">Passwort eingeben</span>
+    </p>
+    <input type="password" id="pwInput" placeholder="••••••••" autocomplete="off">
+    <button onclick="checkPw()">
+      <span class="ar">دخول</span>
+      <span class="de">Eintreten</span>
+    </button>
+    <div class="pw-error" id="pwError">
+      <span class="ar">كلمة المرور غير صحيحة</span>
+      <span class="de">Falsches Passwort</span>
+    </div>
+  </div>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- PARTICLES -->
+<canvas class="particles-canvas" id="particlesCanvas"></canvas>
+
+<!-- SIDE NAV DOTS -->
+<nav class="side-nav" id="sideNav"></nav>
+
+<!-- Theme switcher -->
+<div class="theme-bar">
+  <span>🎨</span>
+  <div class="swatch s-dark active"   onclick="setTheme('dark',this)"    title="Dark Gold"></div>
+  <div class="swatch s-teal"          onclick="setTheme('teal',this)"    title="Teal"></div>
+  <div class="swatch s-purple"        onclick="setTheme('purple',this)"  title="Purple"></div>
+  <div class="swatch s-emerald"       onclick="setTheme('emerald',this)" title="Emerald"></div>
+</div>
+
+<!-- Lang toggle -->
+<button class="lang-btn" onclick="toggleLang()" id="langBtn">DE</button>
+
+<!-- HEADER -->
+<header>
+  <div class="chapter-tag">
+    <span class="ar">الفصل الخامس</span>
+    <span class="de">Kapitel 5</span>
+  </div>
+  <h1>
+    <span class="accent">💧</span>
+    <span class="ar"> السوائل والبروتينات</span>
+    <span class="de"> Flüssigkeiten & Proteine</span>
+  </h1>
+  <p class="subtitle">
+    <span class="ar">عادات الشرب الصحية، أنواع المياه، التوافر البيولوجي للبروتين، والبدائل الطبيعية</span>
+    <span class="de">Gesunde Trinkgewohnheiten, Wasserarten, Protein-Bioverfügbarkeit & natürliche Alternativen</span>
+  </p>
+</header>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════
+       1. HYDRATION INTRODUCTION
+  ══════════════════════════════════════ -->
+  <section id="sec-hydration">
+    <h2 class="section-title">
+      💧
+      <span class="ar">الترطيب — الأفضل شرب الماء</span>
+      <span class="de">Hydration — Am besten Wasser trinken</span>
+    </h2>
+
+    <div class="info-box" style="border-right:3px solid var(--accent)">
+      <div class="lbl ar">هل 1.5 لتر يومياً كافية؟</div>
+      <div class="lbl de">Sind 1,5 Liter pro Tag genug?</div>
+      <p class="ar">التوصية الشائعة بشرب 1.5 لتر من الماء يوميًا <strong>ليست مدعومة علميًا</strong>، حيث يعتمد احتياج الجسم للماء بشكل كبير على الظروف الفردية. أظهرت الدراسات أن الحفاظ على ترطيب الجسم يُحسن الأداء الذهني ويُعزز الشعور العام بالراحة.</p>
+      <p class="de">Die gängige Empfehlung, 1,5 Liter Wasser pro Tag zu trinken, ist <strong>wissenschaftlich nicht belegt</strong>. Der Wasserbedarf des Körpers hängt stark von individuellen Umständen ab. Studien zeigen, dass ausreichende Hydration die geistige Leistung verbessert und das allgemeine Wohlbefinden fördert.</p>
+    </div>
+
+    <div class="quote-box">
+      <span class="ar">يُفضل تجنب المشروبات المحلاة صناعيًا أو الملونة والعصائر، لأنها غالبًا ما تحتوي على سعرات حرارية فارغة وتُؤثر سلبًا على مستويات السكر في الدم. <strong>الماء، الشاي غير المحلى، أو البدائل الخالية من السعرات الحرارية</strong> هي أفضل الخيارات لتلبية احتياجات الجسم من السوائل.</span>
+      <span class="de">Gesüßte, gefärbte Getränke und Säfte enthalten oft leere Kalorien und beeinflussen den Blutzucker negativ. <strong>Wasser, ungesüßter Tee oder kalorienfreie Alternativen</strong> sind die besten Optionen für den Flüssigkeitsbedarf.</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       2. URINE COLOR GUIDE
+  ══════════════════════════════════════ -->
+  <section id="sec-urine">
+    <h2 class="section-title">
+      🎨
+      <span class="ar">دليل لون البول — مؤشر الترطيب</span>
+      <span class="de">Urinfarben-Guide — Hydrations-Indikator</span>
+    </h2>
+
+    <div class="urine-guide">
+      <p style="font-size:13px; color:var(--text-soft); margin-bottom:16px; text-align:center;">
+        <span class="ar">يمكن الاعتماد على لون البول كمؤشر موثوق — اضغط على أي لون لمعرفة المزيد</span>
+        <span class="de">Die Urinfarbe ist ein zuverlässiger Indikator — Klicke auf eine Farbe für Details</span>
+      </p>
+      <div class="urine-spectrum" id="urineSpectrum">
+        <div class="urine-bar" style="background:#f5f5dc;" onclick="showUrine(0)" data-idx="0"><div class="urine-num">1</div></div>
+        <div class="urine-bar" style="background:#f0e68c;" onclick="showUrine(1)" data-idx="1"><div class="urine-num">2</div></div>
+        <div class="urine-bar" style="background:#daa520;" onclick="showUrine(2)" data-idx="2"><div class="urine-num">3</div></div>
+        <div class="urine-bar" style="background:#cd853f;" onclick="showUrine(3)" data-idx="3"><div class="urine-num">4</div></div>
+        <div class="urine-bar" style="background:#b8860b;" onclick="showUrine(4)" data-idx="4"><div class="urine-num">5</div></div>
+        <div class="urine-bar" style="background:#8b6914;" onclick="showUrine(5)" data-idx="5"><div class="urine-num">6</div></div>
+        <div class="urine-bar" style="background:#6b4226;" onclick="showUrine(6)" data-idx="6"><div class="urine-num">7</div></div>
+        <div class="urine-bar" style="background:#4a2c0a;" onclick="showUrine(7)" data-idx="7"><div class="urine-num">8</div></div>
+      </div>
+      <div class="urine-info" id="urineInfo">
+        <span class="ar">اضغط على أحد الألوان أعلاه لمعرفة حالة الترطيب</span>
+        <span class="de">Klicke auf eine Farbe oben, um den Hydrationsstatus zu erfahren</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       3. WATER TYPES IN GERMANY
+  ══════════════════════════════════════ -->
+  <section id="sec-water-types">
+    <h2 class="section-title">
+      🚰
+      <span class="ar">أنواع مياه الشرب في ألمانيا</span>
+      <span class="de">Trinkwasserarten in Deutschland</span>
+    </h2>
+
+    <div class="water-grid">
+      <!-- Mineralwasser -->
+      <div class="water-card" onclick="toggleWater(this)">
+        <div class="water-card-header">
+          <div class="water-icon">🏔️</div>
+          <div>
+            <h3>Mineralwasser</h3>
+            <div class="water-sub"><span class="ar">المياه المعدنية</span><span class="de">Natürliches Mineralwasser</span></div>
+          </div>
+          <div class="water-expand">▼</div>
+        </div>
+        <div class="water-detail">
+          <div class="water-detail-inner" style="padding-top:16px;">
+            <p class="ar"><strong>المصدر:</strong> مياه جوفية عميقة، تعبأ مباشرة من المصدر.<br>
+            تحتوي على <strong>معادن طبيعية</strong> ثابتة مثل:<br>
+            <strong>كالسيوم</strong> (مفيد للعظام) — <strong>مغنيسيوم</strong> (للعضلات والأعصاب) — <strong>بيكربونات</strong> (للجهاز الهضمي)<br>
+            تُصنّف حسب محتوى المعادن.</p>
+            <p class="de"><strong>Quelle:</strong> Tiefes Grundwasser, direkt an der Quelle abgefüllt.<br>
+            Enthält <strong>natürliche Mineralien</strong> wie:<br>
+            <strong>Calcium</strong> (für Knochen) — <strong>Magnesium</strong> (für Muskeln & Nerven) — <strong>Bicarbonat</strong> (für die Verdauung)<br>
+            Wird nach Mineralgehalt klassifiziert.</p>
+            <div style="margin-top:10px;">
+              <span class="water-tag tag-pro"><span class="ar">غني بالمعادن</span><span class="de">Mineralreich</span></span>
+              <span class="water-tag tag-pro"><span class="ar">طبيعي 100%</span><span class="de">100% natürlich</span></span>
+              <span class="water-tag tag-info"><span class="ar">اقرأ الملصق</span><span class="de">Etikett lesen</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leitungswasser -->
+      <div class="water-card" onclick="toggleWater(this)">
+        <div class="water-card-header">
+          <div class="water-icon">🚿</div>
+          <div>
+            <h3>Leitungswasser</h3>
+            <div class="water-sub"><span class="ar">مياه الصنبور</span><span class="de">Leitungswasser (Hahnenwasser)</span></div>
+          </div>
+          <div class="water-expand">▼</div>
+        </div>
+        <div class="water-detail">
+          <div class="water-detail-inner" style="padding-top:16px;">
+            <p class="ar"><strong>المصدر:</strong> غالبًا مياه جوفية أو سطحية (أنهار، بحيرات).<br>
+            يتم <strong>ترشيحها ومعالجتها</strong> بمستويات صارمة وفق <strong>قانون مياه الشرب الألماني (Trinkwasserverordnung)</strong>.<br>
+            تحتوي على معادن طبيعية مثل الكالسيوم والمغنيسيوم، لكنها تختلف حسب المنطقة.<br>
+            في معظم المدن الألمانية، <strong>صالحة وآمنة تمامًا للشرب</strong>.</p>
+            <p class="de"><strong>Quelle:</strong> Meist Grundwasser oder Oberflächenwasser (Flüsse, Seen).<br>
+            Wird <strong>streng gefiltert und aufbereitet</strong> gemäß der <strong>Trinkwasserverordnung</strong>.<br>
+            Enthält natürliche Mineralien (Calcium, Magnesium), variiert je nach Region.<br>
+            In den meisten deutschen Städten <strong>absolut sicher und trinkbar</strong>.</p>
+            <div style="margin-top:10px;">
+              <span class="water-tag tag-pro"><span class="ar">رخيصة جداً</span><span class="de">Sehr günstig</span></span>
+              <span class="water-tag tag-pro"><span class="ar">فحوصات دورية</span><span class="de">Regelmäßig geprüft</span></span>
+              <span class="water-tag tag-con"><span class="ar">⚠️ انتبه للأنابيب القديمة</span><span class="de">⚠️ Vorsicht bei alten Rohren</span></span>
+            </div>
+            <div class="quote-box" style="margin-top:14px; font-size:12px;">
+              <span class="ar">⚠️ إن كانت الأنابيب في المنزل قديمة (رصاص)، فقد تنتقل بعض المعادن الثقيلة إلى المياه.</span>
+              <span class="de">⚠️ Wenn die Rohre im Haus alt sind (Blei), können Schwermetalle ins Wasser gelangen.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tafelwasser / Osmosewasser -->
+      <div class="water-card" onclick="toggleWater(this)">
+        <div class="water-card-header">
+          <div class="water-icon">🧪</div>
+          <div>
+            <h3>Tafelwasser / Osmosewasser</h3>
+            <div class="water-sub"><span class="ar">المياه المعالجة / المنقّاة</span><span class="de">Aufbereitetes / Osmosewasser</span></div>
+          </div>
+          <div class="water-expand">▼</div>
+        </div>
+        <div class="water-detail">
+          <div class="water-detail-inner" style="padding-top:16px;">
+            <p class="ar"><strong>ليست طبيعية</strong>، بل تُخلط أو تُفلتر وتُباع تجاريًا.<br>
+            <strong>Osmosewasser:</strong> يتم نزع معظم الأملاح والمعادن عبر الترشيح العكسي.<br>
+            <strong>Tafelwasser:</strong> ماء مصنع، قد يحتوي على إضافات صناعية.<br>
+            <strong>نقطة مهمة:</strong> ماء الأوزموس قد يحتاج إلى <strong>إعادة تزويد بالمعادن</strong> إذا استُخدم بشكل دائم، لأنه فقير جدًا بالعناصر.</p>
+            <p class="de"><strong>Nicht natürlich</strong> — gemischt oder gefiltert und kommerziell verkauft.<br>
+            <strong>Osmosewasser:</strong> Die meisten Salze und Mineralien werden durch Umkehrosmose entfernt.<br>
+            <strong>Tafelwasser:</strong> Industriell hergestellt, kann künstliche Zusätze enthalten.<br>
+            <strong>Wichtig:</strong> Osmosewasser muss bei Dauergebrauch ggf. <strong>remineralisiert</strong> werden, da es sehr mineralarm ist.</p>
+            <div style="margin-top:10px;">
+              <span class="water-tag tag-info"><span class="ar">مُصنّع</span><span class="de">Industriell</span></span>
+              <span class="water-tag tag-con"><span class="ar">فقير بالمعادن</span><span class="de">Mineralarm</span></span>
+              <span class="water-tag tag-con"><span class="ar">قد يحتاج تمعدن</span><span class="de">Ggf. remineralisieren</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tea note -->
+    <div class="info-box" style="margin-top:20px; border-right:3px solid var(--green);">
+      <div class="lbl">🍵 <span class="ar">الشاي</span><span class="de">Tee</span></div>
+      <p class="ar">الشاي غير المحلى يُعتبر بديلاً ممتازاً للماء ويُساهم في تلبية احتياجات الجسم من السوائل. أما الشاي المحلى فيُضاف إلى قائمة المشروبات السكرية التي يُنصح بتجنبها.</p>
+      <p class="de">Ungesüßter Tee ist eine hervorragende Alternative zu Wasser und trägt zur Deckung des Flüssigkeitsbedarfs bei. Gesüßter Tee hingegen zählt zu den zuckerhaltigen Getränken, die vermieden werden sollten.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       4. MINERAL WATER LABEL READER
+  ══════════════════════════════════════ -->
+  <section id="sec-label">
+    <h2 class="section-title">
+      🏷️
+      <span class="ar">قراءة ملصق المياه المعدنية</span>
+      <span class="de">Mineralwasser-Etikett lesen</span>
+    </h2>
+
+    <div class="bottle-container">
+      <div class="bottle-visual">
+        <div class="bottle-cap"></div>
+        <div class="bottle-neck"></div>
+        <button class="mineral-btn" onclick="showMineral('ca',this)">Ca²⁺</button>
+        <button class="mineral-btn" onclick="showMineral('mg',this)">Mg²⁺</button>
+        <button class="mineral-btn" onclick="showMineral('na',this)">Na⁺</button>
+        <button class="mineral-btn" onclick="showMineral('hco3',this)">HCO₃⁻</button>
+        <button class="mineral-btn" onclick="showMineral('so4',this)">SO₄²⁻</button>
+      </div>
+      <div class="mineral-info-panel" id="mineralInfo">
+        <h4><span class="ar">اضغط على رمز المعدن</span><span class="de">Klicke auf ein Mineral-Symbol</span></h4>
+        <p><span class="ar">اقرأ الملصق على الزجاجة لمعرفة محتوى المعادن في المياه المعدنية. كل رمز يشير إلى معدن مختلف له دور محدد في الجسم.</span><span class="de">Lies das Etikett auf der Flasche, um den Mineralgehalt zu erfahren. Jedes Symbol steht für ein Mineral mit einer spezifischen Funktion im Körper.</span></p>
+      </div>
+    </div>
+
+    <!-- Calcium-rich water note -->
+    <div class="quote-box" style="margin-top:20px;">
+      <span class="ar">✅ <strong>المياه الكلسية (Mineralwasser mit hohem Calciumgehalt)</strong> تعتبر مصدرًا فعّالًا وممتازًا للكالسيوم، وغالبًا ما يُهمل هذا المصدر رغم فوائده الكبيرة وسهولة استخدامه. الكالسيوم في المياه المعدنية يُمتص بنسبة تصل إلى <strong>30–40%</strong>، مماثل تقريبًا للحليب.</span>
+      <span class="de">✅ <strong>Calciumreiches Mineralwasser</strong> ist eine effektive und hervorragende Calciumquelle, die oft übersehen wird. Das Calcium im Mineralwasser wird zu <strong>30–40%</strong> aufgenommen — vergleichbar mit Milch.</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       5. SUGAR & SALT
+  ══════════════════════════════════════ -->
+  <section id="sec-sugar-salt">
+    <h2 class="section-title">
+      🧂
+      <span class="ar">تقليل السكر والملح — التوازن الطبيعي</span>
+      <span class="de">Zucker & Salz reduzieren — Natürliches Gleichgewicht</span>
+    </h2>
+
+    <div class="sugar-salt-grid">
+      <!-- Sugar Panel -->
+      <div class="ss-panel">
+        <h3>🍬 <span class="ar">السكر</span><span class="de">Zucker</span></h3>
+        <div class="ss-item">
+          <span class="ar">يرتبط الاستهلاك المفرط للسكر بالعديد من المشكلات الصحية، مثل <strong>ارتفاع ضغط الدم وزيادة الوزن</strong>.</span>
+          <span class="de">Übermäßiger Zuckerkonsum ist mit vielen Gesundheitsproblemen verbunden, wie <strong>Bluthochdruck und Gewichtszunahme</strong>.</span>
+        </div>
+        <div class="ss-item">
+          <span class="ar"><strong>المحليات الصناعية</strong> قد تؤثر سلبًا على صحة الأمعاء.</span>
+          <span class="de"><strong>Künstliche Süßstoffe</strong> können die Darmgesundheit negativ beeinflussen.</span>
+        </div>
+        <div class="ss-item" style="border-color:var(--green);">
+          <span class="ar">✅ <strong>البدائل الطبيعية:</strong> معجون التمر أو الموز كمحليات — تُوفر الألياف وتؤثر بشكل أقل على مستويات السكر في الدم.</span>
+          <span class="de">✅ <strong>Natürliche Alternativen:</strong> Dattelpaste oder Banane als Süßungsmittel — liefern Ballaststoffe und beeinflussen den Blutzucker weniger.</span>
+        </div>
+        <div class="ss-limit green-limit">
+          <span class="ar">🌿 الأفضل: بدائل طبيعية</span>
+          <span class="de">🌿 Am besten: Natürliche Alternativen</span>
+        </div>
+      </div>
+
+      <!-- Salt Panel -->
+      <div class="ss-panel">
+        <h3>🧂 <span class="ar">الملح</span><span class="de">Salz</span></h3>
+        <div class="ss-item">
+          <span class="ar">الاحتياجات تختلف حسب الظروف الشخصية. <strong>الرياضيون</strong> الذين يتعرقون بكثرة يحتاجون إلى كميات أكبر.</span>
+          <span class="de">Der Bedarf variiert je nach persönlichen Umständen. <strong>Sportler</strong>, die viel schwitzen, brauchen mehr.</span>
+        </div>
+        <div class="ss-item">
+          <span class="ar">من الناحية الكيميائية، <strong>لا تختلف أنواع الملح</strong> مثل ملح البحر وملح الجبل بشكل كبير — التركيز يجب أن يكون على الاستخدام الواعي والمعتدل.</span>
+          <span class="de">Chemisch gesehen <strong>unterscheiden sich Salzarten</strong> wie Meersalz und Steinsalz kaum — der Fokus sollte auf bewusstem, mäßigem Gebrauch liegen.</span>
+        </div>
+        <div class="ss-limit red-limit">
+          <span class="ar">⚠️ توصية WHO: الحد الأقصى <strong>6 غرام ملح يومياً</strong></span>
+          <span class="de">⚠️ WHO-Empfehlung: Maximal <strong>6 g Salz pro Tag</strong></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       6. ANIMAL FOODS & WHOLE GRAINS
+  ══════════════════════════════════════ -->
+  <section id="sec-quality">
+    <h2 class="section-title">
+      🥩
+      <span class="ar">الأطعمة الحيوانية والحبوب الكاملة — الجودة أهم من الكمية</span>
+      <span class="de">Tierische Lebensmittel & Vollkorn — Qualität vor Quantität</span>
+    </h2>
+
+    <div class="quality-box">
+      <div class="info-box" style="border-right:3px solid var(--accent); margin-bottom:16px;">
+        <div class="lbl ar">اللحوم ومنتجات الألبان والأسماك</div>
+        <div class="lbl de">Fleisch, Milchprodukte & Fisch</div>
+        <p class="ar">منتجات الألبان، الأسماك، واللحوم توفر مغذيات هامة، ولكن يجب تناولها باعتدال. المهم هنا هو <strong>الجودة</strong>: اللحوم التي تأتي من حيوانات تمت تربيتها في ظروف طبيعية أو بجودة عضوية تحتوي عادةً على كميات أقل من المواد الضارة ونسبة أعلى من الدهون الصحية.</p>
+        <p class="de">Milchprodukte, Fisch und Fleisch liefern wichtige Nährstoffe, sollten aber in Maßen konsumiert werden. Entscheidend ist die <strong>Qualität</strong>: Fleisch aus artgerechter oder biologischer Haltung enthält weniger Schadstoffe und mehr gesunde Fette.</p>
+      </div>
+
+      <div class="quality-pills">
+        <div class="q-pill good"><span class="ar">🥩 لحوم 300–600 غ/أسبوع (DGE)</span><span class="de">🥩 Fleisch 300–600 g/Woche (DGE)</span></div>
+        <div class="q-pill info"><span class="ar">🐟 أسماك دهنية = أوميغا-3 + يود</span><span class="de">🐟 Fettfisch = Omega-3 + Jod</span></div>
+        <div class="q-pill good"><span class="ar">🌾 حبوب كاملة = ألياف + شبع</span><span class="de">🌾 Vollkorn = Ballaststoffe + Sättigung</span></div>
+        <div class="q-pill info"><span class="ar">🦠 الألياف تغذي الميكروبيوم</span><span class="de">🦠 Ballaststoffe nähren das Mikrobiom</span></div>
+      </div>
+    </div>
+
+    <div class="info-box" style="margin-top:16px;">
+      <div class="lbl ar">الحبوب الكاملة — خطوة بخطوة</div>
+      <div class="lbl de">Vollkorn — Schritt für Schritt</div>
+      <p class="ar">منتجات الحبوب الكاملة مثل الخبز، المعكرونة، أو الأرز تحمل العديد من الفوائد الصحية. فهي تحتوي على كميات أكبر من <strong>الألياف، الفيتامينات، والمعادن</strong> مقارنة بمنتجات الدقيق الأبيض. الألياف فيها تعمل كغذاء طبيعي للكائنات الحية الدقيقة في الأمعاء، مما يُعزز صحة الميكروبيوم ويُحفّز إنتاج الأحماض الدهنية قصيرة السلسلة. تتميز منتجات الحبوب الكاملة بتأثيرها المشبع، إذ تُبطئ عملية امتصاص العناصر الغذائية في الجهاز الهضمي.</p>
+      <p class="de">Vollkornprodukte wie Brot, Pasta oder Reis bieten zahlreiche gesundheitliche Vorteile. Sie enthalten mehr <strong>Ballaststoffe, Vitamine und Mineralien</strong> als Weißmehlprodukte. Die Ballaststoffe dienen als natürliches Futter für die Darmmikroben, fördern das Mikrobiom und regen die Produktion kurzkettiger Fettsäuren an. Vollkornprodukte machen länger satt, da sie die Nährstoffaufnahme im Verdauungstrakt verlangsamen.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       7. PROTEIN BIOAVAILABILITY
+  ══════════════════════════════════════ -->
+  <section id="sec-bioavailability">
+    <h2 class="section-title">
+      🧬
+      <span class="ar">التوافر البيولوجي للبروتين — Bioverfügbarkeit</span>
+      <span class="de">Protein-Bioverfügbarkeit</span>
+    </h2>
+
+    <div class="info-box" style="border-right:3px solid var(--accent); margin-bottom:20px;">
+      <div class="lbl ar">ما هو التوافر البيولوجي؟</div>
+      <div class="lbl de">Was ist Bioverfügbarkeit?</div>
+      <p class="ar">هو مقياس يُعبّر عن <strong>مدى قدرة الجسم على امتصاص البروتين من الطعام واستخدامه بشكل فعّال</strong> في بناء العضلات، وصيانة الأنسجة، وصنع الإنزيمات والهرمونات. يعني: <strong>ليس كل بروتين تأكله يستفيد منه جسمك بنفس النسبة!</strong></p>
+      <p class="de">Ein Maß dafür, <strong>wie gut der Körper Protein aus der Nahrung aufnehmen und effektiv nutzen kann</strong> — für Muskelaufbau, Gewebewartung, Enzym- und Hormonproduktion. Das heißt: <strong>Nicht jedes Protein wird gleich gut verwertet!</strong></p>
+    </div>
+
+    <div class="bio-chart" id="bioChart">
+      <p style="font-size:12px; color:var(--text-soft); margin-bottom:16px; text-align:center;">
+        <span class="ar">مقارنة نسب امتصاص البروتين — حيواني مقابل نباتي</span>
+        <span class="de">Proteinabsorption im Vergleich — Tierisch vs. Pflanzlich</span>
+      </p>
+      <div class="bio-bars">
+        <div class="bio-row">
+          <div class="bio-label"><span class="ar">🥚 بيض</span><span class="de">🥚 Ei</span></div>
+          <div class="bio-track"><div class="bio-fill animal" id="bioEgg" style="width:0%"></div></div>
+          <div class="bio-pct">100%</div>
+        </div>
+        <div class="bio-row">
+          <div class="bio-label"><span class="ar">🥛 حليب</span><span class="de">🥛 Milch</span></div>
+          <div class="bio-track"><div class="bio-fill animal" id="bioMilk" style="width:0%"></div></div>
+          <div class="bio-pct">91%</div>
+        </div>
+        <div class="bio-row">
+          <div class="bio-label"><span class="ar">🐟 سمك</span><span class="de">🐟 Fisch</span></div>
+          <div class="bio-track"><div class="bio-fill animal" id="bioFish" style="width:0%"></div></div>
+          <div class="bio-pct">83%</div>
+        </div>
+        <div class="bio-row">
+          <div class="bio-label"><span class="ar">🥩 لحم بقري</span><span class="de">🥩 Rindfleisch</span></div>
+          <div class="bio-track"><div class="bio-fill animal" id="bioBeef" style="width:0%"></div></div>
+          <div class="bio-pct">80%</div>
+        </div>
+        <div class="bio-row">
+          <div class="bio-label"><span class="ar">🍗 دجاج</span><span class="de">🍗 Hähnchen</span></div>
+          <div class="bio-track"><div class="bio-fill animal" id="bioChicken" style="width:0%"></div></div>
+          <div class="bio-pct">79%</div>
+        </div>
+        <div style="height:1px; background:var(--border); margin:10px 0;"></div>
+        <div class="bio-row">
+          <div class="bio-label"><span class="ar">🫘 فول الصويا</span><span class="de">🫘 Soja</span></div>
+          <div class="bio-track"><div class="bio-fill plant" id="bioSoy" style="width:0%"></div></div>
+          <div class="bio-pct">74%</div>
+        </div>
+        <div class="bio-row">
+          <div class="bio-label"><span class="ar">🫛 عدس</span><span class="de">🫛 Linsen</span></div>
+          <div class="bio-track"><div class="bio-fill plant" id="bioLentil" style="width:0%"></div></div>
+          <div class="bio-pct">52%</div>
+        </div>
+        <div class="bio-row">
+          <div class="bio-label"><span class="ar">🌾 قمح</span><span class="de">🌾 Weizen</span></div>
+          <div class="bio-track"><div class="bio-fill plant" id="bioWheat" style="width:0%"></div></div>
+          <div class="bio-pct">42%</div>
+        </div>
+        <div class="bio-row">
+          <div class="bio-label"><span class="ar">🥜 فول سوداني</span><span class="de">🥜 Erdnuss</span></div>
+          <div class="bio-track"><div class="bio-fill plant" id="bioPeanut" style="width:0%"></div></div>
+          <div class="bio-pct">43%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Essential vs Non-essential amino acids -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px;">
+      <div class="info-box" style="border-top:3px solid var(--green); margin-bottom:0;">
+        <div class="lbl" style="color:var(--green);">
+          <span class="ar">✅ الأحماض الأمينية الأساسية (Essential Amino Acids)</span>
+          <span class="de">✅ Essentielle Aminosäuren</span>
+        </div>
+        <p class="ar">لا يستطيع الجسم تصنيعها — يجب الحصول عليها من الطعام. مثال: اللايسين، الميثيونين، التريبتوفان، الفالين، اللوسين.</p>
+        <p class="de">Kann der Körper nicht selbst herstellen — muss über die Nahrung aufgenommen werden. Beispiele: Lysin, Methionin, Tryptophan, Valin, Leucin.</p>
+      </div>
+      <div class="info-box" style="border-top:3px solid #e67e22; margin-bottom:0;">
+        <div class="lbl" style="color:#e67e22;">
+          <span class="ar">🔄 الأحماض الأمينية غير الأساسية (Non-Essential)</span>
+          <span class="de">🔄 Nicht-essentielle Aminosäuren</span>
+        </div>
+        <p class="ar">يستطيع الجسم تصنيعها ذاتياً من أحماض أمينية أخرى أو من مركبات غذائية مختلفة. مثال: الألانين، الأسباراجين، حمض الغلوتاميك.</p>
+        <p class="de">Kann der Körper selbst aus anderen Aminosäuren oder Nährstoffen herstellen. Beispiele: Alanin, Asparagin, Glutaminsäure.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       8. COMPLEMENTARY PROTEINS
+  ══════════════════════════════════════ -->
+  <section id="sec-complementary">
+    <h2 class="section-title">
+      🔗
+      <span class="ar">البروتين المكمّل — كيف نجعل البروتين النباتي كاملاً؟</span>
+      <span class="de">Komplementäre Proteine — Pflanzliches Protein vervollständigen</span>
+    </h2>
+
+    <div class="info-box" style="margin-bottom:20px;">
+      <div class="lbl ar">البروتين غير الكامل</div>
+      <div class="lbl de">Unvollständiges Protein</div>
+      <p class="ar"><strong>البروتين غير الكامل</strong> (ناقص في حمض أميني أو أكثر):<br>
+      القمح (ناقص في <strong>اللايسين</strong>) — الأرز (ناقص في <strong>اللايسين</strong>) — الحمص (ناقص في <strong>الميثيونين</strong>)<br>
+      هذا البروتين له <strong>توافر بيولوجي أقل</strong> لأنه لا يُستخدم بشكل كامل إلا إذا تم تعويض الحمض الناقص من مصدر آخر.</p>
+      <p class="de"><strong>Unvollständiges Protein</strong> (fehlt eine oder mehrere Aminosäuren):<br>
+      Weizen (fehlt <strong>Lysin</strong>) — Reis (fehlt <strong>Lysin</strong>) — Kichererbsen (fehlt <strong>Methionin</strong>)<br>
+      Dieses Protein hat eine <strong>niedrigere Bioverfügbarkeit</strong>, da es nur vollständig genutzt wird, wenn die fehlende Aminosäure aus einer anderen Quelle ergänzt wird.</p>
+    </div>
+
+    <div class="combo-container">
+      <p style="font-size:13px; color:var(--text-soft); margin-bottom:16px; text-align:center;">
+        <span class="ar">اضغط على أحد التوليفات لمعرفة كيف يصبح البروتين كاملاً</span>
+        <span class="de">Klicke auf eine Kombination, um zu sehen, wie das Protein vollständig wird</span>
+      </p>
+      <div class="combo-grid">
+        <div class="combo-card" onclick="showCombo(0,this)">
+          <div class="combo-icon">🫛 + 🍚</div>
+          <h4><span class="ar">عدس + أرز</span><span class="de">Linsen + Reis</span></h4>
+          <p><span class="ar">العدس غني باللايسين + الأرز غني بالميثيونين</span><span class="de">Linsen liefern Lysin + Reis liefert Methionin</span></p>
+        </div>
+        <div class="combo-card" onclick="showCombo(1,this)">
+          <div class="combo-icon">🍞 + 🧆</div>
+          <h4><span class="ar">خبز القمح + حمص</span><span class="de">Weizenbrot + Kichererbsen</span></h4>
+          <p><span class="ar">القمح غني بالميثيونين + الحمص غني باللايسين</span><span class="de">Weizen liefert Methionin + Kichererbsen liefern Lysin</span></p>
+        </div>
+      </div>
+      <div class="combo-result" id="comboResult">
+        <h4 style="color:var(--text-soft);"><span class="ar">اختر توليفة أعلاه</span><span class="de">Wähle eine Kombination oben</span></h4>
+      </div>
+    </div>
+
+    <div class="quote-box" style="margin-top:20px;">
+      <span class="ar"><strong>مثال عملي:</strong> إذا أكلت عدسًا فقط، فهو غني باللايسين لكنه ناقص في الميثيونين. وإذا أكلت معه أرزًا، الذي يحتوي على الميثيونين، فإن البروتين يصبح <strong>كاملًا</strong>. وبالتالي، <strong>يرتفع التوافر البيولوجي</strong> لهذا المزيج.</span>
+      <span class="de"><strong>Praxisbeispiel:</strong> Linsen allein sind reich an Lysin, aber arm an Methionin. Kombiniert mit Reis, der Methionin enthält, wird das Protein <strong>vollständig</strong>. Dadurch <strong>steigt die Bioverfügbarkeit</strong> der Kombination.</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       9. CALCIUM COMPARISON
+  ══════════════════════════════════════ -->
+  <section id="sec-calcium">
+    <h2 class="section-title">
+      🦴
+      <span class="ar">الكالسيوم — حيواني مقابل نباتي</span>
+      <span class="de">Calcium — Tierisch vs. Pflanzlich</span>
+    </h2>
+
+    <div class="calcium-compare">
+      <!-- Animal Calcium -->
+      <div class="calcium-panel animal-ca" onclick="toggleCaPanel(this)">
+        <div class="ca-icon">🥛</div>
+        <h3><span class="ar">✅ الكالسيوم الحيواني</span><span class="de">✅ Tierisches Calcium</span></h3>
+        <div class="absorption-bar">
+          <div class="absorption-fill" id="caAnimalBar" style="width:0%; background:linear-gradient(90deg,var(--green),#2ecc71);"></div>
+        </div>
+        <p style="font-size:14px; font-weight:800; color:var(--green);">
+          <span class="ar">نسبة الامتصاص: 30–40%</span>
+          <span class="de">Absorptionsrate: 30–40%</span>
+        </p>
+        <div class="calcium-detail">
+          <p class="ar">يوجد في <strong>الحليب، الجبن، اللبن، السردين</strong> (مع العظام).<br>
+          لا يحتوي على مركبات تعيق الامتصاص.<br>
+          يحتوي على <strong>اللاكتوز (سكر الحليب)</strong>، والذي يساعد في امتصاص الكالسيوم، خاصة عند الأطفال.<br>
+          <strong>مثال:</strong> كوب حليب (250 مل) يحتوي على 300 ملغ كالسيوم، يُمتص منه حوالي 100 ملغ.</p>
+          <p class="de">Zu finden in <strong>Milch, Käse, Joghurt, Sardinen</strong> (mit Gräten).<br>
+          Enthält keine absorptionshemmenden Verbindungen.<br>
+          <strong>Laktose (Milchzucker)</strong> fördert die Calciumaufnahme, besonders bei Kindern.<br>
+          <strong>Beispiel:</strong> Ein Glas Milch (250 ml) enthält 300 mg Calcium, davon werden ca. 100 mg aufgenommen.</p>
+        </div>
+      </div>
+
+      <!-- Plant Calcium -->
+      <div class="calcium-panel plant-ca" onclick="toggleCaPanel(this)">
+        <div class="ca-icon">🥦</div>
+        <h3><span class="ar">⚠️ الكالسيوم النباتي</span><span class="de">⚠️ Pflanzliches Calcium</span></h3>
+        <div class="absorption-bar">
+          <div class="absorption-fill" id="caPlantBar" style="width:0%; background:linear-gradient(90deg,#e67e22,#f39c12);"></div>
+        </div>
+        <p style="font-size:14px; font-weight:800; color:#e67e22;">
+          <span class="ar">نسبة الامتصاص: 5–60% (متغيرة)</span>
+          <span class="de">Absorptionsrate: 5–60% (variabel)</span>
+        </p>
+        <div class="calcium-detail">
+          <p class="ar">يوجد في <strong>الخضروات الورقية، المكسرات، البقوليات، الطحينة</strong>.<br>
+          خضروات منخفضة بالأوكسالات مثل الكرنب (Kale, Brokkoli): <strong>امتصاص جيد (40–60%)</strong>.<br>
+          خضروات عالية بالأوكسالات مثل السبانخ والراوند: <strong>امتصاص ضعيف (&lt;10%)</strong> رغم ارتفاع الكالسيوم.<br>
+          <strong>مركبات تقلل الامتصاص:</strong> <strong>أوكسالات</strong> (في السبانخ والراوند) و<strong>فيتات</strong> (في الحبوب الكاملة والبقوليات).</p>
+          <p class="de">Zu finden in <strong>Blattgemüse, Nüssen, Hülsenfrüchten, Tahini</strong>.<br>
+          Oxalatarmes Gemüse wie Kale, Brokkoli: <strong>gute Absorption (40–60%)</strong>.<br>
+          Oxalatreiches Gemüse wie Spinat, Rhabarber: <strong>schwache Absorption (&lt;10%)</strong> trotz hohem Calciumgehalt.<br>
+          <strong>Absorptionshemmer:</strong> <strong>Oxalate</strong> (in Spinat, Rhabarber) und <strong>Phytate</strong> (in Vollkorn, Hülsenfrüchten).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       10. MIND MAP
+  ══════════════════════════════════════ -->
+  <section id="sec-mindmap">
+    <h2 class="section-title">
+      🗺️
+      <span class="ar">الخريطة الذهنية — السوائل والبروتينات</span>
+      <span class="de">Mindmap — Flüssigkeiten & Proteine</span>
+    </h2>
+
+    <div class="mindmap-tree">
+      <div class="mm-wrapper">
+        <div class="mm-center">
+          <span class="ar">💧🥩 السوائل والبروتينات</span>
+          <span class="de">💧🥩 Flüssigkeiten & Proteine</span>
+        </div>
+        <div class="mm-vline"></div>
+        <div class="mm-level1">
+
+          <!-- Branch: Liquids -->
+          <div class="mm-branch" onclick="toggleMM(this)">
+            <div class="mm-l1 blue">
+              <span class="ar">💧 سوائل</span>
+              <span class="de">💧 Flüssigkeiten</span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🏔️ Mineralwasser</span><span class="de">🏔️ Mineralwasser</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🚿 Leitungswasser</span><span class="de">🚿 Leitungswasser</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🧪 Osmosewasser</span><span class="de">🧪 Osmosewasser</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🍵 شاي غير محلى</span><span class="de">🍵 Ungesüßter Tee</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🎨 لون البول = مؤشر</span><span class="de">🎨 Urinfarbe = Indikator</span></div>
+            </div>
+          </div>
+
+          <!-- Branch: Proteins -->
+          <div class="mm-branch" onclick="toggleMM(this)">
+            <div class="mm-l1 green">
+              <span class="ar">🥩 بروتينات</span>
+              <span class="de">🥩 Proteine</span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🧬 توافر بيولوجي</span><span class="de">🧬 Bioverfügbarkeit</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🔗 بروتين مكمّل</span><span class="de">🔗 Komplementär</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🐄 حيواني</span><span class="de">🐄 Tierisch</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🌱 نباتي</span><span class="de">🌱 Pflanzlich</span></div>
+            </div>
+          </div>
+
+          <!-- Branch: Sugar & Salt -->
+          <div class="mm-branch" onclick="toggleMM(this)">
+            <div class="mm-l1 red">
+              <span class="ar">🧂 سكر وملح</span>
+              <span class="de">🧂 Zucker & Salz</span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">⚠️ WHO: 6 غ ملح/يوم</span><span class="de">⚠️ WHO: 6 g Salz/Tag</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🌿 بدائل طبيعية</span><span class="de">🌿 Natürliche Alternativen</span></div>
+            </div>
+          </div>
+
+          <!-- Branch: Calcium -->
+          <div class="mm-branch" onclick="toggleMM(this)">
+            <div class="mm-l1 gold">
+              <span class="ar">🦴 كالسيوم</span>
+              <span class="de">🦴 Calcium</span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🥛 حيواني: 30–40%</span><span class="de">🥛 Tierisch: 30–40%</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🥦 نباتي: 5–60%</span><span class="de">🥦 Pflanzlich: 5–60%</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">💧 مياه كلسية</span><span class="de">💧 Calciumreiches Wasser</span></div>
+            </div>
+          </div>
+
+          <!-- Branch: Quality -->
+          <div class="mm-branch" onclick="toggleMM(this)">
+            <div class="mm-l1 gold">
+              <span class="ar">⭐ الجودة > الكمية</span>
+              <span class="de">⭐ Qualität > Quantität</span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🥩 300–600 غ/أسبوع</span><span class="de">🥩 300–600 g/Woche</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🌾 حبوب كاملة</span><span class="de">🌾 Vollkorn</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">🐟 أوميغا-3</span><span class="de">🐟 Omega-3</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       11. QUIZ
+  ══════════════════════════════════════ -->
+  <section id="sec-quiz">
+    <h2 class="section-title">
+      📝
+      <span class="ar">اختبر معلوماتك</span>
+      <span class="de">Teste dein Wissen</span>
+    </h2>
+    <div class="quiz-container">
+
+      <!-- Q1 -->
+      <div class="quiz-q" data-correct="1">
+        <h4><span class="ar">1. التوصية بشرب 1.5 لتر ماء يومياً:</span><span class="de">1. Die Empfehlung, 1,5 Liter Wasser pro Tag zu trinken:</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">مدعومة علمياً بشكل قوي</span><span class="de">Ist wissenschaftlich stark belegt</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">ليست مدعومة علمياً — الاحتياج يعتمد على الظروف الفردية</span><span class="de">Ist nicht wissenschaftlich belegt — der Bedarf hängt von individuellen Umständen ab</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">يجب شرب 3 لترات على الأقل</span><span class="de">Man sollte mindestens 3 Liter trinken</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">✅ صحيح! التوصية بـ 1.5 لتر ليست مدعومة علمياً. الاحتياج يعتمد على الظروف الفردية، ولون البول هو أفضل مؤشر.</span><span class="de">✅ Richtig! Die 1,5-Liter-Empfehlung ist wissenschaftlich nicht belegt. Der Bedarf hängt von individuellen Umständen ab, und die Urinfarbe ist der beste Indikator.</span></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="quiz-q" data-correct="2">
+        <h4><span class="ar">2. ماء الأوزموس (Osmosewasser):</span><span class="de">2. Osmosewasser:</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">أفضل أنواع المياه ولا يحتاج إضافات</span><span class="de">Das beste Wasser ohne nötige Zusätze</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">مياه جوفية طبيعية غنية بالمعادن</span><span class="de">Natürliches Grundwasser, mineralreich</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">فقير بالمعادن وقد يحتاج إعادة تمعدن</span><span class="de">Mineralarm und muss ggf. remineralisiert werden</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">✅ صحيح! ماء الأوزموس يتم نزع معظم الأملاح والمعادن منه عبر الترشيح العكسي، وقد يحتاج إلى إعادة تزويد بالمعادن عند الاستخدام الدائم.</span><span class="de">✅ Richtig! Osmosewasser wird durch Umkehrosmose von den meisten Salzen und Mineralien befreit und muss bei Dauergebrauch ggf. remineralisiert werden.</span></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="quiz-q" data-correct="0">
+        <h4><span class="ar">3. التوافر البيولوجي للبروتين يعني:</span><span class="de">3. Bioverfügbarkeit von Protein bedeutet:</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">مدى قدرة الجسم على امتصاص البروتين واستخدامه بشكل فعّال</span><span class="de">Wie gut der Körper Protein aufnehmen und effektiv nutzen kann</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">كمية البروتين في الطعام فقط</span><span class="de">Nur die Proteinmenge in der Nahrung</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">سرعة هضم البروتين فقط</span><span class="de">Nur die Geschwindigkeit der Proteinverdauung</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">✅ صحيح! التوافر البيولوجي يُعبّر عن مدى قدرة الجسم على امتصاص البروتين واستخدامه في بناء العضلات وصيانة الأنسجة وصنع الإنزيمات والهرمونات.</span><span class="de">✅ Richtig! Bioverfügbarkeit beschreibt, wie gut der Körper Protein aufnehmen und für Muskelaufbau, Gewebewartung sowie Enzym- und Hormonproduktion nutzen kann.</span></div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="quiz-q" data-correct="1">
+        <h4><span class="ar">4. لجعل البروتين النباتي كاملاً، يمكن تناول:</span><span class="de">4. Um pflanzliches Protein zu vervollständigen, kann man essen:</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">أرز + قمح (نفس الحمض الناقص)</span><span class="de">Reis + Weizen (gleiche fehlende Aminosäure)</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">عدس + أرز (لايسين + ميثيونين)</span><span class="de">Linsen + Reis (Lysin + Methionin)</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">حمص + عدس (كلاهما ناقص بالميثيونين)</span><span class="de">Kichererbsen + Linsen (beiden fehlt Methionin)</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">✅ صحيح! العدس غني باللايسين لكنه ناقص بالميثيونين، والأرز يحتوي على الميثيونين. عند دمجهما يصبح البروتين كاملاً ويرتفع التوافر البيولوجي.</span><span class="de">✅ Richtig! Linsen sind reich an Lysin, aber arm an Methionin. Reis enthält Methionin. Zusammen ergibt sich ein vollständiges Protein mit höherer Bioverfügbarkeit.</span></div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="quiz-q" data-correct="2">
+        <h4><span class="ar">5. المياه الكلسية (Calciumreiches Mineralwasser):</span><span class="de">5. Calciumreiches Mineralwasser:</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">لا تحتوي على كالسيوم مفيد</span><span class="de">Enthält kein verwertbares Calcium</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">امتصاص الكالسيوم منها ضعيف جداً (أقل من 5%)</span><span class="de">Calciumabsorption ist sehr schwach (unter 5%)</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">مصدر ممتاز للكالسيوم — يُمتص بنسبة 30–40% مماثلة للحليب</span><span class="de">Hervorragende Calciumquelle — 30–40% Absorption, vergleichbar mit Milch</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">✅ صحيح! المياه الكلسية تعتبر مصدرًا فعّالًا وممتازًا للكالسيوم. الكالسيوم في المياه المعدنية يُمتص بنسبة تصل إلى 30–40%، مماثل تقريبًا للحليب.</span><span class="de">✅ Richtig! Calciumreiches Mineralwasser ist eine effektive Calciumquelle. Das Calcium wird zu 30–40% aufgenommen — vergleichbar mit Milch.</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FOOTER NAV -->
+  <div class="footer-nav">
+    <a href="chapter4-micro-nutrients.html">
+      <span class="ar">→ الفصل الرابع: المغذيات الصغرى</span>
+      <span class="de">→ Kapitel 4: Mikronährstoffe</span>
+    </a>
+    <a href="../index.html" class="primary">
+      <span class="ar">🏠 الرئيسية</span>
+      <span class="de">🏠 Startseite</span>
+    </a>
+    <a href="chapter6-lipids.html">
+      <span class="ar">← الفصل السادس: الدهون</span>
+      <span class="de">← Kapitel 6: Lipide</span>
+    </a>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  // ═══ PASSWORD GATE ═══
+  const PW_HASH = '59f49e6495c6d3eb3ccae62a649e836575fc344d12bf43797f779b43f9156ee6';
+  (function(){
+    if(sessionStorage.getItem('hc-auth') === '1') {
+      document.getElementById('pwOverlay').classList.add('hidden');
+    }
+  })();
+  async function checkPw(){
+    const pw = document.getElementById('pwInput').value;
+    const enc = new TextEncoder();
+    const hash = await crypto.subtle.digest('SHA-256', enc.encode(pw));
+    const hex = Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    if(hex === PW_HASH){
+      sessionStorage.setItem('hc-auth','1');
+      document.getElementById('pwOverlay').classList.add('hidden');
+    } else {
+      document.getElementById('pwError').style.display='block';
+      document.getElementById('pwInput').value='';
+      document.getElementById('pwInput').focus();
+    }
+  }
+  document.getElementById('pwInput').addEventListener('keydown',function(e){ if(e.key==='Enter') checkPw(); });
+
+  // ═══ THEME ═══
+  function setTheme(name, el) {
+    document.body.setAttribute('data-theme', name);
+    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+    localStorage.setItem('theme', name);
+  }
+  (function(){
+    const t = localStorage.getItem('theme');
+    if(t){
+      document.body.setAttribute('data-theme', t);
+      const s = document.querySelector('.s-'+t);
+      if(s){ document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('active')); s.classList.add('active'); }
+    }
+  })();
+
+  // ═══ LANGUAGE ═══
+  let lang = 'ar';
+  function toggleLang(){
+    lang = lang === 'ar' ? 'de' : 'ar';
+    document.querySelectorAll('.ar').forEach(el => el.style.display = lang==='ar' ? '' : 'none');
+    document.querySelectorAll('.de').forEach(el => el.style.display = lang==='de' ? '' : 'none');
+    document.getElementById('langBtn').textContent = lang==='ar' ? 'DE' : 'AR';
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', lang==='ar' ? 'rtl' : 'ltr');
+  }
+
+  // ═══ SCROLL PROGRESS ═══
+  window.addEventListener('scroll', function(){
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+    document.getElementById('scrollProgress').style.width = pct + '%';
+  });
+
+  // ═══ PARTICLES ═══
+  (function(){
+    const canvas = document.getElementById('particlesCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    for(let i=0; i<50; i++){
+      particles.push({
+        x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+        vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3,
+        r: Math.random()*2+0.5, o: Math.random()*0.3+0.1
+      });
+    }
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#c9a84c';
+      particles.forEach(p=>{
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0) p.x=canvas.width; if(p.x>canvas.width) p.x=0;
+        if(p.y<0) p.y=canvas.height; if(p.y>canvas.height) p.y=0;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = accent; ctx.globalAlpha = p.o; ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  // ═══ SIDE NAV DOTS ═══
+  const sections = [
+    {id:'sec-hydration',ar:'الترطيب',de:'Hydration'},
+    {id:'sec-urine',ar:'لون البول',de:'Urinfarbe'},
+    {id:'sec-water-types',ar:'أنواع المياه',de:'Wasserarten'},
+    {id:'sec-label',ar:'ملصق الزجاجة',de:'Etikett'},
+    {id:'sec-sugar-salt',ar:'سكر وملح',de:'Zucker & Salz'},
+    {id:'sec-quality',ar:'الجودة',de:'Qualität'},
+    {id:'sec-bioavailability',ar:'التوافر البيولوجي',de:'Bioverfügbarkeit'},
+    {id:'sec-complementary',ar:'بروتين مكمّل',de:'Komplementär'},
+    {id:'sec-calcium',ar:'الكالسيوم',de:'Calcium'},
+    {id:'sec-mindmap',ar:'خريطة ذهنية',de:'Mindmap'},
+    {id:'sec-quiz',ar:'اختبار',de:'Quiz'}
+  ];
+  const sideNav = document.getElementById('sideNav');
+  sections.forEach(s=>{
+    const dot = document.createElement('div');
+    dot.className = 'side-dot';
+    dot.innerHTML = '<div class="dot-label"><span class="ar">'+s.ar+'</span><span class="de" style="display:none">'+s.de+'</span></div>';
+    dot.onclick = ()=> document.getElementById(s.id).scrollIntoView({behavior:'smooth'});
+    dot.dataset.section = s.id;
+    sideNav.appendChild(dot);
+  });
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        document.querySelectorAll('.side-dot').forEach(d=>d.classList.remove('active'));
+        const dot = sideNav.querySelector('[data-section="'+e.target.id+'"]');
+        if(dot) dot.classList.add('active');
+      }
+    });
+  },{threshold:0.3});
+  sections.forEach(s=>{
+    const el = document.getElementById(s.id);
+    if(el) observer.observe(el);
+  });
+
+  // ═══ URINE COLOR GUIDE ═══
+  const urineData = [
+    {ar:'شفاف / أصفر فاتح جداً — ترطيب ممتاز! أنت تشرب ماء كافياً.',de:'Transparent / Sehr hellgelb — Ausgezeichnete Hydration! Du trinkst genug Wasser.',color:'#27ae60'},
+    {ar:'أصفر فاتح — ترطيب جيد. هذا هو اللون المثالي المستهدف.',de:'Hellgelb — Gute Hydration. Das ist die ideale Zielfarbe.',color:'#27ae60'},
+    {ar:'أصفر — ترطيب مقبول. حاول شرب المزيد من الماء.',de:'Gelb — Akzeptable Hydration. Versuche mehr Wasser zu trinken.',color:'#f39c12'},
+    {ar:'أصفر داكن — بداية الجفاف. اشرب الماء الآن!',de:'Dunkelgelb — Beginn der Dehydration. Trink jetzt Wasser!',color:'#e67e22'},
+    {ar:'أصفر غامق / عسلي — جفاف واضح. جسمك يحتاج ماء بشكل عاجل.',de:'Honigfarben — Deutliche Dehydration. Dein Körper braucht dringend Wasser.',color:'#e74c3c'},
+    {ar:'برتقالي داكن — جفاف شديد. اشرب كمية كبيرة من الماء فوراً.',de:'Dunkelorange — Starke Dehydration. Trinke sofort viel Wasser.',color:'#c0392b'},
+    {ar:'بني فاتح — جفاف حاد. قد يشير إلى مشاكل في الكبد. استشر طبيباً.',de:'Hellbraun — Akute Dehydration. Kann auf Leberprobleme hinweisen. Arzt konsultieren.',color:'#c0392b'},
+    {ar:'بني داكن — خطر! جفاف حاد جداً أو مشاكل صحية. راجع الطبيب فوراً.',de:'Dunkelbraun — Gefahr! Schwere Dehydration oder gesundheitliche Probleme. Sofort zum Arzt.',color:'#c0392b'}
+  ];
+  function showUrine(idx){
+    const bars = document.querySelectorAll('.urine-bar');
+    bars.forEach((b,i)=>{
+      b.style.transform = i===idx ? 'scaleY(1.15)' : 'scaleY(1)';
+      b.style.boxShadow = i===idx ? '0 0 15px rgba(0,0,0,0.3)' : 'none';
+    });
+    const d = urineData[idx];
+    const info = document.getElementById('urineInfo');
+    info.style.borderColor = d.color;
+    info.innerHTML = '<span style="color:'+d.color+'; font-weight:800;">'+(idx+1)+'/8</span> &nbsp; <span class="ar">'+d.ar+'</span><span class="de"'+(lang==='de'?'':' style="display:none"')+'>'+d.de+'</span>';
+    if(lang==='de'){ info.querySelector('.ar').style.display='none'; info.querySelector('.de').style.display=''; }
+  }
+
+  // ═══ WATER TYPE CARDS ═══
+  function toggleWater(card){
+    const wasOpen = card.classList.contains('open');
+    document.querySelectorAll('.water-card').forEach(c=>c.classList.remove('open'));
+    if(!wasOpen) card.classList.add('open');
+  }
+
+  // ═══ MINERAL LABEL READER ═══
+  const mineralData = {
+    ca: {
+      symbol:'Ca²⁺',
+      ar:{name:'كالسيوم (Calcium)',desc:'يدعم صحة العظام والأسنان. مهم لانقباض العضلات وتخثر الدم. المياه المعدنية الغنية بالكالسيوم (>150 ملغ/لتر) مصدر ممتاز. نسبة الامتصاص 30–40%، مماثلة للحليب.'},
+      de:{name:'Calcium',desc:'Unterstützt Knochen- und Zahngesundheit. Wichtig für Muskelkontraktion und Blutgerinnung. Calciumreiches Mineralwasser (>150 mg/L) ist eine hervorragende Quelle. Absorptionsrate 30–40%, vergleichbar mit Milch.'}
+    },
+    mg: {
+      symbol:'Mg²⁺',
+      ar:{name:'مغنيسيوم (Magnesium)',desc:'ضروري للعضلات والأعصاب. يساعد على الاسترخاء وتحسين النوم. نقصه يسبب تشنجات عضلية. المياه المعدنية الغنية بالمغنيسيوم (>50 ملغ/لتر) مصدر جيد.'},
+      de:{name:'Magnesium',desc:'Essenziell für Muskeln und Nerven. Fördert Entspannung und Schlaf. Mangel verursacht Muskelkrämpfe. Magnesiumreiches Mineralwasser (>50 mg/L) ist eine gute Quelle.'}
+    },
+    na: {
+      symbol:'Na⁺',
+      ar:{name:'صوديوم (Natrium)',desc:'مهم لتوازن السوائل والأعصاب. لكن الزيادة ترتبط بارتفاع ضغط الدم. المياه قليلة الصوديوم (<20 ملغ/لتر) أفضل لمن يعانون من ارتفاع الضغط.'},
+      de:{name:'Natrium (Sodium)',desc:'Wichtig für Flüssigkeitshaushalt und Nerven. Zu viel ist mit Bluthochdruck verbunden. Natriumarmes Wasser (<20 mg/L) ist besser für Menschen mit Bluthochdruck.'}
+    },
+    hco3: {
+      symbol:'HCO₃⁻',
+      ar:{name:'بيكربونات (Bicarbonat)',desc:'تدعم الجهاز الهضمي وتساعد في تنظيم حموضة المعدة. المياه الغنية بالبيكربونات (>600 ملغ/لتر) قد تساعد في تخفيف الحرقة وعسر الهضم.'},
+      de:{name:'Bicarbonat (HCO₃⁻)',desc:'Unterstützt das Verdauungssystem und hilft bei der Regulierung der Magensäure. Bicarbonatreiches Wasser (>600 mg/L) kann bei Sodbrennen und Verdauungsbeschwerden helfen.'}
+    },
+    so4: {
+      symbol:'SO₄²⁻',
+      ar:{name:'كبريتات (Sulfat)',desc:'تدعم عملية الهضم وتُحفّز إفراز الصفراء. المياه الغنية بالكبريتات (>200 ملغ/لتر) قد تساعد في تحسين حركة الأمعاء. يُنصح بالاعتدال لمن لديهم حساسية معوية.'},
+      de:{name:'Sulfat (SO₄²⁻)',desc:'Unterstützt die Verdauung und regt die Gallenproduktion an. Sulfatreiches Wasser (>200 mg/L) kann die Darmbewegung verbessern. Bei empfindlichem Darm in Maßen trinken.'}
+    }
+  };
+  function showMineral(key, btnEl){
+    document.querySelectorAll('.mineral-btn').forEach(b=>b.classList.remove('active'));
+    btnEl.classList.add('active');
+    const d = mineralData[key];
+    const panel = document.getElementById('mineralInfo');
+    const l = lang;
+    panel.innerHTML = '<h4><span style="color:var(--accent);">'+d.symbol+'</span> — <span class="ar">'+d.ar.name+'</span><span class="de"'+(l==='de'?'':' style="display:none"')+'>'+d.de.name+'</span></h4><p><span class="ar">'+d.ar.desc+'</span><span class="de"'+(l==='de'?'':' style="display:none"')+'>'+d.de.desc+'</span></p>';
+    if(l==='de'){ panel.querySelectorAll('.ar').forEach(e=>e.style.display='none'); panel.querySelectorAll('.de').forEach(e=>e.style.display=''); }
+  }
+
+  // ═══ COMPLEMENTARY PROTEIN ═══
+  const comboData = [
+    {
+      ar:{title:'✅ بروتين كامل!',desc:'<strong>عدس</strong> (غني باللايسين) + <strong>أرز</strong> (غني بالميثيونين) = بروتين كامل بتوافر بيولوجي مرتفع. هذا المزيج شائع في المطبخ العربي والهندي.'},
+      de:{title:'✅ Vollständiges Protein!',desc:'<strong>Linsen</strong> (reich an Lysin) + <strong>Reis</strong> (reich an Methionin) = Vollständiges Protein mit hoher Bioverfügbarkeit. Diese Kombination ist in der arabischen und indischen Küche verbreitet.'}
+    },
+    {
+      ar:{title:'✅ بروتين كامل!',desc:'<strong>خبز القمح</strong> (غني بالميثيونين) + <strong>حمص</strong> (غني باللايسين) = بروتين كامل. هذا المزيج هو أساس وجبة الحمص مع الخبز الشهيرة!'},
+      de:{title:'✅ Vollständiges Protein!',desc:'<strong>Weizenbrot</strong> (reich an Methionin) + <strong>Kichererbsen</strong> (reich an Lysin) = Vollständiges Protein. Diese Kombination ist die Basis von Hummus mit Brot!'}
+    }
+  ];
+  function showCombo(idx, el){
+    document.querySelectorAll('.combo-card').forEach(c=>c.classList.remove('active'));
+    el.classList.add('active');
+    const d = comboData[idx];
+    const result = document.getElementById('comboResult');
+    result.classList.add('complete');
+    result.innerHTML = '<h4 style="color:var(--green);"><span class="ar">'+d.ar.title+'</span><span class="de"'+(lang==='de'?'':' style="display:none"')+'>'+d.de.title+'</span></h4><p><span class="ar">'+d.ar.desc+'</span><span class="de"'+(lang==='de'?'':' style="display:none"')+'>'+d.de.desc+'</span></p>';
+    if(lang==='de'){ result.querySelectorAll('.ar').forEach(e=>e.style.display='none'); result.querySelectorAll('.de').forEach(e=>e.style.display=''); }
+  }
+
+  // ═══ CALCIUM PANEL TOGGLE ═══
+  function toggleCaPanel(panel){
+    document.querySelectorAll('.calcium-panel').forEach(p=>p.classList.remove('active'));
+    panel.classList.add('active');
+  }
+
+  // ═══ BIOAVAILABILITY BARS ANIMATION ═══
+  const bioObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        document.getElementById('bioEgg').style.width='100%';
+        document.getElementById('bioMilk').style.width='91%';
+        document.getElementById('bioFish').style.width='83%';
+        document.getElementById('bioBeef').style.width='80%';
+        document.getElementById('bioChicken').style.width='79%';
+        document.getElementById('bioSoy').style.width='74%';
+        document.getElementById('bioLentil').style.width='52%';
+        document.getElementById('bioWheat').style.width='42%';
+        document.getElementById('bioPeanut').style.width='43%';
+        bioObs.disconnect();
+      }
+    });
+  },{threshold:0.2});
+  const bioSec = document.getElementById('bioChart');
+  if(bioSec) bioObs.observe(bioSec);
+
+  // ═══ CALCIUM BARS ANIMATION ═══
+  const caObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        document.getElementById('caAnimalBar').style.width='35%';
+        document.getElementById('caPlantBar').style.width='32%';
+        caObs.disconnect();
+      }
+    });
+  },{threshold:0.3});
+  const caSec = document.getElementById('sec-calcium');
+  if(caSec) caObs.observe(caSec);
+
+  // ═══ MIND MAP TOGGLE ═══
+  function toggleMM(branch){
+    const wasOpen = branch.classList.contains('open');
+    document.querySelectorAll('.mm-branch').forEach(b=>b.classList.remove('open'));
+    if(!wasOpen) branch.classList.add('open');
+  }
+
+  // ═══ QUIZ ═══
+  function quizAnswer(optEl, idx){
+    const q = optEl.closest('.quiz-q');
+    if(q.classList.contains('answered')) return;
+    q.classList.add('answered');
+    const correct = parseInt(q.dataset.correct);
+    const opts = q.querySelectorAll('.quiz-opt');
+    opts.forEach((o,i)=>{
+      o.classList.add('disabled');
+      if(i===correct) o.classList.add('correct');
+      else if(i===idx && idx!==correct) o.classList.add('wrong');
+    });
+    const fb = q.querySelector('.quiz-feedback');
+    if(idx===correct){
+      fb.style.background='var(--green-soft)'; fb.style.color='var(--green)';
+    } else {
+      fb.style.background='var(--red-soft)'; fb.style.color='var(--red)';
+      fb.innerHTML = '<span class="ar">❌ خطأ — الإجابة الصحيحة موضحة باللون الأخضر</span><span class="de">❌ Falsch — Die richtige Antwort ist grün markiert</span>';
+      if(lang==='de'){ fb.querySelector('.ar').style.display='none'; } else { fb.querySelector('.de').style.display='none'; }
+    }
+    fb.classList.add('show');
+  }
+</script>
+</body>
+</html>
