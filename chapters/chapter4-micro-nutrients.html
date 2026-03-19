@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الفصل الرابع – المغذيات الصغرى | Mikronährstoffe</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&subset=arabic,latin&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d0d0d; --surface:#1a1a1a; --surface2:#232323;
+    --accent:#c9a84c; --accent2:#e8c97a; --accent-dim:#7a5f28;
+    --text:#f0ead6; --text-soft:#a89870;
+    --red:#c0392b; --red-soft:#2a1010;
+    --green:#27ae60; --green-soft:#0e2418;
+    --border:#2e2e2e; --radius:14px; --shadow:0 8px 32px rgba(0,0,0,0.5);
+  }
+  [data-theme="teal"] {
+    --bg:#f0f8f7; --surface:#ffffff; --surface2:#e6f4f1;
+    --accent:#0d7377; --accent2:#14a085; --accent-dim:#b2dfdb;
+    --text:#1a2e2d; --text-soft:#4a7c79; --border:#b2dfdb;
+    --red:#c0392b; --red-soft:#fdecea; --green:#1a7a4a; --green-soft:#e8f5e9;
+  }
+  [data-theme="purple"] {
+    --bg:#0f0c1e; --surface:#1a1530; --surface2:#221d3a;
+    --accent:#9b59b6; --accent2:#c39bd3; --accent-dim:#4a2060;
+    --text:#ede0f5; --text-soft:#9b8ab0; --border:#2d2545;
+    --red:#e74c3c; --red-soft:#2a0e0e; --green:#27ae60; --green-soft:#0e2418;
+  }
+  [data-theme="emerald"] {
+    --bg:#faf8f2; --surface:#ffffff; --surface2:#f2ede0;
+    --accent:#2d6a4f; --accent2:#40916c; --accent-dim:#b7e4c7;
+    --text:#1b2d23; --text-soft:#52796f; --border:#b7e4c7;
+    --red:#b5451b; --red-soft:#fdecea; --green:#1b5e20; --green-soft:#e8f5e9;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Cairo','Tahoma','Arial',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background .3s,color .3s; overflow-x:hidden; }
+  .ar, [lang="ar"], [dir="rtl"] { letter-spacing: 0 !important; }
+
+  /* PASSWORD GATE */
+  .pw-overlay { position:fixed; inset:0; z-index:10000; background:var(--bg); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:20px; }
+  .pw-overlay.hidden { display:none; }
+  .pw-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:40px; text-align:center; max-width:400px; width:90%; box-shadow:var(--shadow); }
+  .pw-box h2 { color:var(--accent); margin-bottom:16px; font-size:22px; }
+  .pw-box input { width:100%; padding:14px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-family:'Cairo',sans-serif; font-size:16px; text-align:center; outline:none; margin-bottom:16px; }
+  .pw-box input:focus { border-color:var(--accent); }
+  .pw-box button { width:100%; padding:14px; background:var(--accent); color:var(--bg); border:none; border-radius:10px; font-family:'Cairo',sans-serif; font-size:16px; font-weight:800; cursor:pointer; transition:.2s; }
+  .pw-box button:hover { background:var(--accent2); }
+  .pw-error { color:var(--red); font-size:13px; display:none; margin-top:8px; }
+
+  /* SCROLL PROGRESS */
+  .scroll-progress { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent2)); z-index:9999; width:0; transition:width .1s; }
+
+  /* PARTICLES */
+  .particles-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+  /* SIDE NAV DOTS */
+  .side-nav { position:fixed; right:20px; top:50%; transform:translateY(-50%); z-index:998; display:flex; flex-direction:column; gap:12px; }
+  [dir="ltr"] .side-nav { right:auto; left:20px; }
+  .side-dot { width:12px; height:12px; border-radius:50%; background:var(--border); cursor:pointer; transition:.3s; position:relative; }
+  .side-dot.active { background:var(--accent); box-shadow:0 0 10px var(--accent); }
+  .side-dot:hover { background:var(--accent-dim); transform:scale(1.3); }
+  .side-dot .dot-label { position:absolute; right:20px; top:50%; transform:translateY(-50%); background:var(--surface); color:var(--text); font-size:11px; padding:4px 10px; border-radius:6px; white-space:nowrap; opacity:0; pointer-events:none; transition:.2s; border:1px solid var(--border); }
+  [dir="ltr"] .side-dot .dot-label { right:auto; left:20px; }
+  .side-dot:hover .dot-label { opacity:1; }
+
+  /* THEME BAR */
+  .theme-bar { position:fixed; top:16px; left:16px; z-index:999; display:flex; gap:8px; align-items:center; background:var(--surface); border:1px solid var(--border); padding:8px 12px; border-radius:40px; box-shadow:var(--shadow); }
+  .theme-bar span { font-size:11px; color:var(--text-soft); margin-left:4px; }
+  .swatch { width:22px; height:22px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:.2s; }
+  .swatch:hover, .swatch.active { border-color:var(--text); transform:scale(1.2); }
+  .swatch.s-dark    { background:radial-gradient(circle at 40% 40%,#c9a84c,#0d0d0d); }
+  .swatch.s-teal    { background:radial-gradient(circle at 40% 40%,#14a085,#f0f8f7); }
+  .swatch.s-purple  { background:radial-gradient(circle at 40% 40%,#9b59b6,#0f0c1e); }
+  .swatch.s-emerald { background:radial-gradient(circle at 40% 40%,#2d6a4f,#faf8f2); }
+
+  /* LANG BTN */
+  .lang-btn { position:fixed; top:16px; right:16px; z-index:999; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-size:13px; font-weight:700; padding:6px 18px; border-radius:40px; cursor:pointer; transition:.2s; box-shadow:var(--shadow); }
+  .lang-btn:hover { background:var(--accent); color:var(--bg); }
+
+  /* HEADER */
+  header { text-align:center; padding:60px 20px 40px; background:linear-gradient(160deg,var(--surface) 0%,var(--bg) 100%); border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%,var(--accent-dim),transparent); opacity:.25; pointer-events:none; }
+  .chapter-tag { display:inline-block; font-size:12px; font-weight:700; color:var(--accent); border:1px solid var(--accent); padding:4px 16px; border-radius:40px; margin-bottom:16px; }
+  header h1 { font-size:clamp(28px,5vw,52px); font-weight:900; line-height:1.2; }
+  header h1 .accent { color:var(--accent); }
+  .subtitle { color:var(--text-soft); font-size:15px; margin-top:10px; }
+
+  /* LAYOUT */
+  .container { max-width:1100px; margin:0 auto; padding:40px 20px 80px; position:relative; z-index:1; }
+  section { margin-bottom:60px; scroll-margin-top:30px; }
+  h2.section-title { font-size:22px; font-weight:800; color:var(--accent); border-right:4px solid var(--accent); padding-right:14px; margin-bottom:24px; display:flex; align-items:center; gap:10px; }
+  [dir="ltr"] h2.section-title { border-right:none; border-left:4px solid var(--accent); padding-right:0; padding-left:14px; }
+
+  /* CARDS */
+  .cards { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px; transition:transform .2s,box-shadow .2s,border-color .2s; }
+  .card:hover { transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent-dim); }
+  .card-icon { font-size:28px; margin-bottom:10px; }
+  .card h3 { font-size:15px; font-weight:700; margin-bottom:6px; color:var(--accent2); }
+  .card p { font-size:13px; color:var(--text-soft); line-height:1.7; }
+
+  /* INFO BOX */
+  .info-box { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; }
+  .info-box .lbl { font-size:11px; font-weight:800; color:var(--accent); margin-bottom:8px; }
+  .info-box p { font-size:13px; line-height:1.9; color:var(--text-soft); }
+  .info-box p strong { color:var(--text); }
+
+  /* QUOTE BOX */
+  .quote-box { border-right:4px solid var(--accent); padding:16px 20px; background:var(--surface2); border-radius:0 10px 10px 0; margin:20px 0; font-size:14px; line-height:1.8; }
+  [dir="ltr"] .quote-box { border-right:none; border-left:4px solid var(--accent); }
+
+  /* DIVIDER */
+  .divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent-dim),transparent); margin:40px 0; }
+
+  /* DE hidden by default */
+  .de { display:none; }
+
+  /* ═══ NUTRIENT CARD GRID ═══ */
+  .nutrient-grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); }
+  .nutrient-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; cursor:pointer; transition:.3s; }
+  .nutrient-card:hover { transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent-dim); }
+  .nutrient-card-header { padding:18px 20px; display:flex; align-items:center; gap:14px; }
+  .nutrient-icon { font-size:32px; width:50px; height:50px; display:flex; align-items:center; justify-content:center; background:var(--surface2); border-radius:12px; flex-shrink:0; }
+  .nutrient-card-header h3 { font-size:15px; font-weight:700; color:var(--accent2); }
+  .nutrient-card-header .nutrient-sub { font-size:11px; color:var(--text-soft); margin-top:2px; }
+  .nutrient-expand { font-size:18px; color:var(--accent); margin-right:auto; margin-left:8px; transition:.3s; }
+  [dir="ltr"] .nutrient-expand { margin-right:8px; margin-left:auto; }
+  .nutrient-card.open .nutrient-expand { transform:rotate(180deg); }
+  .nutrient-detail { max-height:0; overflow:hidden; transition:max-height .4s ease; }
+  .nutrient-card.open .nutrient-detail { max-height:800px; }
+  .nutrient-detail-inner { padding:0 20px 20px; font-size:13px; line-height:1.9; color:var(--text-soft); border-top:1px solid var(--border); }
+  .nutrient-detail-inner strong { color:var(--text); }
+  .nutrient-tag { display:inline-block; padding:3px 10px; border-radius:20px; font-size:10px; font-weight:700; margin:2px; }
+  .tag-morning { background:rgba(241,196,15,0.15); color:#f1c40f; border:1px solid rgba(241,196,15,0.3); }
+  .tag-evening { background:rgba(52,73,94,0.2); color:#85929e; border:1px solid rgba(52,73,94,0.4); }
+  .tag-fat { background:rgba(230,126,34,0.15); color:#e67e22; border:1px solid rgba(230,126,34,0.3); }
+  .tag-water { background:rgba(52,152,219,0.15); color:#3498db; border:1px solid rgba(52,152,219,0.3); }
+  .tag-warning { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+  .tag-good { background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+
+  /* ═══ TIMELINE SCHEDULE ═══ */
+  .timeline-container { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px 20px; overflow-x:auto; }
+  .timeline { display:flex; gap:0; min-width:700px; position:relative; }
+  .timeline::before { content:''; position:absolute; top:50px; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent2),var(--accent)); border-radius:2px; }
+  .time-block { flex:1; text-align:center; position:relative; padding-top:70px; }
+  .time-label { position:absolute; top:0; left:50%; transform:translateX(-50%); font-size:13px; font-weight:800; color:var(--accent); background:var(--surface2); padding:6px 16px; border-radius:20px; border:1px solid var(--accent-dim); white-space:nowrap; }
+  .time-dot { position:absolute; top:44px; left:50%; transform:translateX(-50%); width:16px; height:16px; border-radius:50%; background:var(--accent); border:3px solid var(--surface); z-index:2; }
+  .time-items { display:flex; flex-direction:column; gap:6px; padding:10px 6px; }
+  .time-item { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:8px 10px; font-size:11px; font-weight:600; color:var(--text); transition:.2s; cursor:default; }
+  .time-item:hover { border-color:var(--accent-dim); background:var(--surface); }
+  .time-item .ti-icon { font-size:16px; display:block; margin-bottom:4px; }
+  .time-warn { font-size:10px; color:var(--red); margin-top:4px; }
+
+  /* ═══ COMPARISON VISUAL ═══ */
+  .comparison-container { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:700px) { .comparison-container { grid-template-columns:1fr; } }
+  .comp-panel { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; text-align:center; }
+  .comp-panel h3 { font-size:16px; font-weight:800; margin-bottom:16px; }
+  .comp-panel.fat-sol { border-top:3px solid #e67e22; }
+  .comp-panel.fat-sol h3 { color:#e67e22; }
+  .comp-panel.water-sol { border-top:3px solid #3498db; }
+  .comp-panel.water-sol h3 { color:#3498db; }
+  .comp-items { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+  .comp-pill { padding:10px 18px; border-radius:12px; font-size:13px; font-weight:700; cursor:pointer; transition:.3s; user-select:none; }
+  .comp-pill:hover { transform:scale(1.08); }
+  .comp-pill.fat { background:rgba(230,126,34,0.12); color:#e67e22; border:1px solid rgba(230,126,34,0.3); }
+  .comp-pill.water { background:rgba(52,152,219,0.12); color:#3498db; border:1px solid rgba(52,152,219,0.3); }
+  .comp-pill.active { transform:scale(1.1); box-shadow:0 0 15px rgba(201,168,76,0.3); }
+  .comp-info { margin-top:16px; font-size:12px; color:var(--text-soft); line-height:1.8; min-height:60px; }
+
+  /* ═══ IRON ABSORPTION DIAGRAM ═══ */
+  .iron-diagram { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .iron-types { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px; }
+  @media(max-width:600px) { .iron-types { grid-template-columns:1fr; } }
+  .iron-type { text-align:center; padding:20px; border-radius:12px; }
+  .iron-type.heme { background:linear-gradient(135deg,rgba(39,174,96,0.1),rgba(39,174,96,0.02)); border:1px solid var(--green); }
+  .iron-type.non-heme { background:linear-gradient(135deg,rgba(231,76,60,0.1),rgba(231,76,60,0.02)); border:1px solid var(--red); }
+  .iron-bar { height:24px; border-radius:12px; margin:10px auto; position:relative; overflow:hidden; max-width:200px; }
+  .iron-bar-fill { height:100%; border-radius:12px; transition:width 1s ease; }
+  .iron-type h4 { font-size:14px; font-weight:800; margin-bottom:8px; }
+  .iron-type p { font-size:12px; color:var(--text-soft); }
+  .iron-factors { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media(max-width:600px) { .iron-factors { grid-template-columns:1fr; } }
+  .iron-factor { padding:16px; border-radius:12px; }
+  .iron-factor.enhancer { background:var(--green-soft); border:1px solid var(--green); }
+  .iron-factor.inhibitor { background:var(--red-soft); border:1px solid var(--red); }
+  .iron-factor h4 { font-size:13px; font-weight:800; margin-bottom:8px; }
+  .iron-factor.enhancer h4 { color:var(--green); }
+  .iron-factor.inhibitor h4 { color:var(--red); }
+  .iron-factor li { font-size:12px; color:var(--text-soft); margin-bottom:4px; list-style:none; }
+
+  /* ═══ CALCIUM OXALATE INTERACTIVE ═══ */
+  .oxalate-visual { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .oxalate-scenarios { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:600px) { .oxalate-scenarios { grid-template-columns:1fr; } }
+  .oxalate-scenario { padding:24px; border-radius:12px; text-align:center; cursor:pointer; transition:.3s; }
+  .oxalate-scenario:hover { transform:translateY(-3px); }
+  .oxalate-scenario.good { background:var(--green-soft); border:2px solid var(--green); }
+  .oxalate-scenario.bad { background:var(--red-soft); border:2px solid var(--red); }
+  .oxalate-scenario h4 { font-size:14px; font-weight:800; margin-bottom:12px; }
+  .oxalate-scenario.good h4 { color:var(--green); }
+  .oxalate-scenario.bad h4 { color:var(--red); }
+  .oxalate-icon { font-size:48px; margin-bottom:12px; }
+  .oxalate-scenario p { font-size:12px; line-height:1.8; color:var(--text-soft); }
+  .oxalate-scenario.active { transform:scale(1.03); box-shadow:var(--shadow); }
+
+  /* ═══ MIND MAP ═══ */
+  .mindmap-tree { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px 20px; overflow-x:auto; }
+  .mm-wrapper { display:flex; flex-direction:column; align-items:center; }
+  .mm-center { background:var(--accent); color:var(--bg); font-size:18px; font-weight:900; padding:14px 36px; border-radius:50px; text-align:center; box-shadow:0 0 30px rgba(201,168,76,0.35); }
+  .mm-vline { width:2px; height:24px; background:var(--accent-dim); margin:0 auto; }
+  .mm-level1 { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+  .mm-branch { display:flex; flex-direction:column; align-items:center; cursor:pointer; }
+  .mm-branch::before { content:''; display:block; width:2px; height:18px; background:var(--accent-dim); }
+  .mm-l1 { padding:10px 18px; border-radius:10px; font-size:13px; font-weight:700; text-align:center; min-width:120px; transition:.2s; }
+  .mm-l1:hover { transform:scale(1.05); }
+  .mm-l1.gold { background:var(--surface2); color:var(--accent); border:1px solid var(--accent-dim); }
+  .mm-l1.red  { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+  .mm-l1.green{ background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+  .mm-children { display:none; flex-direction:column; gap:4px; align-items:center; margin-top:6px; }
+  .mm-branch.open .mm-children { display:flex; }
+  .mm-cline { width:2px; height:10px; background:var(--border); margin:0 auto; }
+  .mm-l2 { padding:5px 12px; border-radius:6px; font-size:11px; font-weight:600; background:var(--surface2); color:var(--text-soft); border:1px solid var(--border); text-align:center; min-width:100px; }
+
+  /* ═══ QUIZ ═══ */
+  .quiz-container { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .quiz-q { margin-bottom:24px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+  .quiz-q:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .quiz-q h4 { font-size:14px; font-weight:700; color:var(--accent2); margin-bottom:12px; }
+  .quiz-opts { display:flex; flex-direction:column; gap:8px; }
+  .quiz-opt { padding:12px 16px; border-radius:10px; background:var(--surface2); border:1px solid var(--border); cursor:pointer; font-size:13px; transition:.2s; user-select:none; }
+  .quiz-opt:hover { border-color:var(--accent-dim); }
+  .quiz-opt.correct { background:var(--green-soft); border-color:var(--green); color:var(--green); }
+  .quiz-opt.wrong { background:var(--red-soft); border-color:var(--red); color:var(--red); }
+  .quiz-opt.disabled { pointer-events:none; opacity:0.6; }
+  .quiz-feedback { margin-top:8px; font-size:12px; line-height:1.7; display:none; padding:10px; border-radius:8px; }
+  .quiz-feedback.show { display:block; }
+
+  /* FOOTER NAV */
+  .footer-nav { display:flex; justify-content:center; align-items:center; gap:20px; flex-wrap:wrap; padding:30px 20px; }
+  .footer-nav a { display:inline-block; padding:12px 30px; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-weight:700; font-size:14px; border-radius:40px; text-decoration:none; transition:.2s; }
+  .footer-nav a:hover { background:var(--accent); color:var(--bg); }
+  .footer-nav a.primary { background:var(--accent); color:var(--bg); }
+  .footer-nav a.primary:hover { background:var(--accent2); }
+
+  @media(max-width:700px){
+    .mm-level1 { flex-direction:column; align-items:center; }
+    .side-nav { display:none; }
+    .nutrient-grid { grid-template-columns:1fr; }
+  }
+  @media(max-width:500px){
+    .comparison-container { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body data-theme="dark">
+
+<!-- PASSWORD GATE -->
+<div class="pw-overlay" id="pwOverlay">
+  <div class="pw-box">
+    <h2>🔐</h2>
+    <p style="color:var(--text-soft); font-size:13px; margin-bottom:16px;">
+      <span class="ar">أدخل كلمة المرور للمتابعة</span>
+      <span class="de">Passwort eingeben</span>
+    </p>
+    <input type="password" id="pwInput" placeholder="••••••••" autocomplete="off">
+    <button onclick="checkPw()">
+      <span class="ar">دخول</span>
+      <span class="de">Eintreten</span>
+    </button>
+    <div class="pw-error" id="pwError">
+      <span class="ar">كلمة المرور غير صحيحة</span>
+      <span class="de">Falsches Passwort</span>
+    </div>
+  </div>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- PARTICLES -->
+<canvas class="particles-canvas" id="particlesCanvas"></canvas>
+
+<!-- SIDE NAV DOTS -->
+<nav class="side-nav" id="sideNav"></nav>
+
+<!-- Theme switcher -->
+<div class="theme-bar">
+  <span>🎨</span>
+  <div class="swatch s-dark active"   onclick="setTheme('dark',this)"    title="Dark Gold"></div>
+  <div class="swatch s-teal"          onclick="setTheme('teal',this)"    title="Teal"></div>
+  <div class="swatch s-purple"        onclick="setTheme('purple',this)"  title="Purple"></div>
+  <div class="swatch s-emerald"       onclick="setTheme('emerald',this)" title="Emerald"></div>
+</div>
+
+<!-- Lang toggle -->
+<button class="lang-btn" onclick="toggleLang()" id="langBtn">DE</button>
+
+<!-- HEADER -->
+<header>
+  <div class="chapter-tag">
+    <span class="ar">الفصل الرابع</span>
+    <span class="de">Kapitel 4</span>
+  </div>
+  <h1>
+    <span class="accent">💊</span>
+    <span class="ar"> المغذيات الصغرى</span>
+    <span class="de"> Mikronährstoffe</span>
+  </h1>
+  <p class="subtitle">
+    <span class="ar">الفيتامينات والمعادن الأساسية — التوقيت، التداخلات، والامتصاص</span>
+    <span class="de">Vitamine & Mineralien — Timing, Wechselwirkungen & Aufnahme</span>
+  </p>
+</header>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════
+       1. INTRODUCTION
+  ══════════════════════════════════════ -->
+  <section id="sec-intro">
+    <h2 class="section-title">
+      📖
+      <span class="ar">ما هي المغذيات الصغرى؟</span>
+      <span class="de">Was sind Mikronährstoffe?</span>
+    </h2>
+    <div class="info-box" style="border-right:3px solid var(--accent)">
+      <p class="ar">المغذيات الصغرى هي الفيتامينات والمعادن الأساسية التي يحتاجها جسمنا بكميات صغيرة. تلعب دورًا مهمًا في وظائف الجسم المختلفة، مثل المناعة، والتمثيل الغذائي للطاقة، وصحة الخلايا.</p>
+      <p class="de">Mikronährstoffe sind Vitamine und essentielle Mineralien, die unser Körper in kleinen Mengen benötigt. Sie spielen eine wichtige Rolle bei verschiedenen Körperfunktionen wie Immunabwehr, Energiestoffwechsel und Zellgesundheit.</p>
+    </div>
+    <div class="info-box">
+      <div class="lbl ar">تصنيف المغذيات الصغرى</div>
+      <div class="lbl de">Klassifikation der Mikronährstoffe</div>
+      <p class="ar">تنقسم المغذيات الصغرى إلى قسمين رئيسيين: <strong>فيتامينات</strong> (ذوابة بالدسم A, D, E, K وذوابة بالماء C, B) و<strong>معادن وأملاح</strong> (كالسيوم، مغنيسيوم، حديد، زنك، يود، سيلينيوم، كروم).</p>
+      <p class="de">Mikronährstoffe teilen sich in zwei Hauptgruppen: <strong>Vitamine</strong> (fettlösliche A, D, E, K und wasserlösliche C, B) und <strong>Mineralstoffe & Spurenelemente</strong> (Calcium, Magnesium, Eisen, Zink, Jod, Selen, Chrom).</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       2. VITAMIN & MINERAL CARD GRID
+  ══════════════════════════════════════ -->
+  <section id="sec-nutrients">
+    <h2 class="section-title">
+      🧬
+      <span class="ar">الفيتامينات والمعادن — بطاقات تفاعلية</span>
+      <span class="de">Vitamine & Mineralien — Interaktive Karten</span>
+    </h2>
+    <p style="font-size:13px; color:var(--text-soft); margin-bottom:20px;">
+      <span class="ar">اضغط على أي بطاقة لعرض التفاصيل: التوقيت، التداخلات، والتحذيرات</span>
+      <span class="de">Klicke auf eine Karte für Details: Timing, Wechselwirkungen & Warnungen</span>
+    </p>
+
+    <div class="nutrient-grid">
+
+      <!-- Vitamin A -->
+      <div class="nutrient-card" onclick="toggleNutrient(this)">
+        <div class="nutrient-card-header">
+          <div class="nutrient-icon">🥕</div>
+          <div>
+            <h3>Vitamin A</h3>
+            <div class="nutrient-sub"><span class="ar">الريتينول / بيتا كاروتين</span><span class="de">Retinol / Beta-Carotin</span></div>
+          </div>
+          <div class="nutrient-expand">▼</div>
+        </div>
+        <div class="nutrient-detail">
+          <div class="nutrient-detail-inner">
+            <div style="margin:10px 0"><span class="nutrient-tag tag-fat"><span class="ar">ذوّاب بالدسم</span><span class="de">Fettlöslich</span></span></div>
+            <p class="ar"><strong>تحذير من الجرعة الزائدة:</strong> الريتينول الزائد (من المكملات) = سام للكبد ومرتبط بجفاف، تساقط الشعر، وتهيج الجلد.<br><strong>البيتا كاروتين آمن أكثر</strong> لأنه يتحول فقط حسب حاجة الجسم.<br><strong>لذلك:</strong> تناول المكملات فقط عند الحاجة. الأفضل الاعتماد على تنويع غذائي متوازن.<br><strong>الامتصاص:</strong> يحتاج إلى دهون ليتم امتصاصه — تناوله مع وجبة تحتوي على زيت الزيتون أو المكسرات.</p>
+            <p class="de"><strong>Warnung vor Überdosierung:</strong> Überschüssiges Retinol (aus Supplementen) ist lebertoxisch und kann Trockenheit, Haarausfall und Hautreizungen verursachen.<br><strong>Beta-Carotin ist sicherer</strong>, da es nur nach Bedarf umgewandelt wird.<br><strong>Daher:</strong> Supplemente nur bei Bedarf. Am besten auf abwechslungsreiche Ernährung setzen.<br><strong>Aufnahme:</strong> Benötigt Fett zur Absorption — mit einer fetthaltigen Mahlzeit einnehmen.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vitamin C -->
+      <div class="nutrient-card" onclick="toggleNutrient(this)">
+        <div class="nutrient-card-header">
+          <div class="nutrient-icon">🍊</div>
+          <div>
+            <h3><span class="ar">فيتامين C — حمض الأسكوربيك</span><span class="de">Vitamin C — Ascorbinsäure</span></h3>
+            <div class="nutrient-sub">Ascorbic Acid</div>
+          </div>
+          <div class="nutrient-expand">▼</div>
+        </div>
+        <div class="nutrient-detail">
+          <div class="nutrient-detail-inner">
+            <div style="margin:10px 0"><span class="nutrient-tag tag-water"><span class="ar">ذوّاب بالماء</span><span class="de">Wasserlöslich</span></span> <span class="nutrient-tag tag-morning"><span class="ar">صباحاً</span><span class="de">Morgens</span></span></div>
+            <p class="ar"><strong>وقت التناول:</strong> صباحاً أو بعد الظهر — هو مضاد أكسدة قوي يدعم الجسم خلال فترة النشاط.<br><strong>التداخلات:</strong> يناسب تناوله مع الحديد (يعزز امتصاص الحديد).<br><strong>ملاحظة:</strong> لا يُفضل تناوله بجرعات كبيرة مع النحاس لأنه قد يعيق امتصاصه.<br><strong>مقاومة الشيخوخة الضوئية (Photoaging):</strong> يساعد في حماية البشرة من أضرار الأشعة فوق البنفسجية.<br><strong>الاحتياج اليومي:</strong> النساء: 95 mg | الرجال: 110 mg | الرياضيون والمدخنون والحوامل: + زيادة</p>
+            <p class="de"><strong>Einnahmezeit:</strong> Morgens oder nachmittags — starkes Antioxidans, das den Körper in aktiven Phasen unterstützt.<br><strong>Wechselwirkungen:</strong> Gut mit Eisen kombinierbar (verbessert die Eisenaufnahme).<br><strong>Hinweis:</strong> In hohen Dosen nicht mit Kupfer kombinieren, da es dessen Aufnahme hemmen kann.<br><strong>Anti-Photoaging:</strong> Schützt die Haut vor UV-Schäden.<br><strong>Tagesbedarf:</strong> Frauen: 95 mg | Männer: 110 mg | Sportler, Raucher, Schwangere: erhöht</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vitamin D -->
+      <div class="nutrient-card" onclick="toggleNutrient(this)">
+        <div class="nutrient-card-header">
+          <div class="nutrient-icon">☀️</div>
+          <div>
+            <h3>Vitamin D</h3>
+            <div class="nutrient-sub"><span class="ar">فيتامين الشمس</span><span class="de">Das Sonnenvitamin</span></div>
+          </div>
+          <div class="nutrient-expand">▼</div>
+        </div>
+        <div class="nutrient-detail">
+          <div class="nutrient-detail-inner">
+            <div style="margin:10px 0"><span class="nutrient-tag tag-fat"><span class="ar">ذوّاب بالدسم</span><span class="de">Fettlöslich</span></span> <span class="nutrient-tag tag-morning"><span class="ar">صباحاً / ظهراً</span><span class="de">Morgens/Mittags</span></span></div>
+            <p class="ar"><strong>وقت التناول:</strong> صباحاً أو ظهراً — قد يتداخل في جرعات عالية مع النوم إذا تم تناوله في المساء.<br><strong>التداخلات:</strong> الأفضل أن يؤخذ مع فيتامين K2 والكالسيوم، لأنهما يدعمان الامتصاص والفائدة.<br><strong>توصيات RKI و DGE:</strong> للحصول على 800–1000 وحدة دولية (IU) يومياً في أشهر الصيف (مايو – أغسطس)، يجب تعريض الوجه والذراعين واليدين (25% من سطح الجلد) للشمس.<br><strong>أفضل وقت للشمس:</strong> 11:00 – 14:00 | المدة: 15–30 دقيقة.<br><strong>في ألمانيا:</strong> في الصيف: تعرّض يومي معتدل يكفي. في الشتاء: يُنصح بالمكملات.</p>
+            <p class="de"><strong>Einnahmezeit:</strong> Morgens oder mittags — hohe Dosen am Abend können den Schlaf stören.<br><strong>Wechselwirkungen:</strong> Am besten mit Vitamin K2 und Calcium kombinieren für optimale Wirkung.<br><strong>RKI & DGE Empfehlungen:</strong> 800–1000 IU täglich. Im Sommer (Mai–Aug) reicht Sonnenexposition von Gesicht, Armen und Händen (25% der Hautoberfläche).<br><strong>Beste Sonnenzeit:</strong> 11:00 – 14:00 | Dauer: 15–30 Min.<br><strong>In Deutschland:</strong> Sommer: moderate Sonnenexposition reicht. Winter: Supplementierung empfohlen.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vitamin E -->
+      <div class="nutrient-card" onclick="toggleNutrient(this)">
+        <div class="nutrient-card-header">
+          <div class="nutrient-icon">🌰</div>
+          <div>
+            <h3>Vitamin E</h3>
+            <div class="nutrient-sub"><span class="ar">مضاد أكسدة</span><span class="de">Antioxidans</span></div>
+          </div>
+          <div class="nutrient-expand">▼</div>
+        </div>
+        <div class="nutrient-detail">
+          <div class="nutrient-detail-inner">
+            <div style="margin:10px 0"><span class="nutrient-tag tag-fat"><span class="ar">ذوّاب بالدسم</span><span class="de">Fettlöslich</span></span></div>
+            <p class="ar"><strong>الامتصاص:</strong> يحتاج إلى دهون ليتم امتصاصه — تناوله مع وجبة تحتوي على دهون (مثل زيت الزيتون أو المكسرات).<br><strong>التداخلات:</strong> يتناسب مع أحماض أوميغا-3 الدهنية، لأن الدهون تسهّل الامتصاص.</p>
+            <p class="de"><strong>Aufnahme:</strong> Benötigt Fett zur Absorption — mit einer fetthaltigen Mahlzeit einnehmen.<br><strong>Wechselwirkungen:</strong> Kombiniert gut mit Omega-3-Fettsäuren, da Fett die Aufnahme erleichtert.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vitamin K -->
+      <div class="nutrient-card" onclick="toggleNutrient(this)">
+        <div class="nutrient-card-header">
+          <div class="nutrient-icon">🥬</div>
+          <div>
+            <h3>Vitamin K</h3>
+            <div class="nutrient-sub"><span class="ar">K1 و K2</span><span class="de">K1 & K2</span></div>
+          </div>
+          <div class="nutrient-expand">▼</div>
+        </div>
+        <div class="nutrient-detail">
+          <div class="nutrient-detail-inner">
+            <div style="margin:10px 0"><span class="nutrient-tag tag-fat"><span class="ar">ذوّاب بالدسم</span><span class="de">Fettlöslich</span></span></div>
+            <p class="ar"><strong>K1</strong> — فيلوكينون (Phyllochinon): مصدره الخضار الورقية — مصدر نباتي.<br><strong>K2</strong> — ميناكينون (Menaquinon): مصادر حيوانية ومخمرة — من إنتاج بكتيريا الأمعاء.<br><strong>الامتصاص:</strong> يحتاج إلى دهون ليتم امتصاصه.<br><strong>دوره:</strong> يدعم تخثر الدم وصحة العظام، ويعمل مع فيتامين D والكالسيوم.</p>
+            <p class="de"><strong>K1</strong> — Phyllochinon: aus grünem Blattgemüse — pflanzliche Quelle.<br><strong>K2</strong> — Menaquinon: tierische und fermentierte Quellen — wird auch von Darmbakterien produziert.<br><strong>Aufnahme:</strong> Benötigt Fett zur Absorption.<br><strong>Funktion:</strong> Unterstützt Blutgerinnung und Knochengesundheit, arbeitet mit Vitamin D und Calcium zusammen.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vitamin B Group -->
+      <div class="nutrient-card" onclick="toggleNutrient(this)">
+        <div class="nutrient-card-header">
+          <div class="nutrient-icon">⚡</div>
+          <div>
+            <h3><span class="ar">مجموعة فيتامينات B</span><span class="de">Vitamin-B-Komplex</span></h3>
+            <div class="nutrient-sub"><span class="ar">طاقة وأعصاب</span><span class="de">Energie & Nerven</span></div>
+          </div>
+          <div class="nutrient-expand">▼</div>
+        </div>
+        <div class="nutrient-detail">
+          <div class="nutrient-detail-inner">
+            <div style="margin:10px 0"><span class="nutrient-tag tag-water"><span class="ar">ذوّاب بالماء</span><span class="de">Wasserlöslich</span></span> <span class="nutrient-tag tag-morning"><span class="ar">صباحاً</span><span class="de">Morgens</span></span></div>
+            <p class="ar"><strong>وقت التناول:</strong> صباحاً أو ظهراً، لأنها تحفّز التمثيل الغذائي للطاقة وتساعد في مقاومة التعب.<br><strong>التداخلات:</strong> يمكن تناول جميع فيتامينات B معاً لتعزيز التأثير المتكامل.<br><strong>ملاحظة:</strong> لا يُفضل تناول فيتامينات B على معدة فارغة، لأنها قد تسبب اضطرابات في المعدة.</p>
+            <p class="de"><strong>Einnahmezeit:</strong> Morgens oder mittags, da sie den Energiestoffwechsel anregen und gegen Müdigkeit helfen.<br><strong>Wechselwirkungen:</strong> Alle B-Vitamine können zusammen eingenommen werden für synergistische Wirkung.<br><strong>Hinweis:</strong> Nicht auf nüchternen Magen einnehmen, da sie Magenprobleme verursachen können.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Iron -->
+      <div class="nutrient-card" onclick="toggleNutrient(this)">
+        <div class="nutrient-card-header">
+          <div class="nutrient-icon">🩸</div>
+          <div>
+            <h3><span class="ar">الحديد</span><span class="de">Eisen</span></h3>
+            <div class="nutrient-sub"><span class="ar">حيواني ونباتي</span><span class="de">Häm & Nicht-Häm</span></div>
+          </div>
+          <div class="nutrient-expand">▼</div>
+        </div>
+        <div class="nutrient-detail">
+          <div class="nutrient-detail-inner">
+            <div style="margin:10px 0"><span class="nutrient-tag tag-morning"><span class="ar">صباحاً — معدة فارغة</span><span class="de">Morgens — nüchtern</span></span> <span class="nutrient-tag tag-good"><span class="ar">+ فيتامين C</span><span class="de">+ Vitamin C</span></span></div>
+            <p class="ar"><strong>وقت التناول:</strong> صباحاً على معدة فارغة مع فيتامين C (مثل عصير البرتقال) لتحسين الامتصاص.<br><strong>التداخلات:</strong> يناسب تناوله مع فيتامين C، ولكن <strong>لا يجب تناوله مع الكالسيوم أو المغنيسيوم أو الزنك</strong> في نفس الوقت، لأنها تعيق امتصاص الحديد.<br><strong>ملاحظة:</strong> تجنب تناول القهوة أو الشاي مباشرة بعده، لأنهما يقللان من امتصاص الحديد.<br><strong>قبل تناول أي مكمل حديد:</strong> من الأفضل عمل تحليل دم: Ferritin (مخزون الحديد)، Hb (الهيموغلوبين)، Transferrin & Sättigung. لأن زيادة الحديد في الجسم أيضاً ضارة وتُعرف باسم "Eisenüberladung".</p>
+            <p class="de"><strong>Einnahmezeit:</strong> Morgens auf nüchternen Magen mit Vitamin C (z.B. Orangensaft) für bessere Aufnahme.<br><strong>Wechselwirkungen:</strong> Gut mit Vitamin C kombinierbar, aber <strong>nicht gleichzeitig mit Calcium, Magnesium oder Zink</strong>, da diese die Eisenaufnahme hemmen.<br><strong>Hinweis:</strong> Kein Kaffee oder Tee direkt danach — sie reduzieren die Eisenaufnahme.<br><strong>Vor Supplementierung:</strong> Bluttest empfohlen: Ferritin, Hb, Transferrin & Sättigung. Eisenüberladung ist ebenfalls schädlich.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calcium -->
+      <div class="nutrient-card" onclick="toggleNutrient(this)">
+        <div class="nutrient-card-header">
+          <div class="nutrient-icon">🦴</div>
+          <div>
+            <h3><span class="ar">الكالسيوم</span><span class="de">Calcium</span></h3>
+            <div class="nutrient-sub"><span class="ar">عظام وأسنان</span><span class="de">Knochen & Zähne</span></div>
+          </div>
+          <div class="nutrient-expand">▼</div>
+        </div>
+        <div class="nutrient-detail">
+          <div class="nutrient-detail-inner">
+            <div style="margin:10px 0"><span class="nutrient-tag tag-evening"><span class="ar">مساءً</span><span class="de">Abends</span></span></div>
+            <p class="ar"><strong>وقت التناول:</strong> مساءً — يساعد على تحسين النوم ويدعم صحة العظام.<br><strong>التداخلات:</strong> يُفضل تناوله مع فيتامين D و K2.<br><strong>ملاحظة:</strong> لا يُفضل تناوله مع الحديد أو المغنيسيوم أو الزنك في نفس الوقت لتجنب التداخل في الامتصاص.<br><strong>المياه الكلسية (Mineralwasser mit hohem Calciumgehalt)</strong> تعتبر مصدراً فعّالاً وممتازاً للكالسيوم. الكالسيوم في المياه المعدنية يُمتص بنسبة تصل إلى 30–40%، مماثل تقريباً للحليب.<br><strong>الكالسيوم الحيواني:</strong> يوجد في الحليب، الجبن، اللبن، السردين. نسبة الامتصاص: 30–40%.<br><strong>الكالسيوم النباتي:</strong> يوجد في الخضروات الورقية، المكسرات، البقوليات. نسبة الامتصاص متغيرة (5%–60%) حسب نوع النبات.</p>
+            <p class="de"><strong>Einnahmezeit:</strong> Abends — fördert den Schlaf und unterstützt die Knochengesundheit.<br><strong>Wechselwirkungen:</strong> Am besten mit Vitamin D und K2 kombinieren.<br><strong>Hinweis:</strong> Nicht gleichzeitig mit Eisen, Magnesium oder Zink einnehmen.<br><strong>Calciumreiches Mineralwasser</strong> ist eine effektive Calciumquelle. Absorption: 30–40%, vergleichbar mit Milch.<br><strong>Tierisches Calcium:</strong> Milch, Käse, Joghurt, Sardinen. Absorption: 30–40%.<br><strong>Pflanzliches Calcium:</strong> Blattgemüse, Nüsse, Hülsenfrüchte. Absorption: variabel (5%–60%).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Magnesium -->
+      <div class="nutrient-card" onclick="toggleNutrient(this)">
+        <div class="nutrient-card-header">
+          <div class="nutrient-icon">🌙</div>
+          <div>
+            <h3><span class="ar">المغنيسيوم</span><span class="de">Magnesium</span></h3>
+            <div class="nutrient-sub"><span class="ar">استرخاء وعضلات</span><span class="de">Entspannung & Muskeln</span></div>
+          </div>
+          <div class="nutrient-expand">▼</div>
+        </div>
+        <div class="nutrient-detail">
+          <div class="nutrient-detail-inner">
+            <div style="margin:10px 0"><span class="nutrient-tag tag-evening"><span class="ar">مساءً — قبل النوم</span><span class="de">Abends — vor dem Schlafen</span></span></div>
+            <p class="ar"><strong>وقت التناول:</strong> مساءً قبل النوم، لأنه يساعد على الاسترخاء ويدعم العضلات.<br><strong>التداخلات:</strong> يُفضل تناوله مع فيتامين B6، الذي يعزز الامتصاص.<br><strong>ملاحظة:</strong> لا يُفضل تناوله مع الكالسيوم أو الحديد في نفس الوقت.</p>
+            <p class="de"><strong>Einnahmezeit:</strong> Abends vor dem Schlafen — fördert Entspannung und unterstützt die Muskulatur.<br><strong>Wechselwirkungen:</strong> Am besten mit Vitamin B6 kombinieren, das die Aufnahme fördert.<br><strong>Hinweis:</strong> Nicht gleichzeitig mit Calcium oder Eisen einnehmen.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zinc -->
+      <div class="nutrient-card" onclick="toggleNutrient(this)">
+        <div class="nutrient-card-header">
+          <div class="nutrient-icon">🛡️</div>
+          <div>
+            <h3><span class="ar">الزنك</span><span class="de">Zink</span></h3>
+            <div class="nutrient-sub"><span class="ar">مناعة وبشرة</span><span class="de">Immunsystem & Haut</span></div>
+          </div>
+          <div class="nutrient-expand">▼</div>
+        </div>
+        <div class="nutrient-detail">
+          <div class="nutrient-detail-inner">
+            <p class="ar"><strong>الزنك</strong> معدن أساسي لجهاز المناعة وصحة البشرة والشعر.<br><strong>ملاحظة:</strong> لا يُفضل تناوله مع الحديد أو الكالسيوم في نفس الوقت لتجنب التداخل في الامتصاص.<br><strong>لا يوجد فرق كبير في الصيغة الكيميائية</strong> كما هو الحال مع الحديد.</p>
+            <p class="de"><strong>Zink</strong> ist ein essentielles Mineral für das Immunsystem, Haut- und Haargesundheit.<br><strong>Hinweis:</strong> Nicht gleichzeitig mit Eisen oder Calcium einnehmen.<br><strong>Kein großer Unterschied in der chemischen Formel</strong> wie beim Eisen.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Iodine -->
+      <div class="nutrient-card" onclick="toggleNutrient(this)">
+        <div class="nutrient-card-header">
+          <div class="nutrient-icon">🦋</div>
+          <div>
+            <h3><span class="ar">اليود</span><span class="de">Jod</span></h3>
+            <div class="nutrient-sub"><span class="ar">الغدة الدرقية</span><span class="de">Schilddrüse</span></div>
+          </div>
+          <div class="nutrient-expand">▼</div>
+        </div>
+        <div class="nutrient-detail">
+          <div class="nutrient-detail-inner">
+            <p class="ar"><strong>وظائف اليود:</strong> تنظيم هرمونات الغدة الدرقية (T3 و T4)، تحسين الخصوبة (خصوصاً عند الرجال).<br><strong>النقص المزمن</strong> قد يؤدي إلى تضخم الغدة الدرقية (Kropf / Goiter) أو قصورها.<br><strong>الفائض الحاد</strong> قد يسبب فرط نشاط الغدة (Hyperthyreose)، خاصة لدى كبار السن أو المصابين بأمراض مناعية.</p>
+            <p class="de"><strong>Funktionen von Jod:</strong> Regulierung der Schilddrüsenhormone (T3 und T4), Verbesserung der Fruchtbarkeit (besonders bei Männern).<br><strong>Chronischer Mangel</strong> kann zu Schilddrüsenvergrößerung (Kropf/Goiter) oder Unterfunktion führen.<br><strong>Akuter Überschuss</strong> kann Schilddrüsenüberfunktion (Hyperthyreose) verursachen, besonders bei älteren Menschen oder bei Autoimmunerkrankungen.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CoQ10 -->
+      <div class="nutrient-card" onclick="toggleNutrient(this)">
+        <div class="nutrient-card-header">
+          <div class="nutrient-icon">🔋</div>
+          <div>
+            <h3>Coenzym Q10</h3>
+            <div class="nutrient-sub">Ubiquinon</div>
+          </div>
+          <div class="nutrient-expand">▼</div>
+        </div>
+        <div class="nutrient-detail">
+          <div class="nutrient-detail-inner">
+            <p class="ar"><strong>CoQ10:</strong> يصنّعه الجسم ذاتياً، لكن الإنتاج يقل مع التقدم في العمر.<br><strong>وظيفته:</strong> مهم لإنتاج الطاقة في الخلايا ومضاد أكسدة قوي.</p>
+            <p class="de"><strong>CoQ10:</strong> Der Körper produziert es selbst, aber die Produktion nimmt mit dem Alter ab.<br><strong>Funktion:</strong> Wichtig für die zelluläre Energieproduktion und ein starkes Antioxidans.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vitamin K (Skin) -->
+      <div class="nutrient-card" onclick="toggleNutrient(this)">
+        <div class="nutrient-card-header">
+          <div class="nutrient-icon">✨</div>
+          <div>
+            <h3><span class="ar">فيتامين K — للبشرة</span><span class="de">Vitamin K — Hautpflege</span></h3>
+            <div class="nutrient-sub"><span class="ar">استخدام موضعي</span><span class="de">Topische Anwendung</span></div>
+          </div>
+          <div class="nutrient-expand">▼</div>
+        </div>
+        <div class="nutrient-detail">
+          <div class="nutrient-detail-inner">
+            <p class="ar"><strong>يُستخدم موضعياً أو كمكمل في الحالات التالية:</strong><br>• الهالات السوداء تحت العين<br>• الاحمرار الناتج عن التوسّع الشعري (Couperose)<br>• الكدمات بعد العمليات أو الليزر<br>• الوردية (Rosazea)<br>غالباً يُدمج مع فيتامين C أو أحماض دهنية (كزيت الأرغان) في الكريمات.</p>
+            <p class="de"><strong>Topische oder supplementäre Anwendung bei:</strong><br>• Augenringe<br>• Rötung durch Couperose<br>• Blutergüsse nach Operationen oder Laserbehandlung<br>• Rosazea<br>Oft kombiniert mit Vitamin C oder Fettsäuren (z.B. Arganöl) in Cremes.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       3. SUPPLEMENT TIMING SCHEDULE
+  ══════════════════════════════════════ -->
+  <section id="sec-timing">
+    <h2 class="section-title">
+      ⏰
+      <span class="ar">جدول توقيت المكملات</span>
+      <span class="de">Supplement-Timing-Plan</span>
+    </h2>
+    <div class="timeline-container">
+      <div class="timeline">
+        <!-- Morning -->
+        <div class="time-block">
+          <div class="time-label"><span class="ar">🌅 الصباح</span><span class="de">🌅 Morgens</span></div>
+          <div class="time-dot"></div>
+          <div class="time-items">
+            <div class="time-item">
+              <div class="ti-icon">🩸</div>
+              <span class="ar">الحديد — معدة فارغة + فيتامين C</span>
+              <span class="de">Eisen — nüchtern + Vitamin C</span>
+              <div class="time-warn"><span class="ar">⚠️ لا قهوة/شاي بعده!</span><span class="de">⚠️ Kein Kaffee/Tee danach!</span></div>
+            </div>
+            <div class="time-item">
+              <div class="ti-icon">🍊</div>
+              <span class="ar">فيتامين C</span>
+              <span class="de">Vitamin C</span>
+            </div>
+            <div class="time-item">
+              <div class="ti-icon">⚡</div>
+              <span class="ar">فيتامينات B (مع الطعام)</span>
+              <span class="de">B-Vitamine (mit Essen)</span>
+            </div>
+          </div>
+        </div>
+        <!-- Midday -->
+        <div class="time-block">
+          <div class="time-label"><span class="ar">🌞 الظهر</span><span class="de">🌞 Mittags</span></div>
+          <div class="time-dot"></div>
+          <div class="time-items">
+            <div class="time-item">
+              <div class="ti-icon">☀️</div>
+              <span class="ar">فيتامين D + K2 (مع دهون)</span>
+              <span class="de">Vitamin D + K2 (mit Fett)</span>
+            </div>
+            <div class="time-item">
+              <div class="ti-icon">🥕</div>
+              <span class="ar">فيتامين A, E (مع وجبة دهنية)</span>
+              <span class="de">Vitamin A, E (mit fetthaltiger Mahlzeit)</span>
+            </div>
+            <div class="time-item">
+              <div class="ti-icon">🔋</div>
+              <span class="ar">CoQ10 (مع دهون)</span>
+              <span class="de">CoQ10 (mit Fett)</span>
+            </div>
+          </div>
+        </div>
+        <!-- Evening -->
+        <div class="time-block">
+          <div class="time-label"><span class="ar">🌙 المساء</span><span class="de">🌙 Abends</span></div>
+          <div class="time-dot"></div>
+          <div class="time-items">
+            <div class="time-item">
+              <div class="ti-icon">🌙</div>
+              <span class="ar">المغنيسيوم + B6 (قبل النوم)</span>
+              <span class="de">Magnesium + B6 (vor dem Schlafen)</span>
+            </div>
+            <div class="time-item">
+              <div class="ti-icon">🦴</div>
+              <span class="ar">الكالسيوم + D + K2</span>
+              <span class="de">Calcium + D + K2</span>
+            </div>
+          </div>
+        </div>
+        <!-- Warning -->
+        <div class="time-block">
+          <div class="time-label" style="background:var(--red-soft); border-color:var(--red); color:var(--red)"><span class="ar">⚠️ تحذيرات</span><span class="de">⚠️ Warnungen</span></div>
+          <div class="time-dot" style="background:var(--red)"></div>
+          <div class="time-items">
+            <div class="time-item" style="border-color:var(--red); color:var(--red)">
+              <span class="ar">لا تجمع: حديد + كالسيوم + مغنيسيوم + زنك</span>
+              <span class="de">Nicht kombinieren: Eisen + Ca + Mg + Zink</span>
+            </div>
+            <div class="time-item" style="border-color:var(--red); color:var(--red)">
+              <span class="ar">لا تأخذ D بجرعة عالية مساءً</span>
+              <span class="de">Kein hochdosiertes Vit. D abends</span>
+            </div>
+            <div class="time-item" style="border-color:var(--red); color:var(--red)">
+              <span class="ar">القهوة/الشاي تعيق امتصاص الحديد</span>
+              <span class="de">Kaffee/Tee hemmen Eisenaufnahme</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       4. FAT-SOLUBLE VS WATER-SOLUBLE
+  ══════════════════════════════════════ -->
+  <section id="sec-solubility">
+    <h2 class="section-title">
+      💧
+      <span class="ar">ذوّابة بالدسم مقابل ذوّابة بالماء</span>
+      <span class="de">Fettlöslich vs. Wasserlöslich</span>
+    </h2>
+    <div class="info-box" style="margin-bottom:20px">
+      <p class="ar"><strong>الفيتامينات الذوّابة بالدسم (A, D, E, K):</strong> أفضل وقت للتناول مع وجبة تحتوي على دهون (مثل زيت الزيتون أو المكسرات)، لأنها تحتاج الدهون ليتم امتصاصها في الجسم. تتناسب مع أحماض أوميغا-3 الدهنية، لأن الدهون تسهّل الامتصاص.</p>
+      <p class="de"><strong>Fettlösliche Vitamine (A, D, E, K):</strong> Am besten mit einer fetthaltigen Mahlzeit einnehmen (z.B. Olivenöl oder Nüsse), da sie Fett zur Absorption benötigen. Omega-3-Fettsäuren erleichtern die Aufnahme.</p>
+    </div>
+    <div class="comparison-container">
+      <div class="comp-panel fat-sol">
+        <h3><span class="ar">🧈 ذوّابة بالدسم (ADEK)</span><span class="de">🧈 Fettlöslich (ADEK)</span></h3>
+        <div class="comp-items">
+          <div class="comp-pill fat" onclick="showCompInfo(this,'a')">Vitamin A</div>
+          <div class="comp-pill fat" onclick="showCompInfo(this,'d')">Vitamin D</div>
+          <div class="comp-pill fat" onclick="showCompInfo(this,'e')">Vitamin E</div>
+          <div class="comp-pill fat" onclick="showCompInfo(this,'k')">Vitamin K</div>
+        </div>
+        <div class="comp-info" id="fatInfo">
+          <span class="ar">اضغط على فيتامين لمعرفة التفاصيل</span>
+          <span class="de">Klicke auf ein Vitamin für Details</span>
+        </div>
+      </div>
+      <div class="comp-panel water-sol">
+        <h3><span class="ar">💧 ذوّابة بالماء</span><span class="de">💧 Wasserlöslich</span></h3>
+        <div class="comp-items">
+          <div class="comp-pill water" onclick="showCompInfo(this,'c')">Vitamin C</div>
+          <div class="comp-pill water" onclick="showCompInfo(this,'b')">Vitamin B</div>
+        </div>
+        <div class="comp-info" id="waterInfo">
+          <span class="ar">اضغط على فيتامين لمعرفة التفاصيل</span>
+          <span class="de">Klicke auf ein Vitamin für Details</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       5. IRON ABSORPTION DIAGRAM
+  ══════════════════════════════════════ -->
+  <section id="sec-iron">
+    <h2 class="section-title">
+      🩸
+      <span class="ar">امتصاص الحديد — حيواني مقابل نباتي</span>
+      <span class="de">Eisenaufnahme — Häm vs. Nicht-Häm</span>
+    </h2>
+    <div class="iron-diagram">
+      <div class="iron-types">
+        <div class="iron-type heme">
+          <h4><span class="ar">حديد حيواني (Häme-Eisen)</span><span class="de">Häm-Eisen (tierisch)</span></h4>
+          <div class="iron-bar" style="background:var(--green-soft)">
+            <div class="iron-bar-fill" id="hemeBar" style="width:0; background:var(--green)"></div>
+          </div>
+          <p><span class="ar">يُمتص بشكل أفضل — حتى <strong style="color:var(--green)">20–30%</strong></span><span class="de">Bessere Absorption — bis zu <strong style="color:var(--green)">20–30%</strong></span></p>
+        </div>
+        <div class="iron-type non-heme">
+          <h4><span class="ar">حديد نباتي (Nicht-Hämeisen)</span><span class="de">Nicht-Häm-Eisen (pflanzlich)</span></h4>
+          <div class="iron-bar" style="background:var(--red-soft)">
+            <div class="iron-bar-fill" id="nonHemeBar" style="width:0; background:var(--red)"></div>
+          </div>
+          <p><span class="ar">امتصاصه أضعف — <strong style="color:var(--red)">3–8%</strong> لكن مفيد جداً عند تنويع المصادر</span><span class="de">Schwächere Absorption — <strong style="color:var(--red)">3–8%</strong>, aber sehr nützlich bei vielfältigen Quellen</span></p>
+        </div>
+      </div>
+      <div class="iron-factors">
+        <div class="iron-factor enhancer">
+          <h4><span class="ar">✅ معززات الامتصاص</span><span class="de">✅ Absorptionsförderer</span></h4>
+          <ul>
+            <li><span class="ar">🍊 فيتامين C (عصير البرتقال)</span><span class="de">🍊 Vitamin C (Orangensaft)</span></li>
+            <li><span class="ar">🥩 الحديد الحيواني يعزز امتصاص النباتي</span><span class="de">🥩 Häm-Eisen fördert Nicht-Häm-Aufnahme</span></li>
+            <li><span class="ar">🍋 الأحماض العضوية (حمض الستريك)</span><span class="de">🍋 Organische Säuren (Zitronensäure)</span></li>
+          </ul>
+        </div>
+        <div class="iron-factor inhibitor">
+          <h4><span class="ar">❌ معيقات الامتصاص</span><span class="de">❌ Absorptionshemmer</span></h4>
+          <ul>
+            <li><span class="ar">☕ القهوة والشاي (التانين)</span><span class="de">☕ Kaffee & Tee (Tannine)</span></li>
+            <li><span class="ar">🦴 الكالسيوم</span><span class="de">🦴 Calcium</span></li>
+            <li><span class="ar">🌾 الفيتات (الحبوب الكاملة)</span><span class="de">🌾 Phytate (Vollkorn)</span></li>
+            <li><span class="ar">🥬 الأوكسالات (السبانخ)</span><span class="de">🥬 Oxalate (Spinat)</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       6. CALCIUM & OXALATE INTERACTIVE
+  ══════════════════════════════════════ -->
+  <section id="sec-oxalate">
+    <h2 class="section-title">
+      🧪
+      <span class="ar">الكالسيوم والأوكسالات — آلية الحماية</span>
+      <span class="de">Calcium & Oxalat — Schutzmechanismus</span>
+    </h2>
+    <div class="info-box" style="margin-bottom:20px; border-right:3px solid var(--accent)">
+      <p class="ar"><strong>الأوكسالات (Oxalate)</strong> أو حمض الأوكساليك (Oxalic Acid) هو مركّب نباتي طبيعي يوجد في العديد من الأغذية، خاصة الخضروات الورقية والبذور والمكسرات والبقوليات. ترتبط الأوكسالات بسهولة مع المعادن (خصوصاً الكالسيوم، الحديد، المغنيسيوم) لتشكيل أملاح غير قابلة للذوبان.</p>
+      <p class="de"><strong>Oxalat</strong> (Oxalsäure) ist eine natürliche pflanzliche Verbindung, die in vielen Lebensmitteln vorkommt, besonders in Blattgemüse, Samen, Nüssen und Hülsenfrüchten. Oxalate binden leicht an Mineralien (besonders Calcium, Eisen, Magnesium) und bilden unlösliche Salze.</p>
+    </div>
+
+    <div class="oxalate-visual">
+      <div class="oxalate-scenarios">
+        <div class="oxalate-scenario good active" onclick="toggleOxScenario(this)">
+          <div class="oxalate-icon">✅</div>
+          <h4><span class="ar">كالسيوم غذائي كافٍ = حماية</span><span class="de">Ausreichend Nahrungscalcium = Schutz</span></h4>
+          <p class="ar">عند وجود كمية كافية من الكالسيوم في الأمعاء، يرتبط بالأوكسالات ويُطرح خارج الجسم مع البراز بدل أن يُمتص ويدخل الكلى.<br><br><strong>الكالسيوم الغذائي (من الطعام أو الماء الكلسي) لا يزيد من حصى الكلى، بل قد يقللها.</strong><br><br>دراسة NEJM (Curhan et al., 1993): الأشخاص الذين يستهلكون كميات منخفضة من الكالسيوم الغذائي لديهم خطر أعلى لتكوّن الحصى بنسبة 44%.</p>
+          <p class="de">Bei ausreichend Calcium im Darm bindet es an Oxalat und wird über den Stuhl ausgeschieden, statt in die Nieren zu gelangen.<br><br><strong>Nahrungscalcium erhöht das Nierensteinrisiko NICHT — es kann es sogar senken.</strong><br><br>NEJM-Studie (Curhan et al., 1993): Personen mit niedriger Calciumzufuhr hatten ein 44% höheres Steinrisiko.</p>
+        </div>
+        <div class="oxalate-scenario bad" onclick="toggleOxScenario(this)">
+          <div class="oxalate-icon">⚠️</div>
+          <h4><span class="ar">نقص الكالسيوم = خطر حصى</span><span class="de">Calciummangel = Steinrisiko</span></h4>
+          <p class="ar">أغلب حصى الكلى تتكوّن من أوكسالات الكالسيوم (Calciumoxalat).<br>عند نقص الكالسيوم في الأمعاء، يُمتص الأوكسالات ويصل إلى الكلى حيث يرتبط بالكالسيوم هناك ويشكل حصى.<br><br><strong>نصائح للوقاية:</strong><br>• تناول الكالسيوم الطبيعي مع الأطعمة الغنية بالأوكسالات (مثل كوب لبن مع السبانخ)<br>• سلق الخضروات يزيل 30–50% من الأوكسالات القابلة للذوبان<br>• شرب كميات كافية من الماء<br>• تقليل استهلاك الأوكسالات لمن لديهم تاريخ مع حصى الكلى</p>
+          <p class="de">Die meisten Nierensteine bestehen aus Calciumoxalat.<br>Bei Calciummangel im Darm wird Oxalat absorbiert und gelangt in die Nieren, wo es sich mit Calcium verbindet und Steine bildet.<br><br><strong>Präventionstipps:</strong><br>• Natürliches Calcium mit oxalatreichen Lebensmitteln kombinieren (z.B. Joghurt mit Spinat)<br>• Gemüse kochen entfernt 30–50% des löslichen Oxalats<br>• Ausreichend Wasser trinken<br>• Oxalatkonsum reduzieren bei Steinhistorie</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       7. MIND MAP
+  ══════════════════════════════════════ -->
+  <section id="sec-mindmap">
+    <h2 class="section-title">
+      🧠
+      <span class="ar">خريطة ذهنية — المغذيات الصغرى</span>
+      <span class="de">Mindmap — Mikronährstoffe</span>
+    </h2>
+    <p style="font-size:12px; color:var(--text-soft); margin-bottom:16px;">
+      <span class="ar">اضغط على أي عنصر لإظهار التفاصيل</span>
+      <span class="de">Klicke auf ein Element für Details</span>
+    </p>
+    <div class="mindmap-tree">
+      <div class="mm-wrapper">
+        <div class="mm-center"><span class="ar">المغذيات الصغرى</span><span class="de">Mikronährstoffe</span></div>
+        <div class="mm-vline"></div>
+        <div class="mm-level1">
+
+          <div class="mm-branch" onclick="this.classList.toggle('open')">
+            <div class="mm-l1 gold"><span class="ar">🧈 ذوابة بالدسم<br>(ADEK)</span><span class="de">🧈 Fettlöslich<br>(ADEK)</span></div>
+            <div class="mm-children">
+              <div class="mm-cline"></div><div class="mm-l2">Vitamin A</div>
+              <div class="mm-cline"></div><div class="mm-l2">Vitamin D</div>
+              <div class="mm-cline"></div><div class="mm-l2">Vitamin E</div>
+              <div class="mm-cline"></div><div class="mm-l2">Vitamin K1 / K2</div>
+            </div>
+          </div>
+
+          <div class="mm-branch" onclick="this.classList.toggle('open')">
+            <div class="mm-l1 gold"><span class="ar">💧 ذوابة بالماء</span><span class="de">💧 Wasserlöslich</span></div>
+            <div class="mm-children">
+              <div class="mm-cline"></div><div class="mm-l2">Vitamin C</div>
+              <div class="mm-cline"></div><div class="mm-l2"><span class="ar">مجموعة B</span><span class="de">B-Komplex</span></div>
+            </div>
+          </div>
+
+          <div class="mm-branch" onclick="this.classList.toggle('open')">
+            <div class="mm-l1 green"><span class="ar">⚙️ معادن</span><span class="de">⚙️ Mineralien</span></div>
+            <div class="mm-children">
+              <div class="mm-cline"></div><div class="mm-l2"><span class="ar">الكالسيوم</span><span class="de">Calcium</span></div>
+              <div class="mm-cline"></div><div class="mm-l2"><span class="ar">المغنيسيوم</span><span class="de">Magnesium</span></div>
+              <div class="mm-cline"></div><div class="mm-l2"><span class="ar">الحديد</span><span class="de">Eisen</span></div>
+              <div class="mm-cline"></div><div class="mm-l2"><span class="ar">الزنك</span><span class="de">Zink</span></div>
+            </div>
+          </div>
+
+          <div class="mm-branch" onclick="this.classList.toggle('open')">
+            <div class="mm-l1 green"><span class="ar">🔬 عناصر نادرة</span><span class="de">🔬 Spurenelemente</span></div>
+            <div class="mm-children">
+              <div class="mm-cline"></div><div class="mm-l2"><span class="ar">اليود</span><span class="de">Jod</span></div>
+              <div class="mm-cline"></div><div class="mm-l2"><span class="ar">السيلينيوم</span><span class="de">Selen</span></div>
+              <div class="mm-cline"></div><div class="mm-l2"><span class="ar">الكروم</span><span class="de">Chrom</span></div>
+              <div class="mm-cline"></div><div class="mm-l2">CoQ10</div>
+            </div>
+          </div>
+
+          <div class="mm-branch" onclick="this.classList.toggle('open')">
+            <div class="mm-l1 red"><span class="ar">⚠️ تداخلات</span><span class="de">⚠️ Wechselwirkungen</span></div>
+            <div class="mm-children">
+              <div class="mm-cline"></div><div class="mm-l2"><span class="ar">حديد ≠ كالسيوم</span><span class="de">Eisen ≠ Calcium</span></div>
+              <div class="mm-cline"></div><div class="mm-l2"><span class="ar">Mg ≠ Ca ≠ Fe</span><span class="de">Mg ≠ Ca ≠ Fe</span></div>
+              <div class="mm-cline"></div><div class="mm-l2"><span class="ar">قهوة ≠ حديد</span><span class="de">Kaffee ≠ Eisen</span></div>
+              <div class="mm-cline"></div><div class="mm-l2"><span class="ar">C + حديد ✅</span><span class="de">C + Eisen ✅</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       8. QUIZ
+  ══════════════════════════════════════ -->
+  <section id="sec-quiz">
+    <h2 class="section-title">
+      📝
+      <span class="ar">اختبر معلوماتك</span>
+      <span class="de">Teste dein Wissen</span>
+    </h2>
+    <div class="quiz-container">
+
+      <!-- Q1 -->
+      <div class="quiz-q" data-correct="2">
+        <h4><span class="ar">1. ما أفضل وقت لتناول مكملات الحديد؟</span><span class="de">1. Wann nimmt man Eisen-Supplemente am besten ein?</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">مع القهوة صباحاً</span><span class="de">Mit Kaffee morgens</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">مع الكالسيوم ظهراً</span><span class="de">Mit Calcium mittags</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">على معدة فارغة مع فيتامين C</span><span class="de">Nüchtern mit Vitamin C</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,3)"><span class="ar">مساءً قبل النوم</span><span class="de">Abends vor dem Schlafen</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">✅ صحيح! الحديد يُمتص أفضل على معدة فارغة مع فيتامين C (مثل عصير البرتقال). القهوة والشاي والكالسيوم تعيق امتصاصه.</span><span class="de">✅ Richtig! Eisen wird nüchtern mit Vitamin C (z.B. Orangensaft) am besten aufgenommen. Kaffee, Tee und Calcium hemmen die Aufnahme.</span></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="quiz-q" data-correct="1">
+        <h4><span class="ar">2. الفيتامينات الذوّابة بالدسم هي:</span><span class="de">2. Die fettlöslichen Vitamine sind:</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)">C, B1, B12</div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)">A, D, E, K</div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)">A, C, D, B6</div>
+          <div class="quiz-opt" onclick="quizAnswer(this,3)">D, B12, E, K</div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">✅ صحيح! ADEK — تحتاج إلى دهون ليتم امتصاصها. تناولها مع وجبة تحتوي على زيت الزيتون أو المكسرات.</span><span class="de">✅ Richtig! ADEK — sie benötigen Fett zur Absorption. Mit einer fetthaltigen Mahlzeit einnehmen.</span></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="quiz-q" data-correct="0">
+        <h4><span class="ar">3. الكالسيوم الغذائي (من الطعام أو الماء) وحصى الكلى:</span><span class="de">3. Nahrungscalcium und Nierensteine:</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">يقلل خطر الحصى لأنه يربط الأوكسالات في الأمعاء</span><span class="de">Reduziert Steinrisiko durch Oxalatbindung im Darm</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">يزيد خطر الحصى دائماً</span><span class="de">Erhöht das Steinrisiko immer</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">لا علاقة له بالحصى</span><span class="de">Hat keinen Zusammenhang mit Steinen</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">✅ صحيح! الكالسيوم الغذائي يرتبط بالأوكسالات في الأمعاء ويُطرح مع البراز، مما يمنع وصوله للكلى. دراسة NEJM أكدت أن نقص الكالسيوم يزيد خطر الحصى بنسبة 44%.</span><span class="de">✅ Richtig! Nahrungscalcium bindet Oxalat im Darm und wird ausgeschieden. Die NEJM-Studie zeigte, dass niedrige Calciumzufuhr das Steinrisiko um 44% erhöht.</span></div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="quiz-q" data-correct="2">
+        <h4><span class="ar">4. أفضل وقت لتناول المغنيسيوم:</span><span class="de">4. Beste Einnahmezeit für Magnesium:</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">صباحاً مع الحديد</span><span class="de">Morgens mit Eisen</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">ظهراً مع الكالسيوم</span><span class="de">Mittags mit Calcium</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">مساءً قبل النوم مع فيتامين B6</span><span class="de">Abends vor dem Schlafen mit Vitamin B6</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">✅ صحيح! المغنيسيوم يساعد على الاسترخاء ويدعم العضلات. فيتامين B6 يعزز امتصاصه. لا يجب تناوله مع الكالسيوم أو الحديد.</span><span class="de">✅ Richtig! Magnesium fördert Entspannung und unterstützt die Muskulatur. Vitamin B6 verbessert die Aufnahme. Nicht mit Calcium oder Eisen kombinieren.</span></div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="quiz-q" data-correct="1">
+        <h4><span class="ar">5. نقص اليود المزمن قد يؤدي إلى:</span><span class="de">5. Chronischer Jodmangel kann führen zu:</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">فقر الدم</span><span class="de">Blutarmut</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">تضخم الغدة الدرقية (Kropf / Goiter)</span><span class="de">Schilddrüsenvergrößerung (Kropf/Goiter)</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">هشاشة العظام</span><span class="de">Osteoporose</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">✅ صحيح! النقص المزمن في اليود قد يؤدي إلى تضخم الغدة الدرقية (Kropf / Goiter) أو قصورها.</span><span class="de">✅ Richtig! Chronischer Jodmangel kann zu Schilddrüsenvergrößerung (Kropf/Goiter) oder Unterfunktion führen.</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FOOTER NAV -->
+  <div class="footer-nav">
+    <a href="chapter3-macro-nutrients.html">
+      <span class="ar">→ الفصل الثالث: المغذيات الكبرى</span>
+      <span class="de">→ Kapitel 3: Makronährstoffe</span>
+    </a>
+    <a href="../index.html" class="primary">
+      <span class="ar">🏠 الرئيسية</span>
+      <span class="de">🏠 Startseite</span>
+    </a>
+    <a href="chapter5-liquids-proteins.html">
+      <span class="ar">← الفصل الخامس: السوائل والبروتينات</span>
+      <span class="de">← Kapitel 5: Flüssigkeiten & Proteine</span>
+    </a>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  // ═══ PASSWORD GATE ═══
+  const PW_HASH = '59f49e6495c6d3eb3ccae62a649e836575fc344d12bf43797f779b43f9156ee6';
+  (function(){
+    if(sessionStorage.getItem('hc-auth') === '1') {
+      document.getElementById('pwOverlay').classList.add('hidden');
+    }
+  })();
+  async function checkPw(){
+    const pw = document.getElementById('pwInput').value;
+    const enc = new TextEncoder();
+    const hash = await crypto.subtle.digest('SHA-256', enc.encode(pw));
+    const hex = Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    if(hex === PW_HASH){
+      sessionStorage.setItem('hc-auth','1');
+      document.getElementById('pwOverlay').classList.add('hidden');
+    } else {
+      document.getElementById('pwError').style.display='block';
+      document.getElementById('pwInput').value='';
+      document.getElementById('pwInput').focus();
+    }
+  }
+  document.getElementById('pwInput').addEventListener('keydown',function(e){ if(e.key==='Enter') checkPw(); });
+
+  // ═══ THEME ═══
+  function setTheme(name, el) {
+    document.body.setAttribute('data-theme', name);
+    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+    localStorage.setItem('theme', name);
+  }
+  (function(){
+    const t = localStorage.getItem('theme');
+    if(t){
+      document.body.setAttribute('data-theme', t);
+      const s = document.querySelector('.s-'+t);
+      if(s){ document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('active')); s.classList.add('active'); }
+    }
+  })();
+
+  // ═══ LANGUAGE ═══
+  let lang = 'ar';
+  function toggleLang(){
+    lang = lang === 'ar' ? 'de' : 'ar';
+    document.querySelectorAll('.ar').forEach(el => el.style.display = lang==='ar' ? '' : 'none');
+    document.querySelectorAll('.de').forEach(el => el.style.display = lang==='de' ? '' : 'none');
+    document.getElementById('langBtn').textContent = lang==='ar' ? 'DE' : 'AR';
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', lang==='ar' ? 'rtl' : 'ltr');
+  }
+
+  // ═══ SCROLL PROGRESS ═══
+  window.addEventListener('scroll', function(){
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+    document.getElementById('scrollProgress').style.width = pct + '%';
+  });
+
+  // ═══ PARTICLES ═══
+  (function(){
+    const canvas = document.getElementById('particlesCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    for(let i=0; i<50; i++){
+      particles.push({
+        x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+        vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3,
+        r: Math.random()*2+0.5, o: Math.random()*0.3+0.1
+      });
+    }
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#c9a84c';
+      particles.forEach(p=>{
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0) p.x=canvas.width; if(p.x>canvas.width) p.x=0;
+        if(p.y<0) p.y=canvas.height; if(p.y>canvas.height) p.y=0;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = accent; ctx.globalAlpha = p.o; ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  // ═══ SIDE NAV DOTS ═══
+  const sections = [
+    {id:'sec-intro',ar:'المقدمة',de:'Einführung'},
+    {id:'sec-nutrients',ar:'البطاقات',de:'Karten'},
+    {id:'sec-timing',ar:'التوقيت',de:'Timing'},
+    {id:'sec-solubility',ar:'الذوبانية',de:'Löslichkeit'},
+    {id:'sec-iron',ar:'الحديد',de:'Eisen'},
+    {id:'sec-oxalate',ar:'الأوكسالات',de:'Oxalat'},
+    {id:'sec-mindmap',ar:'خريطة ذهنية',de:'Mindmap'},
+    {id:'sec-quiz',ar:'اختبار',de:'Quiz'}
+  ];
+  const sideNav = document.getElementById('sideNav');
+  sections.forEach(s=>{
+    const dot = document.createElement('div');
+    dot.className = 'side-dot';
+    dot.innerHTML = '<div class="dot-label"><span class="ar">'+s.ar+'</span><span class="de" style="display:none">'+s.de+'</span></div>';
+    dot.onclick = ()=> document.getElementById(s.id).scrollIntoView({behavior:'smooth'});
+    dot.dataset.section = s.id;
+    sideNav.appendChild(dot);
+  });
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        document.querySelectorAll('.side-dot').forEach(d=>d.classList.remove('active'));
+        const dot = sideNav.querySelector('[data-section="'+e.target.id+'"]');
+        if(dot) dot.classList.add('active');
+      }
+    });
+  },{threshold:0.3});
+  sections.forEach(s=>{
+    const el = document.getElementById(s.id);
+    if(el) observer.observe(el);
+  });
+
+  // ═══ NUTRIENT CARDS ═══
+  function toggleNutrient(card){
+    const wasOpen = card.classList.contains('open');
+    // close all
+    document.querySelectorAll('.nutrient-card').forEach(c=>c.classList.remove('open'));
+    if(!wasOpen) card.classList.add('open');
+  }
+
+  // ═══ FAT/WATER COMPARISON INFO ═══
+  const compData = {
+    a:{ar:'فيتامين A — يحتاج دهون للامتصاص. الريتينول الزائد سام للكبد. البيتا كاروتين آمن أكثر.',de:'Vitamin A — Benötigt Fett. Überschüssiges Retinol ist lebertoxisch. Beta-Carotin ist sicherer.'},
+    d:{ar:'فيتامين D — يؤخذ مع K2 والكالسيوم. صباحاً أو ظهراً مع دهون. لا يؤخذ بجرعة عالية مساءً.',de:'Vitamin D — Mit K2 und Calcium. Morgens/mittags mit Fett. Keine hohe Dosis abends.'},
+    e:{ar:'فيتامين E — مضاد أكسدة. يُمتص مع الدهون وأحماض أوميغا-3.',de:'Vitamin E — Antioxidans. Wird mit Fett und Omega-3-Fettsäuren aufgenommen.'},
+    k:{ar:'فيتامين K — K1 من الخضار الورقية، K2 من مصادر حيوانية ومخمرة. يدعم تخثر الدم والعظام.',de:'Vitamin K — K1 aus Blattgemüse, K2 aus tierischen/fermentierten Quellen. Für Gerinnung & Knochen.'},
+    c:{ar:'فيتامين C — صباحاً أو ظهراً. يعزز امتصاص الحديد. مضاد أكسدة قوي. يقاوم الشيخوخة الضوئية.',de:'Vitamin C — Morgens/mittags. Fördert Eisenaufnahme. Starkes Antioxidans. Anti-Photoaging.'},
+    b:{ar:'مجموعة B — صباحاً أو ظهراً مع الطعام. تحفز التمثيل الغذائي. لا تؤخذ على معدة فارغة.',de:'B-Komplex — Morgens/mittags mit Essen. Regt Stoffwechsel an. Nicht nüchtern einnehmen.'}
+  };
+  function showCompInfo(el,key){
+    document.querySelectorAll('.comp-pill').forEach(p=>p.classList.remove('active'));
+    el.classList.add('active');
+    const d = compData[key];
+    const panel = el.closest('.comp-panel');
+    const info = panel.querySelector('.comp-info');
+    info.innerHTML = '<span class="ar">'+d.ar+'</span><span class="de"'+(lang==='de'?'':' style="display:none"')+'>'+d.de+'</span>';
+    if(lang==='de'){ info.querySelector('.ar').style.display='none'; info.querySelector('.de').style.display=''; }
+  }
+
+  // ═══ OXALATE TOGGLE ═══
+  function toggleOxScenario(el){
+    document.querySelectorAll('.oxalate-scenario').forEach(s=>s.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  // ═══ IRON BARS ANIMATION ═══
+  const ironObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        document.getElementById('hemeBar').style.width='75%';
+        document.getElementById('nonHemeBar').style.width='20%';
+        ironObs.disconnect();
+      }
+    });
+  },{threshold:0.3});
+  const ironSec = document.getElementById('sec-iron');
+  if(ironSec) ironObs.observe(ironSec);
+
+  // ═══ QUIZ ═══
+  function quizAnswer(optEl, idx){
+    const q = optEl.closest('.quiz-q');
+    if(q.classList.contains('answered')) return;
+    q.classList.add('answered');
+    const correct = parseInt(q.dataset.correct);
+    const opts = q.querySelectorAll('.quiz-opt');
+    opts.forEach((o,i)=>{
+      o.classList.add('disabled');
+      if(i===correct) o.classList.add('correct');
+      else if(i===idx && idx!==correct) o.classList.add('wrong');
+    });
+    const fb = q.querySelector('.quiz-feedback');
+    if(idx===correct){
+      fb.style.background='var(--green-soft)'; fb.style.color='var(--green)';
+    } else {
+      fb.style.background='var(--red-soft)'; fb.style.color='var(--red)';
+      fb.innerHTML = '<span class="ar">❌ خطأ — الإجابة الصحيحة موضحة باللون الأخضر</span><span class="de">❌ Falsch — Die richtige Antwort ist grün markiert</span>';
+      if(lang==='de'){ fb.querySelector('.ar').style.display='none'; } else { fb.querySelector('.de').style.display='none'; }
+    }
+    fb.classList.add('show');
+  }
+</script>
+</body>
+</html>
