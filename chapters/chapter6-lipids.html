@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الفصل السادس – الدهون | Lipide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&subset=arabic,latin&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d0d0d; --surface:#1a1a1a; --surface2:#232323;
+    --accent:#c9a84c; --accent2:#e8c97a; --accent-dim:#7a5f28;
+    --text:#f0ead6; --text-soft:#a89870;
+    --red:#c0392b; --red-soft:#2a1010;
+    --green:#27ae60; --green-soft:#0e2418;
+    --border:#2e2e2e; --radius:14px; --shadow:0 8px 32px rgba(0,0,0,0.5);
+  }
+  [data-theme="teal"] {
+    --bg:#f0f8f7; --surface:#ffffff; --surface2:#e6f4f1;
+    --accent:#0d7377; --accent2:#14a085; --accent-dim:#b2dfdb;
+    --text:#1a2e2d; --text-soft:#4a7c79; --border:#b2dfdb;
+    --red:#c0392b; --red-soft:#fdecea; --green:#1a7a4a; --green-soft:#e8f5e9;
+  }
+  [data-theme="purple"] {
+    --bg:#0f0c1e; --surface:#1a1530; --surface2:#221d3a;
+    --accent:#9b59b6; --accent2:#c39bd3; --accent-dim:#4a2060;
+    --text:#ede0f5; --text-soft:#9b8ab0; --border:#2d2545;
+    --red:#e74c3c; --red-soft:#2a0e0e; --green:#27ae60; --green-soft:#0e2418;
+  }
+  [data-theme="emerald"] {
+    --bg:#faf8f2; --surface:#ffffff; --surface2:#f2ede0;
+    --accent:#2d6a4f; --accent2:#40916c; --accent-dim:#b7e4c7;
+    --text:#1b2d23; --text-soft:#52796f; --border:#b7e4c7;
+    --red:#b5451b; --red-soft:#fdecea; --green:#1b5e20; --green-soft:#e8f5e9;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Cairo','Tahoma','Arial',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background .3s,color .3s; overflow-x:hidden; }
+  .ar, [lang="ar"], [dir="rtl"] { letter-spacing: 0 !important; }
+
+  /* PASSWORD GATE */
+  .pw-overlay { position:fixed; inset:0; background:var(--bg); z-index:10000; display:flex; align-items:center; justify-content:center; transition:opacity .5s; }
+  .pw-overlay.hidden { opacity:0; pointer-events:none; }
+  .pw-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:40px 30px; text-align:center; max-width:360px; width:90%; box-shadow:var(--shadow); }
+  .pw-box input { width:100%; padding:14px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-family:'Cairo',sans-serif; font-size:16px; text-align:center; outline:none; margin-bottom:16px; }
+  .pw-box input:focus { border-color:var(--accent); }
+  .pw-box button { width:100%; padding:14px; background:var(--accent); color:var(--bg); border:none; border-radius:10px; font-family:'Cairo',sans-serif; font-size:16px; font-weight:800; cursor:pointer; transition:.2s; }
+  .pw-box button:hover { background:var(--accent2); }
+  .pw-error { color:var(--red); font-size:13px; display:none; margin-top:8px; }
+
+  /* SCROLL PROGRESS */
+  .scroll-progress { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent2)); z-index:9999; width:0; transition:width .1s; }
+
+  /* PARTICLES */
+  .particles-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+  /* SIDE NAV DOTS */
+  .side-nav { position:fixed; right:20px; top:50%; transform:translateY(-50%); z-index:998; display:flex; flex-direction:column; gap:12px; }
+  [dir="ltr"] .side-nav { right:auto; left:20px; }
+  .side-dot { width:12px; height:12px; border-radius:50%; background:var(--border); cursor:pointer; transition:.3s; position:relative; }
+  .side-dot.active { background:var(--accent); box-shadow:0 0 10px var(--accent); }
+  .side-dot:hover { background:var(--accent-dim); transform:scale(1.3); }
+  .side-dot .dot-label { position:absolute; right:20px; top:50%; transform:translateY(-50%); background:var(--surface); color:var(--text); font-size:11px; padding:4px 10px; border-radius:6px; white-space:nowrap; opacity:0; pointer-events:none; transition:.2s; border:1px solid var(--border); }
+  [dir="ltr"] .side-dot .dot-label { right:auto; left:20px; }
+  .side-dot:hover .dot-label { opacity:1; }
+
+  /* THEME BAR */
+  .theme-bar { position:fixed; top:16px; left:16px; z-index:999; display:flex; gap:8px; align-items:center; background:var(--surface); border:1px solid var(--border); padding:8px 12px; border-radius:40px; box-shadow:var(--shadow); }
+  .theme-bar span { font-size:11px; color:var(--text-soft); margin-left:4px; }
+  .swatch { width:22px; height:22px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:.2s; }
+  .swatch:hover, .swatch.active { border-color:var(--text); transform:scale(1.2); }
+  .swatch.s-dark    { background:radial-gradient(circle at 40% 40%,#c9a84c,#0d0d0d); }
+  .swatch.s-teal    { background:radial-gradient(circle at 40% 40%,#14a085,#f0f8f7); }
+  .swatch.s-purple  { background:radial-gradient(circle at 40% 40%,#9b59b6,#0f0c1e); }
+  .swatch.s-emerald { background:radial-gradient(circle at 40% 40%,#2d6a4f,#faf8f2); }
+
+  /* LANG BTN */
+  .lang-btn { position:fixed; top:16px; right:16px; z-index:999; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-size:13px; font-weight:700; padding:6px 18px; border-radius:40px; cursor:pointer; transition:.2s; box-shadow:var(--shadow); }
+  .lang-btn:hover { background:var(--accent); color:var(--bg); }
+
+  /* HEADER */
+  header { text-align:center; padding:60px 20px 40px; background:linear-gradient(160deg,var(--surface) 0%,var(--bg) 100%); border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%,var(--accent-dim),transparent); opacity:.25; pointer-events:none; }
+  .chapter-tag { display:inline-block; font-size:12px; font-weight:700; color:var(--accent); border:1px solid var(--accent); padding:4px 16px; border-radius:40px; margin-bottom:16px; }
+  header h1 { font-size:clamp(28px,5vw,52px); font-weight:900; line-height:1.2; }
+  header h1 .accent { color:var(--accent); }
+  .subtitle { color:var(--text-soft); font-size:15px; margin-top:10px; }
+
+  /* LAYOUT */
+  .container { max-width:1100px; margin:0 auto; padding:40px 20px 80px; position:relative; z-index:1; }
+  section { margin-bottom:60px; scroll-margin-top:30px; }
+  h2.section-title { font-size:22px; font-weight:800; color:var(--accent); border-right:4px solid var(--accent); padding-right:14px; margin-bottom:24px; display:flex; align-items:center; gap:10px; }
+  [dir="ltr"] h2.section-title { border-right:none; border-left:4px solid var(--accent); padding-right:0; padding-left:14px; }
+
+  /* CARDS */
+  .cards { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px; transition:transform .2s,box-shadow .2s,border-color .2s; }
+  .card:hover { transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent-dim); }
+  .card-icon { font-size:28px; margin-bottom:10px; }
+  .card h3 { font-size:15px; font-weight:700; margin-bottom:6px; color:var(--accent2); }
+  .card p { font-size:13px; color:var(--text-soft); line-height:1.7; }
+
+  /* INFO BOX */
+  .info-box { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; }
+  .info-box .lbl { font-size:11px; font-weight:800; color:var(--accent); margin-bottom:8px; }
+  .info-box p { font-size:13px; line-height:1.9; color:var(--text-soft); }
+  .info-box p strong { color:var(--text); }
+
+  /* QUOTE BOX */
+  .quote-box { border-right:4px solid var(--accent); padding:16px 20px; background:var(--surface2); border-radius:0 10px 10px 0; margin:20px 0; font-size:14px; line-height:1.8; }
+  [dir="ltr"] .quote-box { border-right:none; border-left:4px solid var(--accent); }
+
+  /* INFO PILLS */
+  .info-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+  .info-pill { flex:1; min-width:90px; background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:14px 10px; text-align:center; }
+  .info-pill .val { font-size:26px; font-weight:900; color:var(--accent); }
+  .info-pill .key { font-size:11px; color:var(--text-soft); margin-top:4px; line-height:1.4; }
+
+  /* DIVIDER */
+  .divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent-dim),transparent); margin:40px 0; }
+
+  /* DE hidden by default */
+  .de { display:none; }
+
+  /* TABLE */
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  thead tr { background:var(--accent); color:var(--bg); }
+  thead th { padding:12px 16px; text-align:right; font-weight:700; }
+  [dir="ltr"] thead th { text-align:left; }
+  tbody tr { border-bottom:1px solid var(--border); transition:.15s; }
+  tbody tr:hover { background:var(--surface2); }
+  tbody td { padding:11px 16px; color:var(--text); }
+  tbody td:first-child { color:var(--accent2); font-weight:600; }
+
+  /* ═══ FAT TYPE CARDS ═══ */
+  .fat-type-grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); }
+  .fat-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; cursor:pointer; transition:.3s; }
+  .fat-card:hover { transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent-dim); }
+  .fat-card-header { padding:18px 20px; display:flex; align-items:center; gap:14px; }
+  .fat-icon { font-size:32px; width:54px; height:54px; display:flex; align-items:center; justify-content:center; background:var(--surface2); border-radius:12px; flex-shrink:0; }
+  .fat-card-header h3 { font-size:15px; font-weight:700; color:var(--accent2); }
+  .fat-card-header .fat-sub { font-size:11px; color:var(--text-soft); margin-top:2px; }
+  .fat-expand { font-size:18px; color:var(--accent); margin-right:auto; margin-left:8px; transition:.3s; }
+  [dir="ltr"] .fat-expand { margin-right:8px; margin-left:auto; }
+  .fat-card.open .fat-expand { transform:rotate(180deg); }
+  .fat-detail { max-height:0; overflow:hidden; transition:max-height .5s ease; }
+  .fat-card.open .fat-detail { max-height:800px; }
+  .fat-detail-inner { padding:0 20px 20px; font-size:13px; line-height:1.9; color:var(--text-soft); border-top:1px solid var(--border); }
+  .fat-detail-inner strong { color:var(--text); }
+  .fat-tag { display:inline-block; padding:3px 10px; border-radius:20px; font-size:10px; font-weight:700; margin:2px; }
+  .tag-pro { background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+  .tag-con { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+  .tag-info { background:rgba(52,152,219,0.15); color:#3498db; border:1px solid rgba(52,152,219,0.3); }
+
+  /* ═══ BALANCE PANEL (Saturated Pros/Cons) ═══ */
+  .balance-container { display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); }
+  @media(max-width:600px){ .balance-container { grid-template-columns:1fr; } }
+  .balance-side { padding:24px; }
+  .balance-side.pros { background:var(--green-soft); border-left:1px solid var(--border); }
+  [dir="ltr"] .balance-side.pros { border-left:none; border-right:1px solid var(--border); }
+  .balance-side.cons { background:var(--red-soft); }
+  .balance-side h3 { font-size:16px; font-weight:800; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+  .balance-side.pros h3 { color:var(--green); }
+  .balance-side.cons h3 { color:var(--red); }
+  .balance-item { padding:10px 14px; border-radius:10px; background:var(--surface); border:1px solid var(--border); margin-bottom:8px; font-size:12px; line-height:1.8; color:var(--text-soft); transition:.2s; }
+  .balance-item:hover { border-color:var(--accent-dim); transform:translateX(-3px); }
+  .balance-item strong { color:var(--text); }
+
+  /* ═══ OIL BOTTLES ═══ */
+  .oil-compare { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  @media(max-width:700px){ .oil-compare { grid-template-columns:1fr; } }
+  .oil-bottle { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; text-align:center; cursor:pointer; transition:.3s; position:relative; overflow:hidden; }
+  .oil-bottle:hover { transform:translateY(-4px); box-shadow:var(--shadow); }
+  .oil-bottle.active { border-color:var(--accent); background:var(--surface2); }
+  .oil-bottle .bottle-svg { font-size:52px; margin-bottom:12px; display:block; }
+  .oil-bottle h4 { font-size:15px; font-weight:800; color:var(--accent2); margin-bottom:8px; }
+  .oil-bottle .oil-subtitle { font-size:11px; color:var(--text-soft); margin-bottom:6px; }
+  .oil-detail-panel { margin-top:16px; text-align:right; font-size:12px; color:var(--text-soft); line-height:1.9; display:none; }
+  [dir="ltr"] .oil-detail-panel { text-align:left; }
+  .oil-bottle.active .oil-detail-panel { display:block; }
+  .oil-detail-panel strong { color:var(--text); }
+  .oil-badge { display:inline-block; padding:4px 12px; border-radius:20px; font-size:10px; font-weight:700; margin:4px 2px; }
+  .badge-green { background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+  .badge-red { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+  .badge-info { background:rgba(52,152,219,0.12); color:#3498db; border:1px solid rgba(52,152,219,0.3); }
+
+  /* ═══ OMEGA BALANCE SCALE ═══ */
+  .omega-scale { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px; }
+  .scale-visual { display:flex; align-items:flex-end; justify-content:center; gap:0; margin-bottom:24px; height:120px; position:relative; }
+  .scale-beam { position:absolute; bottom:40px; width:80%; height:4px; background:var(--accent); border-radius:2px; transform:rotate(-3deg); transition:transform .5s; }
+  .scale-beam.balanced { transform:rotate(0deg); }
+  .scale-pivot { position:absolute; bottom:20px; width:20px; height:20px; background:var(--accent); transform:rotate(45deg); border-radius:3px; }
+  .scale-base { position:absolute; bottom:0; width:100px; height:12px; background:var(--accent-dim); border-radius:6px; }
+  .scale-pan { position:absolute; bottom:50px; width:100px; text-align:center; }
+  .scale-pan.left { left:5%; }
+  .scale-pan.right { right:5%; }
+  .scale-pan .pan-label { font-size:11px; font-weight:800; color:var(--accent); margin-bottom:4px; }
+  .scale-pan .pan-icon { font-size:28px; }
+  .omega-info-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:600px){ .omega-info-grid { grid-template-columns:1fr; } }
+  .omega-panel { padding:20px; border-radius:12px; background:var(--surface2); border:1px solid var(--border); }
+  .omega-panel h4 { font-size:15px; font-weight:800; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+  .omega-panel.omega3 h4 { color:var(--green); }
+  .omega-panel.omega6 h4 { color:#e67e22; }
+  .omega-panel p { font-size:12px; color:var(--text-soft); line-height:1.9; }
+  .omega-panel strong { color:var(--text); }
+  .omega-source { display:inline-block; padding:4px 12px; border-radius:20px; font-size:10px; font-weight:600; margin:3px; background:var(--surface); border:1px solid var(--border); color:var(--text-soft); }
+
+  /* ═══ SMOKE POINT CHART ═══ */
+  .smoke-chart { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .smoke-bars { display:flex; flex-direction:column; gap:14px; }
+  .smoke-row { display:grid; grid-template-columns:120px 1fr 60px; gap:12px; align-items:center; }
+  @media(max-width:500px){ .smoke-row { grid-template-columns:80px 1fr 45px; } }
+  .smoke-label { font-size:12px; font-weight:700; color:var(--text); text-align:right; }
+  [dir="ltr"] .smoke-label { text-align:left; }
+  .smoke-track { height:28px; background:var(--surface2); border-radius:14px; overflow:hidden; position:relative; }
+  .smoke-fill { height:100%; border-radius:14px; transition:width 1.2s ease; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; font-size:10px; font-weight:800; color:var(--bg); }
+  [dir="ltr"] .smoke-fill { justify-content:flex-start; padding-right:0; padding-left:8px; }
+  .smoke-fill.high { background:linear-gradient(90deg,#e74c3c,#e67e22); }
+  .smoke-fill.medium { background:linear-gradient(90deg,#f39c12,#f1c40f); }
+  .smoke-fill.low { background:linear-gradient(90deg,var(--green),#2ecc71); }
+  .smoke-temp { font-size:13px; font-weight:900; color:var(--accent); }
+  .smoke-legend { display:flex; gap:16px; flex-wrap:wrap; margin-top:16px; justify-content:center; }
+  .smoke-legend-item { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--text-soft); }
+  .smoke-legend-dot { width:12px; height:12px; border-radius:50%; }
+
+  /* ═══ FAT SOURCES GALLERY ═══ */
+  .source-gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px; }
+  .source-card { perspective:600px; height:200px; cursor:pointer; }
+  .source-inner { position:relative; width:100%; height:100%; transition:transform .6s; transform-style:preserve-3d; }
+  .source-card:hover .source-inner, .source-card.flipped .source-inner { transform:rotateY(180deg); }
+  [dir="rtl"] .source-card:hover .source-inner, [dir="rtl"] .source-card.flipped .source-inner { transform:rotateY(-180deg); }
+  .source-front, .source-back { position:absolute; width:100%; height:100%; backface-visibility:hidden; border-radius:var(--radius); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px; text-align:center; }
+  .source-front { background:var(--surface); border:1px solid var(--border); }
+  .source-front .food-emoji { font-size:48px; margin-bottom:10px; }
+  .source-front h4 { font-size:13px; font-weight:700; color:var(--accent2); }
+  .source-back { background:var(--surface2); border:1px solid var(--accent-dim); transform:rotateY(180deg); }
+  [dir="rtl"] .source-back { transform:rotateY(-180deg); }
+  .source-back .back-type { font-size:10px; font-weight:800; color:var(--accent); margin-bottom:6px; padding:2px 10px; border:1px solid var(--accent); border-radius:20px; }
+  .source-back p { font-size:11px; color:var(--text-soft); line-height:1.6; }
+  .source-back strong { color:var(--text); }
+
+  /* ═══ MIND MAP ═══ */
+  .mindmap-tree { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px 20px; overflow-x:auto; }
+  .mm-wrapper { display:flex; flex-direction:column; align-items:center; }
+  .mm-center { background:var(--accent); color:var(--bg); font-size:18px; font-weight:900; padding:14px 36px; border-radius:50px; text-align:center; box-shadow:0 0 30px rgba(201,168,76,0.35); }
+  .mm-vline { width:2px; height:24px; background:var(--accent-dim); margin:0 auto; }
+  .mm-level1 { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+  .mm-branch { display:flex; flex-direction:column; align-items:center; cursor:pointer; }
+  .mm-branch::before { content:''; display:block; width:2px; height:18px; background:var(--accent-dim); }
+  .mm-l1 { padding:10px 18px; border-radius:10px; font-size:13px; font-weight:700; text-align:center; min-width:120px; transition:.2s; }
+  .mm-l1:hover { transform:scale(1.05); }
+  .mm-l1.gold { background:var(--surface2); color:var(--accent); border:1px solid var(--accent-dim); }
+  .mm-l1.blue { background:rgba(52,152,219,0.1); color:#3498db; border:1px solid rgba(52,152,219,0.3); }
+  .mm-l1.green { background:var(--green-soft); color:var(--green); border:1px solid var(--green); }
+  .mm-l1.red { background:var(--red-soft); color:var(--red); border:1px solid var(--red); }
+  .mm-children { display:none; flex-direction:column; gap:4px; align-items:center; margin-top:6px; }
+  .mm-branch.open .mm-children { display:flex; }
+  .mm-cline { width:2px; height:10px; background:var(--border); margin:0 auto; }
+  .mm-l2 { padding:5px 12px; border-radius:6px; font-size:11px; font-weight:600; background:var(--surface2); color:var(--text-soft); border:1px solid var(--border); text-align:center; min-width:100px; }
+
+  /* ═══ QUIZ ═══ */
+  .quiz-container { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .quiz-q { margin-bottom:24px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+  .quiz-q:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .quiz-q h4 { font-size:14px; font-weight:700; color:var(--accent2); margin-bottom:12px; }
+  .quiz-opts { display:flex; flex-direction:column; gap:8px; }
+  .quiz-opt { padding:12px 16px; border-radius:10px; background:var(--surface2); border:1px solid var(--border); cursor:pointer; font-size:13px; transition:.2s; user-select:none; }
+  .quiz-opt:hover { border-color:var(--accent-dim); }
+  .quiz-opt.correct { background:var(--green-soft); border-color:var(--green); color:var(--green); }
+  .quiz-opt.wrong { background:var(--red-soft); border-color:var(--red); color:var(--red); }
+  .quiz-opt.disabled { pointer-events:none; opacity:0.6; }
+  .quiz-feedback { margin-top:8px; font-size:12px; line-height:1.7; display:none; padding:10px; border-radius:8px; }
+  .quiz-feedback.show { display:block; }
+
+  /* FOOTER NAV */
+  .footer-nav { display:flex; justify-content:center; align-items:center; gap:20px; flex-wrap:wrap; padding:30px 20px; }
+  .footer-nav a { display:inline-block; padding:12px 30px; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-weight:700; font-size:14px; border-radius:40px; text-decoration:none; transition:.2s; }
+  .footer-nav a:hover { background:var(--accent); color:var(--bg); }
+  .footer-nav a.primary { background:var(--accent); color:var(--bg); }
+  .footer-nav a.primary:hover { background:var(--accent2); }
+
+  /* ═══ INTERACTIVE HIGHLIGHTS ═══ */
+  .highlight-box { background:var(--surface); border:1px solid var(--accent-dim); border-radius:12px; padding:20px; margin-bottom:16px; border-right:3px solid var(--accent); }
+  [dir="ltr"] .highlight-box { border-right:none; border-left:3px solid var(--accent); }
+  .highlight-box p { font-size:13px; line-height:1.9; color:var(--text-soft); }
+  .highlight-box strong { color:var(--text); }
+
+  /* ═══ FORMULA BOX ═══ */
+  .formula-box { background:var(--surface2); border:2px solid var(--accent); border-radius:var(--radius); padding:24px; text-align:center; margin:20px 0; }
+  .formula-box .formula { font-size:clamp(24px,4vw,40px); font-weight:900; color:var(--accent); letter-spacing:4px; }
+  .formula-box .formula-desc { font-size:13px; color:var(--text-soft); margin-top:10px; }
+
+  @media(max-width:700px){
+    .mm-level1 { flex-direction:column; align-items:center; }
+    .side-nav { display:none; }
+    .balance-container { grid-template-columns:1fr; }
+    .oil-compare { grid-template-columns:1fr; }
+    .omega-info-grid { grid-template-columns:1fr; }
+    .source-gallery { grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); }
+    .smoke-row { grid-template-columns:80px 1fr 45px; }
+  }
+</style>
+</head>
+<body data-theme="dark">
+
+<!-- PASSWORD GATE -->
+<div class="pw-overlay" id="pwOverlay">
+  <div class="pw-box">
+    <h2>🔐</h2>
+    <p style="color:var(--text-soft); font-size:13px; margin-bottom:16px;">
+      <span class="ar">أدخل كلمة المرور للمتابعة</span>
+      <span class="de">Passwort eingeben</span>
+    </p>
+    <input type="password" id="pwInput" placeholder="••••••••" autocomplete="off">
+    <button onclick="checkPw()">
+      <span class="ar">دخول</span>
+      <span class="de">Eintreten</span>
+    </button>
+    <div class="pw-error" id="pwError">
+      <span class="ar">كلمة المرور غير صحيحة</span>
+      <span class="de">Falsches Passwort</span>
+    </div>
+  </div>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- PARTICLES -->
+<canvas class="particles-canvas" id="particlesCanvas"></canvas>
+
+<!-- SIDE NAV DOTS -->
+<nav class="side-nav" id="sideNav"></nav>
+
+<!-- Theme switcher -->
+<div class="theme-bar">
+  <span>🎨</span>
+  <div class="swatch s-dark active"   onclick="setTheme('dark',this)"    title="Dark Gold"></div>
+  <div class="swatch s-teal"          onclick="setTheme('teal',this)"    title="Teal"></div>
+  <div class="swatch s-purple"        onclick="setTheme('purple',this)"  title="Purple"></div>
+  <div class="swatch s-emerald"       onclick="setTheme('emerald',this)" title="Emerald"></div>
+</div>
+
+<!-- Lang toggle -->
+<button class="lang-btn" onclick="toggleLang()" id="langBtn">DE</button>
+
+<!-- HEADER -->
+<header>
+  <div class="chapter-tag">
+    <span class="ar">الفصل السادس</span>
+    <span class="de">Kapitel 6</span>
+  </div>
+  <h1>
+    <span class="accent">🫒</span>
+    <span class="ar"> الدهون</span>
+    <span class="de"> Lipide (Fette)</span>
+  </h1>
+  <p class="subtitle">
+    <span class="ar">أنواع الدهون، الزيوت الطبيعية والمكررة، أوميغا-3 وأوميغا-6، ونقاط التدخين</span>
+    <span class="de">Fettarten, natürliche & raffinierte Öle, Omega-3 & Omega-6, Rauchpunkte</span>
+  </p>
+</header>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════
+       1. INTRODUCTION - WHY FATS MATTER
+  ══════════════════════════════════════ -->
+  <section id="sec-intro">
+    <h2 class="section-title">
+      🫒
+      <span class="ar">مقدمة — لماذا الدهون مهمة؟</span>
+      <span class="de">Einführung — Warum sind Fette wichtig?</span>
+    </h2>
+
+    <div class="info-box" style="border-right:3px solid var(--accent)">
+      <div class="lbl ar">الدهون جزء أساسي من النظام الغذائي</div>
+      <div class="lbl de">Fette sind ein wesentlicher Teil der Ernährung</div>
+      <p class="ar">تُعتبر الدهون جزءًا أساسيًا من النظام الغذائي، ولكن <strong>جودة الدهون وطريقة استخدامها</strong> هما ما يُحدث الفارق. الزيوت النباتية عالية الجودة مثل زيت الكانولا، زيت الزيتون، أو زيت بذور الكتان تحتوي على أحماض دهنية غير مشبعة تُساهم في تقليل خطر الإصابة بأمراض القلب والأوعية الدموية.</p>
+      <p class="de">Fette sind ein wesentlicher Bestandteil der Ernährung, aber <strong>die Qualität der Fette und ihre Verwendung</strong> machen den Unterschied. Hochwertige Pflanzenöle wie Rapsöl, Olivenöl oder Leinöl enthalten ungesättigte Fettsäuren, die das Risiko von Herz-Kreislauf-Erkrankungen senken.</p>
+    </div>
+
+    <div class="info-box">
+      <div class="lbl ar">ماذا تقول الدراسات؟</div>
+      <div class="lbl de">Was sagen Studien?</div>
+      <p class="ar">تُشير الدراسات إلى أن <strong>استبدال الدهون المشبعة</strong> من المصادر الحيوانية <strong>بالدهون غير المشبعة</strong> من المصادر النباتية يُحسن مستويات الدهون في الدم ويُقلل من خطر الإصابة بمرض السكري من النوع الثاني والأمراض الأيضية. كما أن هذه الدهون تُحسن صحة الأمعاء وتُقلل من علامات الالتهاب مثل <strong>TNF-&alpha;</strong> و <strong>IL-6</strong>.</p>
+      <p class="de">Studien zeigen, dass der <strong>Ersatz gesättigter Fette</strong> aus tierischen Quellen <strong>durch ungesättigte Fette</strong> aus pflanzlichen Quellen die Blutfettwerte verbessert und das Risiko von Typ-2-Diabetes und Stoffwechselerkrankungen senkt. Diese Fette verbessern auch die Darmgesundheit und reduzieren Entzündungsmarker wie <strong>TNF-&alpha;</strong> und <strong>IL-6</strong>.</p>
+    </div>
+
+    <!-- Energy pill -->
+    <div class="info-row">
+      <div class="info-pill">
+        <div class="val">9</div>
+        <div class="key"><span class="ar">كالوري/غ<br>دهون</span><span class="de">kcal/g<br>Fett</span></div>
+      </div>
+      <div class="info-pill">
+        <div class="val">4</div>
+        <div class="key"><span class="ar">كالوري/غ<br>بروتين</span><span class="de">kcal/g<br>Protein</span></div>
+      </div>
+      <div class="info-pill">
+        <div class="val">4</div>
+        <div class="key"><span class="ar">كالوري/غ<br>كربوهيدرات</span><span class="de">kcal/g<br>Kohlenhydrate</span></div>
+      </div>
+    </div>
+
+    <!-- E x S = Ergebnis formula -->
+    <div class="formula-box">
+      <div class="formula">E &times; S = Ergebnis</div>
+      <div class="formula-desc">
+        <span class="ar">الأكل (Ernährung) &times; الرياضة (Sport) = النتيجة</span>
+        <span class="de">Ernährung &times; Sport = Ergebnis</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       2. FAT TYPES OVERVIEW
+  ══════════════════════════════════════ -->
+  <section id="sec-fat-types">
+    <h2 class="section-title">
+      🧬
+      <span class="ar">أنواع الدهون — نظرة تفاعلية</span>
+      <span class="de">Fettarten — Interaktive Übersicht</span>
+    </h2>
+
+    <p style="font-size:13px; color:var(--text-soft); margin-bottom:20px; line-height:1.8">
+      <span class="ar">انقر على كل بطاقة لمعرفة المزيد عن كل نوع من الدهون</span>
+      <span class="de">Klicke auf jede Karte, um mehr über die jeweilige Fettart zu erfahren</span>
+    </p>
+
+    <div class="fat-type-grid">
+      <!-- Saturated -->
+      <div class="fat-card" onclick="toggleFatCard(this)">
+        <div class="fat-card-header">
+          <div class="fat-icon">🧈</div>
+          <div>
+            <h3><span class="ar">دهون مشبعة</span><span class="de">Gesättigte Fette</span></h3>
+            <div class="fat-sub"><span class="ar">Saturated Fats — صلبة في درجة حرارة الغرفة</span><span class="de">Saturated Fats — fest bei Raumtemperatur</span></div>
+          </div>
+          <div class="fat-expand">&#9660;</div>
+        </div>
+        <div class="fat-detail">
+          <div class="fat-detail-inner" style="padding-top:14px;">
+            <p class="ar">الدهون المشبعة (Saturated fats) هي نوع من الدهون التي لا تحتوي على روابط مزدوجة بين ذرات الكربون في سلاسل الأحماض الدهنية، وهذا يجعلها <strong>مستقرة جدًا</strong> في درجات الحرارة العالية، وغالبًا ما تكون <strong>صلبة في درجة حرارة الغرفة</strong>، مثل الزبدة أو دهن جوز الهند.</p>
+            <p class="de">Gesättigte Fette (Saturated fats) enthalten keine Doppelbindungen zwischen den Kohlenstoffatomen in den Fettsäureketten. Das macht sie <strong>sehr stabil</strong> bei hohen Temperaturen und meist <strong>fest bei Raumtemperatur</strong>, wie Butter oder Kokosfett.</p>
+            <div style="margin-top:10px">
+              <span class="fat-tag tag-info"><span class="ar">الزبدة</span><span class="de">Butter</span></span>
+              <span class="fat-tag tag-info"><span class="ar">زيت جوز الهند</span><span class="de">Kokosöl</span></span>
+              <span class="fat-tag tag-info"><span class="ar">الدهون الحيوانية</span><span class="de">Tierische Fette</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Unsaturated -->
+      <div class="fat-card" onclick="toggleFatCard(this)">
+        <div class="fat-card-header">
+          <div class="fat-icon">🫒</div>
+          <div>
+            <h3><span class="ar">دهون غير مشبعة</span><span class="de">Ungesättigte Fette</span></h3>
+            <div class="fat-sub"><span class="ar">Unsaturated Fats — سائلة في درجة حرارة الغرفة</span><span class="de">Unsaturated Fats — flüssig bei Raumtemperatur</span></div>
+          </div>
+          <div class="fat-expand">&#9660;</div>
+        </div>
+        <div class="fat-detail">
+          <div class="fat-detail-inner" style="padding-top:14px;">
+            <p class="ar">الدهون غير المشبعة تحتوي على <strong>رابطة مزدوجة واحدة أو أكثر</strong> في سلاسل الأحماض الدهنية. تكون <strong>سائلة في درجة حرارة الغرفة</strong> وتنقسم إلى نوعين:</p>
+            <p class="de">Ungesättigte Fette enthalten <strong>eine oder mehrere Doppelbindungen</strong> in den Fettsäureketten. Sie sind <strong>flüssig bei Raumtemperatur</strong> und werden in zwei Typen unterteilt:</p>
+            <ul style="padding-right:20px; padding-left:20px; margin:10px 0; font-size:12px; line-height:2; color:var(--text-soft);">
+              <li class="ar"><strong>أحادية عدم التشبع (Monounsaturated):</strong> رابطة مزدوجة واحدة — مثل زيت الزيتون، زيت الكانولا</li>
+              <li class="de"><strong>Einfach ungesättigt (Monounsaturated):</strong> eine Doppelbindung — z.B. Olivenöl, Rapsöl</li>
+              <li class="ar"><strong>متعددة عدم التشبع (Polyunsaturated):</strong> أكثر من رابطة مزدوجة — مثل أوميغا-3 وأوميغا-6</li>
+              <li class="de"><strong>Mehrfach ungesättigt (Polyunsaturated):</strong> mehrere Doppelbindungen — z.B. Omega-3 und Omega-6</li>
+            </ul>
+            <div style="margin-top:10px">
+              <span class="fat-tag tag-pro"><span class="ar">زيت الزيتون</span><span class="de">Olivenöl</span></span>
+              <span class="fat-tag tag-pro"><span class="ar">زيت الكانولا</span><span class="de">Rapsöl</span></span>
+              <span class="fat-tag tag-pro"><span class="ar">زيت الكتان</span><span class="de">Leinöl</span></span>
+              <span class="fat-tag tag-pro"><span class="ar">المكسرات</span><span class="de">Nüsse</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trans Fats -->
+      <div class="fat-card" onclick="toggleFatCard(this)">
+        <div class="fat-card-header">
+          <div class="fat-icon">&#9888;&#65039;</div>
+          <div>
+            <h3><span class="ar">دهون مهدرجة / ترانس</span><span class="de">Transfette / Gehärtete Fette</span></h3>
+            <div class="fat-sub"><span class="ar">Trans Fats — الأكثر ضررًا على الصحة</span><span class="de">Trans Fats — am schädlichsten für die Gesundheit</span></div>
+          </div>
+          <div class="fat-expand">&#9660;</div>
+        </div>
+        <div class="fat-detail">
+          <div class="fat-detail-inner" style="padding-top:14px;">
+            <p class="ar">الدهون المهدرجة (ترانس) تنتج عند <strong>تحويل الزيوت النباتية السائلة إلى دهون صلبة</strong> عبر عملية الهدرجة الصناعية. تُعتبر <strong>أخطر أنواع الدهون</strong> لأنها ترفع الكولسترول الضار (LDL) وتخفض الكولسترول الجيد (HDL)، وتزيد خطر أمراض القلب والسكتة الدماغية والالتهابات المزمنة.</p>
+            <p class="de">Transfette entstehen, wenn <strong>flüssige Pflanzenöle durch industrielle Härtung in feste Fette</strong> umgewandelt werden. Sie gelten als <strong>die schädlichste Fettart</strong>, da sie das schlechte Cholesterin (LDL) erhöhen, das gute Cholesterin (HDL) senken und das Risiko von Herzkrankheiten, Schlaganfall und chronischen Entzündungen steigern.</p>
+            <div style="margin-top:10px">
+              <span class="fat-tag tag-con"><span class="ar">المارغرين الصلب</span><span class="de">Harte Margarine</span></span>
+              <span class="fat-tag tag-con"><span class="ar">الأطعمة المقلية صناعيًا</span><span class="de">Industriell frittierte Lebensmittel</span></span>
+              <span class="fat-tag tag-con"><span class="ar">المعجنات المصنعة</span><span class="de">Industriegebäck</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cholesterol -->
+      <div class="fat-card" onclick="toggleFatCard(this)">
+        <div class="fat-card-header">
+          <div class="fat-icon">&#129656;</div>
+          <div>
+            <h3><span class="ar">كوليسترول</span><span class="de">Cholesterin</span></h3>
+            <div class="fat-sub"><span class="ar">Cholesterol — التتمة بكورس صحة القلب</span><span class="de">Cholesterin — Fortsetzung im Herzgesundheitskurs</span></div>
+          </div>
+          <div class="fat-expand">&#9660;</div>
+        </div>
+        <div class="fat-detail">
+          <div class="fat-detail-inner" style="padding-top:14px;">
+            <p class="ar">الكوليسترول مادة شمعية يحتاجها الجسم لبناء الخلايا وإنتاج الهرمونات وفيتامين D. ينقسم إلى <strong>LDL</strong> (الضار) و <strong>HDL</strong> (الجيد). ارتفاع LDL يؤدي إلى تراكم الكوليسترول في الشرايين. التتمة بكورس صحة القلب.</p>
+            <p class="de">Cholesterin ist eine wachsartige Substanz, die der Körper zum Aufbau von Zellen und zur Produktion von Hormonen und Vitamin D benötigt. Es wird in <strong>LDL</strong> (schlecht) und <strong>HDL</strong> (gut) unterteilt. Hohe LDL-Werte führen zu Cholesterinablagerungen in den Arterien. Fortsetzung im Herzgesundheitskurs.</p>
+            <div style="margin-top:10px">
+              <span class="fat-tag tag-info">LDL &#8595;</span>
+              <span class="fat-tag tag-pro">HDL &#8593;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       3. SATURATED FAT BALANCE
+  ══════════════════════════════════════ -->
+  <section id="sec-balance">
+    <h2 class="section-title">
+      &#9878;&#65039;
+      <span class="ar">الدهون المشبعة — التوازن هو المفتاح</span>
+      <span class="de">Gesättigte Fette — Balance ist der Schlüssel</span>
+    </h2>
+
+    <p style="font-size:13px; color:var(--text-soft); margin-bottom:20px; line-height:1.8">
+      <span class="ar">رغم ما يُشاع، <strong style="color:var(--text)">ليست كل الدهون المشبعة سيئة</strong>، بل لها بعض الفوائد، خاصة في الكميات المعتدلة</span>
+      <span class="de">Trotz verbreiteter Meinung sind <strong style="color:var(--text)">nicht alle gesättigten Fette schlecht</strong> — sie haben Vorteile, besonders in moderaten Mengen</span>
+    </p>
+
+    <div class="balance-container">
+      <!-- PROS -->
+      <div class="balance-side pros">
+        <h3>
+          &#10004;&#65039;
+          <span class="ar">إيجابيات (باعتدال)</span>
+          <span class="de">Vorteile (in Maßen)</span>
+        </h3>
+        <div class="balance-item">
+          <strong class="ar">مقاومة عالية للأكسدة:</strong>
+          <strong class="de">Hohe Oxidationsbeständigkeit:</strong>
+          <br>
+          <span class="ar">لأنها مشبعة، فهي لا تتأكسد بسهولة مثل أوميغا-3 أو أوميغا-6. هذا يجعلها مناسبة للطهي على حرارة عالية.</span>
+          <span class="de">Da sie gesättigt sind, oxidieren sie nicht leicht wie Omega-3 oder Omega-6. Das macht sie geeignet zum Kochen bei hohen Temperaturen.</span>
+        </div>
+        <div class="balance-item">
+          <strong class="ar">دعم إنتاج الهرمونات:</strong>
+          <strong class="de">Hormonproduktion:</strong>
+          <br>
+          <span class="ar">الجسم يحتاج الدهون المشبعة لصنع <strong>الهرمونات الجنسية</strong> مثل التستوستيرون والإستروجين.</span>
+          <span class="de">Der Körper braucht gesättigte Fette zur Produktion von <strong>Geschlechtshormonen</strong> wie Testosteron und Östrogen.</span>
+        </div>
+        <div class="balance-item">
+          <strong class="ar">مكون أساسي في غشاء الخلايا:</strong>
+          <strong class="de">Zellmembran-Bestandteil:</strong>
+          <br>
+          <span class="ar">تلعب دورًا في <strong>ثبات بنية الخلايا</strong> ونفاذية الغشاء.</span>
+          <span class="de">Spielen eine Rolle bei der <strong>Stabilität der Zellstruktur</strong> und Membranpermeabilität.</span>
+        </div>
+        <div class="balance-item">
+          <strong class="ar">تحسين امتصاص الفيتامينات:</strong>
+          <strong class="de">Vitaminabsorption:</strong>
+          <br>
+          <span class="ar">تساعد في امتصاص فيتامينات <strong>A, D, E, K</strong>.</span>
+          <span class="de">Unterstützen die Aufnahme der Vitamine <strong>A, D, E, K</strong>.</span>
+        </div>
+        <div class="balance-item">
+          <strong class="ar">مصدر للطاقة:</strong>
+          <strong class="de">Energiequelle:</strong>
+          <br>
+          <span class="ar">1 غرام يعطي <strong>9 سعرات حرارية</strong>، وتُستخدم كمصدر طاقة عند انخفاض الكربوهيدرات.</span>
+          <span class="de">1 Gramm liefert <strong>9 kcal</strong> und dient als Energiequelle bei niedrigem Kohlenhydratgehalt.</span>
+        </div>
+      </div>
+
+      <!-- CONS -->
+      <div class="balance-side cons">
+        <h3>
+          &#10060;
+          <span class="ar">سلبيات (عند الإفراط)</span>
+          <span class="de">Nachteile (bei Übermaß)</span>
+        </h3>
+        <div class="balance-item">
+          <strong class="ar">رفع الكولسترول الضار (LDL):</strong>
+          <strong class="de">Erhöhung des LDL-Cholesterins:</strong>
+          <br>
+          <span class="ar">يؤدي إلى <strong>تراكم الكوليسترول في الشرايين</strong> وزيادة خطر أمراض القلب.</span>
+          <span class="de">Führt zu <strong>Cholesterinablagerungen in den Arterien</strong> und erhöhtem Herzerkrankungsrisiko.</span>
+        </div>
+        <div class="balance-item">
+          <strong class="ar">زيادة خطر تصلب الشرايين:</strong>
+          <strong class="de">Erhöhtes Arteriosklerose-Risiko:</strong>
+          <br>
+          <span class="ar">خاصة عند تناولها مع نظام غذائي <strong>منخفض بالألياف ومضادات الأكسدة</strong>.</span>
+          <span class="de">Besonders in Kombination mit einer <strong>ballaststoff- und antioxidantienarmen Ernährung</strong>.</span>
+        </div>
+        <div class="balance-item">
+          <strong class="ar">زيادة الالتهاب في الجسم:</strong>
+          <strong class="de">Erhöhte Entzündung:</strong>
+          <br>
+          <span class="ar">الدهون المشبعة الزائدة تساهم في <strong>حالة التهابية مزمنة</strong> عند بعض الأشخاص.</span>
+          <span class="de">Übermäßige gesättigte Fette tragen bei manchen Menschen zu einem <strong>chronischen Entzündungszustand</strong> bei.</span>
+        </div>
+        <div class="balance-item">
+          <strong class="ar">تزيد مقاومة الإنسولين:</strong>
+          <strong class="de">Insulinresistenz:</strong>
+          <br>
+          <span class="ar">خاصة عند تناولها <strong>مع السكريات البسيطة</strong>.</span>
+          <span class="de">Besonders in Kombination <strong>mit einfachen Zuckern</strong>.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-box" style="margin-top:20px; text-align:center;">
+      <span class="ar" style="font-weight:700; color:var(--accent);">&#9878;&#65039; الخلاصة: التوازن والاعتدال — لا إفراط ولا تفريط</span>
+      <span class="de" style="font-weight:700; color:var(--accent);">&#9878;&#65039; Fazit: Balance und Mäßigung — weder zu viel noch zu wenig</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       4. OIL PROCESSING COMPARISON
+  ══════════════════════════════════════ -->
+  <section id="sec-oils">
+    <h2 class="section-title">
+      &#129669;
+      <span class="ar">مقارنة الزيوت — طبيعي، مفلتر، مكرر</span>
+      <span class="de">Ölvergleich — Naturtrüb, Gefiltert, Raffiniert</span>
+    </h2>
+
+    <p style="font-size:13px; color:var(--text-soft); margin-bottom:20px; line-height:1.8">
+      <span class="ar">انقر على كل زجاجة لاستكشاف خصائصها وتوصيات الاستخدام</span>
+      <span class="de">Klicke auf jede Flasche, um ihre Eigenschaften und Verwendungsempfehlungen zu entdecken</span>
+    </p>
+
+    <div class="oil-compare">
+      <!-- Naturtrüb -->
+      <div class="oil-bottle active" onclick="selectOil(this)" id="oilNatural">
+        <div class="bottle-svg">&#129346;</div>
+        <h4><span class="ar">طبيعي (Naturtrüb)</span><span class="de">Naturtrüb</span></h4>
+        <div class="oil-subtitle"><span class="ar">غير مفلتر طبيعيًا</span><span class="de">Natürlich unfiltriert</span></div>
+        <div class="oil-detail-panel">
+          <p class="ar">مصطلح <strong>&quot;naturtrüb&quot;</strong> بالألمانية يعني <strong>&quot;غير مفلتر طبيعيًا&quot;</strong> أو <strong>&quot;عَكِر طبيعيًا&quot;</strong>، ويُستخدم لوصف الزيوت التي <strong>لم</strong> يتم تصفيتها بشكل كامل. هذه المنتجات تُحافظ على مكوناتها الطبيعية، وغالبًا ما تحتوي على جزيئات معلقة، مثل بقايا اللب، الألياف، أو الرواسب الدقيقة.</p>
+          <p class="de"><strong>&quot;Naturtrüb&quot;</strong> bedeutet <strong>&quot;natürlich unfiltriert&quot;</strong> und beschreibt Öle, die <strong>nicht</strong> vollständig gefiltert wurden. Diese Produkte bewahren ihre natürlichen Bestandteile und enthalten oft Schwebstoffe wie Fruchtfleischreste, Fasern oder feine Ablagerungen.</p>
+          <div style="margin-top:10px">
+            <span class="oil-badge badge-green"><span class="ar">&#10004; غني بالمغذيات</span><span class="de">&#10004; Nährstoffreich</span></span>
+            <span class="oil-badge badge-green"><span class="ar">&#10004; للسلطة</span><span class="de">&#10004; Für Salat</span></span>
+            <span class="oil-badge badge-red"><span class="ar">&#10008; لا للقلي</span><span class="de">&#10008; Nicht zum Frittieren</span></span>
+          </div>
+          <div class="highlight-box" style="margin-top:12px; border-right:3px solid var(--green); padding:12px;">
+            <p class="ar" style="font-size:12px;"><strong>التوصية:</strong><br>&#8226; احفظه في الثلاجة أو خزانة مظلمة باردة<br>&#8226; استخدمه خلال أسابيع قليلة بعد الفتح<br>&#8226; لا تستخدمه للقلي، فقط للسلطة أو الطبخ الخفيف</p>
+            <p class="de" style="font-size:12px;"><strong>Empfehlung:</strong><br>&#8226; Im Kühlschrank oder dunklen kühlen Schrank aufbewahren<br>&#8226; Innerhalb weniger Wochen nach dem Öffnen verbrauchen<br>&#8226; Nicht zum Frittieren verwenden, nur für Salat oder leichtes Kochen</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtered -->
+      <div class="oil-bottle" onclick="selectOil(this)" id="oilFiltered">
+        <div class="bottle-svg">&#129651;</div>
+        <h4><span class="ar">مفلتر (Gefiltert)</span><span class="de">Gefiltert</span></h4>
+        <div class="oil-subtitle"><span class="ar">إزالة الشوائب فقط</span><span class="de">Nur Verunreinigungen entfernt</span></div>
+        <div class="oil-detail-panel">
+          <p class="ar">الهدف الأساسي هو <strong>إزالة الشوائب الصلبة العالقة</strong> دون تغيير الخصائص الكيميائية أو الغذائية للزيت. يمكن أن تتم بشكل بسيط في المنزل أو بطريقة صناعية متقدمة.</p>
+          <p class="de">Das Hauptziel ist die <strong>Entfernung von festen Verunreinigungen</strong>, ohne die chemischen oder ernährungsphysiologischen Eigenschaften des Öls zu verändern. Dies kann einfach zu Hause oder industriell erfolgen.</p>
+          <div style="margin-top:10px">
+            <span class="oil-badge badge-green"><span class="ar">&#10004; يحتفظ بالمغذيات</span><span class="de">&#10004; Behält Nährstoffe</span></span>
+            <span class="oil-badge badge-info"><span class="ar">&#9776; متوسط الاستقرار</span><span class="de">&#9776; Mittlere Stabilität</span></span>
+            <span class="oil-badge badge-green"><span class="ar">&#10004; متعدد الاستخدام</span><span class="de">&#10004; Vielseitig</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Refined -->
+      <div class="oil-bottle" onclick="selectOil(this)" id="oilRefined">
+        <div class="bottle-svg">&#127993;</div>
+        <h4><span class="ar">مكرر (Raffiniert)</span><span class="de">Raffiniert</span></h4>
+        <div class="oil-subtitle"><span class="ar">معالج صناعيًا</span><span class="de">Industriell verarbeitet</span></div>
+        <div class="oil-detail-panel">
+          <p class="ar">هي زيوت نباتية تم استخراجها من البذور أو الحبوب أو الثمار، ثم خضعت لعمليات صناعية لإزالة الشوائب، الروائح، الألوان، والمواد غير المرغوبة بهدف تحسين الطعم والرائحة وزيادة مدة الصلاحية.</p>
+          <p class="de">Dies sind Pflanzenöle, die aus Samen, Körnern oder Früchten gewonnen und dann industriell verarbeitet wurden, um Verunreinigungen, Gerüche, Farben und unerwünschte Stoffe zu entfernen — für besseren Geschmack und längere Haltbarkeit.</p>
+          <div style="margin-top:10px">
+            <span class="oil-badge badge-green"><span class="ar">&#10004; مناسب للقلي</span><span class="de">&#10004; Zum Frittieren geeignet</span></span>
+            <span class="oil-badge badge-info"><span class="ar">&#9776; مدة صلاحية طويلة</span><span class="de">&#9776; Lange Haltbarkeit</span></span>
+            <span class="oil-badge badge-red"><span class="ar">&#10008; أقل مغذيات</span><span class="de">&#10008; Weniger Nährstoffe</span></span>
+          </div>
+          <div class="highlight-box" style="margin-top:12px; border-right:3px solid #e67e22; padding:12px;">
+            <p class="ar" style="font-size:12px;"><strong>متى يمكن استخدام الزيوت المكررة؟</strong><br>&#8226; مناسبة للقلي ودرجات الحرارة العالية (مثل زيت دوار الشمس أو الكانولا المكرر)<br>&#8226; غير مناسبة كمصدر غذائي أساسي للدهون الصحية أو للاستهلاك اليومي الدائم</p>
+            <p class="de" style="font-size:12px;"><strong>Wann raffinierte Öle verwenden?</strong><br>&#8226; Geeignet zum Frittieren und bei hohen Temperaturen (z.B. raffiniertes Sonnenblumen- oder Rapsöl)<br>&#8226; Nicht geeignet als tägliche Hauptquelle für gesunde Fette</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       5. OMEGA-3 vs OMEGA-6 BALANCE
+  ══════════════════════════════════════ -->
+  <section id="sec-omega">
+    <h2 class="section-title">
+      &#9878;&#65039;
+      <span class="ar">التوازن بين أوميغا-3 وأوميغا-6</span>
+      <span class="de">Omega-3 vs. Omega-6 Balance</span>
+    </h2>
+
+    <div class="omega-scale">
+      <!-- Visual Scale -->
+      <div class="scale-visual" id="omegaScale">
+        <div class="scale-pan left">
+          <div class="pan-icon">&#129487;</div>
+          <div class="pan-label">Omega-3</div>
+        </div>
+        <div class="scale-beam" id="scaleBeam"></div>
+        <div class="scale-pivot"></div>
+        <div class="scale-base"></div>
+        <div class="scale-pan right">
+          <div class="pan-icon">&#128293;</div>
+          <div class="pan-label">Omega-6</div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-bottom:20px;">
+        <button onclick="toggleBalance()" style="padding:10px 24px; border-radius:40px; background:var(--accent); color:var(--bg); border:none; font-family:'Cairo',sans-serif; font-weight:700; font-size:13px; cursor:pointer; transition:.2s;" id="balanceBtn">
+          <span class="ar">&#9878;&#65039; اجعل الميزان متوازنًا</span>
+          <span class="de">&#9878;&#65039; Waage ausbalancieren</span>
+        </button>
+      </div>
+
+      <div class="info-box" style="border-right:3px solid var(--accent); margin-bottom:20px;">
+        <p class="ar"><strong>التوازن</strong> هو المفتاح: الجسم يحتاج <strong>كلا النوعين</strong>، لكن:<br><strong>أوميغا-3</strong> يعمل على <strong>إطفاء الالتهاب</strong>.<br><strong>أوميغا-6</strong> يعمل على <strong>إشعال الالتهاب</strong> (ضروري عند العدوى أو الجروح، لكن مؤذٍ عند الإفراط).<br>إذًا: <strong>النسبة بينهما أهم من الكمية المطلقة</strong> لكل منهما.</p>
+        <p class="de"><strong>Balance</strong> ist der Schlüssel: Der Körper braucht <strong>beide Typen</strong>, aber:<br><strong>Omega-3</strong> wirkt <strong>entzündungshemmend</strong>.<br><strong>Omega-6</strong> wirkt <strong>entzündungsfördernd</strong> (notwendig bei Infektionen/Wunden, aber schädlich im Übermaß).<br>Also: <strong>Das Verhältnis ist wichtiger als die absolute Menge</strong>.</p>
+      </div>
+
+      <!-- Omega panels -->
+      <div class="omega-info-grid">
+        <div class="omega-panel omega3">
+          <h4>
+            &#129487;
+            <span class="ar">أوميغا-3 — مضاد للالتهاب</span>
+            <span class="de">Omega-3 — Entzündungshemmend</span>
+          </h4>
+          <p class="ar">أحماض دهنية أساسية لا يستطيع الجسم إنتاجها. ضرورية لصحة الدماغ ووظائف القلب. توجد بشكل رئيسي في الأسماك الدهنية والزيوت النباتية الباردة.</p>
+          <p class="de">Essenzielle Fettsäuren, die der Körper nicht selbst herstellen kann. Wichtig für Gehirngesundheit und Herzfunktion. Hauptsächlich in fettreichem Fisch und kaltgepressten Pflanzenölen.</p>
+          <div style="margin-top:10px">
+            <span class="omega-source"><span class="ar">&#128031; سمك السلمون</span><span class="de">&#128031; Lachs</span></span>
+            <span class="omega-source"><span class="ar">&#129472; بذور الكتان</span><span class="de">&#129472; Leinsamen</span></span>
+            <span class="omega-source"><span class="ar">&#129408; الجوز</span><span class="de">&#129408; Walnüsse</span></span>
+            <span class="omega-source"><span class="ar">&#129746; زيت الكتان</span><span class="de">&#129746; Leinöl</span></span>
+          </div>
+        </div>
+        <div class="omega-panel omega6">
+          <h4>
+            &#128293;
+            <span class="ar">أوميغا-6 — محفز للالتهاب</span>
+            <span class="de">Omega-6 — Entzündungsfördernd</span>
+          </h4>
+          <p class="ar">ضرورية بكميات صغيرة للنمو والتطور وردة الفعل المناعية. المشكلة أن النظام الغذائي الحديث يحتوي على كميات مفرطة منها مقارنة بأوميغا-3.</p>
+          <p class="de">In kleinen Mengen notwendig für Wachstum, Entwicklung und Immunreaktion. Das Problem: Die moderne Ernährung enthält übermäßige Mengen im Vergleich zu Omega-3.</p>
+          <div style="margin-top:10px">
+            <span class="omega-source"><span class="ar">&#127859; البيض</span><span class="de">&#127859; Eier</span></span>
+            <span class="omega-source"><span class="ar">&#129385; اللحوم</span><span class="de">&#129385; Fleisch</span></span>
+            <span class="omega-source"><span class="ar">&#129371; الحليب</span><span class="de">&#129371; Milch</span></span>
+            <span class="omega-source"><span class="ar">&#127805; زيت دوار الشمس</span><span class="de">&#127805; Sonnenblumenöl</span></span>
+          </div>
+          <p class="ar" style="margin-top:8px; font-size:11px; color:var(--text-soft);">خاصة من حيوانات على علف غني بالأوميغا-6</p>
+          <p class="de" style="margin-top:8px; font-size:11px; color:var(--text-soft);">Besonders von Tieren mit Omega-6-reichem Futter</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       6. SMOKE POINT CHART
+  ══════════════════════════════════════ -->
+  <section id="sec-smoke">
+    <h2 class="section-title">
+      &#128293;
+      <span class="ar">نقاط تدخين الزيوت — أيها للقلي وأيها للسلطة؟</span>
+      <span class="de">Rauchpunkte der Öle — Welches zum Braten, welches für Salat?</span>
+    </h2>
+
+    <div class="info-box" style="margin-bottom:20px;">
+      <div class="lbl ar">ما هي نقطة التدخين؟</div>
+      <div class="lbl de">Was ist der Rauchpunkt?</div>
+      <p class="ar">نقطة التدخين هي <strong>درجة الحرارة التي يبدأ فيها الزيت بالتحلل</strong> وإطلاق الدخان. عند تجاوز هذه الدرجة تتكون مواد ضارة. يُفضل استخدام الزيوت المقاومة للحرارة مثل زيت الكانولا أو زيت الزيتون للطهي، أما الزيوت الباردة مثل زيت الكتان أو الجوز الغنية بأحماض أوميغا-3 فهي مثالية للسلطات.</p>
+      <p class="de">Der Rauchpunkt ist die <strong>Temperatur, bei der ein Öl sich zersetzt</strong> und Rauch freisetzt. Über diesem Punkt entstehen schädliche Substanzen. Hitzebeständige Öle wie Raps- oder Olivenöl eignen sich zum Kochen, während kaltgepresste Öle wie Lein- oder Walnussöl, reich an Omega-3, ideal für Salate sind.</p>
+    </div>
+
+    <div class="smoke-chart" id="smokeChart">
+      <div class="smoke-bars">
+        <div class="smoke-row">
+          <div class="smoke-label"><span class="ar">&#127793; أفوكادو (مكرر)</span><span class="de">&#127793; Avocado (raff.)</span></div>
+          <div class="smoke-track"><div class="smoke-fill high" id="smoke1" style="width:0%">270&deg;C</div></div>
+          <div class="smoke-temp">270&deg;</div>
+        </div>
+        <div class="smoke-row">
+          <div class="smoke-label"><span class="ar">&#127805; دوار الشمس (مكرر)</span><span class="de">&#127805; Sonnenblume (raff.)</span></div>
+          <div class="smoke-track"><div class="smoke-fill high" id="smoke2" style="width:0%">250&deg;C</div></div>
+          <div class="smoke-temp">250&deg;</div>
+        </div>
+        <div class="smoke-row">
+          <div class="smoke-label"><span class="ar">&#127811; كانولا (مكرر)</span><span class="de">&#127811; Raps (raff.)</span></div>
+          <div class="smoke-track"><div class="smoke-fill high" id="smoke3" style="width:0%">240&deg;C</div></div>
+          <div class="smoke-temp">240&deg;</div>
+        </div>
+        <div class="smoke-row">
+          <div class="smoke-label"><span class="ar">&#129381; جوز الهند</span><span class="de">&#129381; Kokos</span></div>
+          <div class="smoke-track"><div class="smoke-fill medium" id="smoke4" style="width:0%">230&deg;C</div></div>
+          <div class="smoke-temp">230&deg;</div>
+        </div>
+        <div class="smoke-row">
+          <div class="smoke-label"><span class="ar">&#127810; زيتون (بكر)</span><span class="de">&#127810; Oliven (nativ)</span></div>
+          <div class="smoke-track"><div class="smoke-fill medium" id="smoke5" style="width:0%">210&deg;C</div></div>
+          <div class="smoke-temp">210&deg;</div>
+        </div>
+        <div class="smoke-row">
+          <div class="smoke-label"><span class="ar">&#129408; الجوز</span><span class="de">&#129408; Walnuss</span></div>
+          <div class="smoke-track"><div class="smoke-fill low" id="smoke6" style="width:0%">160&deg;C</div></div>
+          <div class="smoke-temp">160&deg;</div>
+        </div>
+        <div class="smoke-row">
+          <div class="smoke-label"><span class="ar">&#129472; الكتان</span><span class="de">&#129472; Leinsamen</span></div>
+          <div class="smoke-track"><div class="smoke-fill low" id="smoke7" style="width:0%">107&deg;C</div></div>
+          <div class="smoke-temp">107&deg;</div>
+        </div>
+      </div>
+      <div class="smoke-legend">
+        <div class="smoke-legend-item"><div class="smoke-legend-dot" style="background:linear-gradient(90deg,#e74c3c,#e67e22)"></div><span class="ar">مناسب للقلي العميق</span><span class="de">Zum Frittieren geeignet</span></div>
+        <div class="smoke-legend-item"><div class="smoke-legend-dot" style="background:linear-gradient(90deg,#f39c12,#f1c40f)"></div><span class="ar">للطهي المتوسط</span><span class="de">Mittlere Hitze</span></div>
+        <div class="smoke-legend-item"><div class="smoke-legend-dot" style="background:linear-gradient(90deg,#27ae60,#2ecc71)"></div><span class="ar">للسلطة فقط</span><span class="de">Nur für Salat</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       7. FAT SOURCES GALLERY
+  ══════════════════════════════════════ -->
+  <section id="sec-sources">
+    <h2 class="section-title">
+      &#129386;
+      <span class="ar">معرض مصادر الدهون — اقلب البطاقة!</span>
+      <span class="de">Fettquellen-Galerie — Karte umdrehen!</span>
+    </h2>
+
+    <p style="font-size:13px; color:var(--text-soft); margin-bottom:20px; line-height:1.8">
+      <span class="ar">مرر المؤشر على كل بطاقة أو انقر عليها لمعرفة نوع الدهون والمعلومات الغذائية</span>
+      <span class="de">Bewege den Cursor über jede Karte oder klicke darauf, um den Fetttyp und die Nährstoffinfos zu sehen</span>
+    </p>
+
+    <div class="source-gallery">
+      <!-- Olive Oil -->
+      <div class="source-card" onclick="this.classList.toggle('flipped')">
+        <div class="source-inner">
+          <div class="source-front">
+            <div class="food-emoji">&#127810;</div>
+            <h4><span class="ar">زيت الزيتون</span><span class="de">Olivenöl</span></h4>
+          </div>
+          <div class="source-back">
+            <div class="back-type"><span class="ar">أحادي غير مشبع</span><span class="de">Einfach ungesättigt</span></div>
+            <p><strong>73%</strong> <span class="ar">أحادي غير مشبع</span><span class="de">einfach ungesättigt</span><br><span class="ar">مثالي للطهي المعتدل</span><span class="de">Ideal zum Kochen</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Salmon -->
+      <div class="source-card" onclick="this.classList.toggle('flipped')">
+        <div class="source-inner">
+          <div class="source-front">
+            <div class="food-emoji">&#128031;</div>
+            <h4><span class="ar">سمك السلمون</span><span class="de">Lachs</span></h4>
+          </div>
+          <div class="source-back">
+            <div class="back-type">Omega-3</div>
+            <p><span class="ar">مصدر أساسي لأحماض أوميغا-3 واليود. ضروري لصحة الدماغ ووظائف القلب</span><span class="de">Wesentliche Omega-3 und Jod-Quelle. Wichtig für Gehirn und Herz</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Butter -->
+      <div class="source-card" onclick="this.classList.toggle('flipped')">
+        <div class="source-inner">
+          <div class="source-front">
+            <div class="food-emoji">&#129480;</div>
+            <h4><span class="ar">الزبدة</span><span class="de">Butter</span></h4>
+          </div>
+          <div class="source-back">
+            <div class="back-type"><span class="ar">مشبعة</span><span class="de">Gesättigt</span></div>
+            <p><strong>63%</strong> <span class="ar">دهون مشبعة. باعتدال: هرمونات + فيتامينات ADEK</span><span class="de">gesättigte Fette. In Maßen: Hormone + Vitamine ADEK</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Avocado -->
+      <div class="source-card" onclick="this.classList.toggle('flipped')">
+        <div class="source-inner">
+          <div class="source-front">
+            <div class="food-emoji">&#129361;</div>
+            <h4><span class="ar">الأفوكادو</span><span class="de">Avocado</span></h4>
+          </div>
+          <div class="source-back">
+            <div class="back-type"><span class="ar">أحادي غير مشبع</span><span class="de">Einfach ungesättigt</span></div>
+            <p><strong>70%</strong> <span class="ar">أحادي غير مشبع. غني بالبوتاسيوم والألياف</span><span class="de">einfach ungesättigt. Reich an Kalium und Ballaststoffen</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flaxseed -->
+      <div class="source-card" onclick="this.classList.toggle('flipped')">
+        <div class="source-inner">
+          <div class="source-front">
+            <div class="food-emoji">&#129472;</div>
+            <h4><span class="ar">بذور الكتان</span><span class="de">Leinsamen</span></h4>
+          </div>
+          <div class="source-back">
+            <div class="back-type">Omega-3 (ALA)</div>
+            <p><span class="ar">أغنى مصدر نباتي بأوميغا-3. للسلطة فقط — لا تسخنه!</span><span class="de">Reichste pflanzliche Omega-3-Quelle. Nur für Salat — nicht erhitzen!</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Walnuts -->
+      <div class="source-card" onclick="this.classList.toggle('flipped')">
+        <div class="source-inner">
+          <div class="source-front">
+            <div class="food-emoji">&#129408;</div>
+            <h4><span class="ar">الجوز</span><span class="de">Walnüsse</span></h4>
+          </div>
+          <div class="source-back">
+            <div class="back-type">Omega-3 + Omega-6</div>
+            <p><span class="ar">توازن ممتاز بين أوميغا-3 و-6. وجبة خفيفة صحية</span><span class="de">Ausgezeichnetes Omega-3/-6-Gleichgewicht. Gesunder Snack</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coconut Oil -->
+      <div class="source-card" onclick="this.classList.toggle('flipped')">
+        <div class="source-inner">
+          <div class="source-front">
+            <div class="food-emoji">&#129381;</div>
+            <h4><span class="ar">زيت جوز الهند</span><span class="de">Kokosöl</span></h4>
+          </div>
+          <div class="source-back">
+            <div class="back-type"><span class="ar">مشبعة (MCT)</span><span class="de">Gesättigt (MCT)</span></div>
+            <p><strong>82%</strong> <span class="ar">مشبعة. يحتوي MCT سريع الامتصاص. مستقر في الحرارة</span><span class="de">gesättigt. Enthält schnell absorbierbare MCTs. Hitzestabil</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Eggs -->
+      <div class="source-card" onclick="this.classList.toggle('flipped')">
+        <div class="source-inner">
+          <div class="source-front">
+            <div class="food-emoji">&#129370;</div>
+            <h4><span class="ar">البيض</span><span class="de">Eier</span></h4>
+          </div>
+          <div class="source-back">
+            <div class="back-type"><span class="ar">مشبعة + أوميغا-6</span><span class="de">Gesättigt + Omega-6</span></div>
+            <p><span class="ar">مصدر كامل للبروتين والدهون. كوليسترول غذائي لا يرفع كوليسترول الدم بالضرورة</span><span class="de">Vollständige Protein- und Fettquelle. Nahrungscholesterin erhöht nicht zwangsläufig Blutcholesterin</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Animal Food Quality Note -->
+    <div class="info-box" style="margin-top:20px; border-right:3px solid var(--accent);">
+      <div class="lbl ar">&#129385; الأطعمة الحيوانية — الجودة أهم من الكمية</div>
+      <div class="lbl de">&#129385; Tierische Lebensmittel — Qualität vor Quantität</div>
+      <p class="ar">اللحوم التي تأتي من حيوانات تمت تربيتها في ظروف طبيعية أو بجودة عضوية تحتوي عادةً على كميات أقل من المواد الضارة ونسبة أعلى من الدهون الصحية. تُوصي <strong>الجمعية الألمانية للتغذية (DGE)</strong> بتحديد استهلاك اللحوم بين <strong>300 إلى 600 غرام أسبوعيًا</strong>. أما الأسماك ذات الجودة العالية، خاصة الأسماك البحرية الدهنية، فهي مصدر أساسي لأحماض أوميغا-3 الدهنية واليود، والتي تُعد ضرورية لصحة الدماغ ووظائف القلب.</p>
+      <p class="de">Fleisch von Tieren aus natürlicher oder ökologischer Haltung enthält in der Regel weniger Schadstoffe und mehr gesunde Fette. Die <strong>Deutsche Gesellschaft für Ernährung (DGE)</strong> empfiehlt einen Fleischkonsum von <strong>300 bis 600 Gramm pro Woche</strong>. Fettreicher Meeresfisch ist eine essentielle Quelle für Omega-3-Fettsäuren und Jod, die für Gehirn und Herzgesundheit unerlässlich sind.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       8. MIND MAP
+  ══════════════════════════════════════ -->
+  <section id="sec-mindmap">
+    <h2 class="section-title">
+      &#128506;&#65039;
+      <span class="ar">خريطة الدهون الذهنية</span>
+      <span class="de">Fette-Mindmap</span>
+    </h2>
+
+    <p style="font-size:13px; color:var(--text-soft); margin-bottom:16px">
+      <span class="ar">انقر على أي فرع لاستكشاف التفاصيل</span>
+      <span class="de">Klicke auf einen Zweig, um Details zu sehen</span>
+    </p>
+
+    <div class="mindmap-tree">
+      <div class="mm-wrapper">
+        <div class="mm-center">
+          <span class="ar">&#129746; الدهون</span>
+          <span class="de">&#129746; Lipide</span>
+        </div>
+        <div class="mm-vline"></div>
+        <div class="mm-level1">
+
+          <!-- Branch: Saturated -->
+          <div class="mm-branch" onclick="toggleMM(this)">
+            <div class="mm-l1 gold">
+              <span class="ar">&#129480; مشبعة<br><small style="font-weight:400;opacity:.8">Gesättigt</small></span>
+              <span class="de">&#129480; Gesättigt<br><small style="font-weight:400;opacity:.8">Saturated</small></span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">صلبة في حرارة الغرفة</span><span class="de">Fest bei Raumtemp.</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">هرمونات + فيتامينات ADEK</span><span class="de">Hormone + Vit. ADEK</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">9 كالوري/غ</span><span class="de">9 kcal/g</span></div>
+            </div>
+          </div>
+
+          <!-- Branch: Unsaturated -->
+          <div class="mm-branch" onclick="toggleMM(this)">
+            <div class="mm-l1 green">
+              <span class="ar">&#127810; غير مشبعة<br><small style="font-weight:400;opacity:.8">Ungesättigt</small></span>
+              <span class="de">&#127810; Ungesättigt<br><small style="font-weight:400;opacity:.8">Unsaturated</small></span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">سائلة في حرارة الغرفة</span><span class="de">Flüssig bei Raumtemp.</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">أحادية: زيت زيتون، كانولا</span><span class="de">Einfach: Oliven, Raps</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">متعددة: أوميغا-3، أوميغا-6</span><span class="de">Mehrfach: Omega-3, Omega-6</span></div>
+            </div>
+          </div>
+
+          <!-- Branch: Trans -->
+          <div class="mm-branch" onclick="toggleMM(this)">
+            <div class="mm-l1 red">
+              <span class="ar">&#9888;&#65039; مهدرجة<br><small style="font-weight:400;opacity:.8">Transfette</small></span>
+              <span class="de">&#9888;&#65039; Transfette<br><small style="font-weight:400;opacity:.8">Gehärtet</small></span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">LDL &#8593; / HDL &#8595;</span><span class="de">LDL &#8593; / HDL &#8595;</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">أمراض قلب + التهابات</span><span class="de">Herzkrankh. + Entzünd.</span></div>
+            </div>
+          </div>
+
+          <!-- Branch: Oils -->
+          <div class="mm-branch" onclick="toggleMM(this)">
+            <div class="mm-l1 blue">
+              <span class="ar">&#129669; الزيوت<br><small style="font-weight:400;opacity:.8">Öle</small></span>
+              <span class="de">&#129669; Öle<br><small style="font-weight:400;opacity:.8">Oils</small></span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">Naturtrüb — سلطة</span><span class="de">Naturtrüb — Salat</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">مفلتر — متعدد الاستخدام</span><span class="de">Gefiltert — Vielseitig</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">مكرر — قلي</span><span class="de">Raffiniert — Frittieren</span></div>
+            </div>
+          </div>
+
+          <!-- Branch: Omega Balance -->
+          <div class="mm-branch" onclick="toggleMM(this)">
+            <div class="mm-l1 gold">
+              <span class="ar">&#9878;&#65039; أوميغا<br><small style="font-weight:400;opacity:.8">Omega Balance</small></span>
+              <span class="de">&#9878;&#65039; Omega<br><small style="font-weight:400;opacity:.8">Omega Balance</small></span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">&#969;-3: مضاد للالتهاب</span><span class="de">&#969;-3: Entzündungshemmend</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">&#969;-6: محفز للالتهاب</span><span class="de">&#969;-6: Entzündungsfördernd</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">النسبة أهم من الكمية</span><span class="de">Verhältnis &gt; Menge</span></div>
+            </div>
+          </div>
+
+          <!-- Branch: Smoke Point -->
+          <div class="mm-branch" onclick="toggleMM(this)">
+            <div class="mm-l1 gold">
+              <span class="ar">&#128293; نقطة التدخين<br><small style="font-weight:400;opacity:.8">Rauchpunkt</small></span>
+              <span class="de">&#128293; Rauchpunkt<br><small style="font-weight:400;opacity:.8">Smoke Point</small></span>
+            </div>
+            <div class="mm-children">
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">مكرر: قلي عميق</span><span class="de">Raffiniert: Frittieren</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">بكر: طهي متوسط</span><span class="de">Nativ: Mittlere Hitze</span></div>
+              <div class="mm-cline"></div>
+              <div class="mm-l2"><span class="ar">بارد: سلطة فقط</span><span class="de">Kalt: Nur Salat</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       9. QUIZ
+  ══════════════════════════════════════ -->
+  <section id="sec-quiz">
+    <h2 class="section-title">
+      &#129504;
+      <span class="ar">اختبر معلوماتك!</span>
+      <span class="de">Teste dein Wissen!</span>
+    </h2>
+
+    <div class="quiz-container">
+
+      <!-- Q1 -->
+      <div class="quiz-q" data-correct="1">
+        <h4><span class="ar">1. ما الفرق الرئيسي بين الدهون المشبعة وغير المشبعة؟</span><span class="de">1. Was ist der Hauptunterschied zwischen gesättigten und ungesättigten Fetten?</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">الدهون المشبعة سائلة وغير المشبعة صلبة</span><span class="de">Gesättigte Fette sind flüssig und ungesättigte fest</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">الدهون المشبعة لا تحتوي على روابط مزدوجة وتكون صلبة في درجة حرارة الغرفة</span><span class="de">Gesättigte Fette enthalten keine Doppelbindungen und sind fest bei Raumtemperatur</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">لا يوجد فرق، كلاهما نفس الشيء</span><span class="de">Es gibt keinen Unterschied, beide sind gleich</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">&#10004; صحيح! الدهون المشبعة لا تحتوي على روابط مزدوجة بين ذرات الكربون مما يجعلها مستقرة وصلبة في درجة حرارة الغرفة.</span><span class="de">&#10004; Richtig! Gesättigte Fette enthalten keine Doppelbindungen zwischen den Kohlenstoffatomen, was sie stabil und fest bei Raumtemperatur macht.</span></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="quiz-q" data-correct="2">
+        <h4><span class="ar">2. ما التوصية عند استخدام زيت Naturtrüb؟</span><span class="de">2. Was ist die Empfehlung bei der Verwendung von naturtrübem Öl?</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">مناسب للقلي العميق بسبب مكوناته الطبيعية</span><span class="de">Geeignet zum Frittieren wegen seiner natürlichen Inhaltsstoffe</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">يمكن تخزينه في الشمس لفترة طويلة</span><span class="de">Kann lange in der Sonne gelagert werden</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">يُحفظ في الثلاجة ويُستخدم للسلطة أو الطبخ الخفيف فقط</span><span class="de">Im Kühlschrank aufbewahren und nur für Salat oder leichtes Kochen verwenden</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">&#10004; صحيح! الزيت الطبيعي (Naturtrüb) يُحفظ في الثلاجة أو خزانة مظلمة، ويُستخدم خلال أسابيع بعد الفتح، ولا يُستخدم للقلي.</span><span class="de">&#10004; Richtig! Naturtrübes Öl wird im Kühlschrank oder dunklen Schrank aufbewahrt, innerhalb von Wochen verbraucht und nicht zum Frittieren verwendet.</span></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="quiz-q" data-correct="0">
+        <h4><span class="ar">3. ما الفرق بين أوميغا-3 وأوميغا-6 من حيث الالتهاب؟</span><span class="de">3. Was ist der Unterschied zwischen Omega-3 und Omega-6 bezüglich Entzündung?</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">أوميغا-3 مضاد للالتهاب، وأوميغا-6 محفز للالتهاب</span><span class="de">Omega-3 ist entzündungshemmend, Omega-6 ist entzündungsfördernd</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">كلاهما مضاد للالتهاب</span><span class="de">Beide sind entzündungshemmend</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">كلاهما محفز للالتهاب</span><span class="de">Beide sind entzündungsfördernd</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">&#10004; صحيح! أوميغا-3 يعمل على إطفاء الالتهاب بينما أوميغا-6 يعمل على إشعاله. النسبة بينهما أهم من الكمية المطلقة.</span><span class="de">&#10004; Richtig! Omega-3 hemmt Entzündungen, während Omega-6 sie fördert. Das Verhältnis zwischen beiden ist wichtiger als die absolute Menge.</span></div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="quiz-q" data-correct="1">
+        <h4><span class="ar">4. لماذا تُعتبر الدهون المهدرجة (ترانس) الأخطر؟</span><span class="de">4. Warum gelten Transfette als die gefährlichsten?</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">لأنها تحتوي على سعرات حرارية أكثر</span><span class="de">Weil sie mehr Kalorien enthalten</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">ترفع LDL وتخفض HDL وتزيد خطر أمراض القلب والالتهابات</span><span class="de">Sie erhöhen LDL, senken HDL und steigern das Risiko von Herzkrankheiten und Entzündungen</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">لأن طعمها سيئ</span><span class="de">Weil sie schlecht schmecken</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">&#10004; صحيح! الدهون المهدرجة ترفع الكولسترول الضار (LDL) وتخفض الجيد (HDL) وتزيد خطر أمراض القلب والسكتة الدماغية والالتهابات المزمنة.</span><span class="de">&#10004; Richtig! Transfette erhöhen das schlechte Cholesterin (LDL), senken das gute (HDL) und steigern das Risiko von Herzkrankheiten, Schlaganfall und chronischen Entzündungen.</span></div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="quiz-q" data-correct="2">
+        <h4><span class="ar">5. ما الزيت الأنسب لتحضير السلطة من حيث أوميغا-3؟</span><span class="de">5. Welches Öl eignet sich am besten für Salat bezüglich Omega-3?</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">زيت دوار الشمس المكرر</span><span class="de">Raffiniertes Sonnenblumenöl</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">زيت جوز الهند</span><span class="de">Kokosöl</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">زيت بذور الكتان — غني بأوميغا-3 ولكن لا يُسخن</span><span class="de">Leinöl — reich an Omega-3, aber nicht erhitzen</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">&#10004; صحيح! زيت بذور الكتان من أغنى المصادر النباتية بأوميغا-3 ولكنه ذو نقطة تدخين منخفضة (107&deg;م) لذلك يُستخدم للسلطة فقط.</span><span class="de">&#10004; Richtig! Leinöl ist eine der reichsten pflanzlichen Omega-3-Quellen, hat aber einen niedrigen Rauchpunkt (107&deg;C) und eignet sich daher nur für Salat.</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FOOTER NAV -->
+  <div class="footer-nav">
+    <a href="chapter5-liquids-proteins.html">
+      <span class="ar">&#8594; الفصل الخامس: السوائل والبروتينات</span>
+      <span class="de">&#8594; Kapitel 5: Flüssigkeiten & Proteine</span>
+    </a>
+    <a href="../index.html" class="primary">
+      <span class="ar">&#127968; الرئيسية</span>
+      <span class="de">&#127968; Startseite</span>
+    </a>
+    <a href="chapter7-yoyo-effect.html">
+      <span class="ar">&#8592; الفصل السابع: تأثير اليويو</span>
+      <span class="de">&#8592; Kapitel 7: Jojo-Effekt</span>
+    </a>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  // ═══ PASSWORD GATE ═══
+  const PW_HASH = '59f49e6495c6d3eb3ccae62a649e836575fc344d12bf43797f779b43f9156ee6';
+  (function(){
+    if(sessionStorage.getItem('hc-auth') === '1') {
+      document.getElementById('pwOverlay').classList.add('hidden');
+    }
+  })();
+  async function checkPw(){
+    const pw = document.getElementById('pwInput').value;
+    const enc = new TextEncoder();
+    const hash = await crypto.subtle.digest('SHA-256', enc.encode(pw));
+    const hex = Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    if(hex === PW_HASH){
+      sessionStorage.setItem('hc-auth','1');
+      document.getElementById('pwOverlay').classList.add('hidden');
+    } else {
+      document.getElementById('pwError').style.display='block';
+      document.getElementById('pwInput').value='';
+      document.getElementById('pwInput').focus();
+    }
+  }
+  document.getElementById('pwInput').addEventListener('keydown',function(e){ if(e.key==='Enter') checkPw(); });
+
+  // ═══ THEME ═══
+  function setTheme(name, el) {
+    document.body.setAttribute('data-theme', name);
+    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+    localStorage.setItem('theme', name);
+  }
+  (function(){
+    const t = localStorage.getItem('theme');
+    if(t){
+      document.body.setAttribute('data-theme', t);
+      const s = document.querySelector('.s-'+t);
+      if(s){ document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('active')); s.classList.add('active'); }
+    }
+  })();
+
+  // ═══ LANGUAGE ═══
+  let lang = 'ar';
+  function toggleLang(){
+    lang = lang === 'ar' ? 'de' : 'ar';
+    document.querySelectorAll('.ar').forEach(el => el.style.display = lang==='ar' ? '' : 'none');
+    document.querySelectorAll('.de').forEach(el => el.style.display = lang==='de' ? '' : 'none');
+    document.getElementById('langBtn').textContent = lang==='ar' ? 'DE' : 'AR';
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', lang==='ar' ? 'rtl' : 'ltr');
+  }
+
+  // ═══ SCROLL PROGRESS ═══
+  window.addEventListener('scroll', function(){
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+    document.getElementById('scrollProgress').style.width = pct + '%';
+  });
+
+  // ═══ PARTICLES ═══
+  (function(){
+    const canvas = document.getElementById('particlesCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    for(let i=0; i<50; i++){
+      particles.push({
+        x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+        vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3,
+        r: Math.random()*2+0.5, o: Math.random()*0.3+0.1
+      });
+    }
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#c9a84c';
+      particles.forEach(p=>{
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0) p.x=canvas.width; if(p.x>canvas.width) p.x=0;
+        if(p.y<0) p.y=canvas.height; if(p.y>canvas.height) p.y=0;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = accent; ctx.globalAlpha = p.o; ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  // ═══ SIDE NAV DOTS ═══
+  const sections = [
+    {id:'sec-intro',ar:'مقدمة',de:'Einführung'},
+    {id:'sec-fat-types',ar:'أنواع الدهون',de:'Fettarten'},
+    {id:'sec-balance',ar:'التوازن',de:'Balance'},
+    {id:'sec-oils',ar:'الزيوت',de:'Öle'},
+    {id:'sec-omega',ar:'أوميغا',de:'Omega'},
+    {id:'sec-smoke',ar:'نقطة التدخين',de:'Rauchpunkt'},
+    {id:'sec-sources',ar:'المصادر',de:'Quellen'},
+    {id:'sec-mindmap',ar:'خريطة ذهنية',de:'Mindmap'},
+    {id:'sec-quiz',ar:'اختبار',de:'Quiz'}
+  ];
+  const sideNav = document.getElementById('sideNav');
+  sections.forEach(s=>{
+    const dot = document.createElement('div');
+    dot.className = 'side-dot';
+    dot.innerHTML = '<div class="dot-label"><span class="ar">'+s.ar+'</span><span class="de" style="display:none">'+s.de+'</span></div>';
+    dot.onclick = ()=> document.getElementById(s.id).scrollIntoView({behavior:'smooth'});
+    dot.dataset.section = s.id;
+    sideNav.appendChild(dot);
+  });
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        document.querySelectorAll('.side-dot').forEach(d=>d.classList.remove('active'));
+        const dot = sideNav.querySelector('[data-section="'+e.target.id+'"]');
+        if(dot) dot.classList.add('active');
+      }
+    });
+  },{threshold:0.3});
+  sections.forEach(s=>{
+    const el = document.getElementById(s.id);
+    if(el) observer.observe(el);
+  });
+
+  // ═══ FAT TYPE CARDS ═══
+  function toggleFatCard(card){
+    const wasOpen = card.classList.contains('open');
+    document.querySelectorAll('.fat-card').forEach(c=>c.classList.remove('open'));
+    if(!wasOpen) card.classList.add('open');
+  }
+
+  // ═══ OIL BOTTLE SELECTION ═══
+  function selectOil(bottle){
+    document.querySelectorAll('.oil-bottle').forEach(b=>b.classList.remove('active'));
+    bottle.classList.add('active');
+  }
+
+  // ═══ OMEGA BALANCE TOGGLE ═══
+  let isBalanced = false;
+  function toggleBalance(){
+    isBalanced = !isBalanced;
+    const beam = document.getElementById('scaleBeam');
+    const btn = document.getElementById('balanceBtn');
+    if(isBalanced){
+      beam.classList.add('balanced');
+      btn.innerHTML = '<span class="ar">&#9989; الميزان متوازن!</span><span class="de">&#9989; Waage ist ausbalanciert!</span>';
+      if(lang==='de'){ btn.querySelector('.ar').style.display='none'; } else { btn.querySelector('.de').style.display='none'; }
+      btn.style.background = 'var(--green)';
+    } else {
+      beam.classList.remove('balanced');
+      btn.innerHTML = '<span class="ar">&#9878;&#65039; اجعل الميزان متوازنًا</span><span class="de">&#9878;&#65039; Waage ausbalancieren</span>';
+      if(lang==='de'){ btn.querySelector('.ar').style.display='none'; } else { btn.querySelector('.de').style.display='none'; }
+      btn.style.background = 'var(--accent)';
+    }
+  }
+
+  // ═══ SMOKE POINT BARS ANIMATION ═══
+  const smokeObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        // Max temp reference: 270, scale to 100%
+        document.getElementById('smoke1').style.width='100%';    // 270
+        document.getElementById('smoke2').style.width='93%';     // 250
+        document.getElementById('smoke3').style.width='89%';     // 240
+        document.getElementById('smoke4').style.width='85%';     // 230
+        document.getElementById('smoke5').style.width='78%';     // 210
+        document.getElementById('smoke6').style.width='59%';     // 160
+        document.getElementById('smoke7').style.width='40%';     // 107
+        smokeObs.disconnect();
+      }
+    });
+  },{threshold:0.2});
+  const smokeSec = document.getElementById('smokeChart');
+  if(smokeSec) smokeObs.observe(smokeSec);
+
+  // ═══ MIND MAP TOGGLE ═══
+  function toggleMM(branch){
+    const wasOpen = branch.classList.contains('open');
+    document.querySelectorAll('.mm-branch').forEach(b=>b.classList.remove('open'));
+    if(!wasOpen) branch.classList.add('open');
+  }
+
+  // ═══ QUIZ ═══
+  function quizAnswer(optEl, idx){
+    const q = optEl.closest('.quiz-q');
+    if(q.classList.contains('answered')) return;
+    q.classList.add('answered');
+    const correct = parseInt(q.dataset.correct);
+    const opts = q.querySelectorAll('.quiz-opt');
+    opts.forEach((o,i)=>{
+      o.classList.add('disabled');
+      if(i===correct) o.classList.add('correct');
+      else if(i===idx && idx!==correct) o.classList.add('wrong');
+    });
+    const fb = q.querySelector('.quiz-feedback');
+    if(idx===correct){
+      fb.style.background='var(--green-soft)'; fb.style.color='var(--green)';
+    } else {
+      fb.style.background='var(--red-soft)'; fb.style.color='var(--red)';
+      fb.innerHTML = '<span class="ar">&#10060; خطأ — الإجابة الصحيحة موضحة باللون الأخضر</span><span class="de">&#10060; Falsch — Die richtige Antwort ist grün markiert</span>';
+      if(lang==='de'){ fb.querySelector('.ar').style.display='none'; } else { fb.querySelector('.de').style.display='none'; }
+    }
+    fb.classList.add('show');
+  }
+</script>
+</body>
+</html>
