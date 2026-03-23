@@ -53,6 +53,7 @@ git commit -m "Initial commit: project files, chapter1-goal.html, source data"
 | `chapter-5-liquids-proteins` | Chapter 5 development |
 | `chapter-6-lipids` | Chapter 6 development |
 | `chapter-7-yoyo-effect` | Chapter 7 development |
+| `chapter-8-ten-commandments` | Chapter 8 development |
 
 All chapter branches are created from `main` upfront. Development happens on the branch; when done, it merges into `main`.
 
@@ -69,6 +70,7 @@ All chapter branches are created from `main` upfront. Development happens on the
 | 5 | `chapter5-liquids-proteins.html` | السوائل والبروتينات / Flüssigkeiten & Proteine |
 | 6 | `chapter6-lipids.html` | الدهون / Lipide |
 | 7 | `chapter7-yoyo-effect.html` | تمثيل التغذية وتأثير اليويو / Yo-yo-Effekt |
+| 8 | `chapter8-ten-commandments.html` | الوصايا العشرة / Die Zehn Gebote |
 
 ---
 
@@ -102,17 +104,17 @@ All chapters reuse patterns from `chapter1-goal.html`:
 
 ## 8. Execution Order
 
-1. **Now:** `git init`, create `other/` folder, move raw files, initial commit on `main`, create all 7 chapter branches, create `index.html`, commit to `main`
+1. **Now:** `git init`, create `other/` folder, move raw files, initial commit on `main`, create all 8 chapter branches, create `index.html`, commit to `main`
 2. **When asked:** Define Chapter 1 improvement requirements → check out `chapter-1-improvements` → implement → merge to main
 3. **When asked:** Check out `chapter-2-insulin-resistance` → build chapter 2 → merge to main
-4. Continue for chapters 3–7
+4. Continue for chapters 3–8
 
 ---
 
 ## 9. Verification
 
 - `git log --oneline` shows initial commit on main
-- `git branch -a` lists all 7 chapter branches
+- `git branch -a` lists all 8 chapter branches
 - `other/` folder contains 3 raw files
-- Open `index.html` in browser — all 7 chapter cards visible, Chapter 1 link works
+- Open `index.html` in browser — all 8 chapter cards visible, Chapter 1 link works
 - Open `chapter1-goal.html` — theme toggle, language toggle, calculator all functional

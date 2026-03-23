@@ -28,6 +28,7 @@ An interactive, bilingual (Arabic / German) web course on nutrition and insulin 
 | 5 | السوائل والبروتينات / Flüssigkeiten & Proteine | 🔒 Pending |
 | 6 | الدهون / Lipide | 🔒 Pending |
 | 7 | تأثير اليويو / Yo-yo-Effekt | 🔒 Pending |
+| 8 | الوصايا العشرة / Die Zehn Gebote | 🔒 Pending |
 
 ## Features
 
@@ -56,4 +57,5 @@ chapter-4-micro-nutrients
 chapter-5-liquids-proteins
 chapter-6-lipids
 chapter-7-yoyo-effect
+chapter-8-ten-commandments
 ```

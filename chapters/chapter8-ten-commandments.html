@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الفصل الثامن – الوصايا العشرة | Die Zehn Gebote</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&subset=arabic,latin&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d0d0d; --surface:#1a1a1a; --surface2:#232323;
+    --accent:#c9a84c; --accent2:#e8c97a; --accent-dim:#7a5f28;
+    --text:#f0ead6; --text-soft:#a89870;
+    --red:#c0392b; --red-soft:#2a1010;
+    --green:#27ae60; --green-soft:#0e2418;
+    --border:#2e2e2e; --radius:14px; --shadow:0 8px 32px rgba(0,0,0,0.5);
+  }
+  [data-theme="teal"] {
+    --bg:#f0f8f7; --surface:#ffffff; --surface2:#e6f4f1;
+    --accent:#0d7377; --accent2:#14a085; --accent-dim:#b2dfdb;
+    --text:#1a2e2d; --text-soft:#4a7c79; --border:#b2dfdb;
+    --red:#c0392b; --red-soft:#fdecea; --green:#1a7a4a; --green-soft:#e8f5e9;
+  }
+  [data-theme="purple"] {
+    --bg:#0f0c1e; --surface:#1a1530; --surface2:#221d3a;
+    --accent:#9b59b6; --accent2:#c39bd3; --accent-dim:#4a2060;
+    --text:#ede0f5; --text-soft:#9b8ab0; --border:#2d2545;
+    --red:#e74c3c; --red-soft:#2a0e0e; --green:#27ae60; --green-soft:#0e2418;
+  }
+  [data-theme="emerald"] {
+    --bg:#faf8f2; --surface:#ffffff; --surface2:#f2ede0;
+    --accent:#2d6a4f; --accent2:#40916c; --accent-dim:#b7e4c7;
+    --text:#1b2d23; --text-soft:#52796f; --border:#b7e4c7;
+    --red:#b5451b; --red-soft:#fdecea; --green:#1b5e20; --green-soft:#e8f5e9;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Cairo','Tahoma','Arial',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background .3s,color .3s; overflow-x:hidden; }
+  .ar, [lang="ar"], [dir="rtl"] { letter-spacing: 0 !important; }
+
+  /* PASSWORD GATE */
+  .pw-overlay { position:fixed; inset:0; background:var(--bg); z-index:10000; display:flex; align-items:center; justify-content:center; transition:opacity .5s; }
+  .pw-overlay.hidden { opacity:0; pointer-events:none; }
+  .pw-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:40px 30px; text-align:center; max-width:360px; width:90%; box-shadow:var(--shadow); }
+  .pw-box input { width:100%; padding:14px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-family:'Cairo',sans-serif; font-size:16px; text-align:center; outline:none; margin-bottom:16px; }
+  .pw-box input:focus { border-color:var(--accent); }
+  .pw-box button { width:100%; padding:14px; background:var(--accent); color:var(--bg); border:none; border-radius:10px; font-family:'Cairo',sans-serif; font-size:16px; font-weight:800; cursor:pointer; transition:.2s; }
+  .pw-box button:hover { background:var(--accent2); }
+  .pw-error { color:var(--red); font-size:13px; display:none; margin-top:8px; }
+
+  /* SCROLL PROGRESS */
+  .scroll-progress { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent2)); z-index:9999; width:0; transition:width .1s; }
+
+  /* PARTICLES */
+  .particles-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+  /* SIDE NAV DOTS */
+  .side-nav { position:fixed; right:20px; top:50%; transform:translateY(-50%); z-index:998; display:flex; flex-direction:column; gap:12px; }
+  [dir="ltr"] .side-nav { right:auto; left:20px; }
+  .side-dot { width:12px; height:12px; border-radius:50%; background:var(--border); cursor:pointer; transition:.3s; position:relative; }
+  .side-dot.active { background:var(--accent); box-shadow:0 0 10px var(--accent); }
+  .side-dot:hover { background:var(--accent-dim); transform:scale(1.3); }
+  .side-dot .dot-label { position:absolute; right:20px; top:50%; transform:translateY(-50%); background:var(--surface); color:var(--text); font-size:11px; padding:4px 10px; border-radius:6px; white-space:nowrap; opacity:0; pointer-events:none; transition:.2s; border:1px solid var(--border); }
+  [dir="ltr"] .side-dot .dot-label { right:auto; left:20px; }
+  .side-dot:hover .dot-label { opacity:1; }
+
+  /* THEME BAR */
+  .theme-bar { position:fixed; top:16px; left:16px; z-index:999; display:flex; gap:8px; align-items:center; background:var(--surface); border:1px solid var(--border); padding:8px 12px; border-radius:40px; box-shadow:var(--shadow); }
+  .theme-bar span { font-size:11px; color:var(--text-soft); margin-left:4px; }
+  .swatch { width:22px; height:22px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:.2s; }
+  .swatch:hover, .swatch.active { border-color:var(--text); transform:scale(1.2); }
+  .swatch.s-dark    { background:radial-gradient(circle at 40% 40%,#c9a84c,#0d0d0d); }
+  .swatch.s-teal    { background:radial-gradient(circle at 40% 40%,#14a085,#f0f8f7); }
+  .swatch.s-purple  { background:radial-gradient(circle at 40% 40%,#9b59b6,#0f0c1e); }
+  .swatch.s-emerald { background:radial-gradient(circle at 40% 40%,#2d6a4f,#faf8f2); }
+
+  /* LANG BTN */
+  .lang-btn { position:fixed; top:16px; right:16px; z-index:999; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-size:13px; font-weight:700; padding:6px 18px; border-radius:40px; cursor:pointer; transition:.2s; box-shadow:var(--shadow); }
+  .lang-btn:hover { background:var(--accent); color:var(--bg); }
+
+  /* HEADER */
+  header { text-align:center; padding:60px 20px 40px; background:linear-gradient(160deg,var(--surface) 0%,var(--bg) 100%); border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%,var(--accent-dim),transparent); opacity:.25; pointer-events:none; }
+  .chapter-tag { display:inline-block; font-size:12px; font-weight:700; color:var(--accent); border:1px solid var(--accent); padding:4px 16px; border-radius:40px; margin-bottom:16px; }
+  .finale-tag { display:inline-block; font-size:11px; font-weight:800; color:var(--bg); background:var(--accent); padding:4px 14px; border-radius:40px; margin-bottom:12px; margin-right:8px; margin-left:8px; animation:pulse-glow 2s ease-in-out infinite; }
+  @keyframes pulse-glow { 0%,100%{box-shadow:0 0 10px rgba(201,168,76,0.3)} 50%{box-shadow:0 0 25px rgba(201,168,76,0.6)} }
+  header h1 { font-size:clamp(28px,5vw,52px); font-weight:900; line-height:1.2; }
+  header h1 .accent { color:var(--accent); }
+  .subtitle { color:var(--text-soft); font-size:15px; margin-top:10px; }
+
+  /* LAYOUT */
+  .container { max-width:1100px; margin:0 auto; padding:40px 20px 80px; position:relative; z-index:1; }
+  section { margin-bottom:60px; scroll-margin-top:30px; }
+  h2.section-title { font-size:22px; font-weight:800; color:var(--accent); border-right:4px solid var(--accent); padding-right:14px; margin-bottom:24px; display:flex; align-items:center; gap:10px; }
+  [dir="ltr"] h2.section-title { border-right:none; border-left:4px solid var(--accent); padding-right:0; padding-left:14px; }
+
+  /* CARDS */
+  .cards { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px; transition:transform .2s,box-shadow .2s,border-color .2s; }
+  .card:hover { transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent-dim); }
+  .card-icon { font-size:28px; margin-bottom:10px; }
+  .card h3 { font-size:15px; font-weight:700; margin-bottom:6px; color:var(--accent2); }
+  .card p { font-size:13px; color:var(--text-soft); line-height:1.7; }
+
+  /* INFO BOX */
+  .info-box { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; }
+  .info-box .lbl { font-size:11px; font-weight:800; color:var(--accent); margin-bottom:8px; }
+  .info-box p { font-size:13px; line-height:1.9; color:var(--text-soft); }
+  .info-box p strong { color:var(--text); }
+
+  /* QUOTE BOX */
+  .quote-box { border-right:4px solid var(--accent); padding:16px 20px; background:var(--surface2); border-radius:0 10px 10px 0; margin:20px 0; font-size:14px; line-height:1.8; }
+  [dir="ltr"] .quote-box { border-right:none; border-left:4px solid var(--accent); }
+
+  /* DIVIDER */
+  .divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent-dim),transparent); margin:40px 0; }
+
+  /* DE hidden by default */
+  .de { display:none; }
+
+  /* ═══ COMMANDMENT CARDS ═══ */
+  .cmd-grid { display:grid; gap:24px; grid-template-columns:1fr; }
+  .cmd-card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; transition:.3s; cursor:pointer; }
+  .cmd-card:hover { transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent-dim); }
+  .cmd-header { display:flex; align-items:center; gap:16px; padding:20px 24px; }
+  .cmd-number { width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent2)); color:var(--bg); display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:900; flex-shrink:0; box-shadow:0 4px 15px rgba(201,168,76,0.3); }
+  .cmd-title-wrap { flex:1; }
+  .cmd-title-wrap h3 { font-size:17px; font-weight:800; color:var(--accent2); margin-bottom:2px; }
+  .cmd-title-wrap .cmd-subtitle { font-size:12px; color:var(--text-soft); }
+  .cmd-expand { font-size:18px; color:var(--accent); transition:.3s; flex-shrink:0; }
+  .cmd-card.open .cmd-expand { transform:rotate(180deg); }
+  .cmd-detail { max-height:0; overflow:hidden; transition:max-height .5s ease; }
+  .cmd-card.open .cmd-detail { max-height:600px; }
+  .cmd-detail-inner { padding:0 24px 24px; font-size:13px; line-height:1.9; color:var(--text-soft); border-top:1px solid var(--border); }
+  .cmd-detail-inner strong { color:var(--text); }
+  .cmd-icon { font-size:32px; }
+
+  /* ═══ FLIP CARDS ═══ */
+  .flip-grid { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); }
+  .flip-card-outer { perspective:600px; height:220px; cursor:pointer; }
+  .flip-card-inner { position:relative; width:100%; height:100%; transition:transform .6s; transform-style:preserve-3d; }
+  .flip-card-outer:hover .flip-card-inner { transform:rotateY(180deg); }
+  [dir="rtl"] .flip-card-outer:hover .flip-card-inner { transform:rotateY(-180deg); }
+  .flip-front, .flip-back { position:absolute; width:100%; height:100%; backface-visibility:hidden; border-radius:var(--radius); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; text-align:center; }
+  .flip-front { background:var(--surface); border:1px solid var(--border); }
+  .flip-front .flip-icon { font-size:42px; margin-bottom:12px; }
+  .flip-front h4 { font-size:14px; font-weight:700; color:var(--accent2); }
+  .flip-front .flip-hint { font-size:10px; color:var(--text-soft); margin-top:8px; opacity:.7; }
+  .flip-back { background:var(--surface2); border:1px solid var(--accent-dim); transform:rotateY(180deg); }
+  [dir="rtl"] .flip-back { transform:rotateY(-180deg); }
+  .flip-back p { font-size:12px; color:var(--text-soft); line-height:1.7; }
+  .flip-back strong { color:var(--text); }
+  .flip-back .flip-num { font-size:28px; font-weight:900; color:var(--accent); margin-bottom:8px; }
+
+  /* ═══ BUBBLE CLOUD ═══ */
+  .bubble-cloud { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; padding:20px; }
+  .bubble { padding:10px 20px; border-radius:40px; font-size:13px; font-weight:600; cursor:default; transition:.3s; border:1px solid var(--border); background:var(--surface); color:var(--text-soft); }
+  .bubble:hover { transform:scale(1.08); border-color:var(--accent); color:var(--accent); }
+  .bubble.b1 { background:linear-gradient(135deg,var(--accent-dim),var(--surface2)); }
+  .bubble.b2 { background:linear-gradient(135deg,var(--green-soft),var(--surface2)); }
+  .bubble.b3 { background:linear-gradient(135deg,rgba(52,152,219,0.12),var(--surface2)); }
+
+  /* ═══ COURSE RECAP ═══ */
+  .recap-grid { display:grid; gap:14px; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); }
+  .recap-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px; text-align:center; transition:.2s; }
+  .recap-card:hover { border-color:var(--accent-dim); transform:translateY(-2px); }
+  .recap-card .recap-icon { font-size:30px; margin-bottom:8px; }
+  .recap-card .recap-ch { font-size:10px; font-weight:800; color:var(--accent); margin-bottom:4px; }
+  .recap-card h4 { font-size:13px; font-weight:700; color:var(--accent2); }
+
+  /* ═══ CELEBRATION ═══ */
+  .celebration-box { background:linear-gradient(135deg,var(--surface),var(--surface2)); border:2px solid var(--accent); border-radius:var(--radius); padding:40px 30px; text-align:center; position:relative; overflow:hidden; }
+  .celebration-box::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% 0%,var(--accent-dim),transparent 70%); opacity:.3; pointer-events:none; }
+  .celebration-box h2 { font-size:clamp(24px,4vw,36px); font-weight:900; color:var(--accent); margin-bottom:16px; }
+  .celebration-box p { font-size:14px; color:var(--text-soft); line-height:1.9; max-width:700px; margin:0 auto; }
+  .celebration-box .trophy { font-size:64px; display:block; margin-bottom:20px; animation:bounce 2s ease-in-out infinite; }
+  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  .celebration-stats { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-top:24px; }
+  .stat-pill { background:var(--surface2); border:1px solid var(--accent-dim); border-radius:40px; padding:10px 24px; }
+  .stat-pill .stat-val { font-size:20px; font-weight:900; color:var(--accent); }
+  .stat-pill .stat-lbl { font-size:11px; color:var(--text-soft); }
+
+  /* ═══ GOLDEN RULE BOX ═══ */
+  .golden-rule { background:linear-gradient(135deg,var(--accent),var(--accent2)); border-radius:var(--radius); padding:30px; text-align:center; margin:24px 0; }
+  .golden-rule p { color:var(--bg); font-size:16px; font-weight:700; line-height:1.8; }
+  .golden-rule .rule-icon { font-size:36px; display:block; margin-bottom:12px; }
+
+  /* ═══ QUIZ ═══ */
+  .quiz-container { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .quiz-q { margin-bottom:24px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+  .quiz-q:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .quiz-q h4 { font-size:14px; font-weight:700; color:var(--accent2); margin-bottom:12px; }
+  .quiz-opts { display:flex; flex-direction:column; gap:8px; }
+  .quiz-opt { padding:12px 16px; border-radius:10px; background:var(--surface2); border:1px solid var(--border); cursor:pointer; font-size:13px; transition:.2s; user-select:none; }
+  .quiz-opt:hover { border-color:var(--accent-dim); }
+  .quiz-opt.correct { background:var(--green-soft); border-color:var(--green); color:var(--green); }
+  .quiz-opt.wrong { background:var(--red-soft); border-color:var(--red); color:var(--red); }
+  .quiz-opt.disabled { pointer-events:none; opacity:0.6; }
+  .quiz-feedback { margin-top:8px; font-size:12px; line-height:1.7; display:none; padding:10px; border-radius:8px; }
+  .quiz-feedback.show { display:block; }
+
+  /* FOOTER NAV */
+  .footer-nav { display:flex; justify-content:center; align-items:center; gap:20px; flex-wrap:wrap; padding:30px 20px; }
+  .footer-nav a { display:inline-block; padding:12px 30px; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-weight:700; font-size:14px; border-radius:40px; text-decoration:none; transition:.2s; }
+  .footer-nav a:hover { background:var(--accent); color:var(--bg); }
+  .footer-nav a.primary { background:var(--accent); color:var(--bg); }
+  .footer-nav a.primary:hover { background:var(--accent2); }
+
+  /* CONFETTI */
+  .confetti-container { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9998; overflow:hidden; }
+  .confetti-piece { position:absolute; width:10px; height:10px; top:-20px; animation:confetti-fall linear forwards; }
+  @keyframes confetti-fall {
+    0% { transform:translateY(0) rotate(0deg); opacity:1; }
+    100% { transform:translateY(100vh) rotate(720deg); opacity:0; }
+  }
+
+  @media(max-width:700px){
+    .side-nav { display:none; }
+    .flip-grid { grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); }
+    .recap-grid { grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); }
+    .cmd-header { padding:16px; gap:12px; }
+    .cmd-number { width:44px; height:44px; font-size:18px; }
+    .celebration-stats { flex-direction:column; align-items:center; }
+  }
+</style>
+</head>
+<body data-theme="dark">
+
+<!-- PASSWORD GATE -->
+<div class="pw-overlay" id="pwOverlay">
+  <div class="pw-box">
+    <h2>&#128274;</h2>
+    <p style="color:var(--text-soft); font-size:13px; margin-bottom:16px;">
+      <span class="ar">أدخل كلمة المرور للمتابعة</span>
+      <span class="de">Passwort eingeben</span>
+    </p>
+    <input type="password" id="pwInput" placeholder="••••••••" autocomplete="off">
+    <button onclick="checkPw()">
+      <span class="ar">دخول</span>
+      <span class="de">Eintreten</span>
+    </button>
+    <div class="pw-error" id="pwError">
+      <span class="ar">كلمة المرور غير صحيحة</span>
+      <span class="de">Falsches Passwort</span>
+    </div>
+  </div>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- PARTICLES -->
+<canvas class="particles-canvas" id="particlesCanvas"></canvas>
+
+<!-- SIDE NAV DOTS -->
+<nav class="side-nav" id="sideNav"></nav>
+
+<!-- Theme switcher -->
+<div class="theme-bar">
+  <span>&#127912;</span>
+  <div class="swatch s-dark active"   onclick="setTheme('dark',this)"    title="Dark Gold"></div>
+  <div class="swatch s-teal"          onclick="setTheme('teal',this)"    title="Teal"></div>
+  <div class="swatch s-purple"        onclick="setTheme('purple',this)"  title="Purple"></div>
+  <div class="swatch s-emerald"       onclick="setTheme('emerald',this)" title="Emerald"></div>
+</div>
+
+<!-- Lang toggle -->
+<button class="lang-btn" onclick="toggleLang()" id="langBtn">DE</button>
+
+<!-- CONFETTI CONTAINER -->
+<div class="confetti-container" id="confettiContainer"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="chapter-tag">
+    <span class="ar">الفصل الثامن</span>
+    <span class="de">Kapitel 8</span>
+  </div>
+  <div class="finale-tag">
+    <span class="ar">&#127942; الفصل الأخير</span>
+    <span class="de">&#127942; Finales Kapitel</span>
+  </div>
+  <h1>
+    <span class="accent">&#128220;</span>
+    <span class="ar"> الوصايا العشرة</span>
+    <span class="de"> Die Zehn Gebote der gesunden Ern&#228;hrung</span>
+  </h1>
+  <p class="subtitle">
+    <span class="ar">عشر قواعد ذهبية للتغذية الصحية والوقاية من مقاومة الأنسولين</span>
+    <span class="de">Zehn goldene Regeln f&#252;r gesunde Ern&#228;hrung und Pr&#228;vention von Insulinresistenz</span>
+  </p>
+</header>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════
+       1. INTRODUCTION
+  ══════════════════════════════════════ -->
+  <section id="sec-intro">
+    <h2 class="section-title">
+      &#128220;
+      <span class="ar">مقدمة — القواعد الذهبية</span>
+      <span class="de">Einf&#252;hrung — Die goldenen Regeln</span>
+    </h2>
+
+    <div class="info-box" style="border-right:3px solid var(--accent)">
+      <div class="lbl ar">خلاصة الرحلة التعليمية</div>
+      <div class="lbl de">Zusammenfassung der Lernreise</div>
+      <p class="ar">بعد رحلة طويلة عبر سبعة فصول غنية بالمعلومات، نصل الآن إلى <strong>الفصل الأخير</strong> — حيث نلخص كل ما تعلمته في <strong>عشر وصايا ذهبية</strong>. هذه القواعد ليست مجرد نصائح عابرة، بل هي <strong>أسس علمية مثبتة</strong> لبناء نمط حياة صحي ومستدام يقيك من مقاومة الأنسولين والأمراض المزمنة.</p>
+      <p class="de">Nach einer langen Reise durch sieben inhaltsreiche Kapitel erreichen wir nun das <strong>letzte Kapitel</strong> — hier fassen wir alles Gelernte in <strong>zehn goldenen Geboten</strong> zusammen. Diese Regeln sind keine fl&#252;chtigen Tipps, sondern <strong>wissenschaftlich fundierte Grundlagen</strong> f&#252;r einen gesunden und nachhaltigen Lebensstil zur Pr&#228;vention von Insulinresistenz und chronischen Krankheiten.</p>
+    </div>
+
+    <div class="golden-rule">
+      <div class="rule-icon">&#9878;&#65039;</div>
+      <p class="ar">لا يوجد طعام يُعتبر صحيًا أو غير صحي بشكل مطلق. ما يحدد ذلك هو <strong>التوازن</strong> وعدد مرات تناوله.</p>
+      <p class="de">Kein Lebensmittel ist absolut gesund oder ungesund. Was z&#228;hlt, ist die <strong>Balance</strong> und die H&#228;ufigkeit des Verzehrs.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       2. THE TEN COMMANDMENTS
+  ══════════════════════════════════════ -->
+  <section id="sec-commandments">
+    <h2 class="section-title">
+      &#127775;
+      <span class="ar">الوصايا العشرة للتغذية الصحية</span>
+      <span class="de">Die Zehn Gebote der gesunden Ern&#228;hrung</span>
+    </h2>
+
+    <p style="font-size:13px; color:var(--text-soft); margin-bottom:24px; line-height:1.8">
+      <span class="ar">انقر على كل وصية لاكتشاف تفاصيلها والنصائح العملية المرتبطة بها</span>
+      <span class="de">Klicke auf jedes Gebot, um Details und praktische Tipps zu entdecken</span>
+    </p>
+
+    <div class="cmd-grid">
+
+      <!-- Commandment 1 -->
+      <div class="cmd-card" onclick="toggleCmd(this)">
+        <div class="cmd-header">
+          <div class="cmd-number"><span class="ar">&#1633;</span><span class="de">1</span></div>
+          <div class="cmd-icon">&#127869;</div>
+          <div class="cmd-title-wrap">
+            <h3><span class="ar">تنوع الأطعمة — الانفتاح على الجديد</span><span class="de">Vielfalt der Lebensmittel — Offenheit f&#252;r Neues</span></h3>
+            <div class="cmd-subtitle"><span class="ar">Vielfalt der Lebensmittel</span><span class="de">Food Variety</span></div>
+          </div>
+          <div class="cmd-expand">&#9660;</div>
+        </div>
+        <div class="cmd-detail">
+          <div class="cmd-detail-inner" style="padding-top:16px;">
+            <p class="ar">تناول مجموعة متنوعة من الأطعمة لا يُضفي فقط متعة على تجربة الأكل، بل له أيضًا تأثيرات مثبتة على الصحة. تُظهر الدراسات أن تنوع الأطعمة يمكن أن <strong>يقلل من خطر الإصابة بالأمراض المزمنة</strong> مثل السكري وأمراض القلب.</p>
+            <p class="de">Eine vielf&#228;ltige Ern&#228;hrung bringt nicht nur Freude beim Essen, sondern hat auch nachgewiesene Auswirkungen auf die Gesundheit. Studien zeigen, dass Nahrungsvielfalt das <strong>Risiko chronischer Krankheiten</strong> wie Diabetes und Herzkrankheiten senken kann.</p>
+            <p class="ar" style="margin-top:10px;">في دراسة شملت 59,000 امرأة، كانت نسبة الوفيات <strong>أقل بنسبة 42%</strong> لدى النساء اللاتي تناولن بانتظام ستة عشر نوعًا مختلفًا على الأقل من الأطعمة الصحية. الانفتاح على تجربة أطعمة جديدة يُثري المذاق ويعزز <strong>صحة الأمعاء وقوة جهاز المناعة</strong>.</p>
+            <p class="de" style="margin-top:10px;">In einer Studie mit 59.000 Frauen war die Sterblichkeitsrate <strong>um 42% niedriger</strong> bei Frauen, die regelm&#228;&#223;ig mindestens sechzehn verschiedene gesunde Lebensmittel a&#223;en. Offenheit f&#252;r neue Lebensmittel bereichert den Geschmack und st&#228;rkt die <strong>Darmgesundheit und das Immunsystem</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commandment 2 -->
+      <div class="cmd-card" onclick="toggleCmd(this)">
+        <div class="cmd-header">
+          <div class="cmd-number"><span class="ar">&#1634;</span><span class="de">2</span></div>
+          <div class="cmd-icon">&#127823;&#127835;</div>
+          <div class="cmd-title-wrap">
+            <h3><span class="ar">5 حصص يوميًا — الخضروات والفواكه</span><span class="de">5 Portionen t&#228;glich — Obst &amp; Gem&#252;se</span></h3>
+            <div class="cmd-subtitle"><span class="ar">Obst &amp; Gem&#252;se</span><span class="de">Fruits &amp; Vegetables</span></div>
+          </div>
+          <div class="cmd-expand">&#9660;</div>
+        </div>
+        <div class="cmd-detail">
+          <div class="cmd-detail-inner" style="padding-top:16px;">
+            <p class="ar">تُعتبر الفواكه والخضروات مصدرًا أساسيًا للعناصر الغذائية مثل <strong>الفيتامينات والألياف والمركبات النباتية الثانوية</strong>. لها دور وقائي ضد أمراض القلب والأوعية الدموية، وتُظهر الدراسات أنها تقلل بشكل ملحوظ من خطر الإصابة ببعض أنواع السرطان.</p>
+            <p class="de">Obst und Gem&#252;se sind eine wesentliche Quelle f&#252;r N&#228;hrstoffe wie <strong>Vitamine, Ballaststoffe und sekund&#228;re Pflanzenstoffe</strong>. Sie sch&#252;tzen vor Herz-Kreislauf-Erkrankungen und reduzieren nachweislich das Risiko bestimmter Krebsarten.</p>
+            <p class="ar" style="margin-top:10px;">يمكنك دمج الفواكه في يومك عبر تناولها كوجبات خفيفة بعد التمارين الرياضية — هذا يُعزز إفراز الأنسولين ويقلل مستويات الكورتيزول. أما <strong>الخضروات</strong> فهي مثالية كجزء من الوجبات الرئيسية لأنها تُشعرك بالشبع وتُقلل تناول الأطعمة الغنية بالسعرات.</p>
+            <p class="de" style="margin-top:10px;">Integriere Obst als Snack nach dem Sport — das f&#246;rdert die Insulinaussch&#252;ttung und senkt den Cortisolspiegel. <strong>Gem&#252;se</strong> ist ideal als Teil der Hauptmahlzeiten, da es s&#228;ttigt und den Verzehr kalorienreicher Lebensmittel reduziert.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commandment 3 -->
+      <div class="cmd-card" onclick="toggleCmd(this)">
+        <div class="cmd-header">
+          <div class="cmd-number"><span class="ar">&#1635;</span><span class="de">3</span></div>
+          <div class="cmd-icon">&#127838;</div>
+          <div class="cmd-title-wrap">
+            <h3><span class="ar">اختيار الحبوب الكاملة — خطوة بخطوة</span><span class="de">Vollkornprodukte w&#228;hlen — Schritt f&#252;r Schritt</span></h3>
+            <div class="cmd-subtitle"><span class="ar">Vollkornprodukte</span><span class="de">Whole Grains</span></div>
+          </div>
+          <div class="cmd-expand">&#9660;</div>
+        </div>
+        <div class="cmd-detail">
+          <div class="cmd-detail-inner" style="padding-top:16px;">
+            <p class="ar">منتجات الحبوب الكاملة مثل الخبز والمعكرونة والأرز تحمل العديد من الفوائد الصحية. فهي تحتوي على كميات أكبر من <strong>الألياف والفيتامينات والمعادن</strong> مقارنة بمنتجات الدقيق الأبيض. الألياف فيها تعمل كغذاء طبيعي للكائنات الحية الدقيقة في الأمعاء، مما يُعزز صحة الميكروبيوم.</p>
+            <p class="de">Vollkornprodukte wie Brot, Nudeln oder Reis bieten viele gesundheitliche Vorteile. Sie enthalten mehr <strong>Ballaststoffe, Vitamine und Mineralstoffe</strong> als Wei&#223;mehlprodukte. Die Ballaststoffe dienen als nat&#252;rliche Nahrung f&#252;r die Darmmikroben und f&#246;rdern ein gesundes Mikrobiom.</p>
+            <p class="ar" style="margin-top:10px;">تتميز بتأثيرها المشبع — تُبطئ عملية امتصاص العناصر الغذائية مما يمنح <strong>شعورًا بالشبع لفترة أطول</strong>. لدمجها بسهولة: اخلط المعكرونة الكاملة مع العادية، أو أضف نخالة القمح إلى الصلصات.</p>
+            <p class="de" style="margin-top:10px;">Sie zeichnen sich durch ihren S&#228;ttigungseffekt aus — sie verlangsamen die N&#228;hrstoffaufnahme und sorgen f&#252;r <strong>l&#228;ngeres S&#228;ttigungsgef&#252;hl</strong>. Zum einfachen Integrieren: Mische Vollkornnudeln mit normalen, oder f&#252;ge Weizenkleie zu So&#223;en hinzu.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commandment 4 -->
+      <div class="cmd-card" onclick="toggleCmd(this)">
+        <div class="cmd-header">
+          <div class="cmd-number"><span class="ar">&#1636;</span><span class="de">4</span></div>
+          <div class="cmd-icon">&#129385;&#128031;</div>
+          <div class="cmd-title-wrap">
+            <h3><span class="ar">الأطعمة الحيوانية — الجودة أهم من الكمية</span><span class="de">Tierische Lebensmittel — Qualit&#228;t vor Quantit&#228;t</span></h3>
+            <div class="cmd-subtitle"><span class="ar">Tierische Lebensmittel</span><span class="de">Animal Products</span></div>
+          </div>
+          <div class="cmd-expand">&#9660;</div>
+        </div>
+        <div class="cmd-detail">
+          <div class="cmd-detail-inner" style="padding-top:16px;">
+            <p class="ar">منتجات الألبان والأسماك واللحوم توفر مغذيات هامة، ولكن يجب تناولها باعتدال. <strong>الجودة هي الأهم:</strong> اللحوم من حيوانات تمت تربيتها في ظروف طبيعية أو بجودة عضوية تحتوي على كميات أقل من المواد الضارة ونسبة أعلى من الدهون الصحية.</p>
+            <p class="de">Milchprodukte, Fisch und Fleisch liefern wichtige N&#228;hrstoffe, sollten aber in Ma&#223;en verzehrt werden. <strong>Qualit&#228;t ist entscheidend:</strong> Fleisch von artgerecht oder biologisch gehaltenen Tieren enth&#228;lt weniger Schadstoffe und mehr gesunde Fette.</p>
+            <p class="ar" style="margin-top:10px;">تُوصي الجمعية الألمانية للتغذية بتحديد استهلاك اللحوم بين <strong>300 إلى 600 غرام أسبوعيًا</strong>. الأسماك البحرية الدهنية مصدر أساسي لأحماض أوميغا-3 واليود الضرورية لصحة الدماغ ووظائف القلب.</p>
+            <p class="de" style="margin-top:10px;">Die DGE empfiehlt einen Fleischkonsum von <strong>300 bis 600 Gramm pro Woche</strong>. Fetter Seefisch ist eine wichtige Quelle f&#252;r Omega-3-Fetts&#228;uren und Jod, die f&#252;r Gehirngesundheit und Herzfunktion essenziell sind.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commandment 5 -->
+      <div class="cmd-card" onclick="toggleCmd(this)">
+        <div class="cmd-header">
+          <div class="cmd-number"><span class="ar">&#1637;</span><span class="de">5</span></div>
+          <div class="cmd-icon">&#129346;&#127811;</div>
+          <div class="cmd-title-wrap">
+            <h3><span class="ar">اختيار الدهون الصحية — التركيز على الجودة</span><span class="de">Gesunde Fette w&#228;hlen — Fokus auf Qualit&#228;t</span></h3>
+            <div class="cmd-subtitle"><span class="ar">Gesunde Fette</span><span class="de">Healthy Fats</span></div>
+          </div>
+          <div class="cmd-expand">&#9660;</div>
+        </div>
+        <div class="cmd-detail">
+          <div class="cmd-detail-inner" style="padding-top:16px;">
+            <p class="ar">تُعتبر الدهون جزءًا أساسيًا من النظام الغذائي، ولكن <strong>جودة الدهون وطريقة استخدامها</strong> هما ما يُحدث الفارق. الزيوت النباتية عالية الجودة مثل زيت الكانولا وزيت الزيتون وزيت بذور الكتان تحتوي على أحماض دهنية غير مشبعة تُساهم في تقليل خطر أمراض القلب.</p>
+            <p class="de">Fette sind ein wesentlicher Bestandteil der Ern&#228;hrung, aber <strong>die Qualit&#228;t der Fette und ihre Verwendung</strong> machen den Unterschied. Hochwertige Pflanzen&#246;le wie Raps&#246;l, Oliven&#246;l oder Lein&#246;l enthalten unges&#228;ttigte Fetts&#228;uren, die das Risiko von Herzkrankheiten senken.</p>
+            <p class="ar" style="margin-top:10px;">استبدال الدهون المشبعة بالدهون غير المشبعة يُحسن مستويات الدهون في الدم ويُقلل من خطر السكري. <strong>نقطة التدخين مهمة:</strong> استخدم الزيوت المقاومة للحرارة للطهي، والزيوت الباردة للسلطة.</p>
+            <p class="de" style="margin-top:10px;">Der Ersatz ges&#228;ttigter durch unges&#228;ttigte Fette verbessert die Blutfettwerte und senkt das Diabetesrisiko. <strong>Der Rauchpunkt ist wichtig:</strong> Verwende hitzebest&#228;ndige &#214;le zum Kochen und kaltgepresste &#214;le f&#252;r Salat.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commandment 6 -->
+      <div class="cmd-card" onclick="toggleCmd(this)">
+        <div class="cmd-header">
+          <div class="cmd-number"><span class="ar">&#1638;</span><span class="de">6</span></div>
+          <div class="cmd-icon">&#127852;&#129474;</div>
+          <div class="cmd-title-wrap">
+            <h3><span class="ar">تقليل استهلاك السكر والملح — التوازن</span><span class="de">Zucker &amp; Salz reduzieren — Balance finden</span></h3>
+            <div class="cmd-subtitle"><span class="ar">Zucker &amp; Salz</span><span class="de">Sugar &amp; Salt</span></div>
+          </div>
+          <div class="cmd-expand">&#9660;</div>
+        </div>
+        <div class="cmd-detail">
+          <div class="cmd-detail-inner" style="padding-top:16px;">
+            <p class="ar">يرتبط الاستهلاك المفرط للسكر والملح بالعديد من المشكلات الصحية مثل <strong>ارتفاع ضغط الدم وزيادة الوزن</strong>. بدلاً من السكر المكرر أو المحليات الصناعية التي قد تؤثر سلبًا على صحة الأمعاء، يُنصح باستخدام بدائل طبيعية مثل <strong>معجون التمر أو الموز</strong> كمحليات.</p>
+            <p class="de">&#220;berm&#228;&#223;iger Zucker- und Salzkonsum ist mit vielen Gesundheitsproblemen verbunden, wie <strong>Bluthochdruck und Gewichtszunahme</strong>. Statt raffiniertem Zucker oder k&#252;nstlichen S&#252;&#223;stoffen, die die Darmgesundheit beeintr&#228;chtigen k&#246;nnen, werden nat&#252;rliche Alternativen wie <strong>Dattelpaste oder Banane</strong> empfohlen.</p>
+            <p class="ar" style="margin-top:10px;">تُوصي منظمة الصحة العالمية (WHO) بألا يتجاوز استهلاك الملح اليومي <strong>ستة غرامات</strong>. من الناحية الكيميائية، لا تختلف أنواع الملح كثيرًا — التركيز يجب أن يكون على الاستخدام الواعي والمعتدل.</p>
+            <p class="de" style="margin-top:10px;">Die WHO empfiehlt, den t&#228;glichen Salzkonsum auf <strong>sechs Gramm</strong> zu begrenzen. Chemisch unterscheiden sich Salzarten kaum — der Fokus sollte auf bewusstem und ma&#223;vollem Gebrauch liegen.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commandment 7 -->
+      <div class="cmd-card" onclick="toggleCmd(this)">
+        <div class="cmd-header">
+          <div class="cmd-number"><span class="ar">&#1639;</span><span class="de">7</span></div>
+          <div class="cmd-icon">&#128167;</div>
+          <div class="cmd-title-wrap">
+            <h3><span class="ar">الأفضل شرب الماء — احتياجات فردية</span><span class="de">Am besten Wasser trinken — Individuelle Bed&#252;rfnisse</span></h3>
+            <div class="cmd-subtitle"><span class="ar">Wasser trinken</span><span class="de">Drink Water</span></div>
+          </div>
+          <div class="cmd-expand">&#9660;</div>
+        </div>
+        <div class="cmd-detail">
+          <div class="cmd-detail-inner" style="padding-top:16px;">
+            <p class="ar">التوصية الشائعة بشرب 1.5 لتر من الماء يوميًا <strong>ليست مدعومة علميًا</strong>، حيث يعتمد احتياج الجسم للماء بشكل كبير على الظروف الفردية. يمكن الاعتماد على <strong>لون البول</strong> كمؤشر موثوق: اللون الأصفر الفاتح يُشير إلى ترطيب كافٍ.</p>
+            <p class="de">Die g&#228;ngige Empfehlung von 1,5 Litern Wasser t&#228;glich ist <strong>wissenschaftlich nicht belegt</strong>, da der Wasserbedarf stark von individuellen Umst&#228;nden abh&#228;ngt. Die <strong>Urinfarbe</strong> ist ein zuverl&#228;ssiger Indikator: Hellgelb deutet auf ausreichende Hydratation hin.</p>
+            <p class="ar" style="margin-top:10px;">أظهرت الدراسات أن الترطيب الكافي يُحسن <strong>الأداء الذهني</strong> ويُعزز الشعور العام بالراحة. يُفضل تجنب المشروبات المحلاة صناعيًا والعصائر — <strong>الماء والشاي غير المحلى</strong> هما أفضل الخيارات.</p>
+            <p class="de" style="margin-top:10px;">Studien zeigen, dass ausreichende Hydratation die <strong>geistige Leistungsf&#228;higkeit</strong> verbessert. Vermeide k&#252;nstlich ges&#252;&#223;te Getr&#228;nke und S&#228;fte — <strong>Wasser und unges&#252;&#223;ter Tee</strong> sind die besten Optionen.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commandment 8 -->
+      <div class="cmd-card" onclick="toggleCmd(this)">
+        <div class="cmd-header">
+          <div class="cmd-number"><span class="ar">&#1640;</span><span class="de">8</span></div>
+          <div class="cmd-icon">&#127859;</div>
+          <div class="cmd-title-wrap">
+            <h3><span class="ar">الطهي بعناية — للمزيد من العناصر الغذائية</span><span class="de">Schonend zubereiten — F&#252;r mehr N&#228;hrstoffe</span></h3>
+            <div class="cmd-subtitle"><span class="ar">Schonende Zubereitung</span><span class="de">Gentle Cooking</span></div>
+          </div>
+          <div class="cmd-expand">&#9660;</div>
+        </div>
+        <div class="cmd-detail">
+          <div class="cmd-detail-inner" style="padding-top:16px;">
+            <p class="ar">تلعب طريقة الطهي دورًا كبيرًا في الحفاظ على القيمة الغذائية. طهي الخضروات باستخدام <strong>كميات قليلة من الماء والدهون</strong> يُساعد على الاحتفاظ بالفيتامينات الأساسية. يُفضل تجنب الأجزاء المحترقة لأنها قد تحتوي على مواد ضارة مثل الأكريلاميد.</p>
+            <p class="de">Die Zubereitungsart spielt eine gro&#223;e Rolle beim Erhalt des N&#228;hrwerts. Gem&#252;se mit <strong>wenig Wasser und Fett</strong> zu garen, hilft, die essenziellen Vitamine zu bewahren. Verbrannte Stellen sollten vermieden werden, da sie Schadstoffe wie Acrylamid enthalten k&#246;nnen.</p>
+            <p class="ar" style="margin-top:10px;"><strong>نصيحة عملية:</strong> يجب سحق الثوم بدلاً من تقطيعه لأن ذلك يُعزز إنتاج <strong>الأليسين</strong> — المادة المضادة للالتهابات. يُفضل استخدام الثوم 10 دقائق بعد سحقه لتحقيق أقصى فائدة.</p>
+            <p class="de" style="margin-top:10px;"><strong>Praxis-Tipp:</strong> Knoblauch zerdr&#252;cken statt schneiden, da dies die Produktion von <strong>Allicin</strong> f&#246;rdert — einem entz&#252;ndungshemmenden Wirkstoff. Knoblauch am besten 10 Minuten nach dem Zerdr&#252;cken verwenden.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commandment 9 -->
+      <div class="cmd-card" onclick="toggleCmd(this)">
+        <div class="cmd-header">
+          <div class="cmd-number"><span class="ar">&#1641;</span><span class="de">9</span></div>
+          <div class="cmd-icon">&#129749;</div>
+          <div class="cmd-title-wrap">
+            <h3><span class="ar">تناول الطعام بوعي — دمج المتعة مع الإدراك</span><span class="de">Achtsam essen — Genuss mit Bewusstsein</span></h3>
+            <div class="cmd-subtitle"><span class="ar">Achtsames Essen</span><span class="de">Mindful Eating</span></div>
+          </div>
+          <div class="cmd-expand">&#9660;</div>
+        </div>
+        <div class="cmd-detail">
+          <div class="cmd-detail-inner" style="padding-top:16px;">
+            <p class="ar">يجب أن تكون تجربة الأكل ليست فقط مادية بل <strong>روحية أيضًا</strong>. تخصيص وقت لتناول الطعام مع التركيز على النكهات يساعد على تعزيز المتعة وتنظيم مشاعر الجوع والشبع بشكل أفضل.</p>
+            <p class="de">Das Esserlebnis sollte nicht nur physisch, sondern auch <strong>seelisch</strong> sein. Zeit zum Essen nehmen und sich auf die Aromen konzentrieren hilft, den Genuss zu steigern und Hunger- und S&#228;ttigungsgef&#252;hle besser zu regulieren.</p>
+            <p class="ar" style="margin-top:10px;">تُظهر الدراسات أن الأكل الواعي يُقلل من استهلاك السعرات الحرارية ويزيد من إنتاج هرمونات السعادة مثل <strong>السيروتونين</strong>. يُنصح بتناول الوجبات دون عوامل تشتيت مثل التلفاز أو الهاتف.</p>
+            <p class="de" style="margin-top:10px;">Studien zeigen, dass achtsames Essen den Kalorienverbrauch senkt und die Produktion von Gl&#252;ckshormonen wie <strong>Serotonin</strong> steigert. Mahlzeiten sollten ohne Ablenkung durch TV oder Smartphone eingenommen werden.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Commandment 10 -->
+      <div class="cmd-card" onclick="toggleCmd(this)">
+        <div class="cmd-header">
+          <div class="cmd-number"><span class="ar">&#1633;&#1632;</span><span class="de">10</span></div>
+          <div class="cmd-icon">&#127939;</div>
+          <div class="cmd-title-wrap">
+            <h3><span class="ar">الحركة كجزء مكمل للتغذية — نشاط يناسبك</span><span class="de">Bewegung als Erg&#228;nzung — Aktivit&#228;t die zu dir passt</span></h3>
+            <div class="cmd-subtitle"><span class="ar">Bewegung</span><span class="de">Physical Activity</span></div>
+          </div>
+          <div class="cmd-expand">&#9660;</div>
+        </div>
+        <div class="cmd-detail">
+          <div class="cmd-detail-inner" style="padding-top:16px;">
+            <p class="ar">تسير التغذية والحركة جنبًا إلى جنب لدعم الصحة والرفاهية. تُوصي منظمة الصحة العالمية بممارسة ما لا يقل عن <strong>150 دقيقة من النشاط البدني المعتدل أسبوعيًا</strong>. الحركات اليومية مثل صعود الدرج أو المشي القصير لا تقل أهمية.</p>
+            <p class="de">Ern&#228;hrung und Bewegung gehen Hand in Hand f&#252;r Gesundheit und Wohlbefinden. Die WHO empfiehlt mindestens <strong>150 Minuten moderate k&#246;rperliche Aktivit&#228;t pro Woche</strong>. Allt&#228;gliche Bewegungen wie Treppensteigen oder kurze Spazierg&#228;nge sind genauso wichtig.</p>
+            <p class="ar" style="margin-top:10px;">تُشير الدراسات إلى أن <strong>30 دقيقة فقط</strong> من التمارين المعتدلة يوميًا يمكن أن تقلل من خطر أمراض القلب بنسبة تصل إلى <strong>35%</strong>. الأهم هو اختيار النشاط الذي يُناسب اهتماماتك ونمط حياتك.</p>
+            <p class="de" style="margin-top:10px;">Studien zeigen, dass <strong>nur 30 Minuten</strong> moderate Bewegung t&#228;glich das Risiko von Herzkrankheiten um bis zu <strong>35%</strong> senken kann. Das Wichtigste ist, eine Aktivit&#228;t zu w&#228;hlen, die zu deinen Interessen und deinem Lebensstil passt.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       3. FLIP CARDS SUMMARY
+  ══════════════════════════════════════ -->
+  <section id="sec-flipcards">
+    <h2 class="section-title">
+      &#128218;
+      <span class="ar">بطاقات سريعة — ملخص الوصايا</span>
+      <span class="de">Schnellkarten — Gebote-&#220;bersicht</span>
+    </h2>
+
+    <p style="font-size:13px; color:var(--text-soft); margin-bottom:20px; line-height:1.8">
+      <span class="ar">مرر الماوس فوق كل بطاقة لرؤية النصيحة الذهبية</span>
+      <span class="de">Fahre mit der Maus &#252;ber jede Karte, um den goldenen Tipp zu sehen</span>
+    </p>
+
+    <div class="flip-grid">
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#127869;</div>
+            <h4><span class="ar">&#1633;. التنوع</span><span class="de">1. Vielfalt</span></h4>
+            <div class="flip-hint"><span class="ar">&#8634; اقلب</span><span class="de">&#8634; Umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-num"><span class="ar">&#1633;</span><span class="de">1</span></div>
+            <p><span class="ar"><strong>16 نوعًا مختلفًا</strong> على الأقل من الأطعمة الصحية يخفض الوفيات 42%</span><span class="de">Mindestens <strong>16 verschiedene</strong> gesunde Lebensmittel senken die Sterblichkeit um 42%</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#127823;</div>
+            <h4><span class="ar">&#1634;. الخضروات والفواكه</span><span class="de">2. Obst &amp; Gem&#252;se</span></h4>
+            <div class="flip-hint"><span class="ar">&#8634; اقلب</span><span class="de">&#8634; Umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-num"><span class="ar">&#1634;</span><span class="de">2</span></div>
+            <p><span class="ar"><strong>5 حصص يوميًا</strong> — الفواكه بعد الرياضة والخضروات مع الوجبات الرئيسية</span><span class="de"><strong>5 Portionen t&#228;glich</strong> — Obst nach dem Sport, Gem&#252;se zu den Hauptmahlzeiten</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#127838;</div>
+            <h4><span class="ar">&#1635;. الحبوب الكاملة</span><span class="de">3. Vollkorn</span></h4>
+            <div class="flip-hint"><span class="ar">&#8634; اقلب</span><span class="de">&#8634; Umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-num"><span class="ar">&#1635;</span><span class="de">3</span></div>
+            <p><span class="ar">غنية بالألياف وتمنح <strong>شبعًا أطول</strong> — اخلطها تدريجيًا مع الحبوب العادية</span><span class="de">Reich an Ballaststoffen f&#252;r <strong>l&#228;ngere S&#228;ttigung</strong> — schrittweise mit normalen Produkten mischen</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#129385;</div>
+            <h4><span class="ar">&#1636;. الأطعمة الحيوانية</span><span class="de">4. Tierische Produkte</span></h4>
+            <div class="flip-hint"><span class="ar">&#8634; اقلب</span><span class="de">&#8634; Umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-num"><span class="ar">&#1636;</span><span class="de">4</span></div>
+            <p><span class="ar">الجودة أهم من الكمية — <strong>300-600 غ لحوم أسبوعيًا</strong></span><span class="de">Qualit&#228;t vor Quantit&#228;t — <strong>300-600g Fleisch pro Woche</strong></span></p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#129346;</div>
+            <h4><span class="ar">&#1637;. الدهون الصحية</span><span class="de">5. Gesunde Fette</span></h4>
+            <div class="flip-hint"><span class="ar">&#8634; اقلب</span><span class="de">&#8634; Umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-num"><span class="ar">&#1637;</span><span class="de">5</span></div>
+            <p><span class="ar">استبدل المشبعة بغير المشبعة — <strong>راقب نقطة التدخين</strong> عند الطهي</span><span class="de">Ges&#228;ttigte durch unges&#228;ttigte ersetzen — <strong>Rauchpunkt</strong> beim Kochen beachten</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#127852;</div>
+            <h4><span class="ar">&#1638;. السكر والملح</span><span class="de">6. Zucker &amp; Salz</span></h4>
+            <div class="flip-hint"><span class="ar">&#8634; اقلب</span><span class="de">&#8634; Umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-num"><span class="ar">&#1638;</span><span class="de">6</span></div>
+            <p><span class="ar">بدائل طبيعية للتحلية — <strong>الملح لا يتجاوز 6غ يوميًا</strong></span><span class="de">Nat&#252;rliche S&#252;&#223;ungsalternativen — <strong>max. 6g Salz t&#228;glich</strong></span></p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#128167;</div>
+            <h4><span class="ar">&#1639;. الماء</span><span class="de">7. Wasser</span></h4>
+            <div class="flip-hint"><span class="ar">&#8634; اقلب</span><span class="de">&#8634; Umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-num"><span class="ar">&#1639;</span><span class="de">7</span></div>
+            <p><span class="ar">لون البول مؤشرك — <strong>تجنب المشروبات المحلاة</strong> واشرب الماء</span><span class="de">Urinfarbe als Indikator — <strong>ges&#252;&#223;te Getr&#228;nke meiden</strong>, Wasser trinken</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#127859;</div>
+            <h4><span class="ar">&#1640;. الطهي</span><span class="de">8. Zubereitung</span></h4>
+            <div class="flip-hint"><span class="ar">&#8634; اقلب</span><span class="de">&#8634; Umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-num"><span class="ar">&#1640;</span><span class="de">8</span></div>
+            <p><span class="ar">الطهي اللطيف يحفظ الفيتامينات — <strong>اسحق الثوم</strong> لتعزيز الأليسين</span><span class="de">Schonendes Garen bewahrt Vitamine — <strong>Knoblauch zerdr&#252;cken</strong> f&#252;r mehr Allicin</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#129749;</div>
+            <h4><span class="ar">&#1641;. الأكل الواعي</span><span class="de">9. Achtsam essen</span></h4>
+            <div class="flip-hint"><span class="ar">&#8634; اقلب</span><span class="de">&#8634; Umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-num"><span class="ar">&#1641;</span><span class="de">9</span></div>
+            <p><span class="ar">كل بدون تشتيت — <strong>السيروتونين</strong> يزداد مع الأكل الواعي</span><span class="de">Ohne Ablenkung essen — <strong>Serotonin</strong> steigt durch achtsames Essen</span></p>
+          </div>
+        </div>
+      </div>
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#127939;</div>
+            <h4><span class="ar">&#1633;&#1632;. الحركة</span><span class="de">10. Bewegung</span></h4>
+            <div class="flip-hint"><span class="ar">&#8634; اقلب</span><span class="de">&#8634; Umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="flip-num"><span class="ar">&#1633;&#1632;</span><span class="de">10</span></div>
+            <p><span class="ar"><strong>150 دقيقة أسبوعيًا</strong> — 30 دقيقة يوميًا تخفض أمراض القلب 35%</span><span class="de"><strong>150 Min./Woche</strong> — 30 Min. t&#228;glich senken Herzkrankheiten um 35%</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       4. KEY TIPS BUBBLE CLOUD
+  ══════════════════════════════════════ -->
+  <section id="sec-tips">
+    <h2 class="section-title">
+      &#128161;
+      <span class="ar">نصائح إضافية للحياة الصحية</span>
+      <span class="de">Zus&#228;tzliche Tipps f&#252;r ein gesundes Leben</span>
+    </h2>
+
+    <div class="bubble-cloud">
+      <div class="bubble b1"><span class="ar">&#128167; 8 أكواب ماء يوميًا</span><span class="de">&#128167; 8 Gl&#228;ser Wasser t&#228;glich</span></div>
+      <div class="bubble b2"><span class="ar">&#128164; 7-9 ساعات نوم</span><span class="de">&#128164; 7-9 Stunden Schlaf</span></div>
+      <div class="bubble b3"><span class="ar">&#129495; يوغا وتأمل للاسترخاء</span><span class="de">&#129495; Yoga &amp; Meditation</span></div>
+      <div class="bubble b1"><span class="ar">&#128170; الصبر والالتزام</span><span class="de">&#128170; Geduld &amp; Disziplin</span></div>
+      <div class="bubble b2"><span class="ar">&#129489;&#8205;&#9877;&#65039; استشر أخصائي تغذية</span><span class="de">&#129489;&#8205;&#9877;&#65039; Ern&#228;hrungsberater konsultieren</span></div>
+      <div class="bubble b3"><span class="ar">&#128260; تغيير تدريجي ومستدام</span><span class="de">&#128260; Schrittweise Umstellung</span></div>
+      <div class="bubble b1"><span class="ar">&#127860; لا تحرم نفسك — كل باعتدال</span><span class="de">&#127860; Kein Verzicht — ma&#223;voll essen</span></div>
+      <div class="bubble b2"><span class="ar">&#129504; هذا الدليل تثقيفي فقط</span><span class="de">&#129504; Nur zur Aufkl&#228;rung</span></div>
+    </div>
+
+    <div class="quote-box" style="margin-top:24px; text-align:center;">
+      <span class="ar" style="font-weight:700; color:var(--accent);">&#128218; الهدف ليس فقط فقدان الوزن، بل الحفاظ على صحة جيدة والاستمتاع بالحياة</span>
+      <span class="de" style="font-weight:700; color:var(--accent);">&#128218; Das Ziel ist nicht nur Gewichtsverlust, sondern gute Gesundheit und Lebensfreude</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       5. QUIZ
+  ══════════════════════════════════════ -->
+  <section id="sec-quiz">
+    <h2 class="section-title">
+      &#129504;
+      <span class="ar">اختبر معلوماتك!</span>
+      <span class="de">Teste dein Wissen!</span>
+    </h2>
+
+    <div class="quiz-container">
+
+      <!-- Q1 -->
+      <div class="quiz-q" data-correct="1">
+        <h4><span class="ar">1. ما النسبة التي انخفضت بها الوفيات عند تناول 16 نوعًا مختلفًا من الأطعمة الصحية؟</span><span class="de">1. Um wie viel Prozent sank die Sterblichkeit bei 16 verschiedenen gesunden Lebensmitteln?</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">25%</span><span class="de">25%</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">42%</span><span class="de">42%</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">60%</span><span class="de">60%</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">&#10004; صحيح! أظهرت الدراسة أن نسبة الوفيات انخفضت بنسبة 42% لدى من تناولن 16 نوعًا على الأقل من الأطعمة الصحية.</span><span class="de">&#10004; Richtig! Die Studie zeigte, dass die Sterblichkeitsrate um 42% sank bei Frauen, die mindestens 16 verschiedene gesunde Lebensmittel a&#223;en.</span></div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="quiz-q" data-correct="2">
+        <h4><span class="ar">2. ما الحد الأقصى اليومي لاستهلاك الملح حسب توصية WHO؟</span><span class="de">2. Wie hoch ist die WHO-Empfehlung f&#252;r die maximale t&#228;gliche Salzzufuhr?</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">3 غرام</span><span class="de">3 Gramm</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">10 غرام</span><span class="de">10 Gramm</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">6 غرام</span><span class="de">6 Gramm</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">&#10004; صحيح! تُوصي منظمة الصحة العالمية بألا يتجاوز استهلاك الملح اليومي ستة غرامات.</span><span class="de">&#10004; Richtig! Die WHO empfiehlt, den t&#228;glichen Salzkonsum auf sechs Gramm zu begrenzen.</span></div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="quiz-q" data-correct="0">
+        <h4><span class="ar">3. كم دقيقة من النشاط البدني المعتدل تُوصي بها WHO أسبوعيًا؟</span><span class="de">3. Wie viele Minuten moderate Bewegung empfiehlt die WHO pro Woche?</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">150 دقيقة</span><span class="de">150 Minuten</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">60 دقيقة</span><span class="de">60 Minuten</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">300 دقيقة</span><span class="de">300 Minuten</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">&#10004; صحيح! تُوصي منظمة الصحة العالمية بممارسة ما لا يقل عن 150 دقيقة من النشاط البدني المعتدل أسبوعيًا.</span><span class="de">&#10004; Richtig! Die WHO empfiehlt mindestens 150 Minuten moderate k&#246;rperliche Aktivit&#228;t pro Woche.</span></div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="quiz-q" data-correct="1">
+        <h4><span class="ar">4. لماذا يُفضل سحق الثوم بدلاً من تقطيعه؟</span><span class="de">4. Warum sollte man Knoblauch zerdr&#252;cken statt schneiden?</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">لأنه أسهل في الطبخ</span><span class="de">Weil es einfacher zu kochen ist</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">لأنه يُعزز إنتاج الأليسين المضاد للالتهابات</span><span class="de">Weil es die Produktion von entz&#252;ndungshemmendem Allicin f&#246;rdert</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">لأنه يعطي نكهة أقوى فقط</span><span class="de">Weil es nur mehr Geschmack gibt</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">&#10004; صحيح! سحق الثوم يُعزز إنتاج الأليسين — المادة المضادة للالتهابات. يُفضل استخدامه 10 دقائق بعد السحق.</span><span class="de">&#10004; Richtig! Zerdr&#252;cken f&#246;rdert die Allicin-Produktion — einen entz&#252;ndungshemmenden Wirkstoff. Am besten 10 Minuten nach dem Zerdr&#252;cken verwenden.</span></div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="quiz-q" data-correct="2">
+        <h4><span class="ar">5. ما هو المؤشر الأفضل لمعرفة مستوى ترطيب الجسم؟</span><span class="de">5. Was ist der beste Indikator f&#252;r den Hydratationsstatus?</span></h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)"><span class="ar">عدد الأكواب التي شربتها</span><span class="de">Die Anzahl der getrunkenen Gl&#228;ser</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)"><span class="ar">الشعور بالعطش</span><span class="de">Durstgef&#252;hl</span></div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)"><span class="ar">لون البول — الأصفر الفاتح يُشير إلى ترطيب كافٍ</span><span class="de">Urinfarbe — Hellgelb deutet auf ausreichende Hydratation hin</span></div>
+        </div>
+        <div class="quiz-feedback"><span class="ar">&#10004; صحيح! لون البول هو المؤشر الأكثر موثوقية — اللون الأصفر الفاتح يعني ترطيبًا كافيًا.</span><span class="de">&#10004; Richtig! Die Urinfarbe ist der zuverl&#228;ssigste Indikator — Hellgelb bedeutet ausreichende Hydratation.</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       6. COURSE RECAP
+  ══════════════════════════════════════ -->
+  <section id="sec-recap">
+    <h2 class="section-title">
+      &#128218;
+      <span class="ar">ملخص رحلة الكورس</span>
+      <span class="de">Kurs-R&#252;ckblick</span>
+    </h2>
+
+    <p style="font-size:13px; color:var(--text-soft); margin-bottom:20px; line-height:1.8">
+      <span class="ar">مررت بثمانية فصول مليئة بالمعرفة — إليك ملخص سريع لكل منها:</span>
+      <span class="de">Du hast acht wissensreiche Kapitel durchlaufen — hier ein kurzer R&#252;ckblick:</span>
+    </p>
+
+    <div class="recap-grid">
+      <div class="recap-card">
+        <div class="recap-icon">&#127919;</div>
+        <div class="recap-ch"><span class="ar">الفصل &#1633;</span><span class="de">Kapitel 1</span></div>
+        <h4><span class="ar">تحديد الهدف</span><span class="de">Ziel setzen</span></h4>
+      </div>
+      <div class="recap-card">
+        <div class="recap-icon">&#129658;</div>
+        <div class="recap-ch"><span class="ar">الفصل &#1634;</span><span class="de">Kapitel 2</span></div>
+        <h4><span class="ar">مقاومة الأنسولين</span><span class="de">Insulinresistenz</span></h4>
+      </div>
+      <div class="recap-card">
+        <div class="recap-icon">&#127831;</div>
+        <div class="recap-ch"><span class="ar">الفصل &#1635;</span><span class="de">Kapitel 3</span></div>
+        <h4><span class="ar">المغذيات الكبرى</span><span class="de">Makron&#228;hrstoffe</span></h4>
+      </div>
+      <div class="recap-card">
+        <div class="recap-icon">&#128138;</div>
+        <div class="recap-ch"><span class="ar">الفصل &#1636;</span><span class="de">Kapitel 4</span></div>
+        <h4><span class="ar">المغذيات الدقيقة</span><span class="de">Mikron&#228;hrstoffe</span></h4>
+      </div>
+      <div class="recap-card">
+        <div class="recap-icon">&#128167;</div>
+        <div class="recap-ch"><span class="ar">الفصل &#1637;</span><span class="de">Kapitel 5</span></div>
+        <h4><span class="ar">السوائل والبروتينات</span><span class="de">Fl&#252;ssigkeiten &amp; Proteine</span></h4>
+      </div>
+      <div class="recap-card">
+        <div class="recap-icon">&#129346;</div>
+        <div class="recap-ch"><span class="ar">الفصل &#1638;</span><span class="de">Kapitel 6</span></div>
+        <h4><span class="ar">الدهون</span><span class="de">Lipide</span></h4>
+      </div>
+      <div class="recap-card">
+        <div class="recap-icon">&#9878;&#65039;</div>
+        <div class="recap-ch"><span class="ar">الفصل &#1639;</span><span class="de">Kapitel 7</span></div>
+        <h4><span class="ar">تأثير اليويو</span><span class="de">Jojo-Effekt</span></h4>
+      </div>
+      <div class="recap-card" style="border-color:var(--accent); background:var(--surface2);">
+        <div class="recap-icon">&#128220;</div>
+        <div class="recap-ch" style="color:var(--accent);"><span class="ar">الفصل &#1640;</span><span class="de">Kapitel 8</span></div>
+        <h4 style="color:var(--accent);"><span class="ar">الوصايا العشرة &#127775;</span><span class="de">Die Zehn Gebote &#127775;</span></h4>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       7. CELEBRATION / COMPLETION
+  ══════════════════════════════════════ -->
+  <section id="sec-complete">
+    <h2 class="section-title">
+      &#127942;
+      <span class="ar">أكملت الكورس!</span>
+      <span class="de">Kurs abgeschlossen!</span>
+    </h2>
+
+    <div class="celebration-box" id="celebrationBox">
+      <div class="trophy">&#127942;</div>
+      <h2>
+        <span class="ar">تهانينا! لقد أنهيت الرحلة!</span>
+        <span class="de">Herzlichen Gl&#252;ckwunsch! Du hast es geschafft!</span>
+      </h2>
+      <p class="ar">لقد أكملت <strong>جميع فصول كورس التغذية الصحية والوقاية من مقاومة الأنسولين</strong>. أنت الآن تملك المعرفة اللازمة لبناء نمط حياة صحي ومستدام. تذكر: الرحلة لا تنتهي هنا — كل يوم هو فرصة جديدة لتطبيق ما تعلمته.</p>
+      <p class="de">Du hast <strong>alle Kapitel des Kurses f&#252;r gesunde Ern&#228;hrung und Insulinresistenz-Pr&#228;vention</strong> abgeschlossen. Du besitzt nun das Wissen f&#252;r einen gesunden und nachhaltigen Lebensstil. Denke daran: Die Reise endet nicht hier — jeder Tag ist eine neue Chance, das Gelernte anzuwenden.</p>
+
+      <div class="celebration-stats">
+        <div class="stat-pill">
+          <div class="stat-val"><span class="ar">&#1640;</span><span class="de">8</span></div>
+          <div class="stat-lbl"><span class="ar">فصول</span><span class="de">Kapitel</span></div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-val"><span class="ar">&#1633;&#1632;</span><span class="de">10</span></div>
+          <div class="stat-lbl"><span class="ar">وصايا ذهبية</span><span class="de">Goldene Gebote</span></div>
+        </div>
+        <div class="stat-pill">
+          <div class="stat-val"><span class="ar">&#8734;</span><span class="de">&#8734;</span></div>
+          <div class="stat-lbl"><span class="ar">معرفة مدى الحياة</span><span class="de">Wissen f&#252;rs Leben</span></div>
+        </div>
+      </div>
+
+      <button onclick="launchConfetti()" style="margin-top:24px; padding:14px 36px; border-radius:40px; background:var(--accent); color:var(--bg); border:none; font-family:'Cairo',sans-serif; font-weight:800; font-size:15px; cursor:pointer; transition:.2s; box-shadow:0 4px 15px rgba(201,168,76,0.3);">
+        <span class="ar">&#127881; احتفل!</span>
+        <span class="de">&#127881; Feiern!</span>
+      </button>
+    </div>
+
+    <div class="golden-rule" style="margin-top:24px;">
+      <div class="rule-icon">&#128150;</div>
+      <p class="ar">E &#215; S = Ergebnis<br>الأكل (Ern&#228;hrung) &#215; الرياضة (Sport) = النتيجة<br><strong>معادلة النجاح: تغذية صحية + حركة منتظمة = حياة أفضل</strong></p>
+      <p class="de">E &#215; S = Ergebnis<br>Ern&#228;hrung &#215; Sport = Ergebnis<br><strong>Erfolgsformel: Gesunde Ern&#228;hrung + Regelm&#228;&#223;ige Bewegung = Besseres Leben</strong></p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- FOOTER NAV -->
+  <div class="footer-nav">
+    <a href="chapter6-lipids.html">
+      <span class="ar">&#8594; الفصل السادس: الدهون</span>
+      <span class="de">&#8594; Kapitel 6: Lipide</span>
+    </a>
+    <a href="../index.html" class="primary">
+      <span class="ar">&#127968; الرئيسية</span>
+      <span class="de">&#127968; Startseite</span>
+    </a>
+  </div>
+
+  <div style="text-align:center; padding:20px; margin-top:10px;">
+    <p style="font-size:14px; color:var(--accent); font-weight:700;">
+      <span class="ar">&#127775; هذا هو الفصل الأخير — لقد أكملت الكورس بنجاح! &#127775;</span>
+      <span class="de">&#127775; Dies ist das letzte Kapitel — Du hast den Kurs erfolgreich abgeschlossen! &#127775;</span>
+    </p>
+    <p style="font-size:12px; color:var(--text-soft); margin-top:8px;">
+      <span class="ar">ملاحظة: هذا الدليل لأغراض تثقيفية فقط، ولا يُغني عن استشارة أخصائي الرعاية الصحية.</span>
+      <span class="de">Hinweis: Dieser Leitfaden dient nur zu Bildungszwecken und ersetzt keine professionelle Gesundheitsberatung.</span>
+    </p>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  // ═══ PASSWORD GATE ═══
+  const PW_HASH = '59f49e6495c6d3eb3ccae62a649e836575fc344d12bf43797f779b43f9156ee6';
+  (function(){
+    if(sessionStorage.getItem('hc-auth') === '1') {
+      document.getElementById('pwOverlay').classList.add('hidden');
+    }
+  })();
+  async function checkPw(){
+    const pw = document.getElementById('pwInput').value;
+    const enc = new TextEncoder();
+    const hash = await crypto.subtle.digest('SHA-256', enc.encode(pw));
+    const hex = Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    if(hex === PW_HASH){
+      sessionStorage.setItem('hc-auth','1');
+      document.getElementById('pwOverlay').classList.add('hidden');
+    } else {
+      document.getElementById('pwError').style.display='block';
+      document.getElementById('pwInput').value='';
+      document.getElementById('pwInput').focus();
+    }
+  }
+  document.getElementById('pwInput').addEventListener('keydown',function(e){ if(e.key==='Enter') checkPw(); });
+
+  // ═══ THEME ═══
+  function setTheme(name, el) {
+    document.body.setAttribute('data-theme', name);
+    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+    localStorage.setItem('theme', name);
+  }
+  (function(){
+    const t = localStorage.getItem('theme');
+    if(t){
+      document.body.setAttribute('data-theme', t);
+      const s = document.querySelector('.s-'+t);
+      if(s){ document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('active')); s.classList.add('active'); }
+    }
+  })();
+
+  // ═══ LANGUAGE ═══
+  let lang = 'ar';
+  function toggleLang(){
+    lang = lang === 'ar' ? 'de' : 'ar';
+    document.querySelectorAll('.ar').forEach(el => el.style.display = lang==='ar' ? '' : 'none');
+    document.querySelectorAll('.de').forEach(el => el.style.display = lang==='de' ? '' : 'none');
+    document.getElementById('langBtn').textContent = lang==='ar' ? 'DE' : 'AR';
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', lang==='ar' ? 'rtl' : 'ltr');
+  }
+
+  // ═══ SCROLL PROGRESS ═══
+  window.addEventListener('scroll', function(){
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+    document.getElementById('scrollProgress').style.width = pct + '%';
+  });
+
+  // ═══ PARTICLES ═══
+  (function(){
+    const canvas = document.getElementById('particlesCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    for(let i=0; i<50; i++){
+      particles.push({
+        x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+        vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3,
+        r: Math.random()*2+0.5, o: Math.random()*0.3+0.1
+      });
+    }
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#c9a84c';
+      particles.forEach(p=>{
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0) p.x=canvas.width; if(p.x>canvas.width) p.x=0;
+        if(p.y<0) p.y=canvas.height; if(p.y>canvas.height) p.y=0;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = accent; ctx.globalAlpha = p.o; ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  // ═══ SIDE NAV DOTS ═══
+  const sections = [
+    {id:'sec-intro',ar:'مقدمة',de:'Einf\u00fchrung'},
+    {id:'sec-commandments',ar:'الوصايا العشرة',de:'Zehn Gebote'},
+    {id:'sec-flipcards',ar:'بطاقات سريعة',de:'Schnellkarten'},
+    {id:'sec-tips',ar:'نصائح إضافية',de:'Zus\u00e4tzliche Tipps'},
+    {id:'sec-quiz',ar:'اختبار',de:'Quiz'},
+    {id:'sec-recap',ar:'ملخص الكورس',de:'Kurs-R\u00fcckblick'},
+    {id:'sec-complete',ar:'إتمام الكورس',de:'Kursabschluss'}
+  ];
+  const sideNav = document.getElementById('sideNav');
+  sections.forEach(s=>{
+    const dot = document.createElement('div');
+    dot.className = 'side-dot';
+    dot.innerHTML = '<div class="dot-label"><span class="ar">'+s.ar+'</span><span class="de" style="display:none">'+s.de+'</span></div>';
+    dot.onclick = ()=> document.getElementById(s.id).scrollIntoView({behavior:'smooth'});
+    dot.dataset.section = s.id;
+    sideNav.appendChild(dot);
+  });
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        document.querySelectorAll('.side-dot').forEach(d=>d.classList.remove('active'));
+        const dot = sideNav.querySelector('[data-section="'+e.target.id+'"]');
+        if(dot) dot.classList.add('active');
+      }
+    });
+  },{threshold:0.3});
+  sections.forEach(s=>{
+    const el = document.getElementById(s.id);
+    if(el) observer.observe(el);
+  });
+
+  // ═══ COMMANDMENT CARDS ═══
+  function toggleCmd(card){
+    const wasOpen = card.classList.contains('open');
+    document.querySelectorAll('.cmd-card').forEach(c=>c.classList.remove('open'));
+    if(!wasOpen) card.classList.add('open');
+  }
+
+  // ═══ QUIZ ═══
+  function quizAnswer(optEl, idx){
+    const q = optEl.closest('.quiz-q');
+    if(q.classList.contains('answered')) return;
+    q.classList.add('answered');
+    const correct = parseInt(q.dataset.correct);
+    const opts = q.querySelectorAll('.quiz-opt');
+    opts.forEach((o,i)=>{
+      o.classList.add('disabled');
+      if(i===correct) o.classList.add('correct');
+      else if(i===idx && idx!==correct) o.classList.add('wrong');
+    });
+    const fb = q.querySelector('.quiz-feedback');
+    if(idx===correct){
+      fb.style.background='var(--green-soft)'; fb.style.color='var(--green)';
+    } else {
+      fb.style.background='var(--red-soft)'; fb.style.color='var(--red)';
+      fb.innerHTML = '<span class="ar">&#10060; خطأ — الإجابة الصحيحة موضحة باللون الأخضر</span><span class="de">&#10060; Falsch — Die richtige Antwort ist gr\u00fcn markiert</span>';
+      if(lang==='de'){ fb.querySelector('.ar').style.display='none'; } else { fb.querySelector('.de').style.display='none'; }
+    }
+    fb.classList.add('show');
+  }
+
+  // ═══ CONFETTI ═══
+  function launchConfetti(){
+    const container = document.getElementById('confettiContainer');
+    const colors = ['#c9a84c','#e8c97a','#27ae60','#3498db','#e74c3c','#9b59b6','#f39c12','#1abc9c'];
+    for(let i=0; i<100; i++){
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      piece.style.left = Math.random()*100 + '%';
+      piece.style.background = colors[Math.floor(Math.random()*colors.length)];
+      piece.style.width = (Math.random()*8+6) + 'px';
+      piece.style.height = (Math.random()*8+6) + 'px';
+      piece.style.borderRadius = Math.random()>0.5 ? '50%' : '2px';
+      piece.style.animationDuration = (Math.random()*2+2) + 's';
+      piece.style.animationDelay = (Math.random()*1.5) + 's';
+      container.appendChild(piece);
+    }
+    setTimeout(()=>{
+      container.innerHTML = '';
+    }, 5000);
+  }
+
+  // ═══ AUTO-CELEBRATE ON SCROLL TO COMPLETION ═══
+  const celebrationObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        launchConfetti();
+        celebrationObs.disconnect();
+      }
+    });
+  },{threshold:0.5});
+  const celebBox = document.getElementById('celebrationBox');
+  if(celebBox) celebrationObs.observe(celebBox);
+</script>
+</body>
+</html>

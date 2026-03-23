@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الفصل السابع – تمثيل التغذية وتأثير اليويو | Ernährung & Yo-yo-Effekt</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&subset=arabic,latin&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d0d0d; --surface:#1a1a1a; --surface2:#232323;
+    --accent:#c9a84c; --accent2:#e8c97a; --accent-dim:#7a5f28;
+    --text:#f0ead6; --text-soft:#a89870;
+    --red:#c0392b; --red-soft:#2a1010;
+    --green:#27ae60; --green-soft:#0e2418;
+    --border:#2e2e2e; --radius:14px; --shadow:0 8px 32px rgba(0,0,0,0.5);
+  }
+  [data-theme="teal"] {
+    --bg:#f0f8f7; --surface:#ffffff; --surface2:#e6f4f1;
+    --accent:#0d7377; --accent2:#14a085; --accent-dim:#b2dfdb;
+    --text:#1a2e2d; --text-soft:#4a7c79; --border:#b2dfdb;
+    --red:#c0392b; --red-soft:#fdecea; --green:#1a7a4a; --green-soft:#e8f5e9;
+  }
+  [data-theme="purple"] {
+    --bg:#0f0c1e; --surface:#1a1530; --surface2:#221d3a;
+    --accent:#9b59b6; --accent2:#c39bd3; --accent-dim:#4a2060;
+    --text:#ede0f5; --text-soft:#9b8ab0; --border:#2d2545;
+    --red:#e74c3c; --red-soft:#2a0e0e; --green:#27ae60; --green-soft:#0e2418;
+  }
+  [data-theme="emerald"] {
+    --bg:#faf8f2; --surface:#ffffff; --surface2:#f2ede0;
+    --accent:#2d6a4f; --accent2:#40916c; --accent-dim:#b7e4c7;
+    --text:#1b2d23; --text-soft:#52796f; --border:#b7e4c7;
+    --red:#b5451b; --red-soft:#fdecea; --green:#1b5e20; --green-soft:#e8f5e9;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Cairo','Tahoma','Arial',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; transition:background .3s,color .3s; overflow-x:hidden; }
+  .ar, [lang="ar"], [dir="rtl"] { letter-spacing: 0 !important; }
+
+  /* PASSWORD GATE */
+  .pw-overlay { position:fixed; inset:0; background:var(--bg); z-index:10000; display:flex; align-items:center; justify-content:center; transition:opacity .5s; }
+  .pw-overlay.hidden { opacity:0; pointer-events:none; }
+  .pw-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:40px 30px; text-align:center; max-width:360px; width:90%; box-shadow:var(--shadow); }
+  .pw-box input { width:100%; padding:14px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-family:'Cairo',sans-serif; font-size:16px; text-align:center; outline:none; margin-bottom:16px; }
+  .pw-box input:focus { border-color:var(--accent); }
+  .pw-box button { width:100%; padding:14px; background:var(--accent); color:var(--bg); border:none; border-radius:10px; font-family:'Cairo',sans-serif; font-size:16px; font-weight:800; cursor:pointer; transition:.2s; }
+  .pw-box button:hover { background:var(--accent2); }
+  .pw-error { color:var(--red); font-size:13px; display:none; margin-top:8px; }
+
+  /* SCROLL PROGRESS */
+  .scroll-progress { position:fixed; top:0; left:0; height:3px; background:linear-gradient(90deg,var(--accent),var(--accent2)); z-index:9999; width:0; transition:width .1s; }
+
+  /* PARTICLES */
+  .particles-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+  /* SIDE NAV DOTS */
+  .side-nav { position:fixed; right:20px; top:50%; transform:translateY(-50%); z-index:998; display:flex; flex-direction:column; gap:12px; }
+  [dir="ltr"] .side-nav { right:auto; left:20px; }
+  .side-dot { width:12px; height:12px; border-radius:50%; background:var(--border); cursor:pointer; transition:.3s; position:relative; }
+  .side-dot.active { background:var(--accent); box-shadow:0 0 10px var(--accent); }
+  .side-dot:hover { background:var(--accent-dim); transform:scale(1.3); }
+  .side-dot .dot-label { position:absolute; right:20px; top:50%; transform:translateY(-50%); background:var(--surface); color:var(--text); font-size:11px; padding:4px 10px; border-radius:6px; white-space:nowrap; opacity:0; pointer-events:none; transition:.2s; border:1px solid var(--border); }
+  [dir="ltr"] .side-dot .dot-label { right:auto; left:20px; }
+  .side-dot:hover .dot-label { opacity:1; }
+
+  /* THEME BAR */
+  .theme-bar { position:fixed; top:16px; left:16px; z-index:999; display:flex; gap:8px; align-items:center; background:var(--surface); border:1px solid var(--border); padding:8px 12px; border-radius:40px; box-shadow:var(--shadow); }
+  .theme-bar span { font-size:11px; color:var(--text-soft); margin-left:4px; }
+  .swatch { width:22px; height:22px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:.2s; }
+  .swatch:hover, .swatch.active { border-color:var(--text); transform:scale(1.2); }
+  .swatch.s-dark    { background:radial-gradient(circle at 40% 40%,#c9a84c,#0d0d0d); }
+  .swatch.s-teal    { background:radial-gradient(circle at 40% 40%,#14a085,#f0f8f7); }
+  .swatch.s-purple  { background:radial-gradient(circle at 40% 40%,#9b59b6,#0f0c1e); }
+  .swatch.s-emerald { background:radial-gradient(circle at 40% 40%,#2d6a4f,#faf8f2); }
+
+  /* LANG BTN */
+  .lang-btn { position:fixed; top:16px; right:16px; z-index:999; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-size:13px; font-weight:700; padding:6px 18px; border-radius:40px; cursor:pointer; transition:.2s; box-shadow:var(--shadow); }
+  .lang-btn:hover { background:var(--accent); color:var(--bg); }
+
+  /* HEADER */
+  header { text-align:center; padding:60px 20px 40px; background:linear-gradient(160deg,var(--surface) 0%,var(--bg) 100%); border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  header::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 0%,var(--accent-dim),transparent); opacity:.25; pointer-events:none; }
+  .chapter-tag { display:inline-block; font-size:12px; font-weight:700; color:var(--accent); border:1px solid var(--accent); padding:4px 16px; border-radius:40px; margin-bottom:16px; }
+  header h1 { font-size:clamp(28px,5vw,52px); font-weight:900; line-height:1.2; }
+  header h1 .accent { color:var(--accent); }
+  .subtitle { color:var(--text-soft); font-size:15px; margin-top:10px; }
+
+  /* LAYOUT */
+  .container { max-width:1100px; margin:0 auto; padding:40px 20px 80px; position:relative; z-index:1; }
+  section { margin-bottom:60px; scroll-margin-top:30px; }
+  h2.section-title { font-size:22px; font-weight:800; color:var(--accent); border-right:4px solid var(--accent); padding-right:14px; margin-bottom:24px; display:flex; align-items:center; gap:10px; }
+  [dir="ltr"] h2.section-title { border-right:none; border-left:4px solid var(--accent); padding-right:0; padding-left:14px; }
+
+  /* CARDS */
+  .cards { display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px; transition:transform .2s,box-shadow .2s,border-color .2s; }
+  .card:hover { transform:translateY(-4px); box-shadow:var(--shadow); border-color:var(--accent-dim); }
+  .card-icon { font-size:28px; margin-bottom:10px; }
+  .card h3 { font-size:15px; font-weight:700; margin-bottom:6px; color:var(--accent2); }
+  .card p { font-size:13px; color:var(--text-soft); line-height:1.7; }
+
+  /* INFO BOX */
+  .info-box { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; }
+  .info-box .lbl { font-size:11px; font-weight:800; color:var(--accent); margin-bottom:8px; }
+  .info-box p { font-size:13px; line-height:1.9; color:var(--text-soft); }
+  .info-box p strong { color:var(--text); }
+
+  /* QUOTE BOX */
+  .quote-box { border-right:4px solid var(--accent); padding:16px 20px; background:var(--surface2); border-radius:0 10px 10px 0; margin:20px 0; font-size:14px; line-height:1.8; }
+  [dir="ltr"] .quote-box { border-right:none; border-left:4px solid var(--accent); }
+
+  /* EXAMPLE BOX */
+  .example-box { background:var(--surface); border:2px dashed var(--accent-dim); border-radius:var(--radius); padding:24px; margin:20px 0; }
+  .example-box .example-title { font-size:14px; font-weight:800; color:var(--accent); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+  .example-box p { font-size:13px; line-height:1.9; color:var(--text-soft); }
+  .example-box strong { color:var(--text); }
+
+  /* INFO PILLS */
+  .info-row { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+  .info-pill { flex:1; min-width:90px; background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:14px 10px; text-align:center; }
+  .info-pill .val { font-size:26px; font-weight:900; color:var(--accent); }
+  .info-pill .key { font-size:11px; color:var(--text-soft); margin-top:4px; line-height:1.4; }
+
+  /* DIVIDER */
+  .divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent-dim),transparent); margin:40px 0; }
+
+  /* DE hidden by default */
+  .de { display:none; }
+
+  /* ═══ FLIP CARDS ═══ */
+  .flip-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
+  .flip-card-outer { perspective:700px; height:240px; cursor:pointer; }
+  .flip-card-inner { position:relative; width:100%; height:100%; transition:transform .6s; transform-style:preserve-3d; }
+  .flip-card-outer:hover .flip-card-inner, .flip-card-outer.flipped .flip-card-inner { transform:rotateY(180deg); }
+  [dir="rtl"] .flip-card-outer:hover .flip-card-inner, [dir="rtl"] .flip-card-outer.flipped .flip-card-inner { transform:rotateY(-180deg); }
+  .flip-front, .flip-back { position:absolute; width:100%; height:100%; backface-visibility:hidden; border-radius:var(--radius); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; text-align:center; }
+  .flip-front { background:var(--surface); border:1px solid var(--border); }
+  .flip-front .flip-icon { font-size:48px; margin-bottom:12px; }
+  .flip-front h4 { font-size:14px; font-weight:700; color:var(--accent2); }
+  .flip-front .flip-hint { font-size:10px; color:var(--text-soft); margin-top:8px; }
+  .flip-back { background:var(--surface2); border:1px solid var(--accent-dim); transform:rotateY(180deg); }
+  [dir="rtl"] .flip-back { transform:rotateY(-180deg); }
+  .flip-back p { font-size:12px; color:var(--text-soft); line-height:1.7; }
+  .flip-back strong { color:var(--text); }
+  .flip-back .back-tag { font-size:10px; font-weight:800; color:var(--accent); margin-bottom:8px; padding:3px 12px; border:1px solid var(--accent); border-radius:20px; display:inline-block; }
+
+  /* ═══ BUBBLE CLOUD ═══ */
+  .bubble-cloud { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; padding:20px 0; }
+  .bubble { display:inline-flex; align-items:center; justify-content:center; padding:10px 20px; border-radius:40px; font-size:13px; font-weight:700; cursor:default; transition:.3s; border:1px solid var(--border); background:var(--surface); color:var(--text); text-align:center; }
+  .bubble:hover { transform:scale(1.08); border-color:var(--accent); background:var(--surface2); }
+  .bubble.green { background:var(--green-soft); color:var(--green); border-color:var(--green); }
+  .bubble.red { background:var(--red-soft); color:var(--red); border-color:var(--red); }
+  .bubble.gold { background:rgba(201,168,76,0.12); color:var(--accent); border-color:var(--accent-dim); }
+  .bubble.blue { background:rgba(52,152,219,0.12); color:#3498db; border-color:rgba(52,152,219,0.3); }
+
+  /* ═══ TIMELINE ═══ */
+  .timeline { position:relative; padding:20px 0; }
+  .timeline::before { content:''; position:absolute; top:0; bottom:0; right:24px; width:3px; background:var(--accent-dim); }
+  [dir="ltr"] .timeline::before { right:auto; left:24px; }
+  .timeline-item { position:relative; padding:0 60px 30px 0; }
+  [dir="ltr"] .timeline-item { padding:0 0 30px 60px; }
+  .timeline-dot { position:absolute; right:16px; top:4px; width:20px; height:20px; border-radius:50%; background:var(--accent); border:3px solid var(--bg); z-index:2; }
+  [dir="ltr"] .timeline-dot { right:auto; left:16px; }
+  .timeline-content { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:18px; }
+  .timeline-content h4 { font-size:14px; font-weight:700; color:var(--accent2); margin-bottom:6px; }
+  .timeline-content p { font-size:13px; color:var(--text-soft); line-height:1.8; }
+  .timeline-content strong { color:var(--text); }
+
+  /* ═══ YOYO CYCLE VISUAL ═══ */
+  .yoyo-cycle { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:0; margin:30px 0; }
+  .yoyo-step { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:16px; text-align:center; width:160px; transition:.3s; }
+  .yoyo-step:hover { border-color:var(--accent); transform:scale(1.05); }
+  .yoyo-step .step-icon { font-size:32px; margin-bottom:8px; }
+  .yoyo-step h4 { font-size:12px; font-weight:700; color:var(--accent2); margin-bottom:4px; }
+  .yoyo-step p { font-size:11px; color:var(--text-soft); line-height:1.5; }
+  .yoyo-arrow { font-size:28px; color:var(--accent); padding:0 6px; }
+  @media(max-width:600px) { .yoyo-arrow { transform:rotate(90deg); } .yoyo-cycle { flex-direction:column; } }
+
+  /* ═══ COMPARISON PANEL ═══ */
+  .compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:var(--radius); overflow:hidden; border:1px solid var(--border); }
+  @media(max-width:600px){ .compare-grid { grid-template-columns:1fr; } }
+  .compare-side { padding:24px; }
+  .compare-side.bad { background:var(--red-soft); border-left:1px solid var(--border); }
+  [dir="ltr"] .compare-side.bad { border-left:none; border-right:1px solid var(--border); }
+  .compare-side.good { background:var(--green-soft); }
+  .compare-side h3 { font-size:16px; font-weight:800; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+  .compare-side.bad h3 { color:var(--red); }
+  .compare-side.good h3 { color:var(--green); }
+  .compare-item { padding:10px 14px; border-radius:10px; background:var(--surface); border:1px solid var(--border); margin-bottom:8px; font-size:12px; line-height:1.8; color:var(--text-soft); transition:.2s; }
+  .compare-item:hover { border-color:var(--accent-dim); transform:translateX(-3px); }
+  .compare-item strong { color:var(--text); }
+
+  /* ═══ BMR CALCULATOR ═══ */
+  .calc-box { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:30px; }
+  .calc-box h3 { font-size:16px; font-weight:800; color:var(--accent); margin-bottom:16px; text-align:center; }
+  .calc-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px; }
+  @media(max-width:600px){ .calc-grid { grid-template-columns:1fr; } }
+  .calc-grid label { font-size:12px; color:var(--text-soft); font-weight:700; }
+  .calc-grid input, .calc-grid select { width:100%; padding:12px; border-radius:10px; border:1px solid var(--border); background:var(--surface2); color:var(--text); font-family:'Cairo',sans-serif; font-size:14px; outline:none; margin-top:4px; }
+  .calc-grid input:focus, .calc-grid select:focus { border-color:var(--accent); }
+  .calc-btn { display:block; width:100%; padding:14px; background:var(--accent); color:var(--bg); border:none; border-radius:10px; font-family:'Cairo',sans-serif; font-size:16px; font-weight:800; cursor:pointer; transition:.2s; margin-bottom:16px; }
+  .calc-btn:hover { background:var(--accent2); }
+  .result-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:12px; }
+  .result-card { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center; }
+  .result-card .rc-val { font-size:28px; font-weight:900; color:var(--accent); }
+  .result-card .rc-lbl { font-size:11px; color:var(--text-soft); margin-top:4px; }
+
+  /* ═══ INFOGRAPHIC IMAGE ═══ */
+  .infographic-wrap { text-align:center; margin:20px 0; }
+  .infographic-wrap img { max-width:100%; border-radius:var(--radius); border:1px solid var(--border); box-shadow:var(--shadow); }
+  .infographic-caption { font-size:12px; color:var(--text-soft); margin-top:10px; }
+
+  /* ═══ PROGRESS BARS ═══ */
+  .progress-set { display:flex; flex-direction:column; gap:14px; }
+  .progress-item { display:grid; grid-template-columns:130px 1fr 50px; gap:12px; align-items:center; }
+  @media(max-width:500px){ .progress-item { grid-template-columns:90px 1fr 40px; } }
+  .progress-label { font-size:12px; font-weight:700; color:var(--text); text-align:right; }
+  [dir="ltr"] .progress-label { text-align:left; }
+  .progress-track { height:28px; background:var(--surface2); border-radius:14px; overflow:hidden; position:relative; }
+  .progress-fill { height:100%; border-radius:14px; transition:width 1.2s ease; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; font-size:10px; font-weight:800; color:var(--bg); width:0; }
+  [dir="ltr"] .progress-fill { justify-content:flex-start; padding-right:0; padding-left:8px; }
+  .progress-fill.high { background:linear-gradient(90deg,#e74c3c,#e67e22); }
+  .progress-fill.mid { background:linear-gradient(90deg,#f39c12,#f1c40f); }
+  .progress-fill.low { background:linear-gradient(90deg,var(--green),#2ecc71); }
+  .progress-val { font-size:13px; font-weight:900; color:var(--accent); }
+
+  /* ═══ QUIZ ═══ */
+  .quiz-container { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:24px; }
+  .quiz-q { margin-bottom:24px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+  .quiz-q:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .quiz-q h4 { font-size:14px; font-weight:700; color:var(--accent2); margin-bottom:12px; }
+  .quiz-opts { display:flex; flex-direction:column; gap:8px; }
+  .quiz-opt { padding:12px 16px; border-radius:10px; background:var(--surface2); border:1px solid var(--border); cursor:pointer; font-size:13px; transition:.2s; user-select:none; }
+  .quiz-opt:hover { border-color:var(--accent-dim); }
+  .quiz-opt.correct { background:var(--green-soft); border-color:var(--green); color:var(--green); }
+  .quiz-opt.wrong { background:var(--red-soft); border-color:var(--red); color:var(--red); }
+  .quiz-opt.disabled { pointer-events:none; opacity:0.6; }
+  .quiz-feedback { margin-top:8px; font-size:12px; line-height:1.7; display:none; padding:10px; border-radius:8px; }
+  .quiz-feedback.show { display:block; }
+
+  /* FOOTER NAV */
+  .footer-nav { display:flex; justify-content:center; align-items:center; gap:20px; flex-wrap:wrap; padding:30px 20px; }
+  .footer-nav a { display:inline-block; padding:12px 30px; background:var(--surface); border:1px solid var(--accent); color:var(--accent); font-family:'Cairo',sans-serif; font-weight:700; font-size:14px; border-radius:40px; text-decoration:none; transition:.2s; }
+  .footer-nav a:hover { background:var(--accent); color:var(--bg); }
+  .footer-nav a.primary { background:var(--accent); color:var(--bg); }
+  .footer-nav a.primary:hover { background:var(--accent2); }
+
+  /* REVEAL ANIMATION */
+  .reveal { opacity:0; transform:translateY(30px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  @media(max-width:700px){
+    .side-nav { display:none; }
+    .compare-grid { grid-template-columns:1fr; }
+    .calc-grid { grid-template-columns:1fr; }
+    .flip-grid { grid-template-columns:1fr 1fr; }
+    .timeline::before { right:16px; }
+    [dir="ltr"] .timeline::before { left:16px; }
+  }
+  @media(max-width:600px){
+    .flip-grid { grid-template-columns:1fr; }
+    .yoyo-cycle { flex-direction:column; }
+    .yoyo-arrow { transform:rotate(90deg); }
+  }
+</style>
+</head>
+<body data-theme="dark">
+
+<!-- PASSWORD GATE -->
+<div class="pw-overlay" id="pwOverlay">
+  <div class="pw-box">
+    <h2>&#128272;</h2>
+    <p style="color:var(--text-soft); font-size:13px; margin-bottom:16px;">
+      <span class="ar">أدخل كلمة المرور للمتابعة</span>
+      <span class="de">Passwort eingeben</span>
+    </p>
+    <input type="password" id="pwInput" placeholder="••••••••" autocomplete="off">
+    <button onclick="checkPw()">
+      <span class="ar">دخول</span>
+      <span class="de">Eintreten</span>
+    </button>
+    <div class="pw-error" id="pwError">
+      <span class="ar">كلمة المرور غير صحيحة</span>
+      <span class="de">Falsches Passwort</span>
+    </div>
+  </div>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- PARTICLES -->
+<canvas class="particles-canvas" id="particlesCanvas"></canvas>
+
+<!-- SIDE NAV DOTS -->
+<nav class="side-nav" id="sideNav"></nav>
+
+<!-- Theme switcher -->
+<div class="theme-bar">
+  <span>&#127912;</span>
+  <div class="swatch s-dark active"   onclick="setTheme('dark',this)"    title="Dark Gold"></div>
+  <div class="swatch s-teal"          onclick="setTheme('teal',this)"    title="Teal"></div>
+  <div class="swatch s-purple"        onclick="setTheme('purple',this)"  title="Purple"></div>
+  <div class="swatch s-emerald"       onclick="setTheme('emerald',this)" title="Emerald"></div>
+</div>
+
+<!-- Lang toggle -->
+<button class="lang-btn" onclick="toggleLang()" id="langBtn">DE</button>
+
+<!-- HEADER -->
+<header>
+  <div class="chapter-tag">
+    <span class="ar">الفصل السابع</span>
+    <span class="de">Kapitel 7</span>
+  </div>
+  <h1>
+    <span class="accent">&#9878;&#65039;</span>
+    <span class="ar"> تمثيل التغذية وتأثير اليويو</span>
+    <span class="de"> Ernährung &amp; Yo-yo-Effekt</span>
+  </h1>
+  <p class="subtitle">
+    <span class="ar">التمثيل الغذائي، معدل الأيض الأساسي، ولماذا تفشل الحميات القاسية</span>
+    <span class="de">Stoffwechsel, Grundumsatz und warum Crash-Diäten scheitern</span>
+  </p>
+</header>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════
+       1. INTRODUCTION - METABOLISM OVERVIEW
+  ══════════════════════════════════════ -->
+  <section id="sec-intro" class="reveal">
+    <h2 class="section-title">
+      &#128293;
+      <span class="ar">مقدمة — ما هو التمثيل الغذائي؟</span>
+      <span class="de">Einführung — Was ist Stoffwechsel?</span>
+    </h2>
+
+    <div class="info-box" style="border-right:3px solid var(--accent)">
+      <div class="lbl ar">معدل الأيض الأساسي (BMR)</div>
+      <div class="lbl de">Grundumsatz (BMR)</div>
+      <p class="ar"><strong>معدل الأيض الأساسي</strong> هو كمية الطاقة التي يحتاجها الجسم في حالة الراحة خلال 24 ساعة للحفاظ على وظائفه الحيوية مثل التنفس ونبض القلب وعمل الأعضاء. يعتمد هذا المعدل على عوامل عدة مثل <strong>العمر، الجنس، الوزن، والكتلة العضلية</strong>.</p>
+      <p class="de"><strong>Der Grundumsatz (BMR)</strong> ist die Energiemenge, die der Körper in Ruhe innerhalb von 24 Stunden benötigt, um lebenswichtige Funktionen wie Atmung, Herzschlag und Organfunktion aufrechtzuerhalten. Er hängt von Faktoren wie <strong>Alter, Geschlecht, Gewicht und Muskelmasse</strong> ab.</p>
+    </div>
+
+    <div class="info-row">
+      <div class="info-pill">
+        <div class="val">~2000</div>
+        <div class="key"><span class="ar">سعرة/يوم<br>للرجال</span><span class="de">kcal/Tag<br>Männer</span></div>
+      </div>
+      <div class="info-pill">
+        <div class="val">~1600</div>
+        <div class="key"><span class="ar">سعرة/يوم<br>للنساء</span><span class="de">kcal/Tag<br>Frauen</span></div>
+      </div>
+      <div class="info-pill">
+        <div class="val">23%</div>
+        <div class="key"><span class="ar">نسبة انخفاض الأيض<br>بالحمية القاسية</span><span class="de">BMR-Abfall<br>bei Crash-Diät</span></div>
+      </div>
+      <div class="info-pill">
+        <div class="val">7700</div>
+        <div class="key"><span class="ar">سعرة حرارية<br>في 1 كجم دهون</span><span class="de">kcal<br>pro 1kg Fett</span></div>
+      </div>
+    </div>
+
+    <div class="quote-box">
+      <p class="ar">&#128161; عندما نقلل من كمية السعرات الحرارية بشكل كبير، يعتقد الجسم أنه في حالة مجاعة، فيعمل على <strong>خفض معدل الأيض</strong> للحفاظ على الطاقة. أظهرت دراسة نُشرت في مجلة <strong>"Obesity"</strong> عام 2011 أن الأشخاص الذين اتبعوا نظامًا غذائيًا منخفض السعرات بشكل كبير عانوا من انخفاض في معدل الأيض بنسبة تصل إلى <strong>23%</strong>.</p>
+      <p class="de">&#128161; Wenn wir die Kalorienzufuhr stark reduzieren, glaubt der Körper, er sei in einer Hungersnot, und <strong>senkt den Stoffwechsel</strong>, um Energie zu sparen. Eine 2011 im Journal <strong>"Obesity"</strong> veröffentlichte Studie zeigte, dass Personen mit einer stark kalorienreduzierten Diät einen BMR-Rückgang von bis zu <strong>23%</strong> erlitten.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       2. INFOGRAPHIC
+  ══════════════════════════════════════ -->
+  <section id="sec-infographic" class="reveal">
+    <h2 class="section-title">
+      &#128202;
+      <span class="ar">الإنفوجرافيك — التمثيل الغذائي وتأثير اليويو</span>
+      <span class="de">Infografik — Stoffwechsel &amp; Yo-yo-Effekt</span>
+    </h2>
+
+    <div class="infographic-wrap">
+      <img src="../assets/images/nutrition representation, yoyo effect.jpg" alt="Nutrition Representation &amp; Yo-yo Effect Infographic" loading="lazy">
+      <p class="infographic-caption">
+        <span class="ar">إنفوجرافيك الدرس: التمثيل الغذائي وتأثير اليويو</span>
+        <span class="de">Infografik der Lektion: Stoffwechsel und Yo-yo-Effekt</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       3. WHAT IS THE YOYO EFFECT
+  ══════════════════════════════════════ -->
+  <section id="sec-yoyo" class="reveal">
+    <h2 class="section-title">
+      &#127919;
+      <span class="ar">ما هو تأثير اليويو؟</span>
+      <span class="de">Was ist der Yo-yo-Effekt?</span>
+    </h2>
+
+    <div class="info-box" style="border-right:3px solid var(--red)">
+      <div class="lbl ar">تعريف تأثير اليويو</div>
+      <div class="lbl de">Definition des Yo-yo-Effekts</div>
+      <p class="ar"><strong>تأثير اليويو</strong> هو دورة متكررة من فقدان الوزن وزيادته، تشبه حركة اليويو صعودًا وهبوطًا. يحدث ذلك عادةً بعد اتباع نظام غذائي منخفض السعرات الحرارية بشكل كبير (<strong>أقل من 1200 سعرة حرارية للنساء و 1500 سعرة حرارية للرجال</strong>)، حيث يفقد الجسم الوزن بسرعة في البداية (قد يصل إلى <strong>4.5 كجم في الأسبوع</strong>)، لكنه سرعان ما يستعيده عند العودة إلى العادات الغذائية السابقة.</p>
+      <p class="de"><strong>Der Yo-yo-Effekt</strong> ist ein wiederkehrender Zyklus von Gewichtsverlust und -zunahme, ähnlich der Auf-und-Ab-Bewegung eines Yo-yos. Er tritt typischerweise nach einer stark kalorienreduzierten Diät auf (<strong>unter 1200 kcal für Frauen und 1500 kcal für Männer</strong>). Der Körper verliert anfangs schnell Gewicht (bis zu <strong>4,5 kg pro Woche</strong>), nimmt es jedoch rasch wieder zu, sobald die alten Essgewohnheiten zurückkehren.</p>
+    </div>
+
+    <!-- YOYO CYCLE VISUAL -->
+    <div class="yoyo-cycle">
+      <div class="yoyo-step">
+        <div class="step-icon">&#128170;</div>
+        <h4><span class="ar">البداية</span><span class="de">Start</span></h4>
+        <p><span class="ar">الوزن الطبيعي<br>أيض 2000 سعرة</span><span class="de">Normalgewicht<br>BMR 2000 kcal</span></p>
+      </div>
+      <div class="yoyo-arrow">&#8592;</div>
+      <div class="yoyo-step">
+        <div class="step-icon">&#127860;</div>
+        <h4><span class="ar">حمية قاسية</span><span class="de">Crash-Diät</span></h4>
+        <p><span class="ar">تقليل حاد<br>للسعرات</span><span class="de">Starke Kalorien-<br>reduktion</span></p>
+      </div>
+      <div class="yoyo-arrow">&#8592;</div>
+      <div class="yoyo-step">
+        <div class="step-icon">&#128200;</div>
+        <h4><span class="ar">فقدان سريع</span><span class="de">Schneller Verlust</span></h4>
+        <p><span class="ar">انخفاض الوزن<br>+ فقدان عضلات</span><span class="de">Gewichtsverlust<br>+ Muskelverlust</span></p>
+      </div>
+      <div class="yoyo-arrow">&#8592;</div>
+      <div class="yoyo-step">
+        <div class="step-icon">&#9888;&#65039;</div>
+        <h4><span class="ar">تباطؤ الأيض</span><span class="de">BMR sinkt</span></h4>
+        <p><span class="ar">الجسم يدخل<br>وضع المجاعة</span><span class="de">Körper im<br>Hungermodus</span></p>
+      </div>
+      <div class="yoyo-arrow">&#8592;</div>
+      <div class="yoyo-step">
+        <div class="step-icon">&#128201;</div>
+        <h4><span class="ar">استعادة الوزن</span><span class="de">Gewichtszunahme</span></h4>
+        <p><span class="ar">زيادة أكثر<br>من الأصل!</span><span class="de">Mehr als<br>vorher!</span></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       4. CAUSES OF YOYO EFFECT - FLIP CARDS
+  ══════════════════════════════════════ -->
+  <section id="sec-causes" class="reveal">
+    <h2 class="section-title">
+      &#128269;
+      <span class="ar">أسباب تأثير اليويو</span>
+      <span class="de">Ursachen des Yo-yo-Effekts</span>
+    </h2>
+
+    <div class="flip-grid">
+      <!-- Cause 1: Decreased BMR -->
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#128293;</div>
+            <h4><span class="ar">انخفاض معدل الأيض</span><span class="de">Sinkender Grundumsatz</span></h4>
+            <div class="flip-hint"><span class="ar">اقلب البطاقة</span><span class="de">Karte umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="back-tag"><span class="ar">السبب الأول</span><span class="de">Ursache 1</span></div>
+            <p><span class="ar">عندما نقلل السعرات بشكل كبير، يعتقد الجسم أنه في حالة مجاعة فيعمل على <strong>خفض معدل الأيض</strong> للحفاظ على الطاقة. أظهرت الدراسات انخفاضًا يصل إلى <strong>23%</strong> في معدل الأيض.</span><span class="de">Bei starker Kalorienreduktion glaubt der Körper, er sei in einer Hungersnot, und <strong>senkt den Grundumsatz</strong> um Energie zu sparen. Studien zeigen einen Rückgang von bis zu <strong>23%</strong>.</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cause 2: Muscle Loss -->
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#128170;</div>
+            <h4><span class="ar">فقدان كتلة العضلات</span><span class="de">Muskelmasseverlust</span></h4>
+            <div class="flip-hint"><span class="ar">اقلب البطاقة</span><span class="de">Karte umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="back-tag"><span class="ar">السبب الثاني</span><span class="de">Ursache 2</span></div>
+            <p><span class="ar">الحمية القاسية تؤدي إلى فقدان العضلات. العضلات تحرق سعرات أكثر من الدهون حتى في الراحة. <strong>فقدان كل 1 كجم من العضلات = انخفاض 40-60 سعرة/يوم</strong> في الأيض.</span><span class="de">Crash-Diäten führen zu Muskelverlust. Muskeln verbrennen mehr Kalorien als Fett, auch in Ruhe. <strong>Pro 1 kg Muskelverlust sinkt der BMR um 40-60 kcal/Tag</strong>.</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cause 3: Hormonal Disruption -->
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#128137;</div>
+            <h4><span class="ar">اضطراب الهرمونات</span><span class="de">Hormonelle Störung</span></h4>
+            <div class="flip-hint"><span class="ar">اقلب البطاقة</span><span class="de">Karte umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="back-tag"><span class="ar">السبب الثالث</span><span class="de">Ursache 3</span></div>
+            <p><span class="ar">فقدان الوزن السريع يؤدي إلى <strong>انخفاض هرمون اللبتين</strong> (الشبع) وارتفاع هرمون <strong>جريلين</strong> (الجوع)، مما يسبب شهية مفرطة بعد انتهاء الحمية.</span><span class="de">Schneller Gewichtsverlust senkt <strong>Leptin</strong> (Sättigungshormon) und erhöht <strong>Ghrelin</strong> (Hungerhormon), was nach der Diät zu übermäßigem Appetit führt.</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cause 4: Psychological Factors -->
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#129504;</div>
+            <h4><span class="ar">العوامل النفسية</span><span class="de">Psychische Faktoren</span></h4>
+            <div class="flip-hint"><span class="ar">اقلب البطاقة</span><span class="de">Karte umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="back-tag"><span class="ar">السبب الرابع</span><span class="de">Ursache 4</span></div>
+            <p><span class="ar">قد يصاب الشخص <strong>بالإحباط واليأس</strong> بعد استعادة الوزن، مما يدفعه إلى الإفراط في تناول الطعام والدخول في <strong>حلقة مفرغة</strong> من الحميات القاسية واستعادة الوزن.</span><span class="de"><strong>Frustration und Verzweiflung</strong> nach der Gewichtszunahme können zu übermäßigem Essen führen und einen <strong>Teufelskreis</strong> aus Crash-Diäten und Gewichtszunahme auslösen.</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       5. AHMED'S STORY - CASE STUDY
+  ══════════════════════════════════════ -->
+  <section id="sec-story" class="reveal">
+    <h2 class="section-title">
+      &#128214;
+      <span class="ar">مثال أحمد — دراسة حالة</span>
+      <span class="de">Ahmeds Beispiel — Eine Fallstudie</span>
+    </h2>
+
+    <div class="example-box">
+      <div class="example-title">
+        &#128100;
+        <span class="ar">قصة أحمد مع الحمية القاسية</span>
+        <span class="de">Ahmeds Geschichte mit der Crash-Diät</span>
+      </div>
+      <p class="ar">كان أحمد شابًا يعاني من زيادة الوزن، وقرر اتباع حمية غذائية قاسية لفقدان الوزن بسرعة. نجح أحمد في خسارة الوزن الزائد في البداية، لكنه سرعان ما استعاده، <strong>بل وزاد وزنه عما كان عليه في السابق</strong>. لماذا حدث ذلك؟</p>
+      <p class="de">Ahmed war ein junger Mann mit Übergewicht, der sich für eine Crash-Diät entschied, um schnell abzunehmen. Anfangs verlor er erfolgreich Gewicht, nahm es aber schnell wieder zu — <strong>sogar mehr als vorher</strong>. Warum passierte das?</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4><span class="ar">&#9312; قبل الحمية</span><span class="de">&#9312; Vor der Diät</span></h4>
+          <p><span class="ar">كان معدل الأيض الأساسي لأحمد حوالي <strong>2000 سعرة حرارية</strong> في اليوم. جسمه كان يحرق 2000 سعرة يوميًا بشكل طبيعي للحفاظ على وظائفه الحيوية.</span><span class="de">Ahmeds Grundumsatz lag bei etwa <strong>2000 kcal</strong> pro Tag. Sein Körper verbrannte täglich 2000 kcal für lebenswichtige Funktionen.</span></p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4><span class="ar">&#9313; أثناء الحمية القاسية</span><span class="de">&#9313; Während der Crash-Diät</span></h4>
+          <p><span class="ar">قلّل أحمد سعراته بشكل حاد. <strong>انخفض معدل الأيض إلى 1500 سعرة حرارية</strong> فقط. فقد جزءًا من كتلته العضلية، وانخفض هرمون اللبتين وارتفع هرمون جريلين.</span><span class="de">Ahmed reduzierte seine Kalorien drastisch. <strong>Sein BMR sank auf 1500 kcal</strong>. Er verlor Muskelmasse, Leptin sank und Ghrelin stieg.</span></p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4><span class="ar">&#9314; بعد العودة للأكل الطبيعي</span><span class="de">&#9314; Nach Rückkehr zum normalen Essen</span></h4>
+          <p><span class="ar">عاد أحمد لتناول 2000 سعرة (كما قبل الحمية). لكن أيضه الآن <strong>1500 سعرة فقط</strong>! أصبح جسمه يختزن <strong>500 سعرة إضافية يوميًا</strong> على شكل دهون.</span><span class="de">Ahmed aß wieder 2000 kcal (wie vor der Diät). Aber sein BMR war jetzt nur <strong>1500 kcal</strong>! Sein Körper speicherte <strong>500 überschüssige kcal täglich</strong> als Fett.</span></p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <h4><span class="ar">&#9315; النتيجة</span><span class="de">&#9315; Ergebnis</span></h4>
+          <p><span class="ar"><strong>500 سعرة إضافية &#215; 7 أيام = 3500 سعرة أسبوعيًا</strong>. بما أن 1 كجم دهون = 7700 سعرة، فإن أحمد يكتسب حوالي <strong>نصف كجم من الدهون أسبوعيًا</strong>.</span><span class="de"><strong>500 kcal Überschuss &#215; 7 Tage = 3500 kcal/Woche</strong>. Da 1 kg Fett = 7700 kcal, nimmt Ahmed etwa <strong>0,5 kg Fett pro Woche</strong> zu.</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       6. HORMONES EXPLAINED
+  ══════════════════════════════════════ -->
+  <section id="sec-hormones" class="reveal">
+    <h2 class="section-title">
+      &#128137;
+      <span class="ar">هرمونات الجوع والشبع</span>
+      <span class="de">Hunger- &amp; Sättigungshormone</span>
+    </h2>
+
+    <div class="compare-grid">
+      <div class="compare-side bad">
+        <h3>
+          &#128520;
+          <span class="ar">جريلين — هرمون الجوع</span>
+          <span class="de">Ghrelin — Hungerhormon</span>
+        </h3>
+        <div class="compare-item">
+          <p><span class="ar"><strong>الوظيفة:</strong> يُفرز من المعدة ويُرسل إشارة للدماغ بالشعور بالجوع</span><span class="de"><strong>Funktion:</strong> Wird vom Magen ausgeschüttet und signalisiert dem Gehirn Hunger</span></p>
+        </div>
+        <div class="compare-item">
+          <p><span class="ar"><strong>بعد الحمية القاسية:</strong> يرتفع مستواه بشكل كبير</span><span class="de"><strong>Nach Crash-Diät:</strong> Steigt deutlich an</span></p>
+        </div>
+        <div class="compare-item">
+          <p><span class="ar"><strong>التأثير:</strong> شهية مفرطة، رغبة قوية في الأكل، خاصة الأطعمة الدسمة والحلوة</span><span class="de"><strong>Wirkung:</strong> Übermäßiger Appetit, starkes Verlangen nach fettem und süßem Essen</span></p>
+        </div>
+      </div>
+      <div class="compare-side good">
+        <h3>
+          &#128522;
+          <span class="ar">اللبتين — هرمون الشبع</span>
+          <span class="de">Leptin — Sättigungshormon</span>
+        </h3>
+        <div class="compare-item">
+          <p><span class="ar"><strong>الوظيفة:</strong> يُفرز من الخلايا الدهنية ويُخبر الدماغ بأنك شبعان</span><span class="de"><strong>Funktion:</strong> Wird von Fettzellen ausgeschüttet und signalisiert dem Gehirn Sättigung</span></p>
+        </div>
+        <div class="compare-item">
+          <p><span class="ar"><strong>بعد الحمية القاسية:</strong> ينخفض مستواه بشكل كبير</span><span class="de"><strong>Nach Crash-Diät:</strong> Sinkt deutlich ab</span></p>
+        </div>
+        <div class="compare-item">
+          <p><span class="ar"><strong>التأثير:</strong> عدم الشعور بالشبع، صعوبة التوقف عن الأكل</span><span class="de"><strong>Wirkung:</strong> Kein Sättigungsgefühl, Schwierigkeit mit dem Essen aufzuhören</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-box" style="margin-top:20px;">
+      <p class="ar">&#128300; <strong>الخلاصة:</strong> فقدان الوزن السريع يؤدي إلى انخفاض مستويات اللبتين وارتفاع مستويات جريلين، مما يخلق عاصفة هرمونية تدفع الجسم للإفراط في الأكل واستعادة الوزن المفقود.</p>
+      <p class="de">&#128300; <strong>Fazit:</strong> Schneller Gewichtsverlust senkt Leptin und erhöht Ghrelin, was einen hormonellen Sturm erzeugt, der den Körper zu übermäßigem Essen und Gewichtszunahme antreibt.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       7. MUSCLE LOSS IMPACT
+  ══════════════════════════════════════ -->
+  <section id="sec-muscle" class="reveal">
+    <h2 class="section-title">
+      &#128170;
+      <span class="ar">تأثير فقدان العضلات على الأيض</span>
+      <span class="de">Einfluss von Muskelverlust auf den Stoffwechsel</span>
+    </h2>
+
+    <div class="info-box">
+      <div class="lbl ar">لماذا العضلات مهمة للأيض؟</div>
+      <div class="lbl de">Warum sind Muskeln wichtig für den Stoffwechsel?</div>
+      <p class="ar">العضلات تُعدّ أكثر نشاطًا في حرق السعرات الحرارية من الدهون، حتى أثناء الراحة. <strong>فقدان كل 1 كجم من العضلات يؤدي إلى انخفاض معدل الأيض اليومي بحوالي 40-60 سعرة حرارية</strong>. هذا يعني أن فقدان 3 كجم عضلات يُبطئ حرق السعرات بمقدار 120-180 سعرة يوميًا!</p>
+      <p class="de">Muskeln verbrennen mehr Kalorien als Fettgewebe, selbst in Ruhe. <strong>Pro 1 kg Muskelverlust sinkt der tägliche Grundumsatz um 40-60 kcal</strong>. Das bedeutet, dass 3 kg Muskelverlust den Kalorienverbrauch um 120-180 kcal täglich reduziert!</p>
+    </div>
+
+    <!-- PROGRESS BARS showing metabolic slowdown -->
+    <div class="info-box">
+      <div class="lbl ar">تأثير فقدان العضلات على الأيض اليومي</div>
+      <div class="lbl de">Einfluss von Muskelverlust auf den täglichen Stoffwechsel</div>
+      <div class="progress-set" id="muscleChart">
+        <div class="progress-item">
+          <div class="progress-label"><span class="ar">الأيض الأصلي</span><span class="de">Original-BMR</span></div>
+          <div class="progress-track"><div class="progress-fill low" id="muscle1" style="width:0">2000</div></div>
+          <div class="progress-val">2000</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span class="ar">فقدان 1 كجم عضل</span><span class="de">-1 kg Muskel</span></div>
+          <div class="progress-track"><div class="progress-fill mid" id="muscle2" style="width:0">1950</div></div>
+          <div class="progress-val">1950</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span class="ar">فقدان 3 كجم عضل</span><span class="de">-3 kg Muskel</span></div>
+          <div class="progress-track"><div class="progress-fill mid" id="muscle3" style="width:0">1850</div></div>
+          <div class="progress-val">1850</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-label"><span class="ar">+ انخفاض الأيض</span><span class="de">+ BMR-Senkung</span></div>
+          <div class="progress-track"><div class="progress-fill high" id="muscle4" style="width:0">1500</div></div>
+          <div class="progress-val">1500</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       8. BMR CALCULATOR
+  ══════════════════════════════════════ -->
+  <section id="sec-calc" class="reveal">
+    <h2 class="section-title">
+      &#129518;
+      <span class="ar">حاسبة معدل الأيض الأساسي (BMR)</span>
+      <span class="de">Grundumsatz-Rechner (BMR)</span>
+    </h2>
+
+    <div class="calc-box">
+      <h3>
+        <span class="ar">&#9889; احسب معدل الأيض الخاص بك</span>
+        <span class="de">&#9889; Berechne deinen Grundumsatz</span>
+      </h3>
+      <div class="calc-grid">
+        <div>
+          <label><span class="ar">الجنس</span><span class="de">Geschlecht</span></label>
+          <select id="bmrGender">
+            <option value="male"><span class="ar">ذكر</span> / Männlich</option>
+            <option value="female"><span class="ar">أنثى</span> / Weiblich</option>
+          </select>
+        </div>
+        <div>
+          <label><span class="ar">العمر (سنة)</span><span class="de">Alter (Jahre)</span></label>
+          <input type="number" id="bmrAge" placeholder="30" min="10" max="120">
+        </div>
+        <div>
+          <label><span class="ar">الوزن (كجم)</span><span class="de">Gewicht (kg)</span></label>
+          <input type="number" id="bmrWeight" placeholder="75" min="20" max="300">
+        </div>
+        <div>
+          <label><span class="ar">الطول (سم)</span><span class="de">Größe (cm)</span></label>
+          <input type="number" id="bmrHeight" placeholder="175" min="100" max="250">
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calcBMR()">
+        <span class="ar">احسب</span>
+        <span class="de">Berechnen</span>
+      </button>
+      <div class="result-cards" id="bmrResults" style="display:none">
+        <div class="result-card">
+          <div class="rc-val" id="bmrVal">—</div>
+          <div class="rc-lbl"><span class="ar">معدل الأيض الأساسي<br>(سعرة/يوم)</span><span class="de">Grundumsatz<br>(kcal/Tag)</span></div>
+        </div>
+        <div class="result-card">
+          <div class="rc-val" id="bmrCrash">—</div>
+          <div class="rc-lbl"><span class="ar">بعد حمية قاسية<br>(-23%)</span><span class="de">Nach Crash-Diät<br>(-23%)</span></div>
+        </div>
+        <div class="result-card">
+          <div class="rc-val" id="bmrDiff">—</div>
+          <div class="rc-lbl"><span class="ar">فائض يومي<br>(سعرة مخزنة)</span><span class="de">Täglicher Überschuss<br>(gespeicherte kcal)</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       9. TEN NUTRITION COMMANDMENTS (DGE)
+  ══════════════════════════════════════ -->
+  <section id="sec-tips" class="reveal">
+    <h2 class="section-title">
+      &#127775;
+      <span class="ar">نصائح لتجنب تأثير اليويو</span>
+      <span class="de">Tipps zur Vermeidung des Yo-yo-Effekts</span>
+    </h2>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">&#127869;</div>
+        <h3><span class="ar">نظام غذائي متوازن</span><span class="de">Ausgewogene Ernährung</span></h3>
+        <p><span class="ar">يجب أن يشمل النظام الغذائي جميع العناصر الأساسية، مع <strong>15-25%</strong> بروتين و<strong>25-30 غرامًا</strong> ألياف يوميًا. يُوصى بالنظام المتوسطي الغني بالخضروات والبقوليات.</span><span class="de">Die Ernährung sollte alle essentiellen Nährstoffe enthalten, mit <strong>15-25%</strong> Protein und <strong>25-30g</strong> Ballaststoffen täglich. Eine mediterrane Ernährung mit Gemüse und Hülsenfrüchten wird empfohlen.</span></p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">&#128722;</div>
+        <h3><span class="ar">تجنب الحرمان</span><span class="de">Verzicht vermeiden</span></h3>
+        <p><span class="ar">لا تحرم نفسك من الأطعمة التي تحبها، بل تناولها <strong>باعتدال</strong> ضمن خطة غذائية مرنة تسمح بالاستمتاع دون إفراط.</span><span class="de">Verzichte nicht auf Lieblingsessen, sondern genieße es <strong>in Maßen</strong> innerhalb eines flexiblen Ernährungsplans.</span></p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">&#127939;</div>
+        <h3><span class="ar">الرياضة المنتظمة</span><span class="de">Regelmäßiger Sport</span></h3>
+        <p><span class="ar">تساعد الرياضة على حرق السعرات وزيادة كتلة العضلات، مما يعزز الأيض. يُوصى بممارسة <strong>150 دقيقة</strong> من التمارين متوسطة الشدة أسبوعيًا.</span><span class="de">Sport hilft Kalorien zu verbrennen und Muskelmasse aufzubauen. <strong>150 Minuten</strong> moderate Bewegung pro Woche werden empfohlen.</span></p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">&#128336;</div>
+        <h3><span class="ar">التغيير التدريجي</span><span class="de">Schrittweise Änderung</span></h3>
+        <p><span class="ar">لا تحاول تغيير عاداتك بشكل جذري. قم بإجراء <strong>تغييرات صغيرة ومستدامة</strong>، مثل استبدال المشروبات الغازية بالماء.</span><span class="de">Versuche nicht, alles auf einmal zu ändern. Mache <strong>kleine, nachhaltige Änderungen</strong>, z.B. Softdrinks durch Wasser ersetzen.</span></p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">&#129509;</div>
+        <h3><span class="ar">أخصائي التغذية</span><span class="de">Ernährungsberater</span></h3>
+        <p><span class="ar">يمكن لأخصائي التغذية مساعدتك في وضع <strong>خطة غذائية مناسبة</strong> وتقديم الدعم والمتابعة لتحقيق أهدافك وتجنب تأثير اليويو.</span><span class="de">Ein Ernährungsberater kann dir helfen, einen <strong>geeigneten Ernährungsplan</strong> zu erstellen und dich bei der Zielerreichung unterstützen.</span></p>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">&#128164;</div>
+        <h3><span class="ar">نصائح إضافية</span><span class="de">Weitere Tipps</span></h3>
+        <p><span class="ar"><strong>8 أكواب ماء</strong> يوميًا. <strong>7-9 ساعات</strong> نوم. تقنيات استرخاء مثل اليوغا والتأمل لإدارة التوتر. الصبر والالتزام هما المفتاح.</span><span class="de"><strong>8 Gläser Wasser</strong> täglich. <strong>7-9 Stunden</strong> Schlaf. Entspannungstechniken wie Yoga und Meditation. Geduld und Konsequenz sind der Schlüssel.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       10. DGE NUTRITION RULES - BUBBLE CLOUD
+  ══════════════════════════════════════ -->
+  <section id="sec-dge" class="reveal">
+    <h2 class="section-title">
+      &#129382;
+      <span class="ar">قواعد التغذية الصحية (DGE)</span>
+      <span class="de">Regeln gesunder Ernährung (DGE)</span>
+    </h2>
+
+    <div class="info-box">
+      <div class="lbl ar">الجمعية الألمانية للتغذية (DGE)</div>
+      <div class="lbl de">Deutsche Gesellschaft für Ernährung (DGE)</div>
+      <p class="ar">توصي الجمعية الألمانية للتغذية بعدة قواعد أساسية لنظام غذائي صحي ومستدام يمنع تأثير اليويو ويحافظ على صحة الجسم.</p>
+      <p class="de">Die DGE empfiehlt grundlegende Regeln für eine gesunde und nachhaltige Ernährung, die den Yo-yo-Effekt verhindert und die Gesundheit bewahrt.</p>
+    </div>
+
+    <div class="bubble-cloud">
+      <div class="bubble green"><span class="ar">تنوع الأطعمة</span><span class="de">Vielfalt genießen</span></div>
+      <div class="bubble gold"><span class="ar">5 حصص خضار وفاكهة</span><span class="de">5 Portionen Obst & Gemüse</span></div>
+      <div class="bubble blue"><span class="ar">الحبوب الكاملة</span><span class="de">Vollkornprodukte</span></div>
+      <div class="bubble green"><span class="ar">الطعام الحيواني بحكمة</span><span class="de">Tierisches bewusst</span></div>
+      <div class="bubble gold"><span class="ar">الدهون الصحية</span><span class="de">Gesunde Fette</span></div>
+      <div class="bubble red"><span class="ar">تقليل السكر والملح</span><span class="de">Weniger Zucker & Salz</span></div>
+      <div class="bubble blue"><span class="ar">شرب كافي</span><span class="de">Ausreichend trinken</span></div>
+      <div class="bubble green"><span class="ar">الطهي بعناية</span><span class="de">Schonend zubereiten</span></div>
+      <div class="bubble gold"><span class="ar">الأكل بوعي</span><span class="de">Achtsam essen</span></div>
+      <div class="bubble blue"><span class="ar">الحركة المنتظمة</span><span class="de">Regelmäßig bewegen</span></div>
+    </div>
+
+    <!-- Expanded DGE Rules -->
+    <div style="margin-top:20px;">
+      <div class="info-box">
+        <div class="lbl ar">&#127811; تنوع الأطعمة — القاعدة الذهبية</div>
+        <div class="lbl de">&#127811; Vielfalt genießen — Die goldene Regel</div>
+        <p class="ar">تُظهر الدراسات أن تنوع الأطعمة يقلل من خطر الأمراض المزمنة مثل السكري وأمراض القلب. في دراسة شملت <strong>59,000 امرأة</strong>، كانت نسبة الوفيات أقل بنسبة <strong>42%</strong> لدى النساء اللاتي تناولن بانتظام <strong>16 نوعًا مختلفًا</strong> على الأقل من الأطعمة الصحية.</p>
+        <p class="de">Studien zeigen, dass Nahrungsvielfalt das Risiko chronischer Krankheiten wie Diabetes und Herzkrankheiten senkt. In einer Studie mit <strong>59.000 Frauen</strong> war die Sterblichkeitsrate um <strong>42%</strong> niedriger bei Frauen, die regelmäßig mindestens <strong>16 verschiedene</strong> gesunde Lebensmittel aßen.</p>
+      </div>
+
+      <div class="quote-box">
+        <p class="ar">&#10024; <strong><em>لا يوجد طعام يُعتبر صحيًا أو غير صحي بشكل مطلق. ما يحدد ذلك هو التوازن وعدد مرات تناوله.</em></strong></p>
+        <p class="de">&#10024; <strong><em>Kein Lebensmittel ist absolut gesund oder ungesund. Entscheidend ist die Balance und die Häufigkeit des Verzehrs.</em></strong></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       11. HEALTHY COOKING & MINDFUL EATING
+  ══════════════════════════════════════ -->
+  <section id="sec-cooking" class="reveal">
+    <h2 class="section-title">
+      &#127859;
+      <span class="ar">الطهي الصحي والأكل الواعي</span>
+      <span class="de">Gesundes Kochen &amp; achtsames Essen</span>
+    </h2>
+
+    <div class="flip-grid">
+      <!-- Cooking Tips -->
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#127859;</div>
+            <h4><span class="ar">الطهي بعناية</span><span class="de">Schonend kochen</span></h4>
+            <div class="flip-hint"><span class="ar">اقلب البطاقة</span><span class="de">Karte umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="back-tag"><span class="ar">نصائح الطهي</span><span class="de">Kochtipps</span></div>
+            <p><span class="ar">طهي الخضروات بكميات قليلة من الماء والدهون يحافظ على الفيتامينات. <strong>تجنب الأجزاء المحترقة</strong> لأنها تحتوي على مواد ضارة مثل الأكريلاميد.</span><span class="de">Gemüse mit wenig Wasser und Fett garen bewahrt Vitamine. <strong>Verbrannte Teile vermeiden</strong> — sie enthalten schädliche Stoffe wie Acrylamid.</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Garlic Tip -->
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#129476;</div>
+            <h4><span class="ar">نصيحة الثوم</span><span class="de">Knoblauch-Tipp</span></h4>
+            <div class="flip-hint"><span class="ar">اقلب البطاقة</span><span class="de">Karte umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="back-tag"><span class="ar">مضاد للالتهابات</span><span class="de">Entzündungshemmend</span></div>
+            <p><span class="ar">يجب <strong>سحق الثوم بدلًا من تقطيعه</strong> لتعزيز إنتاج الأليسين المضادة للالتهابات. استخدمه بعد <strong>10 دقائق</strong> من السحق لأقصى فائدة.</span><span class="de"><strong>Knoblauch zerdrücken statt schneiden</strong> fördert die Produktion von entzündungshemmendem Allicin. <strong>10 Minuten</strong> warten für maximale Wirkung.</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mindful Eating -->
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#129495;</div>
+            <h4><span class="ar">الأكل الواعي</span><span class="de">Achtsames Essen</span></h4>
+            <div class="flip-hint"><span class="ar">اقلب البطاقة</span><span class="de">Karte umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="back-tag"><span class="ar">التركيز والمتعة</span><span class="de">Fokus & Genuss</span></div>
+            <p><span class="ar">تناول الطعام <strong>بدون تشتيت</strong> (تلفاز أو هاتف) يقلل السعرات المستهلكة ويعزز إنتاج <strong>السيروتونين</strong> — هرمون السعادة.</span><span class="de">Essen <strong>ohne Ablenkung</strong> (TV/Handy) reduziert die Kalorienaufnahme und fördert die Produktion von <strong>Serotonin</strong> — dem Glückshormon.</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sugar & Salt -->
+      <div class="flip-card-outer">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="flip-icon">&#127852;</div>
+            <h4><span class="ar">السكر والملح</span><span class="de">Zucker & Salz</span></h4>
+            <div class="flip-hint"><span class="ar">اقلب البطاقة</span><span class="de">Karte umdrehen</span></div>
+          </div>
+          <div class="flip-back">
+            <div class="back-tag"><span class="ar">باعتدال</span><span class="de">In Maßen</span></div>
+            <p><span class="ar">استخدم بدائل طبيعية مثل <strong>معجون التمر أو الموز</strong> بدلاً من السكر المكرر. توصي WHO بألا يتجاوز الملح <strong>6 غرامات يوميًا</strong>.</span><span class="de">Verwende natürliche Alternativen wie <strong>Dattelpaste oder Banane</strong> statt raffiniertem Zucker. WHO empfiehlt max. <strong>6g Salz</strong> täglich.</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       12. CONCLUSION
+  ══════════════════════════════════════ -->
+  <section id="sec-conclusion" class="reveal">
+    <h2 class="section-title">
+      &#10004;&#65039;
+      <span class="ar">الخلاصة</span>
+      <span class="de">Fazit</span>
+    </h2>
+
+    <div class="info-box" style="border-right:3px solid var(--green)">
+      <div class="lbl ar">المفتاح هو تغيير نمط الحياة</div>
+      <div class="lbl de">Der Schlüssel ist eine Lebensstiländerung</div>
+      <p class="ar">لتحقيق فقدان وزن صحي ومستدام، يجب التركيز على <strong>تغيير نمط الحياة بشكل عام</strong> وتبني عادات غذائية صحية، وليس فقط اتباع نظام غذائي مؤقت. تذكر أن الهدف ليس فقط فقدان الوزن، بل <strong>الحفاظ على صحة جيدة</strong>.</p>
+      <p class="de">Für eine gesunde und nachhaltige Gewichtsabnahme muss der Fokus auf einer <strong>allgemeinen Lebensstiländerung</strong> und gesunden Essgewohnheiten liegen — nicht nur auf einer temporären Diät. Das Ziel ist nicht nur Gewichtsverlust, sondern <strong>dauerhafte Gesundheit</strong>.</p>
+    </div>
+
+    <div class="quote-box">
+      <p class="ar">&#128221; <strong>ملاحظة مهمة:</strong> هذا الدليل هو لأغراض تثقيفية فقط، ولا يُغني عن استشارة أخصائي الرعاية الصحية.</p>
+      <p class="de">&#128221; <strong>Wichtiger Hinweis:</strong> Dieser Leitfaden dient nur zu Bildungszwecken und ersetzt keine professionelle Gesundheitsberatung.</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       13. QUIZ
+  ══════════════════════════════════════ -->
+  <section id="sec-quiz" class="reveal">
+    <h2 class="section-title">
+      &#128218;
+      <span class="ar">اختبر معلوماتك</span>
+      <span class="de">Teste dein Wissen</span>
+    </h2>
+
+    <div class="quiz-container">
+      <!-- Q1 -->
+      <div class="quiz-q" data-correct="1">
+        <h4>
+          <span class="ar">1. ما هو تأثير اليويو؟</span>
+          <span class="de">1. Was ist der Yo-yo-Effekt?</span>
+        </h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)">
+            <span class="ar">فقدان الوزن بشكل مستمر ودائم</span>
+            <span class="de">Dauerhafter und kontinuierlicher Gewichtsverlust</span>
+          </div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)">
+            <span class="ar">دورة متكررة من فقدان الوزن وزيادته</span>
+            <span class="de">Ein wiederkehrender Zyklus von Gewichtsverlust und -zunahme</span>
+          </div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)">
+            <span class="ar">زيادة مستمرة في كتلة العضلات</span>
+            <span class="de">Kontinuierliche Zunahme der Muskelmasse</span>
+          </div>
+        </div>
+        <div class="quiz-feedback">
+          <span class="ar">&#9989; صحيح! تأثير اليويو هو دورة متكررة من فقدان الوزن وزيادته بعد الحميات القاسية.</span>
+          <span class="de">&#9989; Richtig! Der Yo-yo-Effekt ist ein wiederkehrender Zyklus von Gewichtsab- und -zunahme nach Crash-Diäten.</span>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="quiz-q" data-correct="2">
+        <h4>
+          <span class="ar">2. ماذا يحدث لمعدل الأيض خلال الحمية القاسية؟</span>
+          <span class="de">2. Was passiert mit dem Grundumsatz während einer Crash-Diät?</span>
+        </h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)">
+            <span class="ar">يرتفع بنسبة 23%</span>
+            <span class="de">Steigt um 23%</span>
+          </div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)">
+            <span class="ar">يبقى ثابتًا</span>
+            <span class="de">Bleibt gleich</span>
+          </div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)">
+            <span class="ar">ينخفض بنسبة تصل إلى 23%</span>
+            <span class="de">Sinkt um bis zu 23%</span>
+          </div>
+        </div>
+        <div class="quiz-feedback">
+          <span class="ar">&#9989; صحيح! الحمية القاسية تخفض معدل الأيض بنسبة تصل إلى 23% حسب الدراسات.</span>
+          <span class="de">&#9989; Richtig! Crash-Diäten senken den Grundumsatz laut Studien um bis zu 23%.</span>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="quiz-q" data-correct="0">
+        <h4>
+          <span class="ar">3. كم سعرة حرارية ينخفض الأيض عند فقدان 1 كجم عضلات؟</span>
+          <span class="de">3. Um wie viel kcal sinkt der BMR bei 1 kg Muskelverlust?</span>
+        </h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)">
+            <span class="ar">40-60 سعرة حرارية يوميًا</span>
+            <span class="de">40-60 kcal pro Tag</span>
+          </div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)">
+            <span class="ar">10-20 سعرة حرارية يوميًا</span>
+            <span class="de">10-20 kcal pro Tag</span>
+          </div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)">
+            <span class="ar">200-300 سعرة حرارية يوميًا</span>
+            <span class="de">200-300 kcal pro Tag</span>
+          </div>
+        </div>
+        <div class="quiz-feedback">
+          <span class="ar">&#9989; صحيح! فقدان كل 1 كجم من العضلات يؤدي إلى انخفاض الأيض بـ 40-60 سعرة يوميًا.</span>
+          <span class="de">&#9989; Richtig! Pro 1 kg Muskelverlust sinkt der BMR um 40-60 kcal täglich.</span>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="quiz-q" data-correct="1">
+        <h4>
+          <span class="ar">4. ما الهرمون الذي يرتفع بعد الحمية القاسية ويسبب الجوع الشديد؟</span>
+          <span class="de">4. Welches Hormon steigt nach einer Crash-Diät und verursacht starken Hunger?</span>
+        </h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)">
+            <span class="ar">اللبتين</span>
+            <span class="de">Leptin</span>
+          </div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)">
+            <span class="ar">جريلين</span>
+            <span class="de">Ghrelin</span>
+          </div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)">
+            <span class="ar">الأنسولين</span>
+            <span class="de">Insulin</span>
+          </div>
+        </div>
+        <div class="quiz-feedback">
+          <span class="ar">&#9989; صحيح! جريلين هو هرمون الجوع الذي يرتفع بعد الحمية القاسية.</span>
+          <span class="de">&#9989; Richtig! Ghrelin ist das Hungerhormon, das nach einer Crash-Diät ansteigt.</span>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="quiz-q" data-correct="2">
+        <h4>
+          <span class="ar">5. ما أفضل طريقة لتجنب تأثير اليويو؟</span>
+          <span class="de">5. Was ist der beste Weg, den Yo-yo-Effekt zu vermeiden?</span>
+        </h4>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="quizAnswer(this,0)">
+            <span class="ar">اتباع حمية قاسية كل شهر</span>
+            <span class="de">Jeden Monat eine Crash-Diät machen</span>
+          </div>
+          <div class="quiz-opt" onclick="quizAnswer(this,1)">
+            <span class="ar">تقليل السعرات إلى أقل من 800 سعرة</span>
+            <span class="de">Kalorien auf unter 800 kcal reduzieren</span>
+          </div>
+          <div class="quiz-opt" onclick="quizAnswer(this,2)">
+            <span class="ar">تغيير نمط الحياة تدريجيًا مع نظام غذائي متوازن ورياضة منتظمة</span>
+            <span class="de">Schrittweise Lebensstiländerung mit ausgewogener Ernährung und regelmäßiger Bewegung</span>
+          </div>
+        </div>
+        <div class="quiz-feedback">
+          <span class="ar">&#9989; صحيح! المفتاح هو تغيير نمط الحياة التدريجي وليس الحميات المؤقتة.</span>
+          <span class="de">&#9989; Richtig! Der Schlüssel ist eine schrittweise Lebensstiländerung, nicht temporäre Diäten.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FOOTER NAV
+  ══════════════════════════════════════ -->
+  <div class="footer-nav">
+    <a href="chapter6-lipids.html">
+      <span class="ar">&#8594; الفصل السادس: الدهون</span>
+      <span class="de">&#8594; Kapitel 6: Lipide</span>
+    </a>
+    <a href="../index.html" class="primary">
+      <span class="ar">&#127968; الرئيسية</span>
+      <span class="de">&#127968; Startseite</span>
+    </a>
+    <a href="chapter8-ten-commandments.html">
+      <span class="ar">&#8592; الفصل الثامن: الوصايا العشرة</span>
+      <span class="de">&#8592; Kapitel 8: Die Zehn Gebote</span>
+    </a>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+  // ═══ PASSWORD GATE ═══
+  const PW_HASH = '59f49e6495c6d3eb3ccae62a649e836575fc344d12bf43797f779b43f9156ee6';
+  (function(){
+    if(sessionStorage.getItem('hc-auth') === '1') {
+      document.getElementById('pwOverlay').classList.add('hidden');
+    }
+  })();
+  async function checkPw(){
+    const pw = document.getElementById('pwInput').value;
+    const enc = new TextEncoder();
+    const hash = await crypto.subtle.digest('SHA-256', enc.encode(pw));
+    const hex = Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    if(hex === PW_HASH){
+      sessionStorage.setItem('hc-auth','1');
+      document.getElementById('pwOverlay').classList.add('hidden');
+    } else {
+      document.getElementById('pwError').style.display='block';
+      document.getElementById('pwInput').value='';
+      document.getElementById('pwInput').focus();
+    }
+  }
+  document.getElementById('pwInput').addEventListener('keydown',function(e){ if(e.key==='Enter') checkPw(); });
+
+  // ═══ THEME ═══
+  function setTheme(name, el) {
+    document.body.setAttribute('data-theme', name);
+    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+    localStorage.setItem('theme', name);
+  }
+  (function(){
+    const t = localStorage.getItem('theme');
+    if(t){
+      document.body.setAttribute('data-theme', t);
+      const s = document.querySelector('.s-'+t);
+      if(s){ document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('active')); s.classList.add('active'); }
+    }
+  })();
+
+  // ═══ LANGUAGE ═══
+  let lang = 'ar';
+  function toggleLang(){
+    lang = lang === 'ar' ? 'de' : 'ar';
+    document.querySelectorAll('.ar').forEach(el => el.style.display = lang==='ar' ? '' : 'none');
+    document.querySelectorAll('.de').forEach(el => el.style.display = lang==='de' ? '' : 'none');
+    document.getElementById('langBtn').textContent = lang==='ar' ? 'DE' : 'AR';
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', lang==='ar' ? 'rtl' : 'ltr');
+  }
+
+  // ═══ SCROLL PROGRESS ═══
+  window.addEventListener('scroll', function(){
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+    document.getElementById('scrollProgress').style.width = pct + '%';
+  });
+
+  // ═══ PARTICLES ═══
+  (function(){
+    const canvas = document.getElementById('particlesCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    for(let i=0; i<50; i++){
+      particles.push({
+        x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+        vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3,
+        r: Math.random()*2+0.5, o: Math.random()*0.3+0.1
+      });
+    }
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#c9a84c';
+      particles.forEach(p=>{
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0) p.x=canvas.width; if(p.x>canvas.width) p.x=0;
+        if(p.y<0) p.y=canvas.height; if(p.y>canvas.height) p.y=0;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = accent; ctx.globalAlpha = p.o; ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+
+  // ═══ SIDE NAV DOTS ═══
+  const sections = [
+    {id:'sec-intro',ar:'مقدمة',de:'Einführung'},
+    {id:'sec-infographic',ar:'إنفوجرافيك',de:'Infografik'},
+    {id:'sec-yoyo',ar:'تأثير اليويو',de:'Yo-yo-Effekt'},
+    {id:'sec-causes',ar:'الأسباب',de:'Ursachen'},
+    {id:'sec-story',ar:'قصة أحمد',de:'Ahmeds Geschichte'},
+    {id:'sec-hormones',ar:'الهرمونات',de:'Hormone'},
+    {id:'sec-muscle',ar:'العضلات',de:'Muskeln'},
+    {id:'sec-calc',ar:'حاسبة BMR',de:'BMR-Rechner'},
+    {id:'sec-tips',ar:'نصائح',de:'Tipps'},
+    {id:'sec-dge',ar:'قواعد DGE',de:'DGE-Regeln'},
+    {id:'sec-cooking',ar:'الطهي الصحي',de:'Gesundes Kochen'},
+    {id:'sec-conclusion',ar:'الخلاصة',de:'Fazit'},
+    {id:'sec-quiz',ar:'اختبار',de:'Quiz'}
+  ];
+  const sideNav = document.getElementById('sideNav');
+  sections.forEach(s=>{
+    const dot = document.createElement('div');
+    dot.className = 'side-dot';
+    dot.innerHTML = '<div class="dot-label"><span class="ar">'+s.ar+'</span><span class="de" style="display:none">'+s.de+'</span></div>';
+    dot.onclick = ()=> document.getElementById(s.id).scrollIntoView({behavior:'smooth'});
+    dot.dataset.section = s.id;
+    sideNav.appendChild(dot);
+  });
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        document.querySelectorAll('.side-dot').forEach(d=>d.classList.remove('active'));
+        const dot = sideNav.querySelector('[data-section="'+e.target.id+'"]');
+        if(dot) dot.classList.add('active');
+      }
+    });
+  },{threshold:0.3});
+  sections.forEach(s=>{
+    const el = document.getElementById(s.id);
+    if(el) observer.observe(el);
+  });
+
+  // ═══ REVEAL ON SCROLL ═══
+  const revealObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+      }
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // ═══ BMR CALCULATOR (Mifflin-St Jeor) ═══
+  function calcBMR(){
+    const gender = document.getElementById('bmrGender').value;
+    const age = parseFloat(document.getElementById('bmrAge').value);
+    const weight = parseFloat(document.getElementById('bmrWeight').value);
+    const height = parseFloat(document.getElementById('bmrHeight').value);
+
+    if(!age || !weight || !height) return;
+
+    let bmr;
+    if(gender === 'male'){
+      bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+    } else {
+      bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+    }
+    bmr = Math.round(bmr);
+
+    const crashBmr = Math.round(bmr * 0.77); // 23% reduction
+    const diff = bmr - crashBmr;
+
+    document.getElementById('bmrVal').textContent = bmr;
+    document.getElementById('bmrCrash').textContent = crashBmr;
+    document.getElementById('bmrDiff').textContent = '+' + diff;
+    document.getElementById('bmrResults').style.display = 'grid';
+  }
+
+  // ═══ MUSCLE CHART ANIMATION ═══
+  const muscleObs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        document.getElementById('muscle1').style.width='100%';
+        document.getElementById('muscle2').style.width='97.5%';
+        document.getElementById('muscle3').style.width='92.5%';
+        document.getElementById('muscle4').style.width='75%';
+        muscleObs.disconnect();
+      }
+    });
+  },{threshold:0.2});
+  const muscleChart = document.getElementById('muscleChart');
+  if(muscleChart) muscleObs.observe(muscleChart);
+
+  // ═══ QUIZ ═══
+  function quizAnswer(optEl, idx){
+    const q = optEl.closest('.quiz-q');
+    if(q.classList.contains('answered')) return;
+    q.classList.add('answered');
+    const correct = parseInt(q.dataset.correct);
+    const opts = q.querySelectorAll('.quiz-opt');
+    opts.forEach((o,i)=>{
+      o.classList.add('disabled');
+      if(i===correct) o.classList.add('correct');
+      else if(i===idx && idx!==correct) o.classList.add('wrong');
+    });
+    const fb = q.querySelector('.quiz-feedback');
+    if(idx===correct){
+      fb.style.background='var(--green-soft)'; fb.style.color='var(--green)';
+    } else {
+      fb.style.background='var(--red-soft)'; fb.style.color='var(--red)';
+      fb.innerHTML = '<span class="ar">&#10060; خطأ — الإجابة الصحيحة موضحة باللون الأخضر</span><span class="de">&#10060; Falsch — Die richtige Antwort ist grün markiert</span>';
+      if(lang==='de'){ fb.querySelector('.ar').style.display='none'; } else { fb.querySelector('.de').style.display='none'; }
+    }
+    fb.classList.add('show');
+  }
+</script>
+</body>
+</html>
