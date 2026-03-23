@@ -22,13 +22,13 @@ An interactive, bilingual (Arabic / German) web course on nutrition and insulin 
 | # | Topic (AR / DE) | Status |
 |---|---|---|
 | 1 | تحديد الهدف / Ziel setzen | ✅ Done |
-| 2 | مقاومة الأنسولين / Insulinresistenz | 🔒 Pending |
-| 3 | المغذيات الكبرى / Makronährstoffe | 🔒 Pending |
-| 4 | المغذيات الدقيقة / Mikronährstoffe | 🔒 Pending |
-| 5 | السوائل والبروتينات / Flüssigkeiten & Proteine | 🔒 Pending |
-| 6 | الدهون / Lipide | 🔒 Pending |
-| 7 | تأثير اليويو / Yo-yo-Effekt | 🔒 Pending |
-| 8 | الوصايا العشرة / Die Zehn Gebote | 🔒 Pending |
+| 2 | مقاومة الأنسولين / Insulinresistenz | ✅ Done |
+| 3 | المغذيات الكبرى / Makronährstoffe | ✅ Done |
+| 4 | المغذيات الدقيقة / Mikronährstoffe | ✅ Done |
+| 5 | السوائل والبروتينات / Flüssigkeiten & Proteine | ✅ Done |
+| 6 | الدهون / Lipide | ✅ Done |
+| 7 | تأثير اليويو / Yo-yo-Effekt | ✅ Done |
+| 8 | الوصايا العشرة / Die Zehn Gebote | ✅ Done |
 
 ## Features
 
